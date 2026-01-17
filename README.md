@@ -10,14 +10,12 @@ FastAPI backend for prompt narrowing with a two-round facet discovery flow.
 - Trace ledger with compiled prompt + model response metadata
 - GitHub Pages UI for simple static hosting
 
-## GitHub Pages UI
+## Vercel UI
 
 1. Switch to branch `UI`.
-2. In GitHub repo settings → Pages:
-   - Source: branch `UI`
-   - Folder: `/docs`
-3. Open the Pages URL and pass your API base if needed:
-   - `https://<username>.github.io/funnel/?api=https://your-api-host`
+2. Deploy the repo on Vercel as a static site.
+3. Set the project root to the repo root; the UI is in `public/`.
+4. Pass your API base via `?api=https://your-api-host` or use the API settings panel.
 
 ## Quickstart (uv)
 
