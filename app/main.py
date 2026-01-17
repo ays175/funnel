@@ -71,10 +71,10 @@ _INDEX_HTML = """<!doctype html>
       </div>
       <div class="row">
         <strong>Length</strong>
-        <label><input type="radio" name="length" value="100 words" /> 100 words</label>
-        <label><input type="radio" name="length" value="200 words" /> 200 words</label>
         <label><input type="radio" name="length" value="300 words" /> 300 words</label>
-        <label><input type="radio" name="length" value="500 words" /> 500 words</label>
+        <label><input type="radio" name="length" value="600 words" /> 600 words</label>
+        <label><input type="radio" name="length" value="900 words" /> 900 words</label>
+        <label><input type="radio" name="length" value="1200 words" /> 1200 words</label>
       </div>
     </div>
     <div class="row">

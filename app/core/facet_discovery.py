@@ -75,10 +75,10 @@ class FacetDiscoveryEngine:
                     "Rules:\n"
                     f"- Provide 3 to {max_facets} facets.\n"
                     "- At least 3 facets must be topic-specific (not audience/format/scope).\n"
-                    "- Suggested values must be concrete choices.\n"
+                    "- Suggested values must be concrete choices (up to 8).\n"
                     "- Keep ids short and snake_case.\n"
                     "- If the query mentions regions, locations, geographies, or areas, include a facet named \"Geographical Focus\" with options like \"National (All)\" and specific regions.\n"
-                    "- Whenever you use the word \"specific\" in any facet title, question, or suggested value, add a follow-up facet that lets the user choose the specific items or areas as multiple options (with 4-6 concrete choices).\n"
+                    "- Whenever you use the word \"specific\" in any facet title, question, or suggested value, add a follow-up facet that lets the user choose the specific items or areas as multiple options (with up to 8 concrete choices).\n"
                 ),
             ),
         ]
