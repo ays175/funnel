@@ -24,7 +24,11 @@
       <div class="small">API: <span id="apiBaseLabel"></span></div>
     </div>
     <div class="row alert">
-      Set API base via <code>?api=https://your-api</code> (default: <code>http://127.0.0.1:8001</code>)
+      Set API base via <code>?api=https://your-api</code> or the field below.
+    </div>
+    <div class="row">
+      <label>API Base URL</label>
+      <input id="apiBaseInput" placeholder="https://your-api-host" />
     </div>
     <div class="row">
       <label>Query</label>
@@ -73,8 +77,17 @@
     </div>
     <script>
       const params = new URLSearchParams(window.location.search);
-      const API_BASE = params.get("api") || "http://127.0.0.1:8001";
-      document.getElementById("apiBaseLabel").textContent = API_BASE;
+      const storedApi = localStorage.getItem("apiBase") || "";
+      let API_BASE = params.get("api") || storedApi;
+      const apiLabel = document.getElementById("apiBaseLabel");
+      const apiInput = document.getElementById("apiBaseInput");
+      apiLabel.textContent = API_BASE || "not set";
+      apiInput.value = API_BASE;
+      apiInput.onchange = () => {
+        API_BASE = apiInput.value.trim();
+        localStorage.setItem("apiBase", API_BASE);
+        apiLabel.textContent = API_BASE || "not set";
+      };
 
       const state = { requestId: null, facets: [] };
 
