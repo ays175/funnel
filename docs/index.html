@@ -23,13 +23,16 @@
       <h2>Funnel</h2>
       <div class="small">API: <span id="apiBaseLabel"></span></div>
     </div>
-    <div class="row alert">
-      Set API base via <code>?api=https://your-api</code> or the field below.
-    </div>
-    <div class="row">
-      <label>API Base URL</label>
-      <input id="apiBaseInput" placeholder="https://your-api-host" />
-    </div>
+    <details class="row">
+      <summary>API settings</summary>
+      <div class="row">
+        <div class="muted">You can also pass <code>?api=https://your-api</code> in the URL.</div>
+      </div>
+      <div class="row">
+        <label>API Base URL</label>
+        <input id="apiBaseInput" placeholder="https://your-api-host" />
+      </div>
+    </details>
     <div class="row">
       <label>Query</label>
       <textarea id="query" placeholder="Ask a question..."></textarea>
@@ -78,7 +81,7 @@
     <script>
       const params = new URLSearchParams(window.location.search);
       const storedApi = localStorage.getItem("apiBase") || "";
-      let API_BASE = params.get("api") || storedApi;
+      let API_BASE = params.get("api") || storedApi || window.location.origin;
       const apiLabel = document.getElementById("apiBaseLabel");
       const apiInput = document.getElementById("apiBaseInput");
       apiLabel.textContent = API_BASE || "not set";
