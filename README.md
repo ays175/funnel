@@ -10,12 +10,19 @@ FastAPI backend for prompt narrowing with a two-round facet discovery flow.
 - Trace ledger with compiled prompt + model response metadata
 - GitHub Pages UI for simple static hosting
 
-## Vercel UI
+## Railway Deployment (API + UI)
 
-1. Switch to branch `UI`.
-2. Deploy the repo on Vercel as a static site.
-3. Set the project root to the repo root; the UI is in `public/`.
-4. Pass your API base via `?api=https://your-api-host` or use the API settings panel.
+The UI is served from `public/index.html` by the FastAPI app at `/` (and `/ui`).
+
+1. Create a new Railway service from this repo (branch `main`).
+2. Set environment variables:
+   - `OPENAI_API_KEY=...`
+   - `CORS_ORIGINS=https://<your-railway-domain>`
+3. Start command:
+   - `uvicorn app.main:app --host 0.0.0.0 --port 8000`
+4. Open your Railway URL:
+   - UI: `https://<your-railway-domain>/`
+   - API: `https://<your-railway-domain>/api/discover`
 
 ## Quickstart (uv)
 
