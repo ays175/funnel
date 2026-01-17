@@ -23,16 +23,7 @@
       <h2>Funnel</h2>
       <div class="small">API: <span id="apiBaseLabel"></span></div>
     </div>
-    <details class="row">
-      <summary>API settings</summary>
-      <div class="row">
-        <div class="muted">You can also pass <code>?api=https://your-api</code> in the URL.</div>
-      </div>
-      <div class="row">
-        <label>API Base URL</label>
-        <input id="apiBaseInput" placeholder="https://your-api-host" />
-      </div>
-    </details>
+    <div class="row muted">API is configured for this deployment.</div>
     <div class="row">
       <label>Query</label>
       <textarea id="query" placeholder="Ask a question..."></textarea>
@@ -79,18 +70,9 @@
       <pre id="trace"></pre>
     </div>
     <script>
-      const params = new URLSearchParams(window.location.search);
-      const storedApi = localStorage.getItem("apiBase") || "";
-      let API_BASE = params.get("api") || storedApi || "http://127.0.0.1:8001";
+      const API_BASE = "https://funnel-production-859a.up.railway.app";
       const apiLabel = document.getElementById("apiBaseLabel");
-      const apiInput = document.getElementById("apiBaseInput");
-      apiLabel.textContent = API_BASE || "not set";
-      apiInput.value = API_BASE;
-      apiInput.onchange = () => {
-        API_BASE = apiInput.value.trim();
-        localStorage.setItem("apiBase", API_BASE);
-        apiLabel.textContent = API_BASE || "not set";
-      };
+      apiLabel.textContent = API_BASE;
 
       const state = { requestId: null, facets: [] };
 
