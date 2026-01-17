@@ -1,0 +1,42 @@
+{
+  "domain": "finance",
+  "keywords": ["portfolio", "equity", "bond", "valuation", "cash flow"],
+  "facets": [
+    {
+      "id": "asset_class",
+      "title": "Asset Class",
+      "question": "Which asset class should be analyzed?",
+      "keywords": ["equity", "bond", "crypto", "real estate"],
+      "suggested_values": ["equity", "fixed income", "multi-asset"],
+      "default_value": "equity"
+    },
+    {
+      "id": "time_horizon",
+      "title": "Time Horizon",
+      "question": "What time horizon matters most?",
+      "keywords": ["short-term", "long-term", "quarter", "year"],
+      "suggested_values": ["short-term", "mid-term", "long-term"],
+      "default_value": "mid-term"
+    },
+    {
+      "id": "risk_appetite",
+      "title": "Risk Appetite",
+      "question": "What risk appetite should be assumed?",
+      "keywords": ["conservative", "aggressive", "risk"],
+      "suggested_values": ["conservative", "balanced", "aggressive"],
+      "default_value": "balanced"
+    }
+  ],
+  "refinements": {
+    "asset_class": [
+      {
+        "id": "valuation_method",
+        "title": "Valuation Method",
+        "question": "Which valuation method should be used?",
+        "keywords": ["dcf", "multiples", "comps"],
+        "suggested_values": ["dcf", "comparables", "multiples"],
+        "default_value": "dcf"
+      }
+    ]
+  }
+}

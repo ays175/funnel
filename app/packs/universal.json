@@ -1,0 +1,17 @@
+{
+  "domain": "universal",
+  "keywords": [],
+  "facets": [],
+  "refinements": {
+    "format": [
+      {
+        "id": "citations",
+        "title": "Citations",
+        "question": "Should sources be cited?",
+        "keywords": ["cite", "sources", "references"],
+        "suggested_values": ["yes", "no"],
+        "default_value": "no"
+      }
+    ]
+  }
+}

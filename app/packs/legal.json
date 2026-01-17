@@ -1,0 +1,42 @@
+{
+  "domain": "legal",
+  "keywords": ["contract", "statute", "regulation", "law", "compliance"],
+  "facets": [
+    {
+      "id": "jurisdiction",
+      "title": "Jurisdiction",
+      "question": "Which jurisdiction applies?",
+      "keywords": ["us", "uk", "eu", "california", "new york"],
+      "suggested_values": ["US", "UK", "EU"],
+      "default_value": "US"
+    },
+    {
+      "id": "document_type",
+      "title": "Document Type",
+      "question": "What legal document or context?",
+      "keywords": ["contract", "nda", "policy", "terms"],
+      "suggested_values": ["contract", "policy", "statute"],
+      "default_value": "contract"
+    },
+    {
+      "id": "risk_level",
+      "title": "Risk Sensitivity",
+      "question": "How conservative should the guidance be?",
+      "keywords": ["risk", "liability", "exposure"],
+      "suggested_values": ["low", "medium", "high"],
+      "default_value": "medium"
+    }
+  ],
+  "refinements": {
+    "document_type": [
+      {
+        "id": "clause_focus",
+        "title": "Clause Focus",
+        "question": "Which clause should be emphasized?",
+        "keywords": ["termination", "confidentiality", "indemnity"],
+        "suggested_values": ["termination", "confidentiality", "indemnity"],
+        "default_value": "confidentiality"
+      }
+    ]
+  }
+}
