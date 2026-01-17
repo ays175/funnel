@@ -81,7 +81,7 @@
     <script>
       const params = new URLSearchParams(window.location.search);
       const storedApi = localStorage.getItem("apiBase") || "";
-      let API_BASE = params.get("api") || storedApi || window.location.origin;
+      let API_BASE = params.get("api") || storedApi || "http://127.0.0.1:8001";
       const apiLabel = document.getElementById("apiBaseLabel");
       const apiInput = document.getElementById("apiBaseInput");
       apiLabel.textContent = API_BASE || "not set";
