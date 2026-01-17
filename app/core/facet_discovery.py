@@ -106,6 +106,66 @@ class FacetDiscoveryEngine:
                 candidates.append(FacetCandidate(facet=facet, reason=reason))
         return candidates
 
+    def discover_round2_llm(
+        self,
+        raw_query: str,
+        pack: dict,
+        selections: dict[str, str | None],
+        max_facets: int,
+        llm_client: "LLMClient",
+    ) -> list[FacetCandidate]:
+        prompt_sections = [
+            (
+                "Task",
+                "Propose follow-up facets based on the user's selected facets and values.",
+            ),
+            ("User Query", raw_query.strip()),
+            (
+                "Selected Facets",
+                json.dumps(selections, ensure_ascii=False),
+            ),
+            (
+                "Domain Context",
+                json.dumps(
+                    {
+                        "domain": pack.get("domain"),
+                        "keywords": pack.get("keywords", []),
+                    }
+                ),
+            ),
+            (
+                "Output JSON",
+                (
+                    "Return JSON only with this shape:\n"
+                    "{\n"
+                    '  "facets": [\n'
+                    "    {\n"
+                    '      "id": "subtopic",\n'
+                    '      "title": "Subtopic Focus",\n'
+                    '      "question": "Which subtopic should be expanded?",\n'
+                    '      "reason": "Tie to selected facet/value",\n'
+                    '      "suggested_values": ["value1", "value2"],\n'
+                    '      "default_value": "value1"\n'
+                    "    }\n"
+                    "  ]\n"
+                    "}\n"
+                    "Rules:\n"
+                    f"- Provide 1 to {max_facets} facets.\n"
+                    "- Must reflect the user's selections.\n"
+                    "- Suggested values must be concrete choices (up to 10).\n"
+                    "- Keep ids short and snake_case.\n"
+                ),
+            ),
+        ]
+        raw = llm_client.generate(prompt_sections)
+        parsed = self._parse_llm_json(raw)
+        candidates: list[FacetCandidate] = []
+        for item in parsed[:max_facets]:
+            facet = self._to_facet(item)
+            reason = item.get("reason") or "Derived from user selections"
+            candidates.append(FacetCandidate(facet=facet, reason=reason))
+        return candidates
+
     def _to_facet(self, data: dict) -> Facet:
         facet_id = data.get("id") or self._slugify(data.get("title", "facet"))
         suggested = list(data.get("suggested_values", []))

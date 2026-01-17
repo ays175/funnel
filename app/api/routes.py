@@ -121,11 +121,24 @@ def refine(payload: RefineRequest) -> RefineResponse:
         return RefineResponse(facet_candidates=[], why_these_facets=["Max refine rounds reached"])
 
     pack = router_engine.load_pack(request["domain_pack"])
-    selected_ids = [selection.id for selection in payload.facet_selections]
-    if not selected_ids:
-        refinement_ids = list(pack.get("refinements", {}).keys())
-        selected_ids = refinement_ids[: settings.max_facet_questions]
-    candidates = discovery.discover_round2(request["raw_query"], pack, selected_ids)
+    selections = {selection.id: selection.value for selection in payload.facet_selections}
+    selected_ids = list(selections.keys())
+
+    if settings.enable_llm_facet_proposals:
+        if not settings.openai_api_key:
+            raise HTTPException(status_code=400, detail="OPENAI_API_KEY is not configured")
+        candidates = discovery.discover_round2_llm(
+            request["raw_query"],
+            pack,
+            selections,
+            settings.max_facet_questions,
+            _get_llm_client(),
+        )
+    else:
+        if not selected_ids:
+            refinement_ids = list(pack.get("refinements", {}).keys())
+            selected_ids = refinement_ids[: settings.max_facet_questions]
+        candidates = discovery.discover_round2(request["raw_query"], pack, selected_ids)
     ranked = ranker.rank(request["raw_query"], candidates)
     limited = ranked[: settings.max_facet_questions]
 
