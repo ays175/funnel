@@ -382,7 +382,48 @@
 
             <div className="summary">
               <h2>Selections</h2>
-              <pre>{JSON.stringify(selectionsForApi(), null, 2)}</pre>
+              {selectionsForApi().length === 0 ? (
+                <div className="muted">No selections yet.</div>
+              ) : (
+                selectionsForApi().map((item) => {
+                  const rawValues = String(item.value)
+                    .split(",")
+                    .map((val) => val.trim())
+                    .filter(Boolean);
+                  const tree = {};
+                  rawValues.forEach((val) => {
+                    if (val.includes(" > ")) {
+                      const [parent, child] = val.split(" > ").map((v) => v.trim());
+                      if (!tree[parent]) tree[parent] = { children: [] };
+                      if (!tree[parent].children.includes(child)) tree[parent].children.push(child);
+                    } else {
+                      if (!tree[val]) tree[val] = { children: [] };
+                    }
+                  });
+
+                  return (
+                    <div key={item.id} className="row">
+                      <div className="muted">{titleCase(item.id)}</div>
+                      <div className="choices">
+                        {Object.entries(tree).map(([parent, data]) => (
+                          <div key={parent} className="row">
+                            <span className="chip active">{titleCase(parent)}</span>
+                            {data.children.length > 0 && (
+                              <div className="subchoices">
+                                {data.children.map((child) => (
+                                  <span className="chip active" key={child}>
+                                    {titleCase(child)}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
 
             {error && <div className="error">{error}</div>}
