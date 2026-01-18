@@ -666,26 +666,33 @@
               Precision targeting for your AI queries
             </div>
 
-            <div className="card" style={{marginBottom: 'var(--space-6)', background: 'var(--surface-glass)', border: '1px solid var(--border)'}}>
-              <p style={{lineHeight: 1.7, marginBottom: 'var(--space-4)', fontSize: '16px', fontWeight: 700, color: 'hsl(50, 100%, 75%)', textShadow: '0 0 20px hsla(50, 100%, 75%, 0.3)'}}>
-                Ask once, get exactly what you need—like AI with a laser focus.
-              </p>
-              <p style={{lineHeight: 1.7, marginBottom: 'var(--space-3)', fontSize: '15px'}}>
-                Ever ask your AI a question and get back a wall of text that somehow misses <em>exactly</em> what you needed? 
-                You try again, refine it, ask it differently... but you're still playing guessing games.
-              </p>
-              <p style={{lineHeight: 1.7, marginBottom: 'var(--space-3)', fontSize: '15px'}}>
-                <strong style={{color: 'var(--primary-500)'}}>Here's a better way.</strong> Funnel breaks your topic into 
-                clear choices—like "beginner vs expert," "historical vs modern," or "theory vs practice"—then you simply 
-                <strong> pick what matters to you</strong>.
-              </p>
-              <p style={{lineHeight: 1.7, marginBottom: 0, fontSize: '15px'}}>
-                <strong style={{color: 'var(--accent-pink)'}}>The payoff?</strong> You get exactly the answer you wanted, 
-                on the first try. No rewording. No frustration. Just the right information.
-              </p>
+            <div className="row">
+              <label>Your Question</label>
+              <textarea
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Ask anything..."
+              />
             </div>
 
-            <div className="card" style={{marginBottom: 'var(--space-6)'}}>
+            <div className="input-button-row">
+              <div style={{flex: 1}}>
+                <label>Domain (optional)</label>
+                <input
+                  type="text"
+                  value={domainHint}
+                  onChange={(e) => setDomainHint(e.target.value)}
+                  placeholder="e.g., finance, legal, medical..."
+                />
+              </div>
+              <button className="primary" onClick={handleDiscover} disabled={loading} style={{alignSelf: 'flex-end'}}>
+                {loading ? "Loading..." : "Show All Angles"}
+              </button>
+            </div>
+
+            {error && <div className="error">{error}</div>}
+
+            <div className="card" style={{marginTop: 'var(--space-6)', marginBottom: 'var(--space-6)'}}>
               <h2 style={{marginTop: 0, fontSize: '18px'}}>How it works</h2>
               <div className="how-it-works">
                 <div className="step-item">
@@ -712,31 +719,24 @@
               </div>
             </div>
 
-            <div className="row">
-              <label>Your Question</label>
-              <textarea
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask anything..."
-              />
+            <div className="card" style={{marginBottom: 'var(--space-6)', background: 'var(--surface-glass)', border: '1px solid var(--border)'}}>
+              <p style={{lineHeight: 1.7, marginBottom: 'var(--space-4)', fontSize: '16px', fontWeight: 700, color: 'hsl(50, 100%, 75%)', textShadow: '0 0 20px hsla(50, 100%, 75%, 0.3)'}}>
+                Ask once, get exactly what you need—like AI with a laser focus.
+              </p>
+              <p style={{lineHeight: 1.7, marginBottom: 'var(--space-3)', fontSize: '15px'}}>
+                Ever ask your AI a question and get back a wall of text that somehow misses <em>exactly</em> what you needed? 
+                You try again, refine it, ask it differently... but you're still playing guessing games.
+              </p>
+              <p style={{lineHeight: 1.7, marginBottom: 'var(--space-3)', fontSize: '15px'}}>
+                <strong style={{color: 'var(--primary-500)'}}>Here's a better way.</strong> Funnel breaks your topic into 
+                clear choices—like "beginner vs expert," "historical vs modern," or "theory vs practice"—then you simply 
+                <strong> pick what matters to you</strong>.
+              </p>
+              <p style={{lineHeight: 1.7, marginBottom: 0, fontSize: '15px'}}>
+                <strong style={{color: 'var(--accent-pink)'}}>The payoff?</strong> You get exactly the answer you wanted, 
+                on the first try. No rewording. No frustration. Just the right information.
+              </p>
             </div>
-
-            <div className="input-button-row">
-              <div style={{flex: 1}}>
-                <label>Domain (optional)</label>
-                <input
-                  type="text"
-                  value={domainHint}
-                  onChange={(e) => setDomainHint(e.target.value)}
-                  placeholder="e.g., finance, legal, medical..."
-                />
-              </div>
-              <button className="primary" onClick={handleDiscover} disabled={loading} style={{alignSelf: 'flex-end'}}>
-                {loading ? "Mapping..." : "Map the Field"}
-              </button>
-            </div>
-
-            {error && <div className="error">{error}</div>}
           </div>
         );
       }
@@ -843,7 +843,7 @@
 
             <div className="button-row">
               <button className="orange" onClick={handleRefine} disabled={loading}>
-                Set More Targets
+                Pick Your Angles
               </button>
               <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
             </div>
@@ -926,7 +926,7 @@
                   Previous
                 </button>
                 <button className="orange" onClick={handleRefine} disabled={loading}>
-                  Set More Targets
+                  Pick Your Angles
                 </button>
                 <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
                 <button
