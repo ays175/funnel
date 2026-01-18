@@ -113,6 +113,21 @@
         margin-top: 16px;
         padding-top: 12px;
       }
+      .selection-grid {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+      }
+      .selection-card {
+        min-width: 220px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px;
+        background: rgba(255,255,255,0.04);
+      }
+      .selection-card .choices { display: flex; flex-wrap: wrap; gap: 6px; }
+      .selection-card .row { margin: 6px 0; }
       .sticky-actions {
         position: sticky;
         bottom: 0;
@@ -124,6 +139,42 @@
       }
       .error { color: #fca5a5; font-size: 13px; margin-top: 6px; }
       pre { white-space: pre-wrap; background: var(--surface); padding: 12px; border-radius: 8px; }
+      .answer-card {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+      }
+      .answer-section { margin-bottom: 14px; }
+      .answer-section h3 { margin: 0 0 6px; font-size: 16px; }
+      .answer-section p { margin: 6px 0; line-height: 1.5; }
+      .answer-list { margin: 6px 0 6px 18px; }
+      .answer-bullets li,
+      .answer-steps li { margin-bottom: 8px; }
+      .answer-steps li strong { margin-right: 6px; }
+      .answer-paragraphs p { margin-bottom: 10px; }
+      .answer-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+        font-size: 14px;
+      }
+      .answer-table td {
+        border: 1px solid var(--border);
+        padding: 8px;
+      }
+      .answer-table tr:nth-child(even) { background: rgba(255,255,255,0.03); }
+      .markdown h1, .markdown h2, .markdown h3 {
+        margin: 12px 0 6px;
+      }
+      .markdown p { margin: 8px 0; line-height: 1.6; }
+      .markdown ul, .markdown ol { margin: 8px 0 8px 18px; }
+      .markdown blockquote {
+        margin: 8px 0;
+        padding: 8px 12px;
+        border-left: 3px solid var(--border);
+        background: rgba(255,255,255,0.04);
+      }
 
       @media (max-width: 640px) {
         .container { padding: 14px; }
@@ -385,44 +436,46 @@
               {selectionsForApi().length === 0 ? (
                 <div className="muted">No selections yet.</div>
               ) : (
-                selectionsForApi().map((item) => {
-                  const rawValues = String(item.value)
-                    .split(",")
-                    .map((val) => val.trim())
-                    .filter(Boolean);
-                  const tree = {};
-                  rawValues.forEach((val) => {
-                    if (val.includes(" > ")) {
-                      const [parent, child] = val.split(" > ").map((v) => v.trim());
-                      if (!tree[parent]) tree[parent] = { children: [] };
-                      if (!tree[parent].children.includes(child)) tree[parent].children.push(child);
-                    } else {
-                      if (!tree[val]) tree[val] = { children: [] };
-                    }
-                  });
+                <div className="selection-grid">
+                  {selectionsForApi().map((item) => {
+                    const rawValues = String(item.value)
+                      .split(",")
+                      .map((val) => val.trim())
+                      .filter(Boolean);
+                    const tree = {};
+                    rawValues.forEach((val) => {
+                      if (val.includes(" > ")) {
+                        const [parent, child] = val.split(" > ").map((v) => v.trim());
+                        if (!tree[parent]) tree[parent] = { children: [] };
+                        if (!tree[parent].children.includes(child)) tree[parent].children.push(child);
+                      } else {
+                        if (!tree[val]) tree[val] = { children: [] };
+                      }
+                    });
 
-                  return (
-                    <div key={item.id} className="row">
-                      <div className="muted">{titleCase(item.id)}</div>
-                      <div className="choices">
-                        {Object.entries(tree).map(([parent, data]) => (
-                          <div key={parent} className="row">
-                            <span className="chip active">{titleCase(parent)}</span>
-                            {data.children.length > 0 && (
-                              <div className="subchoices">
-                                {data.children.map((child) => (
-                                  <span className="chip active" key={child}>
-                                    {titleCase(child)}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                    return (
+                      <div key={item.id} className="selection-card">
+                        <div className="muted">{titleCase(item.id)}</div>
+                        <div className="choices">
+                          {Object.entries(tree).map(([parent, data]) => (
+                            <div key={parent} className="row">
+                              <span className="chip active">{titleCase(parent)}</span>
+                              {data.children.length > 0 && (
+                                <div className="subchoices">
+                                  {data.children.map((child) => (
+                                    <span className="chip active" key={child}>
+                                      {titleCase(child)}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })
+                    );
+                  })}
+                </div>
               )}
             </div>
 
@@ -431,10 +484,179 @@
         );
       }
 
-      function Screen3({ answer, trace, setScreen, answerMode, setAnswerMode }) {
+      function Screen3({ answer, trace, setScreen, answerMode, setAnswerMode, baseSelections }) {
         const paragraphs = (answer || "").split(/\n{2,}/).filter(Boolean);
         const lines = (answer || "").split(/\n/);
         const hasBullets = lines.some((line) => /^[-*•]/.test(line.trim()));
+        const sections = [];
+        let current = { title: "", lines: [] };
+        lines.forEach((line) => {
+          const trimmed = line.trim();
+          if (!trimmed) {
+            if (current.lines.length) sections.push(current);
+            current = { title: "", lines: [] };
+            return;
+          }
+          if (trimmed.endsWith(":") && trimmed.length < 60) {
+            if (current.lines.length) sections.push(current);
+            current = { title: trimmed.replace(/:$/, ""), lines: [] };
+            return;
+          }
+          current.lines.push(trimmed);
+        });
+        if (current.lines.length) sections.push(current);
+
+        const formatMode = (baseSelections.format || "").toLowerCase();
+
+        function escapeHtml(value) {
+          return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+
+        function renderMarkdown(value) {
+          const rawLines = String(value || "").split(/\n/);
+          const htmlLines = [];
+          let inList = false;
+          let listType = "ul";
+
+          const flushList = () => {
+            if (inList) {
+              htmlLines.push(listType === "ol" ? "</ol>" : "</ul>");
+              inList = false;
+            }
+          };
+
+          rawLines.forEach((raw) => {
+            const line = raw.trim();
+            if (!line) {
+              flushList();
+              return;
+            }
+            if (/^###\s+/.test(line)) {
+              flushList();
+              htmlLines.push(`<h3>${escapeHtml(line.replace(/^###\s+/, ""))}</h3>`);
+              return;
+            }
+            if (/^##\s+/.test(line)) {
+              flushList();
+              htmlLines.push(`<h2>${escapeHtml(line.replace(/^##\s+/, ""))}</h2>`);
+              return;
+            }
+            if (/^#\s+/.test(line)) {
+              flushList();
+              htmlLines.push(`<h1>${escapeHtml(line.replace(/^#\s+/, ""))}</h1>`);
+              return;
+            }
+            if (/^>\s+/.test(line)) {
+              flushList();
+              htmlLines.push(`<blockquote>${escapeHtml(line.replace(/^>\s+/, ""))}</blockquote>`);
+              return;
+            }
+            if (/^\d+\.\s+/.test(line)) {
+              if (!inList || listType !== "ol") {
+                flushList();
+                inList = true;
+                listType = "ol";
+                htmlLines.push("<ol>");
+              }
+              htmlLines.push(`<li>${escapeHtml(line.replace(/^\d+\.\s+/, ""))}</li>`);
+              return;
+            }
+            if (/^[-*•]\s+/.test(line)) {
+              if (!inList || listType !== "ul") {
+                flushList();
+                inList = true;
+                listType = "ul";
+                htmlLines.push("<ul>");
+              }
+              htmlLines.push(`<li>${escapeHtml(line.replace(/^[-*•]\s+/, ""))}</li>`);
+              return;
+            }
+
+            flushList();
+            let safe = escapeHtml(line);
+            safe = safe.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+            safe = safe.replace(/\*(.+?)\*/g, "<em>$1</em>");
+            htmlLines.push(`<p>${safe}</p>`);
+          });
+
+          flushList();
+          return htmlLines.join("");
+        }
+
+        function renderTable(rows) {
+          return (
+            <table className="answer-table">
+              <tbody>
+                {rows.map((row, idx) => (
+                  <tr key={idx}>
+                    {row.map((cell, cidx) => (
+                      <td key={cidx}>{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          );
+        }
+
+        function structuredByFormat(sourceLines, sourceParagraphs) {
+          if (formatMode === "table") {
+            const rows = sourceLines
+              .map((line) => line.trim())
+              .filter(Boolean)
+              .map((line) => {
+                if (line.includes("|")) {
+                  return line.split("|").map((c) => c.trim()).filter(Boolean);
+                }
+                if (line.includes(":")) {
+                  const [left, ...rest] = line.split(":");
+                  return [left.trim(), rest.join(":").trim()];
+                }
+                return [line];
+              });
+            return renderTable(rows);
+          }
+
+          if (formatMode === "steps") {
+            const stepLines = sourceLines
+              .map((line) => line.trim())
+              .filter(Boolean)
+              .map((line) => line.replace(/^[-*•]\s*/, ""));
+            return (
+              <ol className="answer-list answer-steps">
+                {stepLines.map((line, idx) => (
+                  <li key={idx}>
+                    <strong>Step {idx + 1}.</strong> {line}
+                  </li>
+                ))}
+              </ol>
+            );
+          }
+
+          if (formatMode === "bullets") {
+            const bulletLines = sourceLines
+              .map((line) => line.trim())
+              .filter(Boolean)
+              .map((line) => line.replace(/^[-*•]\s*/, ""));
+            return (
+              <ul className="answer-list answer-bullets">
+                {bulletLines.map((line, idx) => (
+                  <li key={idx}>{line}</li>
+                ))}
+              </ul>
+            );
+          }
+
+          // Paragraphs or default
+          return (
+            <div className="answer-paragraphs">
+              {sourceParagraphs.map((para, idx) => <p key={idx}>{para}</p>)}
+            </div>
+          );
+        }
 
         return (
           <div>
@@ -446,33 +668,24 @@
               <strong>Presentation</strong>{" "}
               <span className={`chip ${answerMode === "plain" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("plain")}>Plain</span>
               <span className={`chip ${answerMode === "structured" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("structured")}>Structured</span>
+              <span className={`chip ${answerMode === "markdown" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("markdown")}>Markdown</span>
             </div>
             <div className="row">
               {answerMode === "plain" ? (
                 <pre>{answer}</pre>
+              ) : answerMode === "markdown" ? (
+                <div className="answer-card markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
               ) : (
-                <div className="card">
-                  {hasBullets ? (
-                    <ul>
-                      {lines.map((line, idx) => {
-                        const trimmed = line.trim();
-                        if (!trimmed) return null;
-                        if (/^[-*•]/.test(trimmed)) {
-                          return <li key={idx}>{trimmed.replace(/^[-*•]\s*/, "")}</li>;
-                        }
-                        if (trimmed.includes(":") && trimmed.indexOf(":") < 40) {
-                          const [label, ...rest] = trimmed.split(":");
-                          return (
-                            <p key={idx}>
-                              <strong>{label}:</strong> {rest.join(":").trim()}
-                            </p>
-                          );
-                        }
-                        return <p key={idx}>{trimmed}</p>;
-                      })}
-                    </ul>
+                <div className="answer-card">
+                  {sections.length ? (
+                    sections.map((section, idx) => (
+                      <div className="answer-section" key={idx}>
+                        {section.title && <h3>{section.title}</h3>}
+                        {structuredByFormat(section.lines, section.lines)}
+                      </div>
+                    ))
                   ) : (
-                    paragraphs.map((para, idx) => <p key={idx}>{para}</p>)
+                    structuredByFormat(lines, paragraphs)
                   )}
                 </div>
               )}
@@ -691,6 +904,7 @@
                 setScreen={setScreen}
                 answerMode={answerMode}
                 setAnswerMode={setAnswerMode}
+                baseSelections={baseSelections}
               />
             )}
           </div>
