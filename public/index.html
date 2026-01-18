@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
     <title>Funnel</title>
     <style>
       :root {
@@ -19,7 +22,7 @@
       * { box-sizing: border-box; }
       body {
         margin: 0;
-        font-family: Arial, sans-serif;
+        font-family: "Inter", system-ui, -apple-system, Segoe UI, sans-serif;
         color: var(--text);
         background: radial-gradient(1200px 800px at 10% 0%, #2a1147 0%, #0f0b1f 45%, #0b0817 100%);
       }
@@ -140,6 +143,15 @@
     <script type="text/babel">
       const API_BASE = "https://funnel-production-859a.up.railway.app";
 
+      function titleCase(value) {
+        return String(value)
+          .replace(/_/g, " ")
+          .split(" ")
+          .filter(Boolean)
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+      }
+
       function Screen1({
         query,
         setQuery,
@@ -175,7 +187,7 @@
                     onClick={() => updateBaseSelection("audience", v)}
                     onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("audience", v)}
                   >
-                    {v.charAt(0).toUpperCase() + v.slice(1)}
+                    {titleCase(v)}
                   </span>
                 ))}
               </div>
@@ -190,7 +202,7 @@
                     onClick={() => updateBaseSelection("format", v)}
                     onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("format", v)}
                   >
-                    {v.charAt(0).toUpperCase() + v.slice(1)}
+                    {titleCase(v)}
                   </span>
                 ))}
               </div>
@@ -205,7 +217,7 @@
                     onClick={() => updateBaseSelection("length", v)}
                     onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("length", v)}
                   >
-                    {v}
+                    {titleCase(v)}
                   </span>
                 ))}
               </div>
@@ -259,7 +271,7 @@
                     }}
                     onKeyDown={(e) => e.key === "Enter" && updateFacetSelection(facet.id, choice.value, !isActive)}
                   >
-                    {choice.value}
+                    {titleCase(choice.value)}
                   </span>
                   {choice.subchoices && choice.subchoices.length > 0 && isActive && (
                     <div className="subchoices">
@@ -281,7 +293,7 @@
                             }}
                             onKeyDown={(e) => e.key === "Enter" && updateFacetSelection(facet.id, subValue, !subActive)}
                           >
-                            {sub}
+                            {titleCase(sub)}
                           </span>
                         );
                       })}
