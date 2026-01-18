@@ -96,7 +96,14 @@
         padding: 8px 12px;
         border-radius: 10px;
       }
-      .facet-card { margin-top: 8px; }
+      .facet-card { margin-top: 8px; position: relative; }
+      .side-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .side-nav.left { left: -6px; }
+      .side-nav.right { right: -6px; }
       .summary {
         border-top: 1px solid var(--border);
         margin-top: 16px;
@@ -306,6 +313,22 @@
 
             {currentFacet ? (
               <div className="card facet-card">
+                <div className="side-nav left">
+                  <button
+                    onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+                    disabled={currentIndex === 0}
+                  >
+                    Previous
+                  </button>
+                </div>
+                <div className="side-nav right">
+                  <button
+                    onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
+                    disabled={currentIndex >= totalFacets - 1}
+                  >
+                    Next
+                  </button>
+                </div>
                 <h2>{currentFacet.title}</h2>
                 <div className="muted">{currentFacet.question}</div>
                 <div className="muted">{currentFacet.reason}</div>
@@ -319,21 +342,6 @@
             ) : (
               <div className="muted">No facets yet.</div>
             )}
-
-            <div className="nav-row row">
-              <button
-                onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
-                disabled={currentIndex === 0}
-              >
-                Previous
-              </button>
-              <button
-                onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
-                disabled={currentIndex >= totalFacets - 1}
-              >
-                Next
-              </button>
-            </div>
 
             <div className="sticky-actions">
               <div className="button-row">
