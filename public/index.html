@@ -302,7 +302,7 @@
         );
       }
 
-      function Screen2({
+        function Screen2({
         totalFacets,
         currentIndex,
         setCurrentIndex,
@@ -320,7 +320,6 @@
         return (
           <div>
             <div className="stepper">
-              <div>Facet {totalFacets ? currentIndex + 1 : 0} of {totalFacets}</div>
               <div className="muted">Request: {requestId}</div>
             </div>
 
@@ -331,7 +330,12 @@
 
             {currentFacet ? (
               <div className="card facet-card">
-                <h2>{currentFacet.title}</h2>
+                <h2>
+                  {currentFacet.title}{" "}
+                  <span className="muted">
+                    ({currentIndex + 1}/{totalFacets})
+                  </span>
+                </h2>
                 <div className="muted">{currentFacet.question}</div>
                 <div className="muted">{currentFacet.reason}</div>
                 <FacetChoices
@@ -374,18 +378,54 @@
         );
       }
 
-      function Screen3({ answer, trace, setScreen }) {
+      function Screen3({ answer, trace, setScreen, answerMode, setAnswerMode }) {
+        const paragraphs = (answer || "").split(/\n{2,}/).filter(Boolean);
+        const lines = (answer || "").split(/\n/);
+        const hasBullets = lines.some((line) => /^[-*•]/.test(line.trim()));
+
         return (
           <div>
-            <h1>Answer</h1>
-            <div className="row">
-              <pre>{answer}</pre>
-            </div>
-            <h2>Trace</h2>
-            <pre>{JSON.stringify(trace, null, 2)}</pre>
             <div className="button-row row">
               <button onClick={() => setScreen(2)}>Back to facets</button>
             </div>
+            <h1>Answer</h1>
+            <div className="row">
+              <strong>Presentation</strong>{" "}
+              <span className={`chip ${answerMode === "plain" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("plain")}>Plain</span>
+              <span className={`chip ${answerMode === "structured" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("structured")}>Structured</span>
+            </div>
+            <div className="row">
+              {answerMode === "plain" ? (
+                <pre>{answer}</pre>
+              ) : (
+                <div className="card">
+                  {hasBullets ? (
+                    <ul>
+                      {lines.map((line, idx) => {
+                        const trimmed = line.trim();
+                        if (!trimmed) return null;
+                        if (/^[-*•]/.test(trimmed)) {
+                          return <li key={idx}>{trimmed.replace(/^[-*•]\s*/, "")}</li>;
+                        }
+                        if (trimmed.includes(":") && trimmed.indexOf(":") < 40) {
+                          const [label, ...rest] = trimmed.split(":");
+                          return (
+                            <p key={idx}>
+                              <strong>{label}:</strong> {rest.join(":").trim()}
+                            </p>
+                          );
+                        }
+                        return <p key={idx}>{trimmed}</p>;
+                      })}
+                    </ul>
+                  ) : (
+                    paragraphs.map((para, idx) => <p key={idx}>{para}</p>)
+                  )}
+                </div>
+              )}
+            </div>
+            <h2>Trace</h2>
+            <pre>{JSON.stringify(trace, null, 2)}</pre>
           </div>
         );
       }
@@ -398,6 +438,7 @@
         const [facets, setFacets] = React.useState([]);
         const [currentIndex, setCurrentIndex] = React.useState(0);
         const [answer, setAnswer] = React.useState("");
+        const [answerMode, setAnswerMode] = React.useState("structured");
         const [trace, setTrace] = React.useState([]);
 
         const [query, setQuery] = React.useState("");
@@ -595,6 +636,8 @@
                 answer={answer}
                 trace={trace}
                 setScreen={setScreen}
+                answerMode={answerMode}
+                setAnswerMode={setAnswerMode}
               />
             )}
           </div>
