@@ -876,6 +876,20 @@
       }) {
         return (
           <div>
+            <h1>ShmilBlick</h1>
+            <p style={{
+              fontSize: '18px',
+              fontWeight: 600,
+              lineHeight: 1.4,
+              marginBottom: 'var(--space-6)',
+              background: 'linear-gradient(135deg, hsl(50, 100%, 75%) 0%, hsl(280, 90%, 75%) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              Ask once, get exactly what you need—like AI with a laser focus.
+            </p>
+
             <div className="stepper" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
               <div className="muted">Request: {requestId}</div>
               <button className="secondary" onClick={handleNewQuery} style={{padding: 'var(--space-2) var(--space-3)', fontSize: '13px'}}>
@@ -1136,11 +1150,25 @@
 
         return (
           <div>
+            <h1>ShmilBlick</h1>
+            <p style={{
+              fontSize: '18px',
+              fontWeight: 600,
+              lineHeight: 1.4,
+              marginBottom: 'var(--space-6)',
+              background: 'linear-gradient(135deg, hsl(50, 100%, 75%) 0%, hsl(280, 90%, 75%) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              Ask once, get exactly what you need—like AI with a laser focus.
+            </p>
+
             <div className="button-row row">
               <button className="secondary" onClick={() => setScreen(2)}>Back to facets</button>
               <button className="secondary" onClick={handleNewQuery}>New Query</button>
             </div>
-            <h1>Answer</h1>
+            <h2>Answer</h2>
             <div className="row">
               <strong>Presentation</strong>{" "}
               <span className={`chip ${answerMode === "plain" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("plain")}>Plain</span>
