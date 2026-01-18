@@ -872,6 +872,7 @@
         selectionsForApi,
         baseSelections,
         updateBaseSelection,
+        facets,
       }) {
         return (
           <div>
@@ -891,11 +892,20 @@
 
             {currentFacet ? (
               <div className="card facet-card">
-                <h2>
-                  {currentFacet.title}{" "}
-                  <span className="muted">
-                    ({currentIndex + 1}/{totalFacets})
-                  </span>
+                <div style={{
+                  display: 'inline-block',
+                  padding: 'var(--space-1) var(--space-3)',
+                  background: 'linear-gradient(135deg, hsl(200, 70%, 50%) 0%, hsl(210, 75%, 55%) 100%)',
+                  color: 'white',
+                  borderRadius: 'var(--radius-full)',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  marginBottom: 'var(--space-3)'
+                }}>
+                  Angle {currentIndex + 1}/{totalFacets}
+                </div>
+                <h2 style={{marginTop: 0}}>
+                  {currentFacet.title}
                 </h2>
                 <div className="muted">{currentFacet.question}</div>
                 <div className="muted">{currentFacet.reason}</div>
@@ -967,7 +977,7 @@
                   Previous
                 </button>
                 <button className="orange" onClick={handleRefine} disabled={loading}>
-                  Pick Your Angles
+                  Pick More Angles
                 </button>
                 <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
                 <button
@@ -1001,17 +1011,29 @@
                       }
                     });
 
+                    const facetIndex = facets.findIndex(f => f.id === item.id);
+                    const handleClickToFacet = () => {
+                      if (facetIndex !== -1) {
+                        setCurrentIndex(facetIndex);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
+                    };
+
                     return (
                       <div key={item.id} className="selection-card">
-                        <div className="muted">{titleCase(item.id)}</div>
+                        <div className="muted" style={{cursor: facetIndex !== -1 ? 'pointer' : 'default', fontWeight: 600}} onClick={handleClickToFacet}>
+                          {titleCase(item.id)} {facetIndex !== -1 && <span style={{fontSize: '12px'}}>↑</span>}
+                        </div>
                         <div className="choices">
                           {Object.entries(tree).map(([parent, data]) => (
                             <div key={parent} className="row">
-                              <span className="chip active">{titleCase(parent)}</span>
+                              <span className="chip active" style={{cursor: 'pointer'}} onClick={handleClickToFacet}>
+                                {titleCase(parent)}
+                              </span>
                               {data.children.length > 0 && (
                                 <div className="subchoices">
                                   {data.children.map((child) => (
-                                    <span className="chip active" key={child}>
+                                    <span className="chip active" key={child} style={{cursor: 'pointer'}} onClick={handleClickToFacet}>
                                       {titleCase(child)}
                                     </span>
                                   ))}
@@ -1354,6 +1376,7 @@
                 selectionsForApi={selectionsForApi}
                 baseSelections={baseSelections}
                 updateBaseSelection={updateBaseSelection}
+                facets={facets}
               />
             )}
             {screen === 3 && (
