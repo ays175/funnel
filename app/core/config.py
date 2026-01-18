@@ -21,9 +21,9 @@ def _req(name: str) -> str:
 
 @dataclass(frozen=True)
 class Settings:
-    openai_api_key: str | None
-    openai_model: str
-    openai_timeout_seconds: int
+    groq_api_key: str | None
+    groq_model: str
+    groq_timeout_seconds: int
 
     app_env: str
     app_host: str
@@ -50,9 +50,9 @@ def load_settings() -> Settings:
         return os.getenv(name, default).lower() in {"1", "true", "yes", "y"}
 
     return Settings(
-        openai_api_key=os.getenv("OPENAI_API_KEY"),
-        openai_model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
-        openai_timeout_seconds=int(os.getenv("OPENAI_TIMEOUT_SECONDS", "60")),
+        groq_api_key=os.getenv("GROQ_API_KEY"),
+        groq_model=os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
+        groq_timeout_seconds=int(os.getenv("GROQ_TIMEOUT_SECONDS", "60")),
         app_env=os.getenv("APP_ENV", "dev"),
         app_host=os.getenv("APP_HOST", "0.0.0.0"),
         app_port=int(os.getenv("APP_PORT", "8000")),
