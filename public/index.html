@@ -12,6 +12,7 @@
       button { margin-right: 8px; }
       pre { white-space: pre-wrap; background: #f7f7f7; padding: 12px; }
       .pill { display: inline-block; margin-right: 6px; }
+      .subchoices { margin-left: 18px; margin-top: 6px; }
       .header { display: flex; justify-content: space-between; align-items: baseline; }
       .small { font-size: 12px; color: #444; }
       .alert { background: #fffbe6; border: 1px solid #ffe58f; padding: 8px; }
@@ -89,16 +90,52 @@
         facets.forEach((facet, idx) => {
           const div = document.createElement("div");
           div.className = "facet";
-          const options = (facet.suggested_values || [])
-            .map((val) => {
-              return `
-                <label class="pill">
-                  <input type="checkbox" data-suggest="${facet.id}" data-value="${val}" />
-                  ${val}
-                </label>
-              `;
-            })
-            .join(" ");
+          let options = "";
+          const choices = Array.isArray(facet.choices) ? facet.choices : [];
+          if (choices.length) {
+            options = choices
+              .map((choice) => {
+                const value = choice.value;
+                const subs = Array.isArray(choice.subchoices) ? choice.subchoices : [];
+                const subHtml = subs.length
+                  ? `
+                    <div class="subchoices">
+                      ${subs
+                        .map(
+                          (sub) => `
+                          <label class="pill">
+                            <input type="checkbox" data-subchoice="${facet.id}" data-parent="${value}" data-value="${sub}" />
+                            ${sub}
+                          </label>
+                        `
+                        )
+                        .join(" ")}
+                    </div>
+                  `
+                  : "";
+                return `
+                  <div class="row">
+                    <label class="pill">
+                      <input type="checkbox" data-suggest="${facet.id}" data-value="${value}" />
+                      ${value}
+                    </label>
+                    ${subHtml}
+                  </div>
+                `;
+              })
+              .join("");
+          } else {
+            options = (facet.suggested_values || [])
+              .map((val) => {
+                return `
+                  <label class="pill">
+                    <input type="checkbox" data-suggest="${facet.id}" data-value="${val}" />
+                    ${val}
+                  </label>
+                `;
+              })
+              .join(" ");
+          }
           div.innerHTML = `
             <label>
               <input type="checkbox" data-id="${facet.id}" />
@@ -127,9 +164,34 @@
                 .forEach((other) => {
                   if (other !== box) other.checked = false;
                 });
+              document
+                .querySelectorAll(`input[type="checkbox"][data-subchoice="${id}"]`)
+                .forEach((other) => {
+                  other.checked = false;
+                });
             }
 
             if (value !== "all options" && box.checked) {
+              const allBox = document.querySelector(
+                `input[type="checkbox"][data-suggest="${id}"][data-value="all options"]`
+              );
+              if (allBox) allBox.checked = false;
+            }
+          };
+        });
+
+        document.querySelectorAll('input[type="checkbox"][data-subchoice]').forEach((box) => {
+          box.onchange = () => {
+            const id = box.getAttribute("data-subchoice");
+            const parent = box.getAttribute("data-parent");
+            const facetBox = document.querySelector(`input[type="checkbox"][data-id="${id}"]`);
+            const parentBox = document.querySelector(
+              `input[type="checkbox"][data-suggest="${id}"][data-value="${parent}"]`
+            );
+            if (facetBox && box.checked) facetBox.checked = true;
+            if (parentBox && box.checked) parentBox.checked = true;
+
+            if (box.checked) {
               const allBox = document.querySelector(
                 `input[type="checkbox"][data-suggest="${id}"][data-value="all options"]`
               );
@@ -160,6 +222,16 @@
             .forEach((optionBox) => {
               if (optionBox.checked) {
                 selectedValues.push(optionBox.getAttribute("data-value"));
+              }
+            });
+
+          document
+            .querySelectorAll(`input[type="checkbox"][data-subchoice="${id}"]`)
+            .forEach((subBox) => {
+              if (subBox.checked) {
+                const parent = subBox.getAttribute("data-parent");
+                const value = subBox.getAttribute("data-value");
+                selectedValues.push(`${parent} > ${value}`);
               }
             });
 

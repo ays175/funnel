@@ -8,12 +8,19 @@ from app.core.llm_client import LLMClient
 
 
 @dataclass(frozen=True)
+class Choice:
+    value: str
+    subchoices: list[str]
+
+
+@dataclass(frozen=True)
 class Facet:
     id: str
     title: str
     question: str
     keywords: list[str]
     suggested_values: list[str]
+    choices: list[Choice]
     default_value: str | None
 
 
@@ -67,7 +74,10 @@ class FacetDiscoveryEngine:
                     '      "title": "Topic Focus",\n'
                     '      "question": "Which aspect of the topic should be emphasized?",\n'
                     '      "reason": "Short reason tied to query terms",\n'
-                    '      "suggested_values": ["value1", "value2"],\n'
+                    '      "choices": [\n'
+                    '        {"value": "value1", "subchoices": ["sub1", "sub2"]},\n'
+                    '        {"value": "value2", "subchoices": []}\n'
+                    "      ],\n"
                     '      "default_value": "value1"\n'
                     "    }\n"
                     "  ]\n"
@@ -75,10 +85,10 @@ class FacetDiscoveryEngine:
                     "Rules:\n"
                     f"- Provide 3 to {max_facets} facets.\n"
                     "- At least 3 facets must be topic-specific (not audience/format/scope).\n"
-                    "- Suggested values must be concrete choices (up to 10).\n"
+                    "- Choices must be concrete and can include subchoices (up to 10).\n"
                     "- Keep ids short and snake_case.\n"
                     "- If the query mentions regions, locations, geographies, or areas, include a facet named \"Geographical Focus\" with options like \"National (All)\" and specific regions.\n"
-                    "- Whenever you use the word \"specific\" in any facet title, question, or suggested value, add a follow-up facet that lets the user choose the specific items or areas as multiple options (with up to 10 concrete choices).\n"
+                    "- Whenever you use the word \"specific\" in any facet title, question, or choice value, add a follow-up facet that lets the user choose the specific items or areas as multiple options (with up to 10 concrete choices).\n"
                 ),
             ),
         ]
@@ -144,7 +154,10 @@ class FacetDiscoveryEngine:
                     '      "title": "Subtopic Focus",\n'
                     '      "question": "Which subtopic should be expanded?",\n'
                     '      "reason": "Tie to selected facet/value",\n'
-                    '      "suggested_values": ["value1", "value2"],\n'
+                    '      "choices": [\n'
+                    '        {"value": "value1", "subchoices": ["sub1", "sub2"]},\n'
+                    '        {"value": "value2", "subchoices": []}\n'
+                    "      ],\n"
                     '      "default_value": "value1"\n'
                     "    }\n"
                     "  ]\n"
@@ -152,7 +165,7 @@ class FacetDiscoveryEngine:
                     "Rules:\n"
                     f"- Provide 1 to {max_facets} facets.\n"
                     "- Must reflect the user's selections.\n"
-                    "- Suggested values must be concrete choices (up to 10).\n"
+                    "- Choices must be concrete and can include subchoices (up to 10).\n"
                     "- Keep ids short and snake_case.\n"
                 ),
             ),
@@ -168,7 +181,23 @@ class FacetDiscoveryEngine:
 
     def _to_facet(self, data: dict) -> Facet:
         facet_id = data.get("id") or self._slugify(data.get("title", "facet"))
+        choices_data = data.get("choices", [])
+        choices: list[Choice] = []
+        for item in choices_data:
+            if isinstance(item, dict) and item.get("value"):
+                choices.append(
+                    Choice(
+                        value=str(item["value"]),
+                        subchoices=[str(v) for v in item.get("subchoices", []) if v],
+                    )
+                )
+
+        if choices and all(choice.value.lower() != "all options" for choice in choices):
+            choices.append(Choice(value="all options", subchoices=[]))
+
         suggested = list(data.get("suggested_values", []))
+        if choices and not suggested:
+            suggested = [choice.value for choice in choices]
         if suggested and all(val.lower() != "all options" for val in suggested):
             suggested.append("all options")
         return Facet(
@@ -177,6 +206,7 @@ class FacetDiscoveryEngine:
             question=data.get("question", "Choose an option"),
             keywords=data.get("keywords", []),
             suggested_values=suggested,
+            choices=choices,
             default_value=data.get("default_value"),
         )
 

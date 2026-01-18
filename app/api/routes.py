@@ -8,6 +8,7 @@ from fastapi import APIRouter, HTTPException
 from app.api.schemas import (
     AnswerRequest,
     AnswerResponse,
+    Choice,
     DiscoverRequest,
     DiscoverResponse,
     FacetCandidate,
@@ -57,6 +58,7 @@ def _serialize_candidates(candidates: list[CoreFacetCandidate]) -> list[FacetCan
                 question=facet.question,
                 reason=candidate.reason,
                 suggested_values=facet.suggested_values,
+                choices=[Choice(value=c.value, subchoices=c.subchoices) for c in facet.choices],
             )
         )
     return results

@@ -5,12 +5,18 @@ from typing import Any
 from pydantic import BaseModel, Field
 
 
+class Choice(BaseModel):
+    value: str
+    subchoices: list[str] = Field(default_factory=list)
+
+
 class FacetCandidate(BaseModel):
     id: str
     title: str
     question: str
     reason: str
     suggested_values: list[str] = Field(default_factory=list)
+    choices: list[Choice] = Field(default_factory=list)
 
 
 class FacetSelection(BaseModel):
