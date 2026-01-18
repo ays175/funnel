@@ -96,14 +96,7 @@
         padding: 8px 12px;
         border-radius: 10px;
       }
-      .facet-card { margin-top: 8px; position: relative; }
-      .side-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-      .side-nav.left { left: -6px; }
-      .side-nav.right { right: -6px; }
+      .facet-card { margin-top: 8px; }
       .summary {
         border-top: 1px solid var(--border);
         margin-top: 16px;
@@ -112,11 +105,11 @@
       .sticky-actions {
         position: sticky;
         bottom: 0;
-        background: rgba(15,11,31,0.9);
+        background: rgba(15,11,31,0.95);
         backdrop-filter: blur(8px);
         border-top: 1px solid var(--border);
-        padding: 12px 0;
-        margin-top: 12px;
+        padding: 12px;
+        margin-top: 16px;
       }
       .error { color: #fca5a5; font-size: 13px; margin-top: 6px; }
       pre { white-space: pre-wrap; background: var(--surface); padding: 12px; border-radius: 8px; }
@@ -313,22 +306,6 @@
 
             {currentFacet ? (
               <div className="card facet-card">
-                <div className="side-nav left">
-                  <button
-                    onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
-                    disabled={currentIndex === 0}
-                  >
-                    Previous
-                  </button>
-                </div>
-                <div className="side-nav right">
-                  <button
-                    onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
-                    disabled={currentIndex >= totalFacets - 1}
-                  >
-                    Next
-                  </button>
-                </div>
                 <h2>{currentFacet.title}</h2>
                 <div className="muted">{currentFacet.question}</div>
                 <div className="muted">{currentFacet.reason}</div>
@@ -344,9 +321,21 @@
             )}
 
             <div className="sticky-actions">
-              <div className="button-row">
+              <div className="button-row nav-row">
+                <button
+                  onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+                  disabled={currentIndex === 0}
+                >
+                  Previous
+                </button>
                 <button onClick={handleRefine} disabled={loading}>Narrow further</button>
                 <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
+                <button
+                  onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
+                  disabled={currentIndex >= totalFacets - 1}
+                >
+                  Next
+                </button>
               </div>
             </div>
 
