@@ -864,30 +864,7 @@
         );
       }
 
-      function Screen3({ answer, trace, setScreen, answerMode, setAnswerMode, baseSelections }) {
-        const paragraphs = (answer || "").split(/\n{2,}/).filter(Boolean);
-        const lines = (answer || "").split(/\n/);
-        const hasBullets = lines.some((line) => /^[-*•]/.test(line.trim()));
-        const sections = [];
-        let current = { title: "", lines: [] };
-        lines.forEach((line) => {
-          const trimmed = line.trim();
-          if (!trimmed) {
-            if (current.lines.length) sections.push(current);
-            current = { title: "", lines: [] };
-            return;
-          }
-          if (trimmed.endsWith(":") && trimmed.length < 60) {
-            if (current.lines.length) sections.push(current);
-            current = { title: trimmed.replace(/:$/, ""), lines: [] };
-            return;
-          }
-          current.lines.push(trimmed);
-        });
-        if (current.lines.length) sections.push(current);
-
-        const formatMode = (baseSelections.format || "").toLowerCase();
-
+      function Screen3({ answer, trace, setScreen, answerMode, setAnswerMode }) {
         function escapeHtml(value) {
           return String(value)
             .replace(/&/g, "&amp;")
@@ -966,78 +943,6 @@
           return htmlLines.join("");
         }
 
-        function renderTable(rows) {
-          return (
-            <table className="answer-table">
-              <tbody>
-                {rows.map((row, idx) => (
-                  <tr key={idx}>
-                    {row.map((cell, cidx) => (
-                      <td key={cidx}>{cell}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          );
-        }
-
-        function structuredByFormat(sourceLines, sourceParagraphs) {
-          if (formatMode === "table") {
-            const rows = sourceLines
-              .map((line) => line.trim())
-              .filter(Boolean)
-              .map((line) => {
-                if (line.includes("|")) {
-                  return line.split("|").map((c) => c.trim()).filter(Boolean);
-                }
-                if (line.includes(":")) {
-                  const [left, ...rest] = line.split(":");
-                  return [left.trim(), rest.join(":").trim()];
-                }
-                return [line];
-              });
-            return renderTable(rows);
-          }
-
-          if (formatMode === "steps") {
-            const stepLines = sourceLines
-              .map((line) => line.trim())
-              .filter(Boolean)
-              .map((line) => line.replace(/^[-*•]\s*/, ""));
-            return (
-              <ol className="answer-list answer-steps">
-                {stepLines.map((line, idx) => (
-                  <li key={idx}>
-                    <strong>Step {idx + 1}.</strong> {line}
-                  </li>
-                ))}
-              </ol>
-            );
-          }
-
-          if (formatMode === "bullets") {
-            const bulletLines = sourceLines
-              .map((line) => line.trim())
-              .filter(Boolean)
-              .map((line) => line.replace(/^[-*•]\s*/, ""));
-            return (
-              <ul className="answer-list answer-bullets">
-                {bulletLines.map((line, idx) => (
-                  <li key={idx}>{line}</li>
-                ))}
-              </ul>
-            );
-          }
-
-          // Paragraphs or default
-          return (
-            <div className="answer-paragraphs">
-              {sourceParagraphs.map((para, idx) => <p key={idx}>{para}</p>)}
-            </div>
-          );
-        }
-
         return (
           <div>
             <div className="button-row row">
@@ -1047,27 +952,13 @@
             <div className="row">
               <strong>Presentation</strong>{" "}
               <span className={`chip ${answerMode === "plain" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("plain")}>Plain</span>
-              <span className={`chip ${answerMode === "structured" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("structured")}>Structured</span>
               <span className={`chip ${answerMode === "markdown" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("markdown")}>Markdown</span>
             </div>
             <div className="row">
               {answerMode === "plain" ? (
                 <pre>{answer}</pre>
-              ) : answerMode === "markdown" ? (
-                <div className="answer-card markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
               ) : (
-                <div className="answer-card">
-                  {sections.length ? (
-                    sections.map((section, idx) => (
-                      <div className="answer-section" key={idx}>
-                        {section.title && <h3>{section.title}</h3>}
-                        {structuredByFormat(section.lines, section.lines)}
-                      </div>
-                    ))
-                  ) : (
-                    structuredByFormat(lines, paragraphs)
-                  )}
-                </div>
+                <div className="answer-card markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
               )}
             </div>
             <h2>Trace</h2>
@@ -1084,7 +975,7 @@
         const [facets, setFacets] = React.useState([]);
         const [currentIndex, setCurrentIndex] = React.useState(0);
         const [answer, setAnswer] = React.useState("");
-        const [answerMode, setAnswerMode] = React.useState("structured");
+        const [answerMode, setAnswerMode] = React.useState("markdown");
         const [trace, setTrace] = React.useState([]);
 
         const [query, setQuery] = React.useState("");
@@ -1284,7 +1175,6 @@
                 setScreen={setScreen}
                 answerMode={answerMode}
                 setAnswerMode={setAnswerMode}
-                baseSelections={baseSelections}
               />
             )}
           </div>
