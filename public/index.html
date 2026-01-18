@@ -64,6 +64,7 @@
       .choices { margin-top: 8px; }
       .subchoices { margin-left: 18px; margin-top: 6px; }
       .button-row { display: flex; gap: 8px; flex-wrap: wrap; }
+      .nav-row { display: flex; justify-content: space-between; align-items: center; }
       button {
         padding: 12px 14px;
         border: 1px solid var(--border);
@@ -130,6 +131,242 @@
 
     <script type="text/babel">
       const API_BASE = "https://funnel-production-859a.up.railway.app";
+
+      function Screen1({
+        query,
+        setQuery,
+        baseSelections,
+        updateBaseSelection,
+        domainHint,
+        setDomainHint,
+        handleDiscover,
+        loading,
+        error,
+      }) {
+        return (
+          <div>
+            <h1>Funnel</h1>
+            <div className="muted">API: {API_BASE}</div>
+            <div className="row">
+              <label>Query</label>
+              <textarea
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Ask a question..."
+              />
+            </div>
+            <div className="row card">
+              <div className="row">
+                <strong>Audience</strong>
+                {["beginner", "intermediate", "expert", "executive"].map((v) => (
+                  <label className="pill" key={v}>
+                    <input
+                      type="radio"
+                      name="audience"
+                      checked={baseSelections.audience === v}
+                      onChange={() => updateBaseSelection("audience", v)}
+                    />
+                    {v.charAt(0).toUpperCase() + v.slice(1)}
+                  </label>
+                ))}
+              </div>
+              <div className="row">
+                <strong>Format</strong>
+                {["bullets", "steps", "table", "paragraphs"].map((v) => (
+                  <label className="pill" key={v}>
+                    <input
+                      type="radio"
+                      name="format"
+                      checked={baseSelections.format === v}
+                      onChange={() => updateBaseSelection("format", v)}
+                    />
+                    {v.charAt(0).toUpperCase() + v.slice(1)}
+                  </label>
+                ))}
+              </div>
+              <div className="row">
+                <strong>Length</strong>
+                {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
+                  <label className="pill" key={v}>
+                    <input
+                      type="radio"
+                      name="length"
+                      checked={baseSelections.length === v}
+                      onChange={() => updateBaseSelection("length", v)}
+                    />
+                    {v}
+                  </label>
+                ))}
+              </div>
+            </div>
+            <div className="row">
+              <label>Domain hint (optional)</label>
+              <input
+                type="text"
+                value={domainHint}
+                onChange={(e) => setDomainHint(e.target.value)}
+                placeholder="finance, legal, universal"
+              />
+            </div>
+            <div className="button-row">
+              <button className="primary" onClick={handleDiscover} disabled={loading}>
+                {loading ? "Discovering..." : "Discover facets"}
+              </button>
+            </div>
+            {error && <div className="error">{error}</div>}
+          </div>
+        );
+      }
+
+      function FacetChoices({ facet, facetSelections, updateFacetSelection, updateFacetCustom }) {
+        const data = facetSelections[facet.id] || { values: new Set(), custom: "" };
+        const choices = Array.isArray(facet.choices) ? facet.choices : [];
+        const suggested = choices.length
+          ? choices
+          : (facet.suggested_values || []).map((v) => ({ value: v, subchoices: [] }));
+
+        return (
+          <div className="choices">
+            {suggested.map((choice) => (
+              <div key={choice.value} className="row">
+                <label className="pill">
+                  <input
+                    type="checkbox"
+                    checked={data.values.has(choice.value)}
+                    onChange={(e) => {
+                      const checked = e.target.checked;
+                      if (choice.value === "all options" && checked) {
+                        data.values.forEach((v) => updateFacetSelection(facet.id, v, false));
+                      }
+                      updateFacetSelection(facet.id, choice.value, checked);
+                    }}
+                  />
+                  {choice.value}
+                </label>
+                {choice.subchoices && choice.subchoices.length > 0 && (
+                  <div className="subchoices">
+                    {choice.subchoices.map((sub) => (
+                      <label className="pill" key={sub}>
+                        <input
+                          type="checkbox"
+                          checked={data.values.has(`${choice.value} > ${sub}`)}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+                            if (checked) {
+                              updateFacetSelection(facet.id, choice.value, true);
+                            }
+                            updateFacetSelection(facet.id, `${choice.value} > ${sub}`, checked);
+                          }}
+                        />
+                        {sub}
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            <div className="row">
+              <input
+                type="text"
+                placeholder="custom value (optional)"
+                value={data.custom}
+                onChange={(e) => updateFacetCustom(facet.id, e.target.value)}
+              />
+            </div>
+          </div>
+        );
+      }
+
+      function Screen2({
+        totalFacets,
+        currentIndex,
+        setCurrentIndex,
+        currentFacet,
+        requestId,
+        handleRefine,
+        handleAnswer,
+        loading,
+        error,
+        facetSelections,
+        updateFacetSelection,
+        updateFacetCustom,
+        selectionsForApi,
+      }) {
+        return (
+          <div>
+            <div className="stepper">
+              <div>Facet {totalFacets ? currentIndex + 1 : 0} of {totalFacets}</div>
+              <div className="muted">Request: {requestId}</div>
+            </div>
+
+            <div className="button-row">
+              <button onClick={handleRefine} disabled={loading}>Narrow further</button>
+              <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
+            </div>
+
+            {currentFacet ? (
+              <div className="card facet-card">
+                <h2>{currentFacet.title}</h2>
+                <div className="muted">{currentFacet.question}</div>
+                <div className="muted">{currentFacet.reason}</div>
+                <FacetChoices
+                  facet={currentFacet}
+                  facetSelections={facetSelections}
+                  updateFacetSelection={updateFacetSelection}
+                  updateFacetCustom={updateFacetCustom}
+                />
+              </div>
+            ) : (
+              <div className="muted">No facets yet.</div>
+            )}
+
+            <div className="nav-row row">
+              <button
+                onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+                disabled={currentIndex === 0}
+              >
+                Previous
+              </button>
+              <button
+                onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
+                disabled={currentIndex >= totalFacets - 1}
+              >
+                Next
+              </button>
+            </div>
+
+            <div className="sticky-actions">
+              <div className="button-row">
+                <button onClick={handleRefine} disabled={loading}>Narrow further</button>
+                <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
+              </div>
+            </div>
+
+            <div className="summary">
+              <h2>Selections</h2>
+              <pre>{JSON.stringify(selectionsForApi(), null, 2)}</pre>
+            </div>
+
+            {error && <div className="error">{error}</div>}
+          </div>
+        );
+      }
+
+      function Screen3({ answer, trace, setScreen }) {
+        return (
+          <div>
+            <h1>Answer</h1>
+            <div className="row">
+              <pre>{answer}</pre>
+            </div>
+            <h2>Trace</h2>
+            <pre>{JSON.stringify(trace, null, 2)}</pre>
+            <div className="button-row row">
+              <button onClick={() => setScreen(2)}>Back to facets</button>
+            </div>
+          </div>
+        );
+      }
 
       function App() {
         const [screen, setScreen] = React.useState(1);
@@ -299,216 +536,45 @@
           }
         }
 
-        function Screen1() {
-          return (
-            <div>
-              <h1>Funnel</h1>
-              <div className="muted">API: {API_BASE}</div>
-              <div className="row">
-                <label>Query</label>
-                <textarea
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Ask a question..."
-                />
-              </div>
-              <div className="row card">
-                <div className="row">
-                  <strong>Audience</strong>
-                  {["beginner", "intermediate", "expert", "executive"].map((v) => (
-                    <label className="pill" key={v}>
-                      <input
-                        type="radio"
-                        name="audience"
-                        checked={baseSelections.audience === v}
-                        onChange={() => updateBaseSelection("audience", v)}
-                      />
-                      {v.charAt(0).toUpperCase() + v.slice(1)}
-                    </label>
-                  ))}
-                </div>
-                <div className="row">
-                  <strong>Format</strong>
-                  {["bullets", "steps", "table", "paragraphs"].map((v) => (
-                    <label className="pill" key={v}>
-                      <input
-                        type="radio"
-                        name="format"
-                        checked={baseSelections.format === v}
-                        onChange={() => updateBaseSelection("format", v)}
-                      />
-                      {v.charAt(0).toUpperCase() + v.slice(1)}
-                    </label>
-                  ))}
-                </div>
-                <div className="row">
-                  <strong>Length</strong>
-                  {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
-                    <label className="pill" key={v}>
-                      <input
-                        type="radio"
-                        name="length"
-                        checked={baseSelections.length === v}
-                        onChange={() => updateBaseSelection("length", v)}
-                      />
-                      {v}
-                    </label>
-                  ))}
-                </div>
-              </div>
-              <div className="row">
-                <label>Domain hint (optional)</label>
-                <input
-                  type="text"
-                  value={domainHint}
-                  onChange={(e) => setDomainHint(e.target.value)}
-                  placeholder="finance, legal, universal"
-                />
-              </div>
-              <div className="button-row">
-                <button className="primary" onClick={handleDiscover} disabled={loading}>
-                  {loading ? "Discovering..." : "Discover facets"}
-                </button>
-              </div>
-              {error && <div className="error">{error}</div>}
-            </div>
-          );
-        }
-
-        function FacetChoices({ facet }) {
-          const data = facetSelections[facet.id] || { values: new Set(), custom: "" };
-          const choices = Array.isArray(facet.choices) ? facet.choices : [];
-          const suggested = choices.length ? choices : (facet.suggested_values || []).map((v) => ({ value: v, subchoices: [] }));
-
-          return (
-            <div className="choices">
-              {suggested.map((choice) => (
-                <div key={choice.value} className="row">
-                  <label className="pill">
-                    <input
-                      type="checkbox"
-                      checked={data.values.has(choice.value)}
-                      onChange={(e) => {
-                        const checked = e.target.checked;
-                        if (choice.value === "all options" && checked) {
-                          data.values.forEach((v) => updateFacetSelection(facet.id, v, false));
-                        }
-                        updateFacetSelection(facet.id, choice.value, checked);
-                      }}
-                    />
-                    {choice.value}
-                  </label>
-                  {choice.subchoices && choice.subchoices.length > 0 && (
-                    <div className="subchoices">
-                      {choice.subchoices.map((sub) => (
-                        <label className="pill" key={sub}>
-                          <input
-                            type="checkbox"
-                            checked={data.values.has(`${choice.value} > ${sub}`)}
-                            onChange={(e) => {
-                              const checked = e.target.checked;
-                              if (checked) {
-                                updateFacetSelection(facet.id, choice.value, true);
-                              }
-                              updateFacetSelection(facet.id, `${choice.value} > ${sub}`, checked);
-                            }}
-                          />
-                          {sub}
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-              <div className="row">
-                <input
-                  type="text"
-                  placeholder="custom value (optional)"
-                  value={data.custom}
-                  onChange={(e) => updateFacetCustom(facet.id, e.target.value)}
-                />
-              </div>
-            </div>
-          );
-        }
-
-        function Screen2() {
-          return (
-            <div>
-              <div className="stepper">
-                <div>Facet {totalFacets ? currentIndex + 1 : 0} of {totalFacets}</div>
-                <div className="muted">Request: {requestId}</div>
-              </div>
-
-              <div className="button-row">
-                <button onClick={handleRefine} disabled={loading}>Narrow further</button>
-                <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
-              </div>
-
-              {currentFacet ? (
-                <div className="card facet-card">
-                  <h2>{currentFacet.title}</h2>
-                  <div className="muted">{currentFacet.question}</div>
-                  <div className="muted">{currentFacet.reason}</div>
-                  <FacetChoices facet={currentFacet} />
-                </div>
-              ) : (
-                <div className="muted">No facets yet.</div>
-              )}
-
-              <div className="button-row row">
-                <button
-                  onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
-                  disabled={currentIndex === 0}
-                >
-                  Previous
-                </button>
-                <button
-                  onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
-                  disabled={currentIndex >= totalFacets - 1}
-                >
-                  Next
-                </button>
-              </div>
-
-              <div className="sticky-actions">
-                <div className="button-row">
-                  <button onClick={handleRefine} disabled={loading}>Narrow further</button>
-                  <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
-                </div>
-              </div>
-
-              <div className="summary">
-                <h2>Selections</h2>
-                <pre>{JSON.stringify(selectionsForApi(), null, 2)}</pre>
-              </div>
-
-              {error && <div className="error">{error}</div>}
-            </div>
-          );
-        }
-
-        function Screen3() {
-          return (
-            <div>
-              <h1>Answer</h1>
-              <div className="row">
-                <pre>{answer}</pre>
-              </div>
-              <h2>Trace</h2>
-              <pre>{JSON.stringify(trace, null, 2)}</pre>
-              <div className="button-row row">
-                <button onClick={() => setScreen(2)}>Back to facets</button>
-              </div>
-            </div>
-          );
-        }
-
         return (
           <div className="container">
-            {screen === 1 && <Screen1 />}
-            {screen === 2 && <Screen2 />}
-            {screen === 3 && <Screen3 />}
+            {screen === 1 && (
+              <Screen1
+                query={query}
+                setQuery={setQuery}
+                baseSelections={baseSelections}
+                updateBaseSelection={updateBaseSelection}
+                domainHint={domainHint}
+                setDomainHint={setDomainHint}
+                handleDiscover={handleDiscover}
+                loading={loading}
+                error={error}
+              />
+            )}
+            {screen === 2 && (
+              <Screen2
+                totalFacets={totalFacets}
+                currentIndex={currentIndex}
+                setCurrentIndex={setCurrentIndex}
+                currentFacet={currentFacet}
+                requestId={requestId}
+                handleRefine={handleRefine}
+                handleAnswer={handleAnswer}
+                loading={loading}
+                error={error}
+                facetSelections={facetSelections}
+                updateFacetSelection={updateFacetSelection}
+                updateFacetCustom={updateFacetCustom}
+                selectionsForApi={selectionsForApi}
+              />
+            )}
+            {screen === 3 && (
+              <Screen3
+                answer={answer}
+                trace={trace}
+                setScreen={setScreen}
+              />
+            )}
           </div>
         );
       }
