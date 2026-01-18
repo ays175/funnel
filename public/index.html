@@ -804,6 +804,34 @@
               <div className="muted">Request: {requestId}</div>
             </div>
 
+            <div className="button-row">
+              <button className="orange" onClick={handleRefine} disabled={loading}>
+                Set More Targets
+              </button>
+              <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
+            </div>
+
+            {currentFacet ? (
+              <div className="card facet-card">
+                <h2>
+                  {currentFacet.title}{" "}
+                  <span className="muted">
+                    ({currentIndex + 1}/{totalFacets})
+                  </span>
+                </h2>
+                <div className="muted">{currentFacet.question}</div>
+                <div className="muted">{currentFacet.reason}</div>
+                <FacetChoices
+                  facet={currentFacet}
+                  facetSelections={facetSelections}
+                  updateFacetSelection={updateFacetSelection}
+                  updateFacetCustom={updateFacetCustom}
+                />
+              </div>
+            ) : (
+              <div className="muted">No facets yet.</div>
+            )}
+
             <div className="card" style={{marginTop: 'var(--space-4)', marginBottom: 'var(--space-4)'}}>
               <div className="row">
                 <strong>Audience</strong>
@@ -851,34 +879,6 @@
                 ))}
               </div>
             </div>
-
-            <div className="button-row">
-              <button className="orange" onClick={handleRefine} disabled={loading}>
-                Set More Targets
-              </button>
-              <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
-            </div>
-
-            {currentFacet ? (
-              <div className="card facet-card">
-                <h2>
-                  {currentFacet.title}{" "}
-                  <span className="muted">
-                    ({currentIndex + 1}/{totalFacets})
-                  </span>
-                </h2>
-                <div className="muted">{currentFacet.question}</div>
-                <div className="muted">{currentFacet.reason}</div>
-                <FacetChoices
-                  facet={currentFacet}
-                  facetSelections={facetSelections}
-                  updateFacetSelection={updateFacetSelection}
-                  updateFacetCustom={updateFacetCustom}
-                />
-              </div>
-            ) : (
-              <div className="muted">No facets yet.</div>
-            )}
 
             <div className="sticky-actions">
               <div className="button-row nav-row">
