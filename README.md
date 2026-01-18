@@ -1,17 +1,17 @@
-# Funnel 🎯
+# ShmilBlick 🎯
 
 **Ask once, get exactly what you need—like AI with a laser focus.**
 
-Funnel is a precision-targeting system for AI queries. Instead of casting one wide net and getting generic answers, Funnel decomposes your question into specific angles, lets you pick what matters, and delivers focused, traceable answers.
+ShmilBlick is a precision-targeting system for AI queries. Instead of casting one wide net and getting generic answers, ShmilBlick decomposes your question into specific angles, lets you pick what matters, and delivers focused, traceable answers.
 
 ---
 
-## 🌟 Why Funnel?
+## 🌟 Why ShmilBlick?
 
 ### The Problem
 You ask your AI a question and get a wall of text that somehow misses *exactly* what you needed. You try again, refine it, ask it differently... but you're still playing guessing games.
 
-### The Funnel Approach
+### The ShmilBlick Approach
 1. **We Show All the Angles**: Ask anything. We'll show you all the ways it can be answered—beginner or expert, modern or historical, theory or examples.
 2. **You Pick What You Need**: Check the boxes for what matters. Ignore the rest. Small targeted nets, not one giant one.
 3. **Answer + Full Trace**: Get exactly what you wanted, plus see the reasoning behind it. No black box—everything's transparent.
