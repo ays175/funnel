@@ -212,9 +212,6 @@
         border-radius: var(--radius-md);
         font-size: 15px;
         font-family: inherit;
-        color: var(--text);
-        background: var(--surface-glass);
-        backdrop-filter: blur(8px);
         transition: border-color var(--transition-fast), background var(--transition-fast);
         resize: vertical;
       }
@@ -222,16 +219,35 @@
       textarea {
         min-height: 120px;
         line-height: 1.6;
+        background: white;
+        color: hsl(260, 45%, 10%);
+        border: 2px solid var(--border);
       }
 
-      textarea:focus, input[type="text"]:focus {
+      textarea::placeholder {
+        color: hsl(260, 10%, 50%);
+      }
+
+      textarea:focus {
+        outline: none;
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 3px hsla(270, 91%, 65%, 0.15);
+      }
+
+      input[type="text"] {
+        color: var(--text);
+        background: var(--surface-glass);
+        backdrop-filter: blur(8px);
+      }
+
+      input[type="text"]:focus {
         outline: none;
         border-color: var(--primary-500);
         background: var(--surface-glass-hover);
         box-shadow: 0 0 0 3px hsla(270, 91%, 65%, 0.12);
       }
 
-      textarea::placeholder, input::placeholder { 
+      input::placeholder { 
         color: var(--text-subtle);
       }
 
@@ -557,6 +573,24 @@
         overflow-x: auto;
       }
 
+      .query-layout {
+        display: flex;
+        gap: var(--space-4);
+        align-items: stretch;
+        margin-bottom: var(--space-4);
+      }
+
+      .query-layout-left {
+        flex: 2;
+      }
+
+      .query-layout-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
       /* Responsive */
       @media (max-width: 768px) {
         .container { 
@@ -574,13 +608,12 @@
           width: 100%;
         }
 
-        .input-button-row {
+        .query-layout {
           flex-direction: column;
-          align-items: stretch;
         }
 
-        .input-button-row button {
-          width: 100%;
+        .query-layout-left textarea {
+          min-height: 120px !important;
         }
         
         .selection-grid {
@@ -675,28 +708,30 @@
               Ask once, get exactly what you need—like AI with a laser focus.
             </p>
 
-            <div className="row">
-              <label>Your Question</label>
-              <textarea
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask anything..."
-              />
-            </div>
-
-            <div className="input-button-row">
-              <div style={{flex: 1}}>
-                <label>Domain (optional)</label>
-                <input
-                  type="text"
-                  value={domainHint}
-                  onChange={(e) => setDomainHint(e.target.value)}
-                  placeholder="e.g., finance, legal, medical..."
+            <div className="query-layout">
+              <div className="query-layout-left">
+                <label>Your Question</label>
+                <textarea
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Ask anything..."
+                  style={{height: '100%', minHeight: '140px'}}
                 />
               </div>
-              <button className="primary" onClick={handleDiscover} disabled={loading} style={{alignSelf: 'flex-end'}}>
-                {loading ? "Loading..." : "Show All Angles"}
-              </button>
+              <div className="query-layout-right">
+                <div style={{flex: '1'}}>
+                  <label>Domain (optional)</label>
+                  <input
+                    type="text"
+                    value={domainHint}
+                    onChange={(e) => setDomainHint(e.target.value)}
+                    placeholder="e.g., finance, legal..."
+                  />
+                </div>
+                <button className="primary" onClick={handleDiscover} disabled={loading} style={{width: '100%', padding: 'var(--space-4)'}}>
+                  {loading ? "Loading..." : "Show All Angles"}
+                </button>
+              </div>
             </div>
 
             {error && <div className="error">{error}</div>}
