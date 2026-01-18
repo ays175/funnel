@@ -2,336 +2,500 @@
 <html>
   <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Funnel</title>
     <style>
-      body { font-family: Arial, sans-serif; margin: 24px; }
-      textarea { width: 100%; height: 90px; }
+      :root {
+        --bg: #ffffff;
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #e5e7eb;
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --surface: #f9fafb;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+      .container {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 { font-size: 22px; margin: 0 0 8px; }
+      h2 { font-size: 18px; margin: 16px 0 8px; }
+      .muted { color: var(--muted); font-size: 13px; }
+      .card {
+        border: 1px solid var(--border);
+        padding: 12px;
+        border-radius: 10px;
+        background: #fff;
+      }
       .row { margin: 12px 0; }
-      .facet { border: 1px solid #ddd; padding: 8px; margin: 8px 0; }
-      .muted { color: #666; font-size: 12px; }
-      button { margin-right: 8px; }
-      pre { white-space: pre-wrap; background: #f7f7f7; padding: 12px; }
-      .pill { display: inline-block; margin-right: 6px; }
+      textarea, input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 15px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        margin: 6px 8px 6px 0;
+        padding: 6px 10px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--surface);
+        font-size: 14px;
+      }
+      .pill input { margin-right: 6px; }
+      .choices { margin-top: 8px; }
       .subchoices { margin-left: 18px; margin-top: 6px; }
-      .header { display: flex; justify-content: space-between; align-items: baseline; }
-      .small { font-size: 12px; color: #444; }
-      .alert { background: #fffbe6; border: 1px solid #ffe58f; padding: 8px; }
-      input[type="text"] { width: 100%; }
+      .button-row { display: flex; gap: 8px; flex-wrap: wrap; }
+      button {
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: #fff;
+        cursor: pointer;
+        font-size: 15px;
+      }
+      button.primary {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+      button.primary:hover { background: var(--primary-dark); }
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .stepper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .facet-card { margin-top: 8px; }
+      .summary {
+        border-top: 1px solid var(--border);
+        margin-top: 16px;
+        padding-top: 12px;
+      }
+      .sticky-actions {
+        position: sticky;
+        bottom: 0;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        padding: 12px 0;
+        margin-top: 12px;
+      }
+      .error { color: #b91c1c; font-size: 13px; margin-top: 6px; }
+      pre { white-space: pre-wrap; background: var(--surface); padding: 12px; border-radius: 8px; }
+
+      @media (max-width: 640px) {
+        .container { padding: 14px; }
+        .button-row { flex-direction: column; }
+        button { width: 100%; }
+        .pill { display: block; width: 100%; }
+      }
     </style>
   </head>
   <body>
-    <div class="header">
-      <h2>Funnel</h2>
-      <div class="small">API: <span id="apiBaseLabel"></span></div>
-    </div>
-    <div class="row muted">API is configured for this deployment.</div>
-    <div class="row">
-      <label>Query</label>
-      <textarea id="query" placeholder="Ask a question..."></textarea>
-    </div>
-    <div class="row" id="baseFacets">
-      <div class="row">
-        <strong>Audience</strong>
-        <label class="pill"><input type="radio" name="audience" value="beginner" /> Beginner</label>
-        <label class="pill"><input type="radio" name="audience" value="intermediate" /> Intermediate</label>
-        <label class="pill"><input type="radio" name="audience" value="expert" /> Expert</label>
-        <label class="pill"><input type="radio" name="audience" value="executive" /> Executive</label>
-      </div>
-      <div class="row">
-        <strong>Format</strong>
-        <label class="pill"><input type="radio" name="format" value="bullets" /> Bullets</label>
-        <label class="pill"><input type="radio" name="format" value="steps" /> Steps</label>
-        <label class="pill"><input type="radio" name="format" value="table" /> Table</label>
-        <label class="pill"><input type="radio" name="format" value="paragraphs" /> Paragraphs</label>
-      </div>
-      <div class="row">
-        <strong>Length</strong>
-        <label class="pill"><input type="radio" name="length" value="300 words" /> 300 words</label>
-        <label class="pill"><input type="radio" name="length" value="600 words" /> 600 words</label>
-        <label class="pill"><input type="radio" name="length" value="900 words" /> 900 words</label>
-        <label class="pill"><input type="radio" name="length" value="1200 words" /> 1200 words</label>
-      </div>
-    </div>
-    <div class="row">
-      <label>Domain hint (optional)</label>
-      <input id="domainHint" placeholder="finance, legal, universal" />
-    </div>
-    <div class="row">
-      <button id="discoverBtn">Discover facets</button>
-      <button id="refineBtn" disabled>Narrow further</button>
-      <button id="answerBtn" disabled>Proceed</button>
-    </div>
-    <div id="facets"></div>
-    <div class="row">
-      <h3>Answer</h3>
-      <pre id="answer"></pre>
-    </div>
-    <div class="row">
-      <h3>Trace</h3>
-      <pre id="trace"></pre>
-    </div>
-    <script>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
       const API_BASE = "https://funnel-production-859a.up.railway.app";
-      const apiLabel = document.getElementById("apiBaseLabel");
-      apiLabel.textContent = API_BASE;
 
-      const state = { requestId: null, facets: [] };
+      function App() {
+        const [screen, setScreen] = React.useState(1);
+        const [loading, setLoading] = React.useState(false);
+        const [error, setError] = React.useState("");
+        const [requestId, setRequestId] = React.useState(null);
+        const [facets, setFacets] = React.useState([]);
+        const [currentIndex, setCurrentIndex] = React.useState(0);
+        const [answer, setAnswer] = React.useState("");
+        const [trace, setTrace] = React.useState([]);
 
-      const facetsEl = document.getElementById("facets");
-      const answerEl = document.getElementById("answer");
-      const traceEl = document.getElementById("trace");
-      const refineBtn = document.getElementById("refineBtn");
-      const answerBtn = document.getElementById("answerBtn");
+        const [query, setQuery] = React.useState("");
+        const [domainHint, setDomainHint] = React.useState("");
+        const [baseSelections, setBaseSelections] = React.useState({
+          audience: "",
+          format: "",
+          length: "",
+        });
 
-      function renderFacets(facets, mode = "replace") {
-        if (mode === "replace") {
-          facetsEl.innerHTML = "";
+        const [facetSelections, setFacetSelections] = React.useState({});
+
+        const totalFacets = facets.length;
+        const currentFacet = facets[currentIndex];
+
+        function updateBaseSelection(key, value) {
+          setBaseSelections((prev) => ({ ...prev, [key]: value }));
         }
-        facets.forEach((facet, idx) => {
-          const div = document.createElement("div");
-          div.className = "facet";
-          let options = "";
-          const choices = Array.isArray(facet.choices) ? facet.choices : [];
-          if (choices.length) {
-            options = choices
-              .map((choice) => {
-                const value = choice.value;
-                const subs = Array.isArray(choice.subchoices) ? choice.subchoices : [];
-                const subHtml = subs.length
-                  ? `
-                    <div class="subchoices">
-                      ${subs
-                        .map(
-                          (sub) => `
-                          <label class="pill">
-                            <input type="checkbox" data-subchoice="${facet.id}" data-parent="${value}" data-value="${sub}" />
-                            ${sub}
-                          </label>
-                        `
-                        )
-                        .join(" ")}
-                    </div>
-                  `
-                  : "";
-                return `
-                  <div class="row">
-                    <label class="pill">
-                      <input type="checkbox" data-suggest="${facet.id}" data-value="${value}" />
-                      ${value}
+
+        function updateFacetSelection(facetId, value, checked) {
+          setFacetSelections((prev) => {
+            const current = prev[facetId] || { values: new Set(), custom: "" };
+            const nextValues = new Set(current.values);
+            if (checked) {
+              nextValues.add(value);
+            } else {
+              nextValues.delete(value);
+            }
+            return { ...prev, [facetId]: { ...current, values: nextValues } };
+          });
+        }
+
+        function updateFacetCustom(facetId, customValue) {
+          setFacetSelections((prev) => {
+            const current = prev[facetId] || { values: new Set(), custom: "" };
+            return { ...prev, [facetId]: { ...current, custom: customValue } };
+          });
+        }
+
+        function selectionsForApi() {
+          const selections = [];
+          Object.entries(baseSelections).forEach(([id, value]) => {
+            if (value) selections.push({ id, value });
+          });
+
+          Object.entries(facetSelections).forEach(([id, data]) => {
+            const values = Array.from(data.values || []);
+            if (data.custom) values.push(data.custom);
+            const value = values.length ? values.join(", ") : null;
+            if (value) selections.push({ id, value });
+          });
+
+          return selections;
+        }
+
+        async function handleDiscover() {
+          setError("");
+          setAnswer("");
+          setTrace([]);
+          if (!query.trim()) {
+            setError("Please enter a query.");
+            return;
+          }
+          setLoading(true);
+          try {
+            const res = await fetch(`${API_BASE}/api/discover`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                raw_query: query.trim(),
+                domain_hint: domainHint.trim() || null,
+              }),
+            });
+            const text = await res.text();
+            if (!res.ok) {
+              setError(text || "Discover failed.");
+              return;
+            }
+            const data = JSON.parse(text);
+            setRequestId(data.request_id);
+            setFacets(data.facet_candidates || []);
+            setCurrentIndex(0);
+            setScreen(2);
+          } catch (err) {
+            setError("Discover failed.");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        async function handleRefine() {
+          if (!requestId) {
+            setError("Please discover facets first.");
+            return;
+          }
+          setLoading(true);
+          setError("");
+          try {
+            const res = await fetch(`${API_BASE}/api/refine`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                request_id: requestId,
+                facet_selections: selectionsForApi(),
+                refine_round: 2,
+              }),
+            });
+            const text = await res.text();
+            if (!res.ok) {
+              setError(text || "Refine failed.");
+              return;
+            }
+            const data = JSON.parse(text);
+            const nextFacets = data.facet_candidates || [];
+            if (nextFacets.length) {
+              setFacets((prev) => prev.concat(nextFacets));
+            }
+          } catch (err) {
+            setError("Refine failed.");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        async function handleAnswer() {
+          if (!requestId) {
+            setError("Please discover facets first.");
+            return;
+          }
+          setLoading(true);
+          setError("");
+          try {
+            const res = await fetch(`${API_BASE}/api/answer`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                request_id: requestId,
+                facet_selections: selectionsForApi(),
+              }),
+            });
+            const text = await res.text();
+            if (!res.ok) {
+              setError(text || "Answer failed.");
+              return;
+            }
+            const data = JSON.parse(text);
+            setAnswer(data.answer || "");
+            setTrace(data.trace || []);
+            setScreen(3);
+          } catch (err) {
+            setError("Answer failed.");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        function Screen1() {
+          return (
+            <div>
+              <h1>Funnel</h1>
+              <div className="muted">API: {API_BASE}</div>
+              <div className="row">
+                <label>Query</label>
+                <textarea
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Ask a question..."
+                />
+              </div>
+              <div className="row card">
+                <div className="row">
+                  <strong>Audience</strong>
+                  {["beginner", "intermediate", "expert", "executive"].map((v) => (
+                    <label className="pill" key={v}>
+                      <input
+                        type="radio"
+                        name="audience"
+                        checked={baseSelections.audience === v}
+                        onChange={() => updateBaseSelection("audience", v)}
+                      />
+                      {v.charAt(0).toUpperCase() + v.slice(1)}
                     </label>
-                    ${subHtml}
-                  </div>
-                `;
-              })
-              .join("");
-          } else {
-            options = (facet.suggested_values || [])
-              .map((val) => {
-                return `
-                  <label class="pill">
-                    <input type="checkbox" data-suggest="${facet.id}" data-value="${val}" />
-                    ${val}
-                  </label>
-                `;
-              })
-              .join(" ");
-          }
-          div.innerHTML = `
-            <label>
-              <input type="checkbox" data-id="${facet.id}" />
-              <strong>${facet.title}</strong>
-            </label>
-            <div>${facet.question}</div>
-            <div class="muted">${facet.reason}</div>
-            <div class="row">
-              <input data-value-for="${facet.id}" placeholder="custom value (optional)" />
+                  ))}
+                </div>
+                <div className="row">
+                  <strong>Format</strong>
+                  {["bullets", "steps", "table", "paragraphs"].map((v) => (
+                    <label className="pill" key={v}>
+                      <input
+                        type="radio"
+                        name="format"
+                        checked={baseSelections.format === v}
+                        onChange={() => updateBaseSelection("format", v)}
+                      />
+                      {v.charAt(0).toUpperCase() + v.slice(1)}
+                    </label>
+                  ))}
+                </div>
+                <div className="row">
+                  <strong>Length</strong>
+                  {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
+                    <label className="pill" key={v}>
+                      <input
+                        type="radio"
+                        name="length"
+                        checked={baseSelections.length === v}
+                        onChange={() => updateBaseSelection("length", v)}
+                      />
+                      {v}
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="row">
+                <label>Domain hint (optional)</label>
+                <input
+                  type="text"
+                  value={domainHint}
+                  onChange={(e) => setDomainHint(e.target.value)}
+                  placeholder="finance, legal, universal"
+                />
+              </div>
+              <div className="button-row">
+                <button className="primary" onClick={handleDiscover} disabled={loading}>
+                  {loading ? "Discovering..." : "Discover facets"}
+                </button>
+              </div>
+              {error && <div className="error">{error}</div>}
             </div>
-            <div class="row">${options || ""}</div>
-          `;
-          facetsEl.appendChild(div);
-        });
-
-        document.querySelectorAll('input[type="checkbox"][data-suggest]').forEach((box) => {
-          box.onchange = () => {
-            const id = box.getAttribute("data-suggest");
-            const value = box.getAttribute("data-value");
-            const facetBox = document.querySelector(`input[type="checkbox"][data-id="${id}"]`);
-            if (facetBox && box.checked) facetBox.checked = true;
-
-            if (value === "all options" && box.checked) {
-              document
-                .querySelectorAll(`input[type="checkbox"][data-suggest="${id}"]`)
-                .forEach((other) => {
-                  if (other !== box) other.checked = false;
-                });
-              document
-                .querySelectorAll(`input[type="checkbox"][data-subchoice="${id}"]`)
-                .forEach((other) => {
-                  other.checked = false;
-                });
-            }
-
-            if (value !== "all options" && box.checked) {
-              const allBox = document.querySelector(
-                `input[type="checkbox"][data-suggest="${id}"][data-value="all options"]`
-              );
-              if (allBox) allBox.checked = false;
-            }
-          };
-        });
-
-        document.querySelectorAll('input[type="checkbox"][data-subchoice]').forEach((box) => {
-          box.onchange = () => {
-            const id = box.getAttribute("data-subchoice");
-            const parent = box.getAttribute("data-parent");
-            const facetBox = document.querySelector(`input[type="checkbox"][data-id="${id}"]`);
-            const parentBox = document.querySelector(
-              `input[type="checkbox"][data-suggest="${id}"][data-value="${parent}"]`
-            );
-            if (facetBox && box.checked) facetBox.checked = true;
-            if (parentBox && box.checked) parentBox.checked = true;
-
-            if (box.checked) {
-              const allBox = document.querySelector(
-                `input[type="checkbox"][data-suggest="${id}"][data-value="all options"]`
-              );
-              if (allBox) allBox.checked = false;
-            }
-          };
-        });
-      }
-
-      function gatherSelections() {
-        const selections = [];
-        const baseIds = ["audience", "format", "length"];
-        baseIds.forEach((id) => {
-          const selected = document.querySelector(`input[name="${id}"]:checked`);
-          if (selected) {
-            selections.push({ id, value: selected.value });
-          }
-        });
-
-        document.querySelectorAll('input[type="checkbox"][data-id]').forEach((checkbox) => {
-          const id = checkbox.getAttribute("data-id");
-          const valueInput = document.querySelector(`input[data-value-for="${id}"]`);
-          const customValue = valueInput && valueInput.value ? valueInput.value.trim() : "";
-          const selectedValues = [];
-
-          document
-            .querySelectorAll(`input[type="checkbox"][data-suggest="${id}"]`)
-            .forEach((optionBox) => {
-              if (optionBox.checked) {
-                selectedValues.push(optionBox.getAttribute("data-value"));
-              }
-            });
-
-          document
-            .querySelectorAll(`input[type="checkbox"][data-subchoice="${id}"]`)
-            .forEach((subBox) => {
-              if (subBox.checked) {
-                const parent = subBox.getAttribute("data-parent");
-                const value = subBox.getAttribute("data-value");
-                selectedValues.push(`${parent} > ${value}`);
-              }
-            });
-
-          if (customValue) {
-            selectedValues.push(customValue);
-          }
-
-          const value = selectedValues.length ? selectedValues.join(", ") : null;
-          if (checkbox.checked || value) {
-            selections.push({ id, value });
-          }
-        });
-        return selections;
-      }
-
-      function setError(message) {
-        traceEl.textContent = message ? String(message) : "";
-      }
-
-      document.getElementById("discoverBtn").onclick = async () => {
-        answerEl.textContent = "";
-        setError("");
-        const raw_query = document.getElementById("query").value.trim();
-        const domain_hint = document.getElementById("domainHint").value.trim();
-        if (!raw_query) {
-          setError("Please enter a query before discovering facets.");
-          return;
-        }
-        const res = await fetch(`${API_BASE}/api/discover`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ raw_query, domain_hint: domain_hint || null })
-        });
-        if (!res.ok) {
-          const text = await res.text();
-          setError(text || "Discover failed.");
-          return;
-        }
-        const data = await res.json();
-        state.requestId = data.request_id;
-        state.facets = data.facet_candidates || [];
-        renderFacets(state.facets);
-        refineBtn.disabled = false;
-        answerBtn.disabled = false;
-      };
-
-      refineBtn.onclick = async () => {
-        if (!state.requestId) {
-          setError("Please run Discover facets first.");
-          return;
-        }
-        const res = await fetch(`${API_BASE}/api/refine`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            request_id: state.requestId,
-            facet_selections: gatherSelections(),
-            refine_round: 2
-          })
-        });
-        if (!res.ok) {
-          const text = await res.text();
-          setError(text || "Refine failed.");
-          return;
-        }
-        const data = await res.json();
-        const nextFacets = data.facet_candidates || [];
-        if (!nextFacets.length) {
-          facetsEl.insertAdjacentHTML(
-            "beforeend",
-            `<div class="muted">No additional facets found.</div>`
           );
-          return;
         }
-        state.facets = state.facets.concat(nextFacets);
-        renderFacets(nextFacets, "append");
-      };
 
-      answerBtn.onclick = async () => {
-        if (!state.requestId) {
-          setError("Please run Discover facets first.");
-          return;
+        function FacetChoices({ facet }) {
+          const data = facetSelections[facet.id] || { values: new Set(), custom: "" };
+          const choices = Array.isArray(facet.choices) ? facet.choices : [];
+          const suggested = choices.length ? choices : (facet.suggested_values || []).map((v) => ({ value: v, subchoices: [] }));
+
+          return (
+            <div className="choices">
+              {suggested.map((choice) => (
+                <div key={choice.value} className="row">
+                  <label className="pill">
+                    <input
+                      type="checkbox"
+                      checked={data.values.has(choice.value)}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        if (choice.value === "all options" && checked) {
+                          data.values.forEach((v) => updateFacetSelection(facet.id, v, false));
+                        }
+                        updateFacetSelection(facet.id, choice.value, checked);
+                      }}
+                    />
+                    {choice.value}
+                  </label>
+                  {choice.subchoices && choice.subchoices.length > 0 && (
+                    <div className="subchoices">
+                      {choice.subchoices.map((sub) => (
+                        <label className="pill" key={sub}>
+                          <input
+                            type="checkbox"
+                            checked={data.values.has(`${choice.value} > ${sub}`)}
+                            onChange={(e) => {
+                              const checked = e.target.checked;
+                              if (checked) {
+                                updateFacetSelection(facet.id, choice.value, true);
+                              }
+                              updateFacetSelection(facet.id, `${choice.value} > ${sub}`, checked);
+                            }}
+                          />
+                          {sub}
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <div className="row">
+                <input
+                  type="text"
+                  placeholder="custom value (optional)"
+                  value={data.custom}
+                  onChange={(e) => updateFacetCustom(facet.id, e.target.value)}
+                />
+              </div>
+            </div>
+          );
         }
-        const res = await fetch(`${API_BASE}/api/answer`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            request_id: state.requestId,
-            facet_selections: gatherSelections()
-          })
-        });
-        if (!res.ok) {
-          const text = await res.text();
-          setError(text || "Answer failed.");
-          return;
+
+        function Screen2() {
+          return (
+            <div>
+              <div className="stepper">
+                <div>Facet {totalFacets ? currentIndex + 1 : 0} of {totalFacets}</div>
+                <div className="muted">Request: {requestId}</div>
+              </div>
+
+              <div className="button-row">
+                <button onClick={handleRefine} disabled={loading}>Narrow further</button>
+                <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
+              </div>
+
+              {currentFacet ? (
+                <div className="card facet-card">
+                  <h2>{currentFacet.title}</h2>
+                  <div className="muted">{currentFacet.question}</div>
+                  <div className="muted">{currentFacet.reason}</div>
+                  <FacetChoices facet={currentFacet} />
+                </div>
+              ) : (
+                <div className="muted">No facets yet.</div>
+              )}
+
+              <div className="button-row row">
+                <button
+                  onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
+                  disabled={currentIndex === 0}
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
+                  disabled={currentIndex >= totalFacets - 1}
+                >
+                  Next
+                </button>
+              </div>
+
+              <div className="sticky-actions">
+                <div className="button-row">
+                  <button onClick={handleRefine} disabled={loading}>Narrow further</button>
+                  <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
+                </div>
+              </div>
+
+              <div className="summary">
+                <h2>Selections</h2>
+                <pre>{JSON.stringify(selectionsForApi(), null, 2)}</pre>
+              </div>
+
+              {error && <div className="error">{error}</div>}
+            </div>
+          );
         }
-        const data = await res.json();
-        answerEl.textContent = data.answer || "";
-        traceEl.textContent = JSON.stringify(data.trace || [], null, 2);
-      };
+
+        function Screen3() {
+          return (
+            <div>
+              <h1>Answer</h1>
+              <div className="row">
+                <pre>{answer}</pre>
+              </div>
+              <h2>Trace</h2>
+              <pre>{JSON.stringify(trace, null, 2)}</pre>
+              <div className="button-row row">
+                <button onClick={() => setScreen(2)}>Back to facets</button>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div className="container">
+            {screen === 1 && <Screen1 />}
+            {screen === 2 && <Screen2 />}
+            {screen === 3 && <Screen3 />}
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
     </script>
   </body>
 </html>
