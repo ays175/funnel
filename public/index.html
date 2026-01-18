@@ -126,6 +126,54 @@
         letter-spacing: 0.01em;
       }
 
+      .how-it-works {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+
+      .step-item {
+        display: flex;
+        gap: var(--space-4);
+        align-items: flex-start;
+      }
+
+      .step-number {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: var(--radius-full);
+        background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 16px;
+        box-shadow: var(--shadow-purple);
+      }
+
+      .step-content {
+        flex: 1;
+      }
+
+      .step-content strong {
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .step-content p {
+        margin: 0;
+        font-size: 13px;
+      }
+
+      .input-button-row {
+        display: flex;
+        gap: var(--space-3);
+        align-items: flex-end;
+        margin: var(--space-4) 0;
+      }
+
       /* Cards & Surfaces */
       .card {
         border: 1px solid var(--border-strong);
@@ -511,6 +559,15 @@
         button { 
           width: 100%;
         }
+
+        .input-button-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .input-button-row button {
+          width: 100%;
+        }
         
         .selection-grid {
           grid-template-columns: 1fr;
@@ -582,8 +639,6 @@
       function Screen1({
         query,
         setQuery,
-        baseSelections,
-        updateBaseSelection,
         domainHint,
         setDomainHint,
         handleDiscover,
@@ -593,76 +648,61 @@
         return (
           <div>
             <h1>Funnel</h1>
-            <div className="muted">API: {API_BASE}</div>
+            <div className="muted" style={{marginBottom: 'var(--space-5)'}}>
+              Precision targeting for your AI queries
+            </div>
+
+            <div className="card" style={{marginBottom: 'var(--space-6)'}}>
+              <h2 style={{marginTop: 0, fontSize: '18px'}}>How it works</h2>
+              <div className="how-it-works">
+                <div className="step-item">
+                  <div className="step-number">1</div>
+                  <div className="step-content">
+                    <strong>Ask your question</strong>
+                    <p className="muted">Start with any topic or query</p>
+                  </div>
+                </div>
+                <div className="step-item">
+                  <div className="step-number">2</div>
+                  <div className="step-content">
+                    <strong>Set your targets</strong>
+                    <p className="muted">Choose specific aspects to narrow your focus</p>
+                  </div>
+                </div>
+                <div className="step-item">
+                  <div className="step-number">3</div>
+                  <div className="step-content">
+                    <strong>Get precise answers</strong>
+                    <p className="muted">Instead of one wide net, use several smaller targeted nets</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="row">
-              <label>Query</label>
+              <label>Your Question</label>
               <textarea
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ask a question..."
+                placeholder="Ask anything..."
               />
             </div>
-            <div className="row card">
-              <div className="row">
-                <strong>Audience</strong>
-                {["beginner", "intermediate", "expert", "executive"].map((v) => (
-                  <span
-                    className={`chip ${baseSelections.audience === v ? "active" : ""}`}
-                    key={v}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => updateBaseSelection("audience", v)}
-                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("audience", v)}
-                  >
-                    {titleCase(v)}
-                  </span>
-                ))}
+
+            <div className="input-button-row">
+              <div style={{flex: 1}}>
+                <label>Domain (optional)</label>
+                <input
+                  type="text"
+                  value={domainHint}
+                  onChange={(e) => setDomainHint(e.target.value)}
+                  placeholder="e.g., finance, legal, medical..."
+                />
               </div>
-              <div className="row">
-                <strong>Format</strong>
-                {["bullets", "steps", "table", "paragraphs"].map((v) => (
-                  <span
-                    className={`chip ${baseSelections.format === v ? "active" : ""}`}
-                    key={v}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => updateBaseSelection("format", v)}
-                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("format", v)}
-                  >
-                    {titleCase(v)}
-                  </span>
-                ))}
-              </div>
-              <div className="row">
-                <strong>Length</strong>
-                {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
-                  <span
-                    className={`chip ${baseSelections.length === v ? "active" : ""}`}
-                    key={v}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => updateBaseSelection("length", v)}
-                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("length", v)}
-                  >
-                    {titleCase(v)}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="row">
-              <label>Domain hint (optional)</label>
-              <input
-                type="text"
-                value={domainHint}
-                onChange={(e) => setDomainHint(e.target.value)}
-                placeholder="finance, legal, universal"
-              />
-            </div>
-            <div className="button-row">
-              <button className="primary" onClick={handleDiscover} disabled={loading}>
+              <button className="primary" onClick={handleDiscover} disabled={loading} style={{alignSelf: 'flex-end'}}>
                 {loading ? "Mapping..." : "Map the Field"}
               </button>
             </div>
+
             {error && <div className="error">{error}</div>}
           </div>
         );
@@ -755,11 +795,61 @@
         updateFacetSelection,
         updateFacetCustom,
         selectionsForApi,
+        baseSelections,
+        updateBaseSelection,
       }) {
         return (
           <div>
             <div className="stepper">
               <div className="muted">Request: {requestId}</div>
+            </div>
+
+            <div className="card" style={{marginTop: 'var(--space-4)', marginBottom: 'var(--space-4)'}}>
+              <div className="row">
+                <strong>Audience</strong>
+                {["beginner", "intermediate", "expert", "executive"].map((v) => (
+                  <span
+                    className={`chip ${baseSelections.audience === v ? "active" : ""}`}
+                    key={v}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => updateBaseSelection("audience", v)}
+                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("audience", v)}
+                  >
+                    {titleCase(v)}
+                  </span>
+                ))}
+              </div>
+              <div className="row">
+                <strong>Format</strong>
+                {["bullets", "steps", "table", "paragraphs"].map((v) => (
+                  <span
+                    className={`chip ${baseSelections.format === v ? "active" : ""}`}
+                    key={v}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => updateBaseSelection("format", v)}
+                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("format", v)}
+                  >
+                    {titleCase(v)}
+                  </span>
+                ))}
+              </div>
+              <div className="row">
+                <strong>Length</strong>
+                {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
+                  <span
+                    className={`chip ${baseSelections.length === v ? "active" : ""}`}
+                    key={v}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => updateBaseSelection("length", v)}
+                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("length", v)}
+                  >
+                    {titleCase(v)}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="button-row">
@@ -1142,8 +1232,6 @@
               <Screen1
                 query={query}
                 setQuery={setQuery}
-                baseSelections={baseSelections}
-                updateBaseSelection={updateBaseSelection}
                 domainHint={domainHint}
                 setDomainHint={setDomainHint}
                 handleDiscover={handleDiscover}
@@ -1166,6 +1254,8 @@
                 updateFacetSelection={updateFacetSelection}
                 updateFacetCustom={updateFacetCustom}
                 selectionsForApi={selectionsForApi}
+                baseSelections={baseSelections}
+                updateBaseSelection={updateBaseSelection}
               />
             )}
             {screen === 3 && (
