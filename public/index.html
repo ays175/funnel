@@ -646,7 +646,7 @@
             </div>
             <div className="button-row">
               <button className="primary" onClick={handleDiscover} disabled={loading}>
-                {loading ? "Discovering..." : "Discover facets"}
+                {loading ? "Mapping..." : "Map the Field"}
               </button>
             </div>
             {error && <div className="error">{error}</div>}
@@ -741,6 +741,7 @@
         updateFacetSelection,
         updateFacetCustom,
         selectionsForApi,
+        hasRefined,
       }) {
         return (
           <div>
@@ -749,7 +750,9 @@
             </div>
 
             <div className="button-row">
-              <button onClick={handleRefine} disabled={loading}>Narrow further</button>
+              <button onClick={handleRefine} disabled={loading}>
+                {hasRefined ? "Set More Targets" : "Set your Targets"}
+              </button>
               <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
             </div>
 
@@ -782,7 +785,9 @@
                 >
                   Previous
                 </button>
-                <button onClick={handleRefine} disabled={loading}>Narrow further</button>
+                <button onClick={handleRefine} disabled={loading}>
+                  {hasRefined ? "Set More Targets" : "Set your Targets"}
+                </button>
                 <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
                 <button
                   onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
@@ -1068,6 +1073,7 @@
         const [answer, setAnswer] = React.useState("");
         const [answerMode, setAnswerMode] = React.useState("structured");
         const [trace, setTrace] = React.useState([]);
+        const [hasRefined, setHasRefined] = React.useState(false);
 
         const [query, setQuery] = React.useState("");
         const [domainHint, setDomainHint] = React.useState("");
@@ -1187,6 +1193,7 @@
                 const firstNewIndex = facets.length;
                 return Math.max(firstNewIndex, prevIndex);
               });
+              setHasRefined(true);
             }
           } catch (err) {
             setError("Refine failed.");
@@ -1257,6 +1264,7 @@
                 updateFacetSelection={updateFacetSelection}
                 updateFacetCustom={updateFacetCustom}
                 selectionsForApi={selectionsForApi}
+                hasRefined={hasRefined}
               />
             )}
             {screen === 3 && (
