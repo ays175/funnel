@@ -285,6 +285,20 @@
         box-shadow: 0 12px 32px hsla(270, 91%, 50%, 0.45);
       }
 
+      button.orange {
+        background: linear-gradient(135deg, hsl(25, 95%, 53%) 0%, hsl(15, 100%, 55%) 100%);
+        color: white;
+        border: none;
+        box-shadow: 0 8px 24px hsla(25, 95%, 50%, 0.5);
+        font-weight: 700;
+      }
+
+      button.orange:hover:not(:disabled) {
+        transform: translateY(-2px) scale(1.02);
+        filter: brightness(1.15);
+        box-shadow: 0 12px 32px hsla(25, 95%, 50%, 0.6);
+      }
+
       button:disabled {
         opacity: 0.4;
         cursor: not-allowed;
@@ -741,7 +755,6 @@
         updateFacetSelection,
         updateFacetCustom,
         selectionsForApi,
-        hasRefined,
       }) {
         return (
           <div>
@@ -750,8 +763,8 @@
             </div>
 
             <div className="button-row">
-              <button onClick={handleRefine} disabled={loading}>
-                {hasRefined ? "Set More Targets" : "Set your Targets"}
+              <button className="orange" onClick={handleRefine} disabled={loading}>
+                Set More Targets
               </button>
               <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
             </div>
@@ -785,8 +798,8 @@
                 >
                   Previous
                 </button>
-                <button onClick={handleRefine} disabled={loading}>
-                  {hasRefined ? "Set More Targets" : "Set your Targets"}
+                <button className="orange" onClick={handleRefine} disabled={loading}>
+                  Set More Targets
                 </button>
                 <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
                 <button
@@ -1073,7 +1086,6 @@
         const [answer, setAnswer] = React.useState("");
         const [answerMode, setAnswerMode] = React.useState("structured");
         const [trace, setTrace] = React.useState([]);
-        const [hasRefined, setHasRefined] = React.useState(false);
 
         const [query, setQuery] = React.useState("");
         const [domainHint, setDomainHint] = React.useState("");
@@ -1193,7 +1205,6 @@
                 const firstNewIndex = facets.length;
                 return Math.max(firstNewIndex, prevIndex);
               });
-              setHasRefined(true);
             }
           } catch (err) {
             setError("Refine failed.");
@@ -1264,7 +1275,6 @@
                 updateFacetSelection={updateFacetSelection}
                 updateFacetCustom={updateFacetCustom}
                 selectionsForApi={selectionsForApi}
-                hasRefined={hasRefined}
               />
             )}
             {screen === 3 && (
