@@ -908,8 +908,8 @@
                 <h2 style={{marginTop: 0}}>
                   {currentFacet.title}
                 </h2>
-                <div className="muted">{currentFacet.question}</div>
-                <div className="muted">{currentFacet.reason}</div>
+                <div style={{color: 'var(--text)', marginBottom: 'var(--space-2)', lineHeight: 1.5}}>{currentFacet.question}</div>
+                <div style={{color: 'var(--text)', marginBottom: 'var(--space-3)', lineHeight: 1.5}}>{currentFacet.reason}</div>
                 <FacetChoices
                   facet={currentFacet}
                   facetSelections={facetSelections}
