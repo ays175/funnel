@@ -789,6 +789,7 @@
         requestId,
         handleRefine,
         handleAnswer,
+        handleNewQuery,
         loading,
         error,
         facetSelections,
@@ -800,8 +801,11 @@
       }) {
         return (
           <div>
-            <div className="stepper">
+            <div className="stepper" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
               <div className="muted">Request: {requestId}</div>
+              <button onClick={handleNewQuery} style={{padding: 'var(--space-2) var(--space-3)', fontSize: '13px'}}>
+                New Query
+              </button>
             </div>
 
             <div className="button-row">
@@ -954,7 +958,7 @@
         );
       }
 
-      function Screen3({ answer, trace, setScreen, answerMode, setAnswerMode }) {
+      function Screen3({ answer, trace, setScreen, answerMode, setAnswerMode, handleNewQuery }) {
         function escapeHtml(value) {
           return String(value)
             .replace(/&/g, "&amp;")
@@ -1037,6 +1041,7 @@
           <div>
             <div className="button-row row">
               <button onClick={() => setScreen(2)}>Back to facets</button>
+              <button onClick={handleNewQuery}>New Query</button>
             </div>
             <h1>Answer</h1>
             <div className="row">
@@ -1119,6 +1124,24 @@
           });
 
           return selections;
+        }
+
+        function handleNewQuery() {
+          setScreen(1);
+          setQuery("");
+          setDomainHint("");
+          setRequestId(null);
+          setFacets([]);
+          setCurrentIndex(0);
+          setFacetSelections({});
+          setAnswer("");
+          setTrace([]);
+          setError("");
+          setBaseSelections({
+            audience: "",
+            format: "",
+            length: "",
+          });
         }
 
         async function handleDiscover() {
@@ -1248,6 +1271,7 @@
                 requestId={requestId}
                 handleRefine={handleRefine}
                 handleAnswer={handleAnswer}
+                handleNewQuery={handleNewQuery}
                 loading={loading}
                 error={error}
                 facetSelections={facetSelections}
@@ -1265,6 +1289,7 @@
                 setScreen={setScreen}
                 answerMode={answerMode}
                 setAnswerMode={setAnswerMode}
+                handleNewQuery={handleNewQuery}
               />
             )}
           </div>
