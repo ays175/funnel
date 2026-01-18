@@ -49,18 +49,26 @@
         background: var(--surface);
       }
       textarea::placeholder, input::placeholder { color: #9ca3af; }
-      .pill {
+      .chip {
         display: inline-flex;
         align-items: center;
         margin: 6px 8px 6px 0;
-        padding: 6px 10px;
+        padding: 8px 14px;
         border: 1px solid var(--border);
         border-radius: 999px;
         background: var(--surface);
         font-size: 14px;
         color: var(--text);
+        cursor: pointer;
+        transition: transform 0.08s ease, background 0.2s ease, border 0.2s ease;
+        user-select: none;
       }
-      .pill input { margin-right: 6px; }
+      .chip:hover { transform: translateY(-1px); }
+      .chip.active {
+        background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+        border-color: transparent;
+        color: #fff;
+      }
       .choices { margin-top: 8px; }
       .subchoices { margin-left: 18px; margin-top: 6px; }
       .button-row { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -159,43 +167,46 @@
               <div className="row">
                 <strong>Audience</strong>
                 {["beginner", "intermediate", "expert", "executive"].map((v) => (
-                  <label className="pill" key={v}>
-                    <input
-                      type="radio"
-                      name="audience"
-                      checked={baseSelections.audience === v}
-                      onChange={() => updateBaseSelection("audience", v)}
-                    />
+                  <span
+                    className={`chip ${baseSelections.audience === v ? "active" : ""}`}
+                    key={v}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => updateBaseSelection("audience", v)}
+                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("audience", v)}
+                  >
                     {v.charAt(0).toUpperCase() + v.slice(1)}
-                  </label>
+                  </span>
                 ))}
               </div>
               <div className="row">
                 <strong>Format</strong>
                 {["bullets", "steps", "table", "paragraphs"].map((v) => (
-                  <label className="pill" key={v}>
-                    <input
-                      type="radio"
-                      name="format"
-                      checked={baseSelections.format === v}
-                      onChange={() => updateBaseSelection("format", v)}
-                    />
+                  <span
+                    className={`chip ${baseSelections.format === v ? "active" : ""}`}
+                    key={v}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => updateBaseSelection("format", v)}
+                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("format", v)}
+                  >
                     {v.charAt(0).toUpperCase() + v.slice(1)}
-                  </label>
+                  </span>
                 ))}
               </div>
               <div className="row">
                 <strong>Length</strong>
                 {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
-                  <label className="pill" key={v}>
-                    <input
-                      type="radio"
-                      name="length"
-                      checked={baseSelections.length === v}
-                      onChange={() => updateBaseSelection("length", v)}
-                    />
+                  <span
+                    className={`chip ${baseSelections.length === v ? "active" : ""}`}
+                    key={v}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => updateBaseSelection("length", v)}
+                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("length", v)}
+                  >
                     {v}
-                  </label>
+                  </span>
                 ))}
               </div>
             </div>
@@ -218,7 +229,7 @@
         );
       }
 
-      function FacetChoices({ facet, facetSelections, updateFacetSelection, updateFacetCustom }) {
+        function FacetChoices({ facet, facetSelections, updateFacetSelection, updateFacetCustom }) {
         const data = facetSelections[facet.id] || { values: new Set(), custom: "" };
         const choices = Array.isArray(facet.choices) ? facet.choices : [];
         const suggested = choices.length
@@ -227,44 +238,58 @@
 
         return (
           <div className="choices">
-            {suggested.map((choice) => (
-              <div key={choice.value} className="row">
-                <label className="pill">
-                  <input
-                    type="checkbox"
-                    checked={data.values.has(choice.value)}
-                    onChange={(e) => {
-                      const checked = e.target.checked;
-                      if (choice.value === "all options" && checked) {
+            {suggested.map((choice) => {
+              const isActive = data.values.has(choice.value);
+              return (
+                <div key={choice.value} className="row">
+                  <span
+                    className={`chip ${isActive ? "active" : ""}`}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => {
+                      if (choice.value === "all options") {
                         data.values.forEach((v) => updateFacetSelection(facet.id, v, false));
+                        updateFacetSelection(facet.id, choice.value, !isActive);
+                        return;
                       }
-                      updateFacetSelection(facet.id, choice.value, checked);
+                      updateFacetSelection(facet.id, choice.value, !isActive);
+                      if (!isActive) {
+                        updateFacetSelection(facet.id, "all options", false);
+                      }
                     }}
-                  />
-                  {choice.value}
-                </label>
-                {choice.subchoices && choice.subchoices.length > 0 && (
-                  <div className="subchoices">
-                    {choice.subchoices.map((sub) => (
-                      <label className="pill" key={sub}>
-                        <input
-                          type="checkbox"
-                          checked={data.values.has(`${choice.value} > ${sub}`)}
-                          onChange={(e) => {
-                            const checked = e.target.checked;
-                            if (checked) {
+                    onKeyDown={(e) => e.key === "Enter" && updateFacetSelection(facet.id, choice.value, !isActive)}
+                  >
+                    {choice.value}
+                  </span>
+                  {choice.subchoices && choice.subchoices.length > 0 && isActive && (
+                    <div className="subchoices">
+                      {choice.subchoices.map((sub) => {
+                        const subValue = `${choice.value} > ${sub}`;
+                        const subActive = data.values.has(subValue);
+                        return (
+                          <span
+                            className={`chip ${subActive ? "active" : ""}`}
+                            key={sub}
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => {
                               updateFacetSelection(facet.id, choice.value, true);
-                            }
-                            updateFacetSelection(facet.id, `${choice.value} > ${sub}`, checked);
-                          }}
-                        />
-                        {sub}
-                      </label>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+                              updateFacetSelection(facet.id, subValue, !subActive);
+                              if (!subActive) {
+                                updateFacetSelection(facet.id, "all options", false);
+                              }
+                            }}
+                            onKeyDown={(e) => e.key === "Enter" && updateFacetSelection(facet.id, subValue, !subActive)}
+                          >
+                            {sub}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <div className="row">
               <input
                 type="text"
