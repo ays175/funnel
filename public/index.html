@@ -240,6 +240,10 @@
             const nextFacets = data.facet_candidates || [];
             if (nextFacets.length) {
               setFacets((prev) => prev.concat(nextFacets));
+              setCurrentIndex((prevIndex) => {
+                const firstNewIndex = facets.length;
+                return Math.max(firstNewIndex, prevIndex);
+              });
             }
           } catch (err) {
             setError("Refine failed.");
