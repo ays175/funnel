@@ -747,6 +747,8 @@
           const htmlLines = [];
           let inList = false;
           let listType = "ul";
+          let inCodeBlock = false;
+          let codeBlockLines = [];
 
           const flushList = () => {
             if (inList) {
@@ -755,27 +757,83 @@
             }
           };
 
+          const flushCodeBlock = () => {
+            if (inCodeBlock && codeBlockLines.length > 0) {
+              htmlLines.push(`<pre><code>${escapeHtml(codeBlockLines.join('\n'))}</code></pre>`);
+              codeBlockLines = [];
+              inCodeBlock = false;
+            }
+          };
+
+          const processInlineMarkdown = (text) => {
+            let result = escapeHtml(text);
+            // Bold
+            result = result.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+            // Italic
+            result = result.replace(/\*(.+?)\*/g, "<em>$1</em>");
+            // Inline code
+            result = result.replace(/`([^`]+)`/g, "<code>$1</code>");
+            // Links [text](url)
+            result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+            return result;
+          };
+
           rawLines.forEach((raw) => {
             const line = raw.trim();
+            
+            // Code blocks
+            if (line.startsWith('```')) {
+              if (inCodeBlock) {
+                flushCodeBlock();
+              } else {
+                flushList();
+                inCodeBlock = true;
+              }
+              return;
+            }
+
+            if (inCodeBlock) {
+              codeBlockLines.push(raw);
+              return;
+            }
+
             if (!line) {
               flushList();
               return;
             }
+
+            // Horizontal rule
+            if (/^[-*_]{3,}$/.test(line)) {
+              flushList();
+              htmlLines.push('<hr>');
+              return;
+            }
+
+            // Headings
             if (/^###\s+/.test(line)) {
               flushList();
-              htmlLines.push(`<h3>${escapeHtml(line.replace(/^###\s+/, ""))}</h3>`);
+              htmlLines.push(`<h3>${processInlineMarkdown(line.replace(/^###\s+/, ""))}</h3>`);
               return;
             }
             if (/^##\s+/.test(line)) {
               flushList();
-              htmlLines.push(`<h2>${escapeHtml(line.replace(/^##\s+/, ""))}</h2>`);
+              htmlLines.push(`<h2>${processInlineMarkdown(line.replace(/^##\s+/, ""))}</h2>`);
               return;
             }
             if (/^#\s+/.test(line)) {
               flushList();
-              htmlLines.push(`<h1>${escapeHtml(line.replace(/^#\s+/, ""))}</h1>`);
+              htmlLines.push(`<h1>${processInlineMarkdown(line.replace(/^#\s+/, ""))}</h1>`);
               return;
             }
+
+            // Blockquotes
+            if (/^>\s+/.test(line)) {
+              flushList();
+              htmlLines.push(`<blockquote>${processInlineMarkdown(line.replace(/^>\s+/, ""))}</blockquote>`);
+              return;
+            }
+
+            // Ordered lists
             if (/^\d+\.\s+/.test(line)) {
               if (!inList || listType !== "ol") {
                 flushList();
@@ -783,9 +841,11 @@
                 listType = "ol";
                 htmlLines.push("<ol>");
               }
-              htmlLines.push(`<li>${escapeHtml(line.replace(/^\d+\.\s+/, ""))}</li>`);
+              htmlLines.push(`<li>${processInlineMarkdown(line.replace(/^\d+\.\s+/, ""))}</li>`);
               return;
             }
+
+            // Unordered lists
             if (/^[-*•]\s+/.test(line)) {
               if (!inList || listType !== "ul") {
                 flushList();
@@ -793,18 +853,17 @@
                 listType = "ul";
                 htmlLines.push("<ul>");
               }
-              htmlLines.push(`<li>${escapeHtml(line.replace(/^[-*•]\s+/, ""))}</li>`);
+              htmlLines.push(`<li>${processInlineMarkdown(line.replace(/^[-*•]\s+/, ""))}</li>`);
               return;
             }
 
+            // Paragraphs
             flushList();
-            let safe = escapeHtml(line);
-            safe = safe.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
-            safe = safe.replace(/\*(.+?)\*/g, "<em>$1</em>");
-            htmlLines.push(`<p>${safe}</p>`);
+            htmlLines.push(`<p>${processInlineMarkdown(line)}</p>`);
           });
 
           flushList();
+          flushCodeBlock();
           return htmlLines.join("");
         }
 
