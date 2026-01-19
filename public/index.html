@@ -1331,6 +1331,49 @@
               );
             } else if (msg.content?.type === "answer") {
               return <AnswerMessage key={index} answer={msg.content.answer} />;
+            } else if (msg.content?.type === "compiled_prompt") {
+              const prompt = msg.content.promptData;
+              if (!prompt || !prompt.sections) {
+                return (
+                  <div key={index} className="answer-content">
+                    <p>Prompt data not available.</p>
+                  </div>
+                );
+              }
+
+              return (
+                <div key={index} className="answer-content" style={{padding: 0}}>
+                  {prompt.sections.map((section, sIdx) => (
+                    <div key={sIdx} style={{
+                      marginBottom: sIdx < prompt.sections.length - 1 ? 'var(--space-4)' : 0,
+                      padding: 'var(--space-4)',
+                      background: sIdx % 2 === 0 ? 'var(--surface-glass)' : 'transparent',
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px solid var(--border)'
+                    }}>
+                      <div style={{
+                        fontWeight: 700,
+                        fontSize: '13px',
+                        color: 'var(--primary-500)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        marginBottom: 'var(--space-2)'
+                      }}>
+                        {section.title}
+                      </div>
+                      <div style={{
+                        fontSize: '14px',
+                        color: 'var(--text)',
+                        lineHeight: 1.7,
+                        whiteSpace: 'pre-wrap',
+                        fontFamily: section.title === 'Instructions' ? 'inherit' : 'monospace'
+                      }}>
+                        {section.content}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
             } else if (msg.content?.type === "trace") {
               return (
                 <div key={index} className="answer-content" style={{fontFamily: 'monospace', fontSize: '13px'}}>
