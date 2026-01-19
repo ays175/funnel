@@ -819,6 +819,7 @@
           length: ""
         });
         const [loading, setLoading] = React.useState(false);
+        const [trace, setTrace] = React.useState([]);
         const messagesEndRef = React.useRef(null);
 
         const scrollToBottom = () => {
@@ -1026,6 +1027,8 @@
             setMessages(prev => prev.slice(0, -1));
             addMessage("bot", "Here's your answer:");
             addMessage("bot", { type: "answer", answer: data.answer });
+            setTrace(data.trace || []);
+            addMessage("bot", "💡 Want to see how I arrived at this answer? Check the trace for full transparency!");
             addMessage("bot", { type: "post_answer_actions" });
             
             setConversationState("answer_shown");
@@ -1240,25 +1243,59 @@
               );
             } else if (msg.content?.type === "answer") {
               return <AnswerMessage key={index} answer={msg.content.answer} />;
+            } else if (msg.content?.type === "trace") {
+              return (
+                <div key={index} className="answer-content" style={{fontFamily: 'monospace', fontSize: '13px'}}>
+                  <pre style={{whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6}}>
+                    {JSON.stringify(msg.content.traceData, null, 2)}
+                  </pre>
+                </div>
+              );
             } else if (msg.content?.type === "post_answer_actions") {
               return (
                 <div key={index} className="selection-message">
-                  <div className="selection-question">Want to refine your answer?</div>
-                  <div className="selection-reason">
-                    You can review and modify your angle selections, or pick more angles for even more precision.
+                  <div className="selection-question">What would you like to do?</div>
+                  
+                  <div style={{marginBottom: 'var(--space-4)'}}>
+                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
+                      View Trace
+                    </div>
+                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
+                      See the complete reasoning trail and decisions I made to generate this answer.
+                    </div>
+                    <div className="selection-actions">
+                      <button className="secondary" onClick={() => {
+                        addMessage("bot", "Here's the complete trace of how I processed your query:");
+                        addMessage("bot", { type: "trace", traceData: trace });
+                      }}>
+                        View Trace
+                      </button>
+                    </div>
                   </div>
-                  <div className="selection-actions">
-                    <button className="orange" onClick={() => {
-                      addMessage("bot", "Here are your current selections. Click any angle to modify it:");
-                      addMessage("bot", { type: "editable_summary" });
-                      setConversationState("editing_angles");
-                    }}>
-                      Refine Angles
-                    </button>
-                  </div>
+
                   <div style={{borderTop: '1px solid var(--border)', margin: 'var(--space-4) 0', paddingTop: 'var(--space-4)'}}>
-                    <div className="selection-question">Start fresh?</div>
-                    <div className="selection-reason">
+                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
+                      Refine Answer
+                    </div>
+                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
+                      Review and modify your angle selections, or pick more angles for even more precision.
+                    </div>
+                    <div className="selection-actions">
+                      <button className="orange" onClick={() => {
+                        addMessage("bot", "Here are your current selections. Click any angle to modify it:");
+                        addMessage("bot", { type: "editable_summary" });
+                        setConversationState("editing_angles");
+                      }}>
+                        Refine Angles
+                      </button>
+                    </div>
+                  </div>
+
+                  <div style={{borderTop: '1px solid var(--border)', margin: 'var(--space-4) 0', paddingTop: 'var(--space-4)'}}>
+                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
+                      Start Fresh
+                    </div>
+                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
                       Ask a new question and explore different angles.
                     </div>
                     <div className="selection-actions">
