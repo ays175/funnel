@@ -1639,21 +1639,32 @@
 
             <div className="input-bar">
               {conversationState === "initial" || conversationState === "answer_shown" ? (
-                <div className="input-wrapper">
-                  <textarea
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Ask anything..."
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        handleQuerySubmit();
-                      }
-                    }}
-                  />
-                  <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()}>
-                    Send
-                  </button>
+                <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
+                  <div className="input-wrapper">
+                    <textarea
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Ask anything..."
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          handleQuerySubmit();
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      value={domainHint}
+                      onChange={(e) => setDomainHint(e.target.value)}
+                      placeholder="Domain hint (optional): e.g., finance, legal..."
+                      style={{flex: 1}}
+                    />
+                    <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()}>
+                      Send
+                    </button>
+                  </div>
                 </div>
               ) : conversationState === "ready_to_answer" ? (
                 <div className="input-wrapper">
