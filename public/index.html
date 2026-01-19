@@ -863,10 +863,15 @@
         };
 
         React.useEffect(() => {
-          // Scroll to bottom when new messages are added (except during answer streaming)
+          // Scroll to bottom when new messages are added, but not during answer delivery
           const lastMessage = messages[messages.length - 1];
-          if (lastMessage && lastMessage.content?.type !== "answer") {
-            scrollToBottom();
+          // Skip auto-scroll if we're showing answer or related messages
+          if (lastMessage && 
+              lastMessage.content?.type !== "answer" && 
+              lastMessage.content?.type !== "selection_explainer" &&
+              lastMessage.content?.type !== "post_answer_actions" &&
+              conversationState !== "answer_shown") {
+            setTimeout(() => scrollToBottom(), 100);
           }
         }, [messages.length]); // Only trigger on message count change, not content change
 
