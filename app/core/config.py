@@ -51,7 +51,7 @@ def load_settings() -> Settings:
 
     return Settings(
         openai_api_key=os.getenv("OPENAI_API_KEY"),
-        openai_model=os.getenv("OPENAI_MODEL", "o3-mini-2025-01-31"),
+        openai_model=os.getenv("OPENAI_MODEL", "o1-2024-12-17"),
         openai_timeout_seconds=int(os.getenv("OPENAI_TIMEOUT_SECONDS", "120")),
         app_env=os.getenv("APP_ENV", "dev"),
         app_host=os.getenv("APP_HOST", "0.0.0.0"),
