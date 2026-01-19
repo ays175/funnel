@@ -92,7 +92,7 @@ class FacetDiscoveryEngine:
                 ),
             ),
         ]
-        raw = llm_client.generate(prompt_sections)
+        raw, _ = llm_client.generate(prompt_sections)  # Unpack tuple, ignore reasoning
         parsed = self._parse_llm_json(raw)
         candidates: list[FacetCandidate] = []
         for item in parsed[:max_facets]:
@@ -170,7 +170,7 @@ class FacetDiscoveryEngine:
                 ),
             ),
         ]
-        raw = llm_client.generate(prompt_sections)
+        raw, _ = llm_client.generate(prompt_sections)  # Unpack tuple, ignore reasoning
         parsed = self._parse_llm_json(raw)
         candidates: list[FacetCandidate] = []
         for item in parsed[:max_facets]:
