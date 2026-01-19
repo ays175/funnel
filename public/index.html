@@ -116,6 +116,18 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        user-select: none;
+      }
+
+      .chat-header h1:hover {
+        transform: translateY(-1px);
+        filter: brightness(1.2);
+      }
+
+      .chat-header h1:active {
+        transform: translateY(0);
       }
 
       .chat-header .tagline {
@@ -2336,7 +2348,7 @@
           <div className="chat-container">
             <div className="chat-header">
               <div className="header-content">
-                <h1>ShmilBlick</h1>
+                <h1 onClick={handleNewQuery} title="Go to landing page">ShmilBlick</h1>
                 <div className="tagline">Ask once, get exactly what you need. AI with a laser focus.</div>
               </div>
               <button className="header-new-query-btn" onClick={handleNewQuery}>
