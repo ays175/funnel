@@ -727,30 +727,6 @@
       }
 
       function AnswerMessage({ answer }) {
-        const [displayedText, setDisplayedText] = React.useState("");
-        const [isComplete, setIsComplete] = React.useState(false);
-
-        React.useEffect(() => {
-          // Split answer into words for smooth streaming
-          const words = answer.split(" ");
-          let currentIndex = 0;
-
-          const intervalId = setInterval(() => {
-            if (currentIndex < words.length) {
-              setDisplayedText((prev) => {
-                const newText = prev + (prev ? " " : "") + words[currentIndex];
-                return newText;
-              });
-              currentIndex++;
-            } else {
-              clearInterval(intervalId);
-              setIsComplete(true);
-            }
-          }, 50); // 50ms per word for smooth streaming
-
-          return () => clearInterval(intervalId);
-        }, [answer]);
-
         function escapeHtml(value) {
           return String(value)
             .replace(/&/g, "&amp;")
@@ -825,7 +801,7 @@
         }
 
         return (
-          <div className="answer-content markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(displayedText) }} />
+          <div className="answer-content markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
         );
       }
 
