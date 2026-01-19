@@ -27,14 +27,20 @@ class LLMClient:
         # Build API parameters
         api_params = {
             "model": self.settings.openai_model,
-            "messages": [
-                {"role": "user", "content": prompt_text},
-            ],
         }
         
-        # For o-series models, add reasoning_effort parameter for better reasoning
+        # For o-series models, use different message format and reasoning_effort
         if self.settings.openai_model.startswith("o3") or self.settings.openai_model.startswith("o1"):
+            api_params["messages"] = [
+                {"role": "user", "content": prompt_text},
+            ]
             api_params["reasoning_effort"] = "high"
+        else:
+            # For GPT-4 and other models, use standard format with system message
+            api_params["messages"] = [
+                {"role": "system", "content": "You are a precise assistant."},
+                {"role": "user", "content": prompt_text},
+            ]
         
         response = self.client.chat.completions.create(**api_params)
         
