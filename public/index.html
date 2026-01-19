@@ -1434,10 +1434,10 @@
         };
 
         React.useEffect(() => {
-          // Scroll to bottom when new messages are added
+          // Scroll to bottom when new messages are added (except on initial load)
           const lastMessage = messages[messages.length - 1];
-          // Always scroll when new messages appear, including answers
-          if (lastMessage) {
+          // Skip auto-scroll for initial instructions message
+          if (lastMessage && conversationState !== "initial") {
             setTimeout(() => scrollToBottom(), 100);
           }
         }, [messages.length]); // Only trigger on message count change, not content change
@@ -2270,44 +2270,21 @@
             } else if (msg.content?.type === "instructions") {
               return (
                 <div key={index} className="selection-message" style={{background: 'var(--bot-bg)', border: '1px solid var(--border)'}}>
-                  <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
-                      <span style={{fontSize: '20px', flexShrink: 0}}>💭</span>
-                      <div>
-                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>Ask your question</div>
-                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Any topic, any complexity</div>
-                      </div>
+                  <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'center'}}>
+                    <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>💭</span>
+                      <div style={{fontWeight: 600, fontSize: '15px'}}>Ask anything</div>
                     </div>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
-                      <span style={{fontSize: '20px', flexShrink: 0}}>🎯</span>
-                      <div>
-                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>I'll discover angles</div>
-                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Multiple perspectives to explore your query</div>
-                      </div>
+                    <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>✨</span>
+                      <div style={{fontWeight: 600, fontSize: '15px'}}>Pick what matters</div>
                     </div>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
-                      <span style={{fontSize: '20px', flexShrink: 0}}>✨</span>
-                      <div>
-                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>You pick what matters</div>
-                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Select the angles that fit your needs</div>
-                      </div>
-                    </div>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
-                      <span style={{fontSize: '20px', flexShrink: 0}}>🎨</span>
-                      <div>
-                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>Get your perfect answer</div>
-                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Tailored exactly to your selections</div>
-                      </div>
-                    </div>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
-                      <span style={{fontSize: '20px', flexShrink: 0}}>🔍</span>
-                      <div>
-                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>Dig deeper anytime</div>
-                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Use any answer to explore even further</div>
-                      </div>
+                    <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>🎨</span>
+                      <div style={{fontWeight: 600, fontSize: '15px'}}>Get your perfect answer</div>
                     </div>
                   </div>
-                  <div style={{marginTop: 'var(--space-5)', fontSize: '16px', fontWeight: 600, color: 'var(--text)', textAlign: 'center'}}>
+                  <div style={{marginTop: 'var(--space-4)', fontSize: '16px', fontWeight: 600, color: 'var(--text)', textAlign: 'center'}}>
                     Exactly What You Want to Know!
                   </div>
                 </div>
