@@ -190,6 +190,10 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
         [(section.title, section.content) for section in prompt_sections]
     )
 
+    # Log reasoning availability for debugging
+    import logging
+    logging.info(f"Model: {settings.openai_model}, Has reasoning: {reasoning is not None}, Reasoning length: {len(reasoning) if reasoning else 0}")
+
     ledger.append(
         payload.request_id,
         "MODEL_RESPONSE",
@@ -197,6 +201,7 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
             "model": settings.openai_model,
             "answer_preview": answer_text[:200],
             "has_reasoning": reasoning is not None,
+            "reasoning_preview": reasoning[:200] if reasoning else None,
         },
     )
 
