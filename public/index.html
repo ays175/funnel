@@ -1345,8 +1345,8 @@
               <button className="orange" onClick={onRefineAngles}>
                 Refine Angles
               </button>
-              <button className="primary" onClick={onNewQuery}>
-                New Query
+              <button className="primary" onClick={onPrint}>
+                Print 🖨️
               </button>
             </div>
 
@@ -1364,14 +1364,8 @@
               <button className="secondary" onClick={onViewTrace}>
                 View Trace 🔵
               </button>
-              <button className="secondary" onClick={onPrint}>
-                Print 🖨️
-              </button>
               <button className="orange" onClick={onRefineAngles}>
                 Refine Angles
-              </button>
-              <button className="primary" onClick={onNewQuery}>
-                New Query
               </button>
             </div>
 
@@ -1449,6 +1443,7 @@
           if (!query.trim()) return;
 
           addMessage("user", query);
+          setLastQuery(query.trim());
           setConversationState("processing_query");
           setLoading(true);
 
@@ -1691,6 +1686,90 @@
           setBaseSelections({ audience: "", format: "", length: "" });
         };
 
+        const handlePrintAnswer = (answerText, queryText, selectionsData, baseSelectionsData) => {
+          const printWindow = window.open('', '_blank');
+          
+          // Build selections summary
+          let selectionsHtml = '';
+          if (baseSelectionsData.audience || baseSelectionsData.format || baseSelectionsData.length) {
+            selectionsHtml += '<div style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-left: 4px solid #8b5cf6;">';
+            selectionsHtml += '<h3 style="margin: 0 0 10px 0; color: #8b5cf6;">Your Preferences</h3>';
+            if (baseSelectionsData.audience) selectionsHtml += `<p style="margin: 5px 0;"><strong>Audience:</strong> ${baseSelectionsData.audience}</p>`;
+            if (baseSelectionsData.format) selectionsHtml += `<p style="margin: 5px 0;"><strong>Format:</strong> ${baseSelectionsData.format}</p>`;
+            if (baseSelectionsData.length) selectionsHtml += `<p style="margin: 5px 0;"><strong>Length:</strong> ${baseSelectionsData.length}</p>`;
+            selectionsHtml += '</div>';
+          }
+
+          // Create print document
+          printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>ShmilBlick Answer</title>
+                <style>
+                  body { 
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                    line-height: 1.6;
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 40px 20px;
+                    color: #333;
+                  }
+                  h1 { color: #8b5cf6; margin-bottom: 10px; }
+                  h2 { color: #666; margin-top: 30px; }
+                  h3 { color: #8b5cf6; }
+                  .query { 
+                    font-size: 18px; 
+                    font-weight: 600; 
+                    margin: 20px 0;
+                    padding: 15px;
+                    background: #f9f9f9;
+                    border-left: 4px solid #8b5cf6;
+                  }
+                  .answer { margin-top: 30px; }
+                  code { 
+                    background: #f5f5f5; 
+                    padding: 2px 6px; 
+                    border-radius: 3px;
+                    font-family: monospace;
+                  }
+                  pre {
+                    background: #f5f5f5;
+                    padding: 15px;
+                    border-radius: 5px;
+                    overflow-x: auto;
+                  }
+                  pre code { background: none; padding: 0; }
+                  @media print {
+                    body { padding: 20px; }
+                  }
+                </style>
+              </head>
+              <body>
+                <h1>ShmilBlick</h1>
+                <p style="color: #666; font-style: italic;">AI with a laser focus</p>
+                <div class="query">
+                  <strong>Query:</strong> ${queryText || 'N/A'}
+                </div>
+                ${selectionsHtml}
+                <div class="answer">
+                  <h2>Answer</h2>
+                  ${answerText}
+                </div>
+                <script>
+                  window.onload = function() {
+                    window.print();
+                    window.onafterprint = function() {
+                      window.close();
+                    };
+                  };
+                </script>
+              </body>
+            </html>
+          `);
+          printWindow.document.close();
+        };
+
         const handleDigDeeper = async (answerText) => {
           addMessage("user", "🔍 Dig deeper into this answer");
           addMessage("bot", "Great! Let's explore this answer from different angles...");
@@ -1734,6 +1813,8 @@
             setLoading(false);
           }
         };
+
+        const [lastQuery, setLastQuery] = React.useState("");
 
         const renderMessage = (msg, index) => {
           if (msg.type === "bot") {
@@ -2079,7 +2160,7 @@
                       setConversationState("editing_angles");
                     }}
                     onNewQuery={handleNewQuery}
-                    onPrint={() => window.print()}
+                    onPrint={() => handlePrintAnswer(msg.content.answer, lastQuery, selections, baseSelections)}
                   />
                 </div>
               );
