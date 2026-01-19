@@ -94,9 +94,17 @@
 
       /* Header */
       .chat-header {
-        text-align: center;
-        padding: var(--space-4) 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-4);
         border-bottom: 1px solid var(--border);
+        gap: var(--space-4);
+      }
+
+      .header-content {
+        text-align: center;
+        flex: 1;
       }
 
       .chat-header h1 {
@@ -114,6 +122,31 @@
         font-size: 14px;
         color: var(--text-muted);
         font-weight: 500;
+      }
+
+      .header-new-query-btn {
+        padding: var(--space-3) var(--space-5);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-md);
+        background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        white-space: nowrap;
+        box-shadow: var(--shadow-purple);
+        flex-shrink: 0;
+      }
+
+      .header-new-query-btn:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
+        box-shadow: 0 12px 32px hsla(270, 91%, 50%, 0.45);
+      }
+
+      .header-new-query-btn:active {
+        transform: translateY(0);
       }
 
       /* Messages */
@@ -714,6 +747,21 @@
       @media (max-width: 768px) {
         .chat-container {
           padding: var(--space-3);
+        }
+
+        .chat-header {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .header-content {
+          order: 1;
+        }
+
+        .header-new-query-btn {
+          order: 2;
+          width: 100%;
+          margin-top: var(--space-3);
         }
 
         .message-bubble {
@@ -2063,8 +2111,13 @@
         return (
           <div className="chat-container">
             <div className="chat-header">
-              <h1>ShmilBlick</h1>
-              <div className="tagline">Ask once, get exactly what you need. AI with a laser focus.</div>
+              <div className="header-content">
+                <h1>ShmilBlick</h1>
+                <div className="tagline">Ask once, get exactly what you need. AI with a laser focus.</div>
+              </div>
+              <button className="header-new-query-btn" onClick={handleNewQuery}>
+                + New Query
+              </button>
             </div>
 
             <div className="messages-wrapper">
