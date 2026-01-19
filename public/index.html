@@ -1188,20 +1188,21 @@
           custom_instructions: ""
         });
         const messagesEndRef = React.useRef(null);
+        const answerRef = React.useRef(null);
 
         const scrollToBottom = () => {
           messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         };
 
+        const scrollToAnswer = () => {
+          answerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+
         React.useEffect(() => {
-          // Scroll to bottom when new messages are added, but not during answer delivery
+          // Scroll to bottom when new messages are added
           const lastMessage = messages[messages.length - 1];
-          // Skip auto-scroll if we're showing answer or related messages
-          if (lastMessage && 
-              lastMessage.content?.type !== "answer" && 
-              lastMessage.content?.type !== "selection_explainer" &&
-              lastMessage.content?.type !== "post_answer_actions" &&
-              conversationState !== "answer_shown") {
+          // Always scroll when new messages appear, including answers
+          if (lastMessage) {
             setTimeout(() => scrollToBottom(), 100);
           }
         }, [messages.length]); // Only trigger on message count change, not content change
@@ -1445,6 +1446,9 @@
             addMessage("bot", { type: "post_answer_actions" });
             
             setConversationState("answer_shown");
+            
+            // Scroll to the answer after a short delay to ensure it's rendered
+            setTimeout(() => scrollToAnswer(), 200);
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
             addMessage("bot", "Sorry, I couldn't generate an answer. Please try again.");
@@ -1776,7 +1780,11 @@
                 </div>
               );
             } else if (msg.content?.type === "answer") {
-              return <AnswerMessage key={index} answer={msg.content.answer} />;
+              return (
+                <div key={index} ref={answerRef}>
+                  <AnswerMessage answer={msg.content.answer} />
+                </div>
+              );
             } else if (msg.content?.type === "model_reasoning") {
               const reasoning = msg.content.reasoningData;
               return (
