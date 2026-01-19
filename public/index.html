@@ -1668,7 +1668,7 @@
                       value={domainHint}
                       onChange={(e) => setDomainHint(e.target.value)}
                       placeholder="Domain (optional)"
-                      style={{width: '100%'}}
+                      style={{width: '100%', padding: 'var(--space-4)', fontSize: '15px'}}
                     />
                     <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()} style={{width: '100%', padding: 'var(--space-4)'}}>
                       Send
