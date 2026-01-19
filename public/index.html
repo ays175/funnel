@@ -1720,8 +1720,6 @@
         };
 
         const handlePrintAnswer = (answerText, queryText, selectionsData, baseSelectionsData) => {
-          const printWindow = window.open('', '_blank');
-          
           // Build selections summary
           let selectionsHtml = '';
           if (baseSelectionsData.audience || baseSelectionsData.format || baseSelectionsData.length) {
@@ -1792,11 +1790,26 @@
               </body>
             </html>
           `;
-          printWindow.document.write(printContent);
-          printWindow.document.close();
+
+          // Create iframe for printing (stays on current page)
+          const iframe = document.createElement('iframe');
+          iframe.style.position = 'absolute';
+          iframe.style.width = '0';
+          iframe.style.height = '0';
+          iframe.style.border = 'none';
+          document.body.appendChild(iframe);
+
+          const iframeDoc = iframe.contentWindow.document;
+          iframeDoc.open();
+          iframeDoc.write(printContent);
+          iframeDoc.close();
+
+          // Print and cleanup
           setTimeout(() => {
-            printWindow.print();
-            printWindow.close();
+            iframe.contentWindow.print();
+            setTimeout(() => {
+              document.body.removeChild(iframe);
+            }, 100);
           }, 250);
         };
 
