@@ -28,6 +28,10 @@
         --accent-pink: hsl(330, 81%, 60%);
         --accent-cyan: hsl(190, 90%, 60%);
         
+        /* Bot colors */
+        --bot-bg: hsla(260, 40%, 95%, 0.06);
+        --user-bg: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        
         /* Surfaces */
         --surface-glass: hsla(260, 40%, 95%, 0.04);
         --surface-glass-hover: hsla(260, 40%, 95%, 0.06);
@@ -79,183 +83,167 @@
         -moz-osx-font-smoothing: grayscale;
       }
 
-      .container {
-        max-width: 920px;
+      .chat-container {
+        max-width: 800px;
         margin: 0 auto;
-        padding: var(--space-4) var(--space-5) var(--space-10);
+        padding: var(--space-4);
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
       }
 
-      /* Typography */
-      h1 { 
-        font-size: clamp(28px, 5vw, 36px);
+      /* Header */
+      .chat-header {
+        text-align: center;
+        padding: var(--space-4) 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .chat-header h1 {
+        font-size: clamp(24px, 4vw, 32px);
         margin: 0 0 var(--space-2);
         font-weight: 700;
         letter-spacing: -0.02em;
-        line-height: 1.2;
+        background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-pink) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
-      h2 { 
-        font-size: 20px;
-        margin: var(--space-6) 0 var(--space-3);
-        font-weight: 600;
-        letter-spacing: -0.01em;
-        line-height: 1.3;
-      }
-
-      h3 {
-        font-size: 17px;
-        font-weight: 600;
-        letter-spacing: -0.01em;
-        margin: var(--space-4) 0 var(--space-2);
-      }
-
-      .muted { 
-        color: var(--text-muted);
+      .chat-header .tagline {
         font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .row { margin: var(--space-4) 0; }
-
-      label {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: var(--space-2);
         color: var(--text-muted);
-        letter-spacing: 0.01em;
+        font-weight: 500;
       }
 
-      .how-it-works {
+      /* Messages */
+      .messages-wrapper {
+        flex: 1;
+        overflow-y: auto;
+        padding: var(--space-5) 0;
         display: flex;
         flex-direction: column;
         gap: var(--space-4);
       }
 
-      .step-item {
+      .message {
         display: flex;
-        gap: var(--space-4);
+        gap: var(--space-3);
         align-items: flex-start;
+        animation: slideIn var(--transition-base) ease-out;
       }
 
-      .step-number {
+      @keyframes slideIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .message.user {
+        flex-direction: row-reverse;
+      }
+
+      .message-avatar {
         flex-shrink: 0;
-        width: 32px;
-        height: 32px;
+        width: 36px;
+        height: 36px;
         border-radius: var(--radius-full);
-        background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
-        color: white;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 700;
         font-size: 16px;
+      }
+
+      .message.bot .message-avatar {
+        background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        color: white;
         box-shadow: var(--shadow-purple);
       }
 
-      .step-content {
-        flex: 1;
-      }
-
-      .step-content strong {
-        display: block;
-        margin-bottom: 2px;
-      }
-
-      .step-content p {
-        margin: 0;
-        font-size: 13px;
-      }
-
-      .input-button-row {
-        display: flex;
-        gap: var(--space-3);
-        align-items: flex-end;
-        margin: var(--space-4) 0;
-      }
-
-      /* Cards & Surfaces */
-      .card {
-        border: 1px solid var(--border-strong);
-        padding: var(--space-5);
-        border-radius: var(--radius-lg);
-        background: linear-gradient(
-          135deg,
-          hsla(260, 60%, 95%, 0.08) 0%,
-          hsla(260, 40%, 95%, 0.04) 100%
-        );
-        backdrop-filter: blur(12px);
-        box-shadow: var(--shadow-md);
-        transition: transform var(--transition-base), box-shadow var(--transition-base);
-      }
-
-      .card:hover {
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-lg);
-      }
-
-      .facet-card {
-        margin-top: var(--space-4);
-        animation: fadeIn var(--transition-slow) ease-out;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(8px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      /* Inputs */
-      textarea, input[type="text"] {
-        width: 100%;
-        padding: var(--space-3) var(--space-4);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
-        font-size: 15px;
-        font-family: inherit;
-        transition: border-color var(--transition-fast), background var(--transition-fast);
-        resize: vertical;
-      }
-
-      textarea {
-        min-height: 120px;
-        line-height: 1.6;
-        background: white;
-        color: hsl(260, 45%, 10%);
-        border: 2px solid var(--border);
-      }
-
-      textarea::placeholder {
-        color: hsl(260, 10%, 50%);
-      }
-
-      textarea:focus {
-        outline: none;
-        border-color: var(--primary-500);
-        box-shadow: 0 0 0 3px hsla(270, 91%, 65%, 0.15);
-      }
-
-      input[type="text"] {
-        color: var(--text);
+      .message.user .message-avatar {
         background: var(--surface-glass);
-        backdrop-filter: blur(8px);
+        border: 1px solid var(--border-strong);
+        color: var(--text);
       }
 
-      input[type="text"]:focus {
-        outline: none;
-        border-color: var(--primary-500);
-        background: var(--surface-glass-hover);
-        box-shadow: 0 0 0 3px hsla(270, 91%, 65%, 0.12);
+      .message-bubble {
+        max-width: 85%;
+        padding: var(--space-4);
+        border-radius: var(--radius-lg);
+        line-height: 1.6;
       }
 
-      input::placeholder { 
-        color: var(--text-subtle);
+      .message.bot .message-bubble {
+        background: var(--bot-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border);
+      }
+
+      .message.user .message-bubble {
+        background: var(--user-bg);
+        color: white;
+        box-shadow: var(--shadow-purple);
+      }
+
+      .message-bubble strong {
+        display: block;
+        margin-bottom: var(--space-2);
+        font-size: 16px;
+        color: var(--primary-50);
+      }
+
+      .message.user .message-bubble strong {
+        color: white;
+      }
+
+      /* Interactive selection message */
+      .selection-message {
+        background: var(--bot-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-lg);
+        padding: var(--space-5);
+        margin: var(--space-2) 0;
+        max-width: 100%;
+      }
+
+      .angle-header {
+        display: inline-block;
+        padding: var(--space-2) var(--space-4);
+        background: linear-gradient(135deg, hsl(200, 70%, 50%) 0%, hsl(210, 75%, 55%) 100%);
+        color: white;
+        border-radius: var(--radius-full);
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: var(--space-3);
+        box-shadow: 0 4px 12px hsla(200, 70%, 50%, 0.4);
+      }
+
+      .selection-question {
+        font-size: 18px;
+        font-weight: 600;
+        margin: var(--space-3) 0;
+        color: var(--text);
+      }
+
+      .selection-reason {
+        font-size: 14px;
+        color: var(--text-muted);
+        margin-bottom: var(--space-4);
+        line-height: 1.5;
       }
 
       /* Chips */
+      .choice-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin: var(--space-4) 0;
+      }
+
       .chip {
         display: inline-flex;
         align-items: center;
-        margin: var(--space-2) var(--space-2) var(--space-2) 0;
         padding: var(--space-2) var(--space-4);
         border: 1px solid var(--border);
         border-radius: var(--radius-full);
@@ -294,19 +282,56 @@
         filter: brightness(1.1);
       }
 
-      .choices { 
-        margin-top: var(--space-3);
-        display: flex;
-        flex-wrap: wrap;
-        gap: var(--space-2);
-      }
-
-      .subchoices { 
+      .subchoices-wrapper {
         margin-left: var(--space-5);
         margin-top: var(--space-2);
+      }
+
+      /* Action buttons in selection */
+      .selection-actions {
         display: flex;
+        gap: var(--space-3);
+        margin-top: var(--space-4);
         flex-wrap: wrap;
-        gap: var(--space-2);
+      }
+
+      /* Input bar */
+      .input-bar {
+        padding: var(--space-4);
+        border-top: 1px solid var(--border-strong);
+        background: hsla(260, 45%, 6%, 0.95);
+        backdrop-filter: blur(16px);
+      }
+
+      .input-wrapper {
+        display: flex;
+        gap: var(--space-3);
+        align-items: flex-end;
+      }
+
+      textarea {
+        flex: 1;
+        padding: var(--space-3) var(--space-4);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        font-size: 15px;
+        font-family: inherit;
+        transition: border-color var(--transition-fast), background var(--transition-fast);
+        resize: none;
+        min-height: 48px;
+        max-height: 120px;
+        background: white;
+        color: hsl(260, 45%, 10%);
+      }
+
+      textarea::placeholder {
+        color: hsl(260, 10%, 50%);
+      }
+
+      textarea:focus {
+        outline: none;
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 3px hsla(270, 91%, 65%, 0.15);
       }
 
       /* Buttons */
@@ -383,149 +408,79 @@
         transform: none !important;
       }
 
-      .button-row { 
-        display: flex;
-        gap: var(--space-3);
-        flex-wrap: wrap;
-        margin: var(--space-4) 0;
-      }
-
-      .nav-row { 
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: var(--space-3);
-      }
-
-      /* Stepper */
-      .stepper {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: var(--space-4);
+      /* Summary */
+      .summary-card {
         background: var(--surface-glass);
         backdrop-filter: blur(12px);
         border: 1px solid var(--border);
-        padding: var(--space-3) var(--space-4);
-        border-radius: var(--radius-md);
-      }
-
-      /* Selections */
-      .summary {
-        border-top: 1px solid var(--border);
-        margin-top: var(--space-6);
-        padding-top: var(--space-5);
-      }
-
-      .selection-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: var(--space-4);
-        margin-top: var(--space-3);
-      }
-
-      .selection-card {
-        border: 1px solid var(--border);
-        border-radius: var(--radius-md);
+        border-radius: var(--radius-lg);
         padding: var(--space-4);
-        background: var(--surface-glass);
-        backdrop-filter: blur(8px);
-        transition: all var(--transition-base);
+        margin: var(--space-3) 0;
       }
 
-      .selection-card:hover {
-        border-color: var(--border-strong);
-        background: var(--surface-glass-hover);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-sm);
+      .summary-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        margin-bottom: var(--space-3);
       }
 
-      .selection-card .choices { 
+      .summary-item {
         display: flex;
-        flex-direction: column;
         gap: var(--space-2);
-        margin-top: var(--space-2);
+        margin-bottom: var(--space-2);
+        align-items: flex-start;
       }
 
-      /* Sticky Actions */
-      .sticky-actions {
-        position: sticky;
-        bottom: 0;
-        background: hsla(260, 45%, 6%, 0.95);
-        backdrop-filter: blur(16px);
-        border-top: 1px solid var(--border-strong);
-        padding: var(--space-4);
-        margin: var(--space-6) calc(-1 * var(--space-5)) calc(-1 * var(--space-10));
-        box-shadow: 0 -8px 24px hsla(0, 0%, 0%, 0.3);
+      .summary-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--primary-500);
+        min-width: 100px;
+      }
+
+      .summary-value {
+        font-size: 13px;
+        color: var(--text);
+        flex: 1;
+      }
+
+      /* Typing indicator */
+      .typing-indicator {
+        display: flex;
+        gap: 6px;
+        padding: var(--space-3);
+      }
+
+      .typing-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--primary-500);
+        animation: typing 1.4s infinite;
+      }
+
+      .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+      .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+      @keyframes typing {
+        0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+        30% { transform: translateY(-10px); opacity: 1; }
       }
 
       /* Answer */
-      .answer-card {
+      .answer-content {
         background: var(--surface-glass);
         backdrop-filter: blur(12px);
         border: 1px solid var(--border-strong);
         border-radius: var(--radius-lg);
-        padding: var(--space-6);
-        box-shadow: var(--shadow-md);
-      }
-
-      .answer-section { 
-        margin-bottom: var(--space-5);
-      }
-
-      .answer-section h3 { 
-        margin: var(--space-4) 0 var(--space-2);
-        font-size: 17px;
-        color: var(--primary-50);
-      }
-
-      .answer-section p { 
-        margin: var(--space-2) 0;
+        padding: var(--space-5);
+        margin: var(--space-3) 0;
         line-height: 1.7;
       }
 
-      .answer-list { 
-        margin: var(--space-2) 0 var(--space-2) var(--space-6);
-        line-height: 1.7;
-      }
-
-      .answer-bullets li,
-      .answer-steps li { 
-        margin-bottom: var(--space-3);
-      }
-
-      .answer-steps li strong { 
-        margin-right: var(--space-2);
-        color: var(--primary-500);
-      }
-
-      .answer-paragraphs p { 
-        margin-bottom: var(--space-4);
-        line-height: 1.7;
-      }
-
-      .answer-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        margin-top: var(--space-3);
-        font-size: 14px;
-        border-radius: var(--radius-md);
-        overflow: hidden;
-      }
-
-      .answer-table td {
-        border: 1px solid var(--border);
-        padding: var(--space-3);
-      }
-
-      .answer-table tr:nth-child(even) { 
-        background: var(--surface-glass);
-      }
-
-      /* Markdown */
       .markdown h1, .markdown h2, .markdown h3 {
-        margin: var(--space-5) 0 var(--space-3);
+        margin: var(--space-4) 0 var(--space-3);
         color: var(--text);
       }
 
@@ -543,113 +498,49 @@
         margin-bottom: var(--space-2);
       }
 
-      .markdown blockquote {
-        margin: var(--space-4) 0;
-        padding: var(--space-3) var(--space-4);
-        border-left: 3px solid var(--primary-500);
-        background: var(--surface-glass);
-        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      }
-
-      .error { 
-        color: hsl(0, 84%, 80%);
-        font-size: 14px;
-        margin-top: var(--space-3);
-        padding: var(--space-3) var(--space-4);
-        background: hsla(0, 84%, 50%, 0.1);
-        border: 1px solid hsla(0, 84%, 50%, 0.3);
-        border-radius: var(--radius-md);
-      }
-
-      pre { 
-        white-space: pre-wrap;
-        background: var(--surface-glass);
-        backdrop-filter: blur(8px);
-        padding: var(--space-4);
-        border-radius: var(--radius-md);
-        border: 1px solid var(--border);
-        font-size: 13px;
-        line-height: 1.6;
-        overflow-x: auto;
-      }
-
-      .query-layout {
-        display: flex;
-        gap: var(--space-4);
-        align-items: stretch;
-        margin-bottom: var(--space-4);
-      }
-
-      .query-layout-left {
-        flex: 2;
-      }
-
-      .query-layout-right {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: var(--space-3);
-      }
-
       /* Responsive */
       @media (max-width: 768px) {
-        .container { 
-          padding: var(--space-5) var(--space-4) var(--space-8);
+        .chat-container {
+          padding: var(--space-3);
         }
-        
-        h1 { font-size: 28px; }
-        h2 { font-size: 18px; }
-        
-        .button-row { 
+
+        .message-bubble {
+          max-width: 90%;
+        }
+
+        .selection-actions {
           flex-direction: column;
         }
-        
-        button { 
+
+        button {
           width: 100%;
         }
 
-        .query-layout {
+        .input-wrapper {
           flex-direction: column;
-        }
-
-        .query-layout-left textarea {
-          min-height: 120px !important;
-        }
-        
-        .selection-grid {
-          grid-template-columns: 1fr;
-        }
-        
-        .nav-row {
-          flex-wrap: wrap;
-        }
-        
-        .sticky-actions {
-          margin-left: calc(-1 * var(--space-4));
-          margin-right: calc(-1 * var(--space-4));
         }
       }
 
-      @media (max-width: 480px) {
-        .container {
-          padding: var(--space-4) var(--space-3) var(--space-6);
-        }
-        
-        .chip {
-          font-size: 13px;
-          padding: 6px var(--space-3);
-        }
+      /* Scrollbar */
+      .messages-wrapper::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .messages-wrapper::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .messages-wrapper::-webkit-scrollbar-thumb {
+        background: var(--border-strong);
+        border-radius: var(--radius-full);
+      }
+
+      .messages-wrapper::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-500);
       }
 
       /* Accessibility */
       *:focus-visible {
-        outline: 2px solid var(--primary-500);
-        outline-offset: 2px;
-      }
-
-      button:focus-visible,
-      .chip:focus-visible {
         outline: 2px solid var(--primary-500);
         outline-offset: 2px;
       }
@@ -684,396 +575,157 @@
           .join(" ");
       }
 
-      function Screen1({
-        query,
-        setQuery,
-        domainHint,
-        setDomainHint,
-        handleDiscover,
-        loading,
-        error,
-      }) {
+      function BotMessage({ children }) {
         return (
-          <div>
-            <div style={{maxWidth: '500px', height: '100px', overflow: 'hidden', marginBottom: '0'}}>
-              <img src="/static/shmilblick-logo.png" alt="ShmilBlick - What do you want to know?" style={{width: '100%', height: '300px', objectFit: 'cover', objectPosition: 'center center', transform: 'translateY(-100px)'}} />
-            </div>
-            <p style={{
-              fontSize: '18px',
-              fontWeight: 600,
-              lineHeight: 1.4,
-              marginBottom: 'var(--space-6)',
-              background: 'linear-gradient(135deg, hsl(50, 100%, 75%) 0%, hsl(280, 90%, 75%) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              Ask once, get exactly what you need. AI with a laser focus.
-            </p>
+          <div className="message bot">
+            <div className="message-avatar">🤖</div>
+            <div className="message-bubble">{children}</div>
+          </div>
+        );
+      }
 
-            <div className="query-layout">
-              <div className="query-layout-left">
-                <textarea
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Ask anything..."
-                  style={{height: '100%', minHeight: '140px'}}
-                />
+      function UserMessage({ children }) {
+        return (
+          <div className="message user">
+            <div className="message-avatar">👤</div>
+            <div className="message-bubble">{children}</div>
+          </div>
+        );
+      }
+
+      function TypingIndicator() {
+        return (
+          <div className="message bot">
+            <div className="message-avatar">🤖</div>
+            <div className="message-bubble">
+              <div className="typing-indicator">
+                <div className="typing-dot"></div>
+                <div className="typing-dot"></div>
+                <div className="typing-dot"></div>
               </div>
-              <div className="query-layout-right">
-                <div>
-                  <label>Domain (optional)</label>
-                  <input
-                    type="text"
-                    value={domainHint}
-                    onChange={(e) => setDomainHint(e.target.value)}
-                    placeholder="e.g., finance, legal..."
-                  />
-                </div>
-                <button className="primary" onClick={handleDiscover} disabled={loading} style={{width: '100%', padding: 'var(--space-4)'}}>
-                  {loading ? "Loading..." : "Show All Angles"}
-                </button>
-              </div>
-            </div>
-
-            {error && <div className="error">{error}</div>}
-
-            <div className="card" style={{marginTop: 'var(--space-6)', marginBottom: 'var(--space-6)'}}>
-              <h2 style={{marginTop: 0, fontSize: '18px'}}>How it works</h2>
-              <div className="how-it-works">
-                <div className="step-item">
-                  <div className="step-number">1</div>
-                  <div className="step-content">
-                    <strong>We Show All the Angles</strong>
-                    <p className="muted">Ask anything. We'll show you all the ways it can be answered—beginner or expert, modern or historical, theory or examples.</p>
-                  </div>
-                </div>
-                <div className="step-item">
-                  <div className="step-number">2</div>
-                  <div className="step-content">
-                    <strong>You Pick What You Need</strong>
-                    <p className="muted">Check the boxes for what matters. Ignore the rest. Small targeted nets, not one giant one.</p>
-                  </div>
-                </div>
-                <div className="step-item">
-                  <div className="step-number">3</div>
-                  <div className="step-content">
-                    <strong>Answer + Full Trace</strong>
-                    <p className="muted">Get exactly what you wanted, plus see the reasoning behind it. No black box—everything's transparent.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="card" style={{marginBottom: 'var(--space-6)', background: 'var(--surface-glass)', border: '1px solid var(--border)'}}>
-              <p style={{lineHeight: 1.7, marginBottom: 'var(--space-3)', fontSize: '15px'}}>
-                Ever ask your AI a question and get back a wall of text that somehow misses <em>exactly</em> what you needed? 
-                You try again, refine it, ask it differently... but you're still playing guessing games.
-              </p>
-              <p style={{lineHeight: 1.7, marginBottom: 'var(--space-3)', fontSize: '15px'}}>
-                <strong style={{color: 'var(--primary-500)'}}>Here's a better way.</strong> ShmilBlick breaks your topic into 
-                clear choices—like "beginner vs expert," "historical vs modern," or "theory vs practice"—then you simply 
-                <strong> pick what matters to you</strong>.
-              </p>
-              <p style={{lineHeight: 1.7, marginBottom: 0, fontSize: '15px'}}>
-                <strong style={{color: 'var(--accent-pink)'}}>The payoff?</strong> You get exactly the answer you wanted, 
-                on the first try. No rewording. No frustration. Just the right information.
-              </p>
             </div>
           </div>
         );
       }
 
-        function FacetChoices({ facet, facetSelections, updateFacetSelection, updateFacetCustom }) {
-        const data = facetSelections[facet.id] || { values: new Set(), custom: "" };
-        const choices = Array.isArray(facet.choices) ? facet.choices : [];
-        const suggested = choices.length
-          ? choices
-          : (facet.suggested_values || []).map((v) => ({ value: v, subchoices: [] }));
+      function SelectionMessage({ facet, index, total, selections, onSelect, onNext, onSkip, onPickMore, onGetAnswer, isLastAngle, hasSelections }) {
+        const [localSelections, setLocalSelections] = React.useState(new Set());
+
+        React.useEffect(() => {
+          setLocalSelections(new Set(selections[facet.id] || []));
+        }, [facet.id, selections]);
+
+        const toggleSelection = (value) => {
+          const newSet = new Set(localSelections);
+          if (value === "all options") {
+            newSet.clear();
+            newSet.add(value);
+          } else {
+            newSet.delete("all options");
+            if (newSet.has(value)) {
+              newSet.delete(value);
+            } else {
+              newSet.add(value);
+            }
+          }
+          setLocalSelections(newSet);
+          onSelect(facet.id, Array.from(newSet));
+        };
+
+        const choices = Array.isArray(facet.choices) ? facet.choices : 
+          (facet.suggested_values || []).map((v) => ({ value: v, subchoices: [] }));
 
         return (
-          <div className="choices">
-            {suggested.map((choice) => {
-              const isActive = data.values.has(choice.value);
-              return (
-                <div key={choice.value} className="row">
-                  <span
-                    className={`chip ${isActive ? "active" : ""}`}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => {
-                      if (choice.value === "all options") {
-                        data.values.forEach((v) => updateFacetSelection(facet.id, v, false));
-                        updateFacetSelection(facet.id, choice.value, !isActive);
-                        return;
-                      }
-                      updateFacetSelection(facet.id, choice.value, !isActive);
-                      if (!isActive) {
-                        updateFacetSelection(facet.id, "all options", false);
-                      }
-                    }}
-                    onKeyDown={(e) => e.key === "Enter" && updateFacetSelection(facet.id, choice.value, !isActive)}
-                  >
-                    {titleCase(choice.value)}
-                  </span>
-                  {choice.subchoices && choice.subchoices.length > 0 && isActive && (
-                    <div className="subchoices">
-                      {choice.subchoices.map((sub) => {
-                        const subValue = `${choice.value} > ${sub}`;
-                        const subActive = data.values.has(subValue);
-                        return (
-                          <span
-                            className={`chip ${subActive ? "active" : ""}`}
-                            key={sub}
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => {
-                              updateFacetSelection(facet.id, choice.value, true);
-                              updateFacetSelection(facet.id, subValue, !subActive);
-                              if (!subActive) {
-                                updateFacetSelection(facet.id, "all options", false);
-                              }
-                            }}
-                            onKeyDown={(e) => e.key === "Enter" && updateFacetSelection(facet.id, subValue, !subActive)}
-                          >
-                            {titleCase(sub)}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            <div className="row">
-              <input
-                type="text"
-                placeholder="custom value (optional)"
-                value={data.custom}
-                onChange={(e) => updateFacetCustom(facet.id, e.target.value)}
-              />
-            </div>
-          </div>
-        );
-      }
-
-        function Screen2({
-        totalFacets,
-        currentIndex,
-        setCurrentIndex,
-        currentFacet,
-        requestId,
-        handleRefine,
-        handleAnswer,
-        handleNewQuery,
-        loading,
-        error,
-        facetSelections,
-        updateFacetSelection,
-        updateFacetCustom,
-        selectionsForApi,
-        baseSelections,
-        updateBaseSelection,
-        facets,
-      }) {
-        return (
-          <div>
-            <div style={{maxWidth: '500px', height: '100px', overflow: 'hidden', marginBottom: '0'}}>
-              <img src="/static/shmilblick-logo.png" alt="ShmilBlick - What do you want to know?" style={{width: '100%', height: '300px', objectFit: 'cover', objectPosition: 'center center', transform: 'translateY(-100px)'}} />
-            </div>
-            <p style={{
-              fontSize: '18px',
-              fontWeight: 600,
-              lineHeight: 1.4,
-              marginBottom: 'var(--space-6)',
-              background: 'linear-gradient(135deg, hsl(50, 100%, 75%) 0%, hsl(280, 90%, 75%) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              Ask once, get exactly what you need. AI with a laser focus.
-            </p>
-
-            <div className="stepper" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-              <div className="muted">Request: {requestId}</div>
-              <button className="secondary" onClick={handleNewQuery} style={{padding: 'var(--space-2) var(--space-3)', fontSize: '13px'}}>
-                New Query
-              </button>
-            </div>
-
-            <div className="button-row">
-              <button className="orange" onClick={handleRefine} disabled={loading}>
-                Pick More Angles
-              </button>
-              <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
-            </div>
-
-            {currentFacet ? (
-              <div className="card facet-card">
-                <div style={{
-                  display: 'inline-block',
-                  padding: 'var(--space-2) var(--space-4)',
-                  background: 'linear-gradient(135deg, hsl(200, 70%, 50%) 0%, hsl(210, 75%, 55%) 100%)',
-                  color: 'white',
-                  borderRadius: 'var(--radius-full)',
-                  fontSize: '16px',
-                  fontWeight: 700,
-                  marginBottom: 'var(--space-3)',
-                  boxShadow: '0 4px 12px hsla(200, 70%, 50%, 0.4)'
-                }}>
-                  Angle {currentIndex + 1}/{totalFacets}
-                </div>
-                <h2 style={{marginTop: 0}}>
-                  {currentFacet.title}
-                </h2>
-                <div style={{color: 'var(--text)', marginBottom: 'var(--space-2)', lineHeight: 1.5}}>{currentFacet.question}</div>
-                <div style={{color: 'var(--text)', marginBottom: 'var(--space-3)', lineHeight: 1.5}}>{currentFacet.reason}</div>
-                <FacetChoices
-                  facet={currentFacet}
-                  facetSelections={facetSelections}
-                  updateFacetSelection={updateFacetSelection}
-                  updateFacetCustom={updateFacetCustom}
-                />
-              </div>
-            ) : (
-              <div className="muted">No facets yet.</div>
-            )}
-
-            <div className="card" style={{marginTop: 'var(--space-4)', marginBottom: 'var(--space-4)'}}>
-              <div className="row">
-                <strong>Audience</strong>
-                {["beginner", "intermediate", "expert", "executive"].map((v) => (
-                  <span
-                    className={`chip ${baseSelections.audience === v ? "active" : ""}`}
-                    key={v}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => updateBaseSelection("audience", v)}
-                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("audience", v)}
-                  >
-                    {titleCase(v)}
-                  </span>
-                ))}
-              </div>
-              <div className="row">
-                <strong>Format</strong>
-                {["bullets", "steps", "table", "paragraphs"].map((v) => (
-                  <span
-                    className={`chip ${baseSelections.format === v ? "active" : ""}`}
-                    key={v}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => updateBaseSelection("format", v)}
-                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("format", v)}
-                  >
-                    {titleCase(v)}
-                  </span>
-                ))}
-              </div>
-              <div className="row">
-                <strong>Length</strong>
-                {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
-                  <span
-                    className={`chip ${baseSelections.length === v ? "active" : ""}`}
-                    key={v}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => updateBaseSelection("length", v)}
-                    onKeyDown={(e) => e.key === "Enter" && updateBaseSelection("length", v)}
-                  >
-                    {titleCase(v)}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="sticky-actions">
-              <div className="button-row nav-row">
-                <button
-                  onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
-                  disabled={currentIndex === 0}
-                >
-                  Previous
-                </button>
-                <button className="orange" onClick={handleRefine} disabled={loading}>
-                  Pick More Angles
-                </button>
-                <button className="primary" onClick={handleAnswer} disabled={loading}>Proceed</button>
-                <button
-                  onClick={() => setCurrentIndex((prev) => Math.min(totalFacets - 1, prev + 1))}
-                  disabled={currentIndex >= totalFacets - 1}
-                >
-                  Next
-                </button>
-              </div>
-            </div>
-
-            <div className="summary">
-              <h2>Selections</h2>
-              {selectionsForApi().length === 0 ? (
-                <div className="muted">No selections yet.</div>
-              ) : (
-                <div className="selection-grid">
-                  {selectionsForApi().map((item) => {
-                    const rawValues = String(item.value)
-                      .split(",")
-                      .map((val) => val.trim())
-                      .filter(Boolean);
-                    const tree = {};
-                    rawValues.forEach((val) => {
-                      if (val.includes(" > ")) {
-                        const [parent, child] = val.split(" > ").map((v) => v.trim());
-                        if (!tree[parent]) tree[parent] = { children: [] };
-                        if (!tree[parent].children.includes(child)) tree[parent].children.push(child);
-                      } else {
-                        if (!tree[val]) tree[val] = { children: [] };
-                      }
-                    });
-
-                    const facetIndex = facets.findIndex(f => f.id === item.id);
-                    const handleClickToFacet = () => {
-                      if (facetIndex !== -1) {
-                        setCurrentIndex(facetIndex);
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }
-                    };
-
-                    return (
-                      <div key={item.id} className="selection-card">
-                        <div className="muted" style={{cursor: facetIndex !== -1 ? 'pointer' : 'default', fontWeight: 600}} onClick={handleClickToFacet}>
-                          {titleCase(item.id)} {facetIndex !== -1 && <span style={{fontSize: '12px'}}>↑</span>}
-                        </div>
-                        <div className="choices">
-                          {Object.entries(tree).map(([parent, data]) => (
-                            <div key={parent} className="row">
-                              <span className="chip active" style={{cursor: 'pointer'}} onClick={handleClickToFacet}>
-                                {titleCase(parent)}
-                              </span>
-                              {data.children.length > 0 && (
-                                <div className="subchoices">
-                                  {data.children.map((child) => (
-                                    <span className="chip active" key={child} style={{cursor: 'pointer'}} onClick={handleClickToFacet}>
-                                      {titleCase(child)}
-                                    </span>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
+          <div className="selection-message">
+            <div className="angle-header">Angle {index + 1}/{total}</div>
+            <div className="selection-question">{facet.title}</div>
+            {facet.question && <div className="selection-reason">{facet.question}</div>}
+            {facet.reason && <div className="selection-reason">{facet.reason}</div>}
+            
+            <div className="choice-chips">
+              {choices.map((choice) => {
+                const isActive = localSelections.has(choice.value);
+                return (
+                  <div key={choice.value}>
+                    <span
+                      className={`chip ${isActive ? "active" : ""}`}
+                      onClick={() => toggleSelection(choice.value)}
+                    >
+                      {titleCase(choice.value)}
+                    </span>
+                    {choice.subchoices && choice.subchoices.length > 0 && isActive && (
+                      <div className="subchoices-wrapper">
+                        {choice.subchoices.map((sub) => {
+                          const subValue = `${choice.value} > ${sub}`;
+                          const subActive = localSelections.has(subValue);
+                          return (
+                            <span
+                              className={`chip ${subActive ? "active" : ""}`}
+                              key={sub}
+                              onClick={() => toggleSelection(subValue)}
+                            >
+                              {titleCase(sub)}
+                            </span>
+                          );
+                        })}
                       </div>
-                    );
-                  })}
-                </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="selection-actions">
+              <button onClick={onSkip}>Skip</button>
+              {!isLastAngle && <button className="primary" onClick={onNext}>Next →</button>}
+              {isLastAngle && (
+                <>
+                  <button className="orange" onClick={onPickMore}>Pick More Angles</button>
+                  <button className="primary" onClick={onGetAnswer}>Get Answer</button>
+                </>
               )}
             </div>
-
-            {error && <div className="error">{error}</div>}
           </div>
         );
       }
 
-      function Screen3({ answer, trace, setScreen, answerMode, setAnswerMode, handleNewQuery }) {
+      function SummaryMessage({ selections, facets, baseSelections }) {
+        const allSelections = [];
+        
+        if (baseSelections.audience) {
+          allSelections.push({ label: "Audience", value: baseSelections.audience });
+        }
+        if (baseSelections.format) {
+          allSelections.push({ label: "Format", value: baseSelections.format });
+        }
+        if (baseSelections.length) {
+          allSelections.push({ label: "Length", value: baseSelections.length });
+        }
+
+        Object.entries(selections).forEach(([id, values]) => {
+          if (values.length > 0) {
+            const facet = facets.find(f => f.id === id);
+            const label = facet ? facet.title : id;
+            allSelections.push({ label, value: values.join(", ") });
+          }
+        });
+
+        if (allSelections.length === 0) return null;
+
+        return (
+          <div className="summary-card">
+            <div className="summary-title">Your Selections:</div>
+            {allSelections.map((item, i) => (
+              <div key={i} className="summary-item">
+                <div className="summary-label">{item.label}:</div>
+                <div className="summary-value">{titleCase(item.value)}</div>
+              </div>
+            ))}
+          </div>
+        );
+      }
+
+      function AnswerMessage({ answer }) {
         function escapeHtml(value) {
           return String(value)
             .replace(/&/g, "&amp;")
@@ -1115,11 +767,6 @@
               htmlLines.push(`<h1>${escapeHtml(line.replace(/^#\s+/, ""))}</h1>`);
               return;
             }
-            if (/^>\s+/.test(line)) {
-              flushList();
-              htmlLines.push(`<blockquote>${escapeHtml(line.replace(/^>\s+/, ""))}</blockquote>`);
-              return;
-            }
             if (/^\d+\.\s+/.test(line)) {
               if (!inList || listType !== "ol") {
                 flushList();
@@ -1153,137 +800,56 @@
         }
 
         return (
-          <div>
-            <div style={{maxWidth: '500px', height: '100px', overflow: 'hidden', marginBottom: '0'}}>
-              <img src="/static/shmilblick-logo.png" alt="ShmilBlick - What do you want to know?" style={{width: '100%', height: '300px', objectFit: 'cover', objectPosition: 'center center', transform: 'translateY(-100px)'}} />
-            </div>
-            <p style={{
-              fontSize: '18px',
-              fontWeight: 600,
-              lineHeight: 1.4,
-              marginBottom: 'var(--space-6)',
-              background: 'linear-gradient(135deg, hsl(50, 100%, 75%) 0%, hsl(280, 90%, 75%) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              Ask once, get exactly what you need. AI with a laser focus.
-            </p>
-
-            <div className="button-row row">
-              <button className="secondary" onClick={() => setScreen(2)}>Back to facets</button>
-              <button className="secondary" onClick={handleNewQuery}>New Query</button>
-            </div>
-            <h2>Answer</h2>
-            <div className="row">
-              <strong>Presentation</strong>{" "}
-              <span className={`chip ${answerMode === "plain" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("plain")}>Plain</span>
-              <span className={`chip ${answerMode === "markdown" ? "active" : ""}`} role="button" tabIndex={0} onClick={() => setAnswerMode("markdown")}>Markdown</span>
-            </div>
-            <div className="row">
-              {answerMode === "plain" ? (
-                <pre>{answer}</pre>
-              ) : (
-                <div className="answer-card markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
-              )}
-            </div>
-            <h2>Trace</h2>
-            <pre>{JSON.stringify(trace, null, 2)}</pre>
-          </div>
+          <div className="answer-content markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
         );
       }
 
       function App() {
-        const [screen, setScreen] = React.useState(1);
-        const [loading, setLoading] = React.useState(false);
-        const [error, setError] = React.useState("");
-        const [requestId, setRequestId] = React.useState(null);
-        const [facets, setFacets] = React.useState([]);
-        const [currentIndex, setCurrentIndex] = React.useState(0);
-        const [answer, setAnswer] = React.useState("");
-        const [answerMode, setAnswerMode] = React.useState("markdown");
-        const [trace, setTrace] = React.useState([]);
-
+        const [messages, setMessages] = React.useState([]);
+        const [conversationState, setConversationState] = React.useState("initial");
         const [query, setQuery] = React.useState("");
         const [domainHint, setDomainHint] = React.useState("");
+        const [requestId, setRequestId] = React.useState(null);
+        const [facets, setFacets] = React.useState([]);
+        const [currentAngleIndex, setCurrentAngleIndex] = React.useState(0);
+        const [selections, setSelections] = React.useState({});
         const [baseSelections, setBaseSelections] = React.useState({
           audience: "",
           format: "",
-          length: "",
+          length: ""
         });
+        const [loading, setLoading] = React.useState(false);
+        const messagesEndRef = React.useRef(null);
 
-        const [facetSelections, setFacetSelections] = React.useState({});
+        const scrollToBottom = () => {
+          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        };
 
-        const totalFacets = facets.length;
-        const currentFacet = facets[currentIndex];
+        React.useEffect(() => {
+          scrollToBottom();
+        }, [messages]);
 
-        function updateBaseSelection(key, value) {
-          setBaseSelections((prev) => ({ ...prev, [key]: value }));
-        }
+        React.useEffect(() => {
+          // Welcome message
+          setMessages([
+            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
+            { type: "bot", content: "What would you like to know today?" }
+          ]);
+        }, []);
 
-        function updateFacetSelection(facetId, value, checked) {
-          setFacetSelections((prev) => {
-            const current = prev[facetId] || { values: new Set(), custom: "" };
-            const nextValues = new Set(current.values);
-            if (checked) {
-              nextValues.add(value);
-            } else {
-              nextValues.delete(value);
-            }
-            return { ...prev, [facetId]: { ...current, values: nextValues } };
-          });
-        }
+        const addMessage = (type, content) => {
+          setMessages(prev => [...prev, { type, content }]);
+        };
 
-        function updateFacetCustom(facetId, customValue) {
-          setFacetSelections((prev) => {
-            const current = prev[facetId] || { values: new Set(), custom: "" };
-            return { ...prev, [facetId]: { ...current, custom: customValue } };
-          });
-        }
+        const handleQuerySubmit = async () => {
+          if (!query.trim()) return;
 
-        function selectionsForApi() {
-          const selections = [];
-          Object.entries(baseSelections).forEach(([id, value]) => {
-            if (value) selections.push({ id, value });
-          });
-
-          Object.entries(facetSelections).forEach(([id, data]) => {
-            const values = Array.from(data.values || []);
-            if (data.custom) values.push(data.custom);
-            const value = values.length ? values.join(", ") : null;
-            if (value) selections.push({ id, value });
-          });
-
-          return selections;
-        }
-
-        function handleNewQuery() {
-          setScreen(1);
-          setQuery("");
-          setDomainHint("");
-          setRequestId(null);
-          setFacets([]);
-          setCurrentIndex(0);
-          setFacetSelections({});
-          setAnswer("");
-          setTrace([]);
-          setError("");
-          setBaseSelections({
-            audience: "",
-            format: "",
-            length: "",
-          });
-        }
-
-        async function handleDiscover() {
-          setError("");
-          setAnswer("");
-          setTrace([]);
-          if (!query.trim()) {
-            setError("Please enter a query.");
-            return;
-          }
+          addMessage("user", query);
+          setConversationState("processing_query");
           setLoading(true);
+
+          addMessage("bot", <TypingIndicator />);
+
           try {
             const res = await fetch(`${API_BASE}/api/discover`, {
               method: "POST",
@@ -1293,137 +859,338 @@
                 domain_hint: domainHint.trim() || null,
               }),
             });
-            const text = await res.text();
+
             if (!res.ok) {
-              setError(text || "Discover failed.");
-              return;
+              throw new Error("Failed to discover angles");
             }
-            const data = JSON.parse(text);
+
+            const data = await res.json();
             setRequestId(data.request_id);
             setFacets(data.facet_candidates || []);
-            setCurrentIndex(0);
-            setScreen(2);
+            setCurrentAngleIndex(0);
+
+            // Remove typing indicator
+            setMessages(prev => prev.slice(0, -1));
+
+            addMessage("bot", `Great question! I found ${data.facet_candidates.length} angles to explore. Let's go through them! 🎯`);
+            
+            // Add base selections message
+            addMessage("bot", "First, let me know your preferences:");
+            addMessage("bot", { type: "base_selections" });
+
+            setConversationState("gathering_base_selections");
           } catch (err) {
-            setError("Discover failed.");
+            setMessages(prev => prev.slice(0, -1));
+            addMessage("bot", "Sorry, I encountered an error. Please try again.");
           } finally {
             setLoading(false);
+            setQuery("");
+            setDomainHint("");
           }
-        }
+        };
 
-        async function handleRefine() {
-          if (!requestId) {
-            setError("Please discover facets first.");
+        const handleBaseSelectionsConfirm = () => {
+          if (!baseSelections.audience || !baseSelections.format || !baseSelections.length) {
+            addMessage("bot", "Please select Audience, Format, and Length before continuing.");
             return;
           }
+
+          addMessage("bot", "Perfect! Now let's explore the angles:");
+          setConversationState("showing_angles");
+          setCurrentAngleIndex(0);
+
+          // Show first angle
+          if (facets.length > 0) {
+            addMessage("bot", { type: "selection", facetIndex: 0 });
+          }
+        };
+
+        const handleSelection = (facetId, values) => {
+          setSelections(prev => ({ ...prev, [facetId]: values }));
+        };
+
+        const handleNextAngle = () => {
+          addMessage("bot", "Got it! ✓");
+          
+          if (currentAngleIndex < facets.length - 1) {
+            const nextIndex = currentAngleIndex + 1;
+            setCurrentAngleIndex(nextIndex);
+            addMessage("bot", { type: "selection", facetIndex: nextIndex });
+          }
+        };
+
+        const handleSkipAngle = () => {
+          addMessage("bot", "Skipped. Moving on...");
+          
+          if (currentAngleIndex < facets.length - 1) {
+            const nextIndex = currentAngleIndex + 1;
+            setCurrentAngleIndex(nextIndex);
+            addMessage("bot", { type: "selection", facetIndex: nextIndex });
+          } else {
+            handleAllAnglesCompleted();
+          }
+        };
+
+        const handleAllAnglesCompleted = () => {
+          addMessage("bot", { type: "summary" });
+          addMessage("bot", "All angles covered! Want to pick more angles or get your answer?");
+          setConversationState("ready_to_answer");
+        };
+
+        const handlePickMoreAngles = async () => {
+          if (!requestId) return;
+
+          addMessage("bot", "Looking for more angles...");
           setLoading(true);
-          setError("");
+          addMessage("bot", <TypingIndicator />);
+
           try {
+            const apiSelections = [];
+            Object.entries(baseSelections).forEach(([id, value]) => {
+              if (value) apiSelections.push({ id, value });
+            });
+            Object.entries(selections).forEach(([id, values]) => {
+              if (values.length > 0) apiSelections.push({ id, value: values.join(", ") });
+            });
+
             const res = await fetch(`${API_BASE}/api/refine`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 request_id: requestId,
-                facet_selections: selectionsForApi(),
+                facet_selections: apiSelections,
                 refine_round: 2,
               }),
             });
-            const text = await res.text();
+
             if (!res.ok) {
-              setError(text || "Refine failed.");
-              return;
+              throw new Error("Failed to refine");
             }
-            const data = JSON.parse(text);
-            const nextFacets = data.facet_candidates || [];
-            if (nextFacets.length) {
-              setFacets((prev) => prev.concat(nextFacets));
-              setCurrentIndex((prevIndex) => {
-                const firstNewIndex = facets.length;
-                return Math.max(firstNewIndex, prevIndex);
-              });
+
+            const data = await res.json();
+            const newFacets = data.facet_candidates || [];
+
+            setMessages(prev => prev.slice(0, -1));
+
+            if (newFacets.length > 0) {
+              const oldLength = facets.length;
+              setFacets(prev => [...prev, ...newFacets]);
+              addMessage("bot", `Found ${newFacets.length} more angles! Let's explore them:`);
+              
+              const nextIndex = oldLength;
+              setCurrentAngleIndex(nextIndex);
+              addMessage("bot", { type: "selection", facetIndex: nextIndex });
+              setConversationState("showing_angles");
+            } else {
+              addMessage("bot", "No additional angles found. Ready to get your answer!");
             }
           } catch (err) {
-            setError("Refine failed.");
+            setMessages(prev => prev.slice(0, -1));
+            addMessage("bot", "Sorry, I couldn't find more angles. Please try again.");
           } finally {
             setLoading(false);
           }
-        }
+        };
 
-        async function handleAnswer() {
-          if (!requestId) {
-            setError("Please discover facets first.");
-            return;
-          }
+        const handleGetAnswer = async () => {
+          if (!requestId) return;
+
+          addMessage("bot", "Generating your answer...");
           setLoading(true);
-          setError("");
+          addMessage("bot", <TypingIndicator />);
+
           try {
+            const apiSelections = [];
+            Object.entries(baseSelections).forEach(([id, value]) => {
+              if (value) apiSelections.push({ id, value });
+            });
+            Object.entries(selections).forEach(([id, values]) => {
+              if (values.length > 0) apiSelections.push({ id, value: values.join(", ") });
+            });
+
             const res = await fetch(`${API_BASE}/api/answer`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 request_id: requestId,
-                facet_selections: selectionsForApi(),
+                facet_selections: apiSelections,
               }),
             });
-            const text = await res.text();
+
             if (!res.ok) {
-              setError(text || "Answer failed.");
-              return;
+              throw new Error("Failed to get answer");
             }
-            const data = JSON.parse(text);
-            setAnswer(data.answer || "");
-            setTrace(data.trace || []);
-            setScreen(3);
+
+            const data = await res.json();
+
+            setMessages(prev => prev.slice(0, -1));
+            addMessage("bot", "Here's your answer:");
+            addMessage("bot", { type: "answer", answer: data.answer });
+            addMessage("bot", "Want to start a new query? Just type your question below!");
+            
+            setConversationState("answer_shown");
           } catch (err) {
-            setError("Answer failed.");
+            setMessages(prev => prev.slice(0, -1));
+            addMessage("bot", "Sorry, I couldn't generate an answer. Please try again.");
           } finally {
             setLoading(false);
           }
-        }
+        };
+
+        const handleNewQuery = () => {
+          setMessages([
+            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
+            { type: "bot", content: "What would you like to know today?" }
+          ]);
+          setConversationState("initial");
+          setQuery("");
+          setDomainHint("");
+          setRequestId(null);
+          setFacets([]);
+          setCurrentAngleIndex(0);
+          setSelections({});
+          setBaseSelections({ audience: "", format: "", length: "" });
+        };
+
+        const renderMessage = (msg, index) => {
+          if (msg.type === "bot") {
+            if (typeof msg.content === "string") {
+              return <BotMessage key={index}>{msg.content}</BotMessage>;
+            } else if (msg.content?.type === "base_selections") {
+              return (
+                <div key={index} className="selection-message">
+                  <div className="selection-question">Select your preferences:</div>
+                  <div>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', marginTop: 'var(--space-3)'}}>Audience</strong>
+                    <div className="choice-chips">
+                      {["beginner", "intermediate", "expert", "executive"].map((v) => (
+                        <span
+                          className={`chip ${baseSelections.audience === v ? "active" : ""}`}
+                          key={v}
+                          onClick={() => setBaseSelections(prev => ({ ...prev, audience: v }))}
+                        >
+                          {titleCase(v)}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', marginTop: 'var(--space-3)'}}>Format</strong>
+                    <div className="choice-chips">
+                      {["bullets", "steps", "table", "paragraphs"].map((v) => (
+                        <span
+                          className={`chip ${baseSelections.format === v ? "active" : ""}`}
+                          key={v}
+                          onClick={() => setBaseSelections(prev => ({ ...prev, format: v }))}
+                        >
+                          {titleCase(v)}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', marginTop: 'var(--space-3)'}}>Length</strong>
+                    <div className="choice-chips">
+                      {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
+                        <span
+                          className={`chip ${baseSelections.length === v ? "active" : ""}`}
+                          key={v}
+                          onClick={() => setBaseSelections(prev => ({ ...prev, length: v }))}
+                        >
+                          {titleCase(v)}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="selection-actions">
+                    <button className="primary" onClick={handleBaseSelectionsConfirm}>
+                      Continue
+                    </button>
+                  </div>
+                </div>
+              );
+            } else if (msg.content?.type === "selection") {
+              const facet = facets[msg.content.facetIndex];
+              if (!facet) return null;
+              return (
+                <SelectionMessage
+                  key={index}
+                  facet={facet}
+                  index={msg.content.facetIndex}
+                  total={facets.length}
+                  selections={selections}
+                  onSelect={handleSelection}
+                  onNext={handleNextAngle}
+                  onSkip={handleSkipAngle}
+                  onPickMore={handlePickMoreAngles}
+                  onGetAnswer={handleGetAnswer}
+                  isLastAngle={msg.content.facetIndex === facets.length - 1}
+                  hasSelections={Object.keys(selections).length > 0}
+                />
+              );
+            } else if (msg.content?.type === "summary") {
+              return <SummaryMessage key={index} selections={selections} facets={facets} baseSelections={baseSelections} />;
+            } else if (msg.content?.type === "answer") {
+              return <AnswerMessage key={index} answer={msg.content.answer} />;
+            } else {
+              return <BotMessage key={index}>{msg.content}</BotMessage>;
+            }
+          } else if (msg.type === "user") {
+            return <UserMessage key={index}>{msg.content}</UserMessage>;
+          }
+          return null;
+        };
 
         return (
-          <div className="container">
-            {screen === 1 && (
-              <Screen1
-                query={query}
-                setQuery={setQuery}
-                domainHint={domainHint}
-                setDomainHint={setDomainHint}
-                handleDiscover={handleDiscover}
-                loading={loading}
-                error={error}
-              />
-            )}
-            {screen === 2 && (
-              <Screen2
-                totalFacets={totalFacets}
-                currentIndex={currentIndex}
-                setCurrentIndex={setCurrentIndex}
-                currentFacet={currentFacet}
-                requestId={requestId}
-                handleRefine={handleRefine}
-                handleAnswer={handleAnswer}
-                handleNewQuery={handleNewQuery}
-                loading={loading}
-                error={error}
-                facetSelections={facetSelections}
-                updateFacetSelection={updateFacetSelection}
-                updateFacetCustom={updateFacetCustom}
-                selectionsForApi={selectionsForApi}
-                baseSelections={baseSelections}
-                updateBaseSelection={updateBaseSelection}
-                facets={facets}
-              />
-            )}
-            {screen === 3 && (
-              <Screen3
-                answer={answer}
-                trace={trace}
-                setScreen={setScreen}
-                answerMode={answerMode}
-                setAnswerMode={setAnswerMode}
-                handleNewQuery={handleNewQuery}
-              />
-            )}
+          <div className="chat-container">
+            <div className="chat-header">
+              <h1>ShmilBlick</h1>
+              <div className="tagline">Ask once, get exactly what you need. AI with a laser focus.</div>
+            </div>
+
+            <div className="messages-wrapper">
+              {messages.map((msg, i) => renderMessage(msg, i))}
+              <div ref={messagesEndRef} />
+            </div>
+
+            <div className="input-bar">
+              {conversationState === "initial" || conversationState === "answer_shown" ? (
+                <div className="input-wrapper">
+                  <textarea
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Ask anything..."
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        handleQuerySubmit();
+                      }
+                    }}
+                  />
+                  <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()}>
+                    Send
+                  </button>
+                </div>
+              ) : conversationState === "ready_to_answer" ? (
+                <div className="input-wrapper">
+                  <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
+                    Pick More Angles
+                  </button>
+                  <button className="primary" onClick={handleGetAnswer} disabled={loading}>
+                    Get Answer
+                  </button>
+                  <button className="secondary" onClick={handleNewQuery}>
+                    New Query
+                  </button>
+                </div>
+              ) : (
+                <div className="input-wrapper">
+                  <button className="secondary" onClick={handleNewQuery}>
+                    New Query
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         );
       }
