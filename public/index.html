@@ -682,13 +682,9 @@
 
             <div className="selection-actions">
               <button onClick={onSkip}>Skip</button>
-              {!isLastAngle && <button className="primary" onClick={onNext}>Next →</button>}
-              {isLastAngle && (
-                <>
-                  <button className="orange" onClick={onPickMore}>Pick More Angles</button>
-                  <button className="primary" onClick={onGetAnswer}>Get Answer</button>
-                </>
-              )}
+              <button className="primary" onClick={onNext}>
+                {isLastAngle ? "Continue →" : "Next →"}
+              </button>
             </div>
           </div>
         );
@@ -962,6 +958,8 @@
             const nextIndex = currentAngleIndex + 1;
             setCurrentAngleIndex(nextIndex);
             addMessage("bot", { type: "selection", facetIndex: nextIndex });
+          } else {
+            handleAllAnglesCompleted();
           }
         };
 
