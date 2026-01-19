@@ -830,6 +830,7 @@
         const [loading, setLoading] = React.useState(false);
         const [trace, setTrace] = React.useState([]);
         const [compiledPrompt, setCompiledPrompt] = React.useState(null);
+        const [modelReasoning, setModelReasoning] = React.useState(null);
         const [reasoningApproach, setReasoningApproach] = React.useState({
           tone: "",
           evidence_style: "",
@@ -1084,7 +1085,13 @@
             addMessage("bot", { type: "answer", answer: data.answer });
             setTrace(data.trace || []);
             setCompiledPrompt(data.compiled_prompt || null);
-            addMessage("bot", "💡 Want to see the full reasoning? Check the prompt and trace for complete transparency!");
+            setModelReasoning(data.reasoning || null);
+            
+            if (data.reasoning) {
+              addMessage("bot", "💡 This answer includes the model's internal reasoning! Check the prompt, reasoning, and trace for complete transparency!");
+            } else {
+              addMessage("bot", "💡 Want to see the full reasoning? Check the prompt and trace for complete transparency!");
+            }
             addMessage("bot", { type: "post_answer_actions" });
             
             setConversationState("answer_shown");
@@ -1420,6 +1427,43 @@
               );
             } else if (msg.content?.type === "answer") {
               return <AnswerMessage key={index} answer={msg.content.answer} />;
+            } else if (msg.content?.type === "model_reasoning") {
+              const reasoning = msg.content.reasoningData;
+              return (
+                <div key={index} className="answer-content" style={{padding: 'var(--space-5)'}}>
+                  <div style={{
+                    fontWeight: 700,
+                    fontSize: '14px',
+                    color: 'var(--accent-cyan)',
+                    marginBottom: 'var(--space-3)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--space-2)'
+                  }}>
+                    🧠 Model's Internal Reasoning (o3-mini)
+                  </div>
+                  <div style={{
+                    fontSize: '14px',
+                    color: 'var(--text)',
+                    lineHeight: 1.7,
+                    whiteSpace: 'pre-wrap',
+                    background: 'var(--surface-glass)',
+                    padding: 'var(--space-4)',
+                    borderRadius: 'var(--radius-md)',
+                    border: '1px solid var(--border)'
+                  }}>
+                    {reasoning}
+                  </div>
+                  <div style={{
+                    marginTop: 'var(--space-3)',
+                    fontSize: '13px',
+                    color: 'var(--text-muted)',
+                    fontStyle: 'italic'
+                  }}>
+                    This is the model's chain-of-thought process before generating the final answer.
+                  </div>
+                </div>
+              );
             } else if (msg.content?.type === "compiled_prompt") {
               const prompt = msg.content.promptData;
               if (!prompt || !prompt.sections) {
@@ -1544,7 +1588,32 @@
                 <div key={index} className="selection-message">
                   <div className="selection-question">What would you like to do?</div>
                   
-                  <div style={{marginBottom: 'var(--space-4)'}}>
+                  {modelReasoning && (
+                    <div style={{marginBottom: 'var(--space-4)'}}>
+                      <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
+                        View Model Reasoning 🧠
+                      </div>
+                      <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
+                        See the model's internal chain-of-thought process (o3-mini's reasoning tokens).
+                      </div>
+                      <div className="selection-actions">
+                        <button className="secondary" onClick={() => {
+                          const hasReasoning = messages.some(m => m.content?.type === "model_reasoning");
+                          if (!hasReasoning) {
+                            addMessage("bot", "Here's the model's internal reasoning process:");
+                            addMessage("bot", { type: "model_reasoning", reasoningData: modelReasoning });
+                            setTimeout(() => scrollToBottom(), 100);
+                          } else {
+                            scrollToBottom();
+                          }
+                        }}>
+                          View Reasoning 🧠
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  <div style={{borderTop: modelReasoning ? '1px solid var(--border)' : 'none', marginTop: modelReasoning ? 'var(--space-4)' : 0, paddingTop: modelReasoning ? 'var(--space-4)' : 0, marginBottom: 'var(--space-4)'}}>
                     <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
                       View Prompt
                     </div>
