@@ -1130,6 +1130,114 @@
               );
             } else if (msg.content?.type === "summary") {
               return <SummaryMessage key={index} selections={selections} facets={facets} baseSelections={baseSelections} />;
+            } else if (msg.content?.type === "editable_summary") {
+              // Editable summary with clickable angles
+              const allSelections = [];
+              
+              if (baseSelections.audience || baseSelections.format || baseSelections.length) {
+                allSelections.push({
+                  label: "Base Preferences",
+                  items: [
+                    baseSelections.audience && { key: "audience", label: "Audience", value: baseSelections.audience },
+                    baseSelections.format && { key: "format", label: "Format", value: baseSelections.format },
+                    baseSelections.length && { key: "length", label: "Length", value: baseSelections.length }
+                  ].filter(Boolean),
+                  isBase: true
+                });
+              }
+
+              facets.forEach((facet, facetIndex) => {
+                const facetSelections = selections[facet.id];
+                if (facetSelections && facetSelections.length > 0) {
+                  allSelections.push({
+                    label: facet.title,
+                    items: [{ value: facetSelections.join(", ") }],
+                    facetIndex,
+                    isBase: false
+                  });
+                }
+              });
+
+              return (
+                <div key={index} className="selection-message">
+                  <div className="summary-title" style={{marginBottom: 'var(--space-4)'}}>Your Current Selections:</div>
+                  {allSelections.map((section, sIdx) => (
+                    <div key={sIdx} style={{marginBottom: 'var(--space-4)'}}>
+                      <div style={{
+                        fontWeight: 600,
+                        color: 'var(--primary-500)',
+                        marginBottom: 'var(--space-2)',
+                        fontSize: '14px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--space-2)'
+                      }}>
+                        {section.label}
+                        {!section.isBase && (
+                          <button
+                            style={{
+                              padding: '4px 12px',
+                              fontSize: '12px',
+                              background: 'var(--surface-glass)',
+                              border: '1px solid var(--border)',
+                              borderRadius: 'var(--radius-full)',
+                              cursor: 'pointer',
+                              color: 'var(--text-muted)'
+                            }}
+                            onClick={() => {
+                              setCurrentAngleIndex(section.facetIndex);
+                              addMessage("bot", `Let's review ${section.label}:`);
+                              addMessage("bot", { type: "selection", facetIndex: section.facetIndex });
+                              setConversationState("showing_angles");
+                            }}
+                          >
+                            Edit
+                          </button>
+                        )}
+                        {section.isBase && (
+                          <button
+                            style={{
+                              padding: '4px 12px',
+                              fontSize: '12px',
+                              background: 'var(--surface-glass)',
+                              border: '1px solid var(--border)',
+                              borderRadius: 'var(--radius-full)',
+                              cursor: 'pointer',
+                              color: 'var(--text-muted)'
+                            }}
+                            onClick={() => {
+                              addMessage("bot", "Let's update your base preferences:");
+                              addMessage("bot", { type: "base_selections" });
+                              setConversationState("gathering_base_selections");
+                            }}
+                          >
+                            Edit
+                          </button>
+                        )}
+                      </div>
+                      <div style={{paddingLeft: 'var(--space-4)'}}>
+                        {section.items.map((item, iIdx) => (
+                          <div key={iIdx} style={{
+                            fontSize: '13px',
+                            color: 'var(--text)',
+                            marginBottom: 'var(--space-1)'
+                          }}>
+                            {item.label ? `${item.label}: ${titleCase(item.value)}` : titleCase(item.value)}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                  <div className="selection-actions" style={{marginTop: 'var(--space-5)'}}>
+                    <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
+                      Pick More Angles
+                    </button>
+                    <button className="primary" onClick={handleGetAnswer} disabled={loading}>
+                      Regenerate Answer
+                    </button>
+                  </div>
+                </div>
+              );
             } else if (msg.content?.type === "answer") {
               return <AnswerMessage key={index} answer={msg.content.answer} />;
             } else if (msg.content?.type === "post_answer_actions") {
@@ -1137,14 +1245,13 @@
                 <div key={index} className="selection-message">
                   <div className="selection-question">Want to refine your answer?</div>
                   <div className="selection-reason">
-                    You can go back and adjust your angle selections, or pick more angles for even more precision.
+                    You can review and modify your angle selections, or pick more angles for even more precision.
                   </div>
                   <div className="selection-actions">
                     <button className="orange" onClick={() => {
-                      addMessage("bot", "Sure! Let me show you your selections:");
-                      addMessage("bot", { type: "summary" });
-                      addMessage("bot", "You can pick more angles to refine further:");
-                      setConversationState("ready_to_answer");
+                      addMessage("bot", "Here are your current selections. Click any angle to modify it:");
+                      addMessage("bot", { type: "editable_summary" });
+                      setConversationState("editing_angles");
                     }}>
                       Refine Angles
                     </button>
