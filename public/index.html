@@ -1269,7 +1269,7 @@
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
               <span className="dig-deeper-icon">🔍</span>
               <span>Dig Deeper</span>
-              <span className="dig-deeper-subtitle">(Use answer to apply relevant angles)</span>
+              <span className="dig-deeper-subtitle">(Use answer to apply NEW relevant angles)</span>
             </button>
 
             <div className="answer-actions">
@@ -1297,7 +1297,7 @@
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
               <span className="dig-deeper-icon">🔍</span>
               <span>Dig Deeper</span>
-              <span className="dig-deeper-subtitle">(Use answer to apply relevant angles)</span>
+              <span className="dig-deeper-subtitle">(Use answer to apply NEW relevant angles)</span>
             </button>
           </div>
         );
@@ -2212,25 +2212,7 @@
                     </button>
                   </div>
                 </div>
-              ) : conversationState === "ready_to_answer" ? (
-                <div className="input-wrapper">
-                  <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
-                    Pick More Angles
-                  </button>
-                  <button className="primary" onClick={handleGetAnswer} disabled={loading}>
-                    Get Answer
-                  </button>
-                  <button className="secondary" onClick={handleNewQuery}>
-                    New Query
-                  </button>
-                </div>
-              ) : (
-                <div className="input-wrapper">
-                  <button className="secondary" onClick={handleNewQuery}>
-                    New Query
-                  </button>
-                </div>
-              )}
+              ) : null}
             </div>
           </div>
         );
