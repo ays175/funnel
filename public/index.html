@@ -1358,6 +1358,79 @@
                   </div>
                 </div>
               );
+            } else if (msg.content?.type === "reasoning_options") {
+              return (
+                <div key={index} className="selection-message">
+                  <div className="selection-question">Customize Reasoning Approach (Optional)</div>
+                  <div className="selection-reason" style={{marginBottom: 'var(--space-4)'}}>
+                    Fine-tune how the AI structures and presents your answer. Leave blank to use defaults.
+                  </div>
+
+                  <div style={{marginBottom: 'var(--space-4)'}}>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', fontSize: '14px'}}>Tone</strong>
+                    <div className="choice-chips">
+                      {["Academic", "Conversational", "Technical"].map((v) => (
+                        <span
+                          className={`chip ${reasoningApproach.tone === v ? "active" : ""}`}
+                          key={v}
+                          onClick={() => setReasoningApproach(prev => ({ ...prev, tone: prev.tone === v ? "" : v }))}
+                        >
+                          {v}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{marginBottom: 'var(--space-4)'}}>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', fontSize: '14px'}}>Evidence Style</strong>
+                    <div className="choice-chips">
+                      {["Citations", "Examples", "Data-Driven"].map((v) => (
+                        <span
+                          className={`chip ${reasoningApproach.evidence_style === v ? "active" : ""}`}
+                          key={v}
+                          onClick={() => setReasoningApproach(prev => ({ ...prev, evidence_style: prev.evidence_style === v ? "" : v }))}
+                        >
+                          {v}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{marginBottom: 'var(--space-4)'}}>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', fontSize: '14px'}}>Structure</strong>
+                    <div className="choice-chips">
+                      {["Chronological", "Thematic", "Analytical"].map((v) => (
+                        <span
+                          className={`chip ${reasoningApproach.structure === v ? "active" : ""}`}
+                          key={v}
+                          onClick={() => setReasoningApproach(prev => ({ ...prev, structure: prev.structure === v ? "" : v }))}
+                        >
+                          {v}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div style={{marginBottom: 'var(--space-4)'}}>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', fontSize: '14px'}}>Custom Instructions (optional)</strong>
+                    <textarea
+                      value={reasoningApproach.custom_instructions}
+                      onChange={(e) => setReasoningApproach(prev => ({ ...prev, custom_instructions: e.target.value }))}
+                      placeholder="Add any additional guidance for the AI..."
+                      style={{width: '100%', minHeight: '80px'}}
+                    />
+                  </div>
+
+                  <div className="selection-actions">
+                    <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
+                      Pick More Angles
+                    </button>
+                    <button className="primary" onClick={handleGetAnswer} disabled={loading}>
+                      Generate Answer
+                    </button>
+                  </div>
+                </div>
+              );
             } else if (msg.content?.type === "answer") {
               return <AnswerMessage key={index} answer={msg.content.answer} />;
             } else if (msg.content?.type === "compiled_prompt") {
