@@ -61,8 +61,8 @@ def load_settings() -> Settings:
         trace_retention_days=int(os.getenv("TRACE_RETENTION_DAYS", "30")),
         enable_llm_facet_proposals=_bool("ENABLE_LLM_FACET_PROPOSALS", "true"),
         enable_retrieval=_bool("ENABLE_RETRIEVAL", "false"),
-        max_facet_questions=int(os.getenv("MAX_FACET_QUESTIONS", "10")),
-        max_refine_rounds=int(os.getenv("MAX_REFINE_ROUNDS", "2")),
+        max_facet_questions=int(os.getenv("MAX_FACET_QUESTIONS", "3")),
+        max_refine_rounds=int(os.getenv("MAX_REFINE_ROUNDS", "4")),
         require_user_confirm_before_final=_bool(
             "REQUIRE_USER_CONFIRM_BEFORE_FINAL", "true"
         ),
