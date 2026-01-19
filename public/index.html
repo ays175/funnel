@@ -1349,6 +1349,7 @@
         });
         const messagesEndRef = React.useRef(null);
         const answerRef = React.useRef(null);
+        const lastAddedMessageRef = React.useRef(null);
 
         const scrollToBottom = () => {
           messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -1356,6 +1357,10 @@
 
         const scrollToAnswer = () => {
           answerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+
+        const scrollToLastMessage = () => {
+          lastAddedMessageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         };
 
         React.useEffect(() => {
@@ -1988,9 +1993,7 @@
                       if (!hasReasoningMsg && modelReasoning) {
                         addMessage("bot", "Here's the model's internal reasoning process:");
                         addMessage("bot", { type: "model_reasoning", reasoningData: modelReasoning });
-                        setTimeout(() => scrollToBottom(), 100);
-                      } else {
-                        scrollToBottom();
+                        setTimeout(() => scrollToLastMessage(), 200);
                       }
                     }}
                     onViewPrompt={() => {
@@ -1998,7 +2001,7 @@
                       if (!hasPrompt && compiledPrompt) {
                         addMessage("bot", "Here's the exact prompt sent to the AI:");
                         addMessage("bot", { type: "compiled_prompt", promptData: compiledPrompt });
-                        setTimeout(() => scrollToBottom(), 100);
+                        setTimeout(() => scrollToLastMessage(), 200);
                       }
                     }}
                     onViewTrace={() => {
@@ -2006,9 +2009,7 @@
                       if (!hasTrace && trace) {
                         addMessage("bot", "Here's the complete trace of how I processed your query:");
                         addMessage("bot", { type: "trace", traceData: trace });
-                        setTimeout(() => scrollToBottom(), 100);
-                      } else {
-                        scrollToBottom();
+                        setTimeout(() => scrollToLastMessage(), 200);
                       }
                     }}
                     onRefineAngles={() => {
@@ -2022,8 +2023,9 @@
               );
             } else if (msg.content?.type === "model_reasoning") {
               const reasoning = msg.content.reasoningData;
+              const isLastMessage = index === messages.length - 1;
               return (
-                <div key={index} className="answer-content" style={{padding: 'var(--space-5)'}}>
+                <div key={index} ref={isLastMessage ? lastAddedMessageRef : null} className="answer-content" style={{padding: 'var(--space-5)'}}>
                   <div style={{
                     fontWeight: 700,
                     fontSize: '14px',
@@ -2059,16 +2061,17 @@
               );
             } else if (msg.content?.type === "compiled_prompt") {
               const prompt = msg.content.promptData;
+              const isLastMessage = index === messages.length - 1;
               if (!prompt || !prompt.sections) {
                 return (
-                  <div key={index} className="answer-content">
+                  <div key={index} ref={isLastMessage ? lastAddedMessageRef : null} className="answer-content">
                     <p>Prompt data not available.</p>
                   </div>
                 );
               }
 
               return (
-                <div key={index} className="answer-content" style={{padding: 0}}>
+                <div key={index} ref={isLastMessage ? lastAddedMessageRef : null} className="answer-content" style={{padding: 0}}>
                   {prompt.sections.map((section, sIdx) => (
                     <div key={sIdx} style={{
                       marginBottom: sIdx < prompt.sections.length - 1 ? 'var(--space-4)' : 0,
@@ -2101,8 +2104,9 @@
                 </div>
               );
             } else if (msg.content?.type === "trace") {
+              const isLastMessage = index === messages.length - 1;
               return (
-                <div key={index} className="answer-content" style={{fontFamily: 'monospace', fontSize: '13px'}}>
+                <div key={index} ref={isLastMessage ? lastAddedMessageRef : null} className="answer-content" style={{fontFamily: 'monospace', fontSize: '13px'}}>
                   <pre style={{whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6}}>
                     {JSON.stringify(msg.content.traceData, null, 2)}
                   </pre>
@@ -2202,8 +2206,8 @@
               <div ref={messagesEndRef} />
             </div>
 
-            <div className="input-bar">
-              {conversationState === "initial" || conversationState === "answer_shown" ? (
+            {(conversationState === "initial" || conversationState === "answer_shown") && (
+              <div className="input-bar">
                 <div style={{display: 'flex', gap: 'var(--space-4)', alignItems: 'stretch'}}>
                   <div style={{flex: '2', display: 'flex'}}>
                     <textarea
@@ -2232,8 +2236,8 @@
                     </button>
                   </div>
                 </div>
-              ) : null}
-            </div>
+              </div>
+            )}
           </div>
         );
       }
