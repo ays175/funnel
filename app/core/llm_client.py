@@ -23,18 +23,30 @@ class LLMClient:
         prompt_text = "\n\n".join(
             f"{title}\n{content}" for title, content in prompt_sections
         ).strip()
-        response = self.client.chat.completions.create(
-            model=self.settings.openai_model,
-            messages=[
-                {"role": "system", "content": "You are a precise assistant."},
+        
+        # Build API parameters
+        api_params = {
+            "model": self.settings.openai_model,
+            "messages": [
                 {"role": "user", "content": prompt_text},
             ],
-        )
+        }
+        
+        # For o-series models, add reasoning_effort parameter for better reasoning
+        if self.settings.openai_model.startswith("o3") or self.settings.openai_model.startswith("o1"):
+            api_params["reasoning_effort"] = "high"
+        
+        response = self.client.chat.completions.create(**api_params)
         
         message = response.choices[0].message
         answer = message.content or ""
         
         # For o-series models (o1, o3-mini, etc.), capture reasoning tokens
-        reasoning = getattr(message, "reasoning_content", None)
+        # Try multiple possible attribute names
+        reasoning = (
+            getattr(message, "reasoning_content", None) or
+            getattr(message, "reasoning", None) or
+            (message.model_extra.get("reasoning_content") if hasattr(message, "model_extra") else None)
+        )
         
         return answer, reasoning
