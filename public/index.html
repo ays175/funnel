@@ -850,6 +850,12 @@
         const [loading, setLoading] = React.useState(false);
         const [trace, setTrace] = React.useState([]);
         const [compiledPrompt, setCompiledPrompt] = React.useState(null);
+        const [reasoningApproach, setReasoningApproach] = React.useState({
+          tone: "",
+          evidence_style: "",
+          structure: "",
+          custom_instructions: ""
+        });
         const messagesEndRef = React.useRef(null);
 
         const scrollToBottom = () => {
@@ -968,7 +974,8 @@
 
         const handleAllAnglesCompleted = () => {
           addMessage("bot", { type: "summary" });
-          addMessage("bot", "All angles covered! Want to pick more angles or get your answer?");
+          addMessage("bot", "All angles covered! Before generating your answer, would you like to customize the reasoning approach?");
+          addMessage("bot", { type: "reasoning_options" });
           setConversationState("ready_to_answer");
         };
 
@@ -1043,12 +1050,34 @@
               if (values.length > 0) apiSelections.push({ id, value: values.join(", ") });
             });
 
+            // Build user_overrides with reasoning approach
+            const userOverrides = {};
+            const instructionParts = [];
+            
+            if (reasoningApproach.tone) {
+              instructionParts.push(`Tone: ${reasoningApproach.tone}`);
+            }
+            if (reasoningApproach.evidence_style) {
+              instructionParts.push(`Evidence style: ${reasoningApproach.evidence_style}`);
+            }
+            if (reasoningApproach.structure) {
+              instructionParts.push(`Structure: ${reasoningApproach.structure}`);
+            }
+            if (reasoningApproach.custom_instructions) {
+              instructionParts.push(reasoningApproach.custom_instructions);
+            }
+            
+            if (instructionParts.length > 0) {
+              userOverrides.instructions = "Answer clearly and concisely. " + instructionParts.join(". ") + ".";
+            }
+
             const res = await fetch(`${API_BASE}/api/answer`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
                 request_id: requestId,
                 facet_selections: apiSelections,
+                user_overrides: Object.keys(userOverrides).length > 0 ? userOverrides : null,
               }),
             });
 
