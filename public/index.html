@@ -520,6 +520,10 @@
         .input-wrapper {
           flex-direction: column;
         }
+
+        textarea {
+          width: 100%;
+        }
       }
 
       /* Scrollbar */
@@ -847,7 +851,17 @@
         const [trace, setTrace] = React.useState([]);
         const messagesEndRef = React.useRef(null);
 
-        // Auto-scroll disabled per user request
+        const scrollToBottom = () => {
+          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        };
+
+        React.useEffect(() => {
+          // Scroll to bottom when new messages are added (except during answer streaming)
+          const lastMessage = messages[messages.length - 1];
+          if (lastMessage && lastMessage.content?.type !== "answer") {
+            scrollToBottom();
+          }
+        }, [messages.length]); // Only trigger on message count change, not content change
 
         React.useEffect(() => {
           // Welcome message
