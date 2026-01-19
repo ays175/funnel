@@ -78,3 +78,4 @@ class AnswerResponse(BaseModel):
     answer: str
     trace: list[TraceEvent]
     compiled_prompt: PromptBundle
+    reasoning: str | None = None  # Model's internal reasoning (o-series models)
