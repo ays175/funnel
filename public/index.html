@@ -591,6 +591,40 @@
         padding: var(--space-5);
         margin: var(--space-3) 0;
         line-height: 1.7;
+        position: relative;
+      }
+
+      .dig-deeper-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        width: 100%;
+        padding: var(--space-3) var(--space-5);
+        margin: var(--space-4) 0;
+        border: 2px solid var(--accent-cyan);
+        border-radius: var(--radius-md);
+        background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        box-shadow: 0 4px 16px hsla(190, 90%, 60%, 0.3);
+      }
+
+      .dig-deeper-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px hsla(190, 90%, 60%, 0.5);
+        filter: brightness(1.15);
+      }
+
+      .dig-deeper-btn:active {
+        transform: translateY(0);
+      }
+
+      .dig-deeper-icon {
+        font-size: 18px;
       }
 
       .markdown {
@@ -1073,7 +1107,7 @@
         );
       }
 
-      function AnswerMessage({ answer }) {
+      function AnswerMessage({ answer, onDigDeeper }) {
         function escapeHtml(value) {
           return String(value)
             .replace(/&/g, "&amp;")
@@ -1207,7 +1241,17 @@
         }
 
         return (
-          <div className="answer-content markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
+          <div className="answer-content">
+            <button className="dig-deeper-btn" onClick={onDigDeeper}>
+              <span className="dig-deeper-icon">🔍</span>
+              <span>Dig Deeper</span>
+            </button>
+            <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
+            <button className="dig-deeper-btn" onClick={onDigDeeper}>
+              <span className="dig-deeper-icon">🔍</span>
+              <span>Dig Deeper</span>
+            </button>
+          </div>
         );
       }
 
@@ -1520,6 +1564,50 @@
           setBaseSelections({ audience: "", format: "", length: "" });
         };
 
+        const handleDigDeeper = async (answerText) => {
+          addMessage("user", "🔍 Dig deeper into this answer");
+          addMessage("bot", "Great! Let's explore this answer from different angles...");
+          setLoading(true);
+          addMessage("bot", <TypingIndicator />);
+
+          try {
+            const res = await fetch(`${API_BASE}/api/discover`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                raw_query: answerText,
+                domain_hint: null,
+              }),
+            });
+
+            if (!res.ok) {
+              throw new Error("Failed to discover angles");
+            }
+
+            const data = await res.json();
+            setRequestId(data.request_id);
+            setFacets(data.facet_candidates || []);
+            setCurrentAngleIndex(0);
+            setSelections({});
+
+            // Remove typing indicator
+            setMessages(prev => prev.slice(0, -1));
+
+            addMessage("bot", `I found ${data.facet_candidates.length} angles to dig deeper! Let's explore them! 🎯`);
+            
+            // Add base selections message
+            addMessage("bot", "First, let me know your preferences:");
+            addMessage("bot", { type: "base_selections" });
+
+            setConversationState("gathering_base_selections");
+          } catch (err) {
+            setMessages(prev => prev.slice(0, -1));
+            addMessage("bot", "Sorry, I encountered an error. Please try again.");
+          } finally {
+            setLoading(false);
+          }
+        };
+
         const renderMessage = (msg, index) => {
           if (msg.type === "bot") {
             if (typeof msg.content === "string") {
@@ -1830,7 +1918,10 @@
             } else if (msg.content?.type === "answer") {
               return (
                 <div key={index} ref={answerRef}>
-                  <AnswerMessage answer={msg.content.answer} />
+                  <AnswerMessage 
+                    answer={msg.content.answer} 
+                    onDigDeeper={() => handleDigDeeper(msg.content.answer)}
+                  />
                 </div>
               );
             } else if (msg.content?.type === "model_reasoning") {
