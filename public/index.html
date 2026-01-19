@@ -1026,7 +1026,7 @@
             setMessages(prev => prev.slice(0, -1));
             addMessage("bot", "Here's your answer:");
             addMessage("bot", { type: "answer", answer: data.answer });
-            addMessage("bot", "Want to start a new query? Just type your question below!");
+            addMessage("bot", { type: "post_answer_actions" });
             
             setConversationState("answer_shown");
           } catch (err) {
@@ -1132,6 +1132,36 @@
               return <SummaryMessage key={index} selections={selections} facets={facets} baseSelections={baseSelections} />;
             } else if (msg.content?.type === "answer") {
               return <AnswerMessage key={index} answer={msg.content.answer} />;
+            } else if (msg.content?.type === "post_answer_actions") {
+              return (
+                <div key={index} className="selection-message">
+                  <div className="selection-question">Want to refine your answer?</div>
+                  <div className="selection-reason">
+                    You can go back and adjust your angle selections, or pick more angles for even more precision.
+                  </div>
+                  <div className="selection-actions">
+                    <button className="orange" onClick={() => {
+                      addMessage("bot", "Sure! Let me show you your selections:");
+                      addMessage("bot", { type: "summary" });
+                      addMessage("bot", "You can pick more angles to refine further:");
+                      setConversationState("ready_to_answer");
+                    }}>
+                      Refine Angles
+                    </button>
+                  </div>
+                  <div style={{borderTop: '1px solid var(--border)', margin: 'var(--space-4) 0', paddingTop: 'var(--space-4)'}}>
+                    <div className="selection-question">Start fresh?</div>
+                    <div className="selection-reason">
+                      Ask a new question and explore different angles.
+                    </div>
+                    <div className="selection-actions">
+                      <button className="primary" onClick={handleNewQuery}>
+                        New Query
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
             } else {
               return <BotMessage key={index}>{msg.content}</BotMessage>;
             }
