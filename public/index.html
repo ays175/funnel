@@ -611,6 +611,7 @@
         cursor: pointer;
         transition: all var(--transition-fast);
         box-shadow: 0 4px 16px hsla(190, 90%, 60%, 0.3);
+        flex-wrap: wrap;
       }
 
       .dig-deeper-btn:hover {
@@ -625,6 +626,29 @@
 
       .dig-deeper-icon {
         font-size: 18px;
+      }
+
+      .dig-deeper-subtitle {
+        font-size: 12px;
+        font-weight: 500;
+        opacity: 0.9;
+        margin-left: var(--space-2);
+      }
+
+      .answer-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        margin: var(--space-4) 0;
+        padding: var(--space-4);
+        background: var(--surface-glass);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+      }
+
+      .answer-actions button {
+        flex: 1;
+        min-width: 150px;
       }
 
       .markdown {
@@ -1107,7 +1131,7 @@
         );
       }
 
-      function AnswerMessage({ answer, onDigDeeper }) {
+      function AnswerMessage({ answer, onDigDeeper, onViewPrompt, onViewTrace, onRefineAngles, onNewQuery, hasReasoning, onViewReasoning }) {
         function escapeHtml(value) {
           return String(value)
             .replace(/&/g, "&amp;")
@@ -1245,11 +1269,35 @@
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
               <span className="dig-deeper-icon">🔍</span>
               <span>Dig Deeper</span>
+              <span className="dig-deeper-subtitle">(Use answer to apply relevant angles)</span>
             </button>
+
+            <div className="answer-actions">
+              {hasReasoning && (
+                <button className="secondary" onClick={onViewReasoning}>
+                  View Reasoning 🧠
+                </button>
+              )}
+              <button className="secondary" onClick={onViewPrompt}>
+                View Prompt 📝
+              </button>
+              <button className="secondary" onClick={onViewTrace}>
+                View Trace 🔵
+              </button>
+              <button className="orange" onClick={onRefineAngles}>
+                Refine Angles
+              </button>
+              <button className="primary" onClick={onNewQuery}>
+                New Query
+              </button>
+            </div>
+
             <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
+
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
               <span className="dig-deeper-icon">🔍</span>
               <span>Dig Deeper</span>
+              <span className="dig-deeper-subtitle">(Use answer to apply relevant angles)</span>
             </button>
           </div>
         );
@@ -1529,13 +1577,6 @@
             setTrace(data.trace || []);
             setCompiledPrompt(data.compiled_prompt || null);
             setModelReasoning(data.reasoning || null);
-            
-            if (data.reasoning) {
-              addMessage("bot", "💡 This answer includes the model's internal reasoning chain-of-thought! Check the prompt, reasoning, and trace for complete transparency!");
-            } else {
-              addMessage("bot", "💡 Want to see the full reasoning? Check the prompt and trace for complete transparency!");
-            }
-            addMessage("bot", { type: "post_answer_actions" });
             
             setConversationState("answer_shown");
             
@@ -1921,6 +1962,41 @@
                   <AnswerMessage 
                     answer={msg.content.answer} 
                     onDigDeeper={() => handleDigDeeper(msg.content.answer)}
+                    hasReasoning={modelReasoning !== null}
+                    onViewReasoning={() => {
+                      const hasReasoningMsg = messages.some(m => m.content?.type === "model_reasoning");
+                      if (!hasReasoningMsg && modelReasoning) {
+                        addMessage("bot", "Here's the model's internal reasoning process:");
+                        addMessage("bot", { type: "model_reasoning", reasoningData: modelReasoning });
+                        setTimeout(() => scrollToBottom(), 100);
+                      } else {
+                        scrollToBottom();
+                      }
+                    }}
+                    onViewPrompt={() => {
+                      const hasPrompt = messages.some(m => m.content?.type === "compiled_prompt");
+                      if (!hasPrompt && compiledPrompt) {
+                        addMessage("bot", "Here's the exact prompt sent to the AI:");
+                        addMessage("bot", { type: "compiled_prompt", promptData: compiledPrompt });
+                        setTimeout(() => scrollToBottom(), 100);
+                      }
+                    }}
+                    onViewTrace={() => {
+                      const hasTrace = messages.some(m => m.content?.type === "trace");
+                      if (!hasTrace && trace) {
+                        addMessage("bot", "Here's the complete trace of how I processed your query:");
+                        addMessage("bot", { type: "trace", traceData: trace });
+                        setTimeout(() => scrollToBottom(), 100);
+                      } else {
+                        scrollToBottom();
+                      }
+                    }}
+                    onRefineAngles={() => {
+                      addMessage("bot", "Here are your current selections. Click any angle to modify it:");
+                      addMessage("bot", { type: "editable_summary" });
+                      setConversationState("editing_angles");
+                    }}
+                    onNewQuery={handleNewQuery}
                   />
                 </div>
               );
@@ -2078,116 +2154,6 @@
                       </div>
                     </div>
                   ))}
-                </div>
-              );
-            } else if (msg.content?.type === "post_answer_actions") {
-              return (
-                <div key={index} className="selection-message">
-                  <div className="selection-question">What would you like to do?</div>
-                  
-                  {modelReasoning && (
-                    <div style={{marginBottom: 'var(--space-4)'}}>
-                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
-                      View Model Reasoning 🧠
-                    </div>
-                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
-                      See the model's internal chain-of-thought process (o1's reasoning tokens).
-                    </div>
-                      <div className="selection-actions">
-                        <button className="secondary" onClick={() => {
-                          const hasReasoning = messages.some(m => m.content?.type === "model_reasoning");
-                          if (!hasReasoning) {
-                            addMessage("bot", "Here's the model's internal reasoning process:");
-                            addMessage("bot", { type: "model_reasoning", reasoningData: modelReasoning });
-                            setTimeout(() => scrollToBottom(), 100);
-                          } else {
-                            scrollToBottom();
-                          }
-                        }}>
-                          View Reasoning 🧠
-                        </button>
-                      </div>
-                    </div>
-                  )}
-
-                  <div style={{borderTop: modelReasoning ? '1px solid var(--border)' : 'none', marginTop: modelReasoning ? 'var(--space-4)' : 0, paddingTop: modelReasoning ? 'var(--space-4)' : 0, marginBottom: 'var(--space-4)'}}>
-                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
-                      View Prompt
-                    </div>
-                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
-                      See the exact instructions sent to the AI, including how your angle selections shaped the query.
-                    </div>
-                    <div className="selection-actions">
-                      <button className="secondary" onClick={() => {
-                        // Check if prompt is already shown
-                        const hasPrompt = messages.some(m => m.content?.type === "compiled_prompt");
-                        if (!hasPrompt) {
-                          addMessage("bot", "Here's the exact prompt sent to the AI:");
-                          addMessage("bot", { type: "compiled_prompt", promptData: compiledPrompt });
-                          setTimeout(() => scrollToBottom(), 100);
-                        }
-                      }}>
-                        View Prompt 📝
-                      </button>
-                    </div>
-                  </div>
-
-                  <div style={{borderTop: '1px solid var(--border)', margin: 'var(--space-4) 0', paddingTop: 'var(--space-4)'}}>
-                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
-                      View Trace
-                    </div>
-                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
-                      See the complete reasoning trail and decisions I made to generate this answer.
-                    </div>
-                    <div className="selection-actions">
-                      <button className="secondary" onClick={() => {
-                        // Check if trace is already shown
-                        const hasTrace = messages.some(m => m.content?.type === "trace");
-                        if (!hasTrace) {
-                          addMessage("bot", "Here's the complete trace of how I processed your query:");
-                          addMessage("bot", { type: "trace", traceData: trace });
-                          setTimeout(() => scrollToBottom(), 100);
-                        } else {
-                          // If already shown, just scroll to it
-                          scrollToBottom();
-                        }
-                      }}>
-                        View Trace 🔵
-                      </button>
-                    </div>
-                  </div>
-
-                  <div style={{borderTop: '1px solid var(--border)', margin: 'var(--space-4) 0', paddingTop: 'var(--space-4)'}}>
-                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
-                      Refine Answer
-                    </div>
-                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
-                      Review and modify your angle selections, or pick more angles for even more precision.
-                    </div>
-                    <div className="selection-actions">
-                      <button className="orange" onClick={() => {
-                        addMessage("bot", "Here are your current selections. Click any angle to modify it:");
-                        addMessage("bot", { type: "editable_summary" });
-                        setConversationState("editing_angles");
-                      }}>
-                        Refine Angles
-                      </button>
-                    </div>
-                  </div>
-
-                  <div style={{borderTop: '1px solid var(--border)', margin: 'var(--space-4) 0', paddingTop: 'var(--space-4)'}}>
-                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
-                      Start Fresh
-                    </div>
-                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
-                      Ask a new question and explore different angles.
-                    </div>
-                    <div className="selection-actions">
-                      <button className="primary" onClick={handleNewQuery}>
-                        New Query
-                      </button>
-                    </div>
-                  </div>
                 </div>
               );
             } else {
