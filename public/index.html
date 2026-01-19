@@ -1432,6 +1432,7 @@
         const messagesEndRef = React.useRef(null);
         const answerRef = React.useRef(null);
         const lastAddedMessageRef = React.useRef(null);
+        const reasoningPromptRef = React.useRef(null);
 
         const scrollToBottom = () => {
           messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -1443,6 +1444,10 @@
 
         const scrollToLastMessage = () => {
           lastAddedMessageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+
+        const scrollToReasoningPrompt = () => {
+          reasoningPromptRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         };
 
         React.useEffect(() => {
@@ -1561,9 +1566,10 @@
 
         const handleAllAnglesCompleted = () => {
           addMessage("bot", { type: "summary" });
-          addMessage("bot", "All angles covered! Before generating your answer, would you like to customize the reasoning approach?");
+          addMessage("bot", { type: "reasoning_prompt", text: "All angles covered! Before generating your answer, would you like to customize the reasoning approach?" });
           addMessage("bot", { type: "reasoning_options" });
           setConversationState("ready_to_answer");
+          setTimeout(() => scrollToReasoningPrompt(), 200);
         };
 
         const handlePickMoreAngles = async () => {
@@ -2072,6 +2078,12 @@
                       Regenerate Answer
                     </button>
                   </div>
+                </div>
+              );
+            } else if (msg.content?.type === "reasoning_prompt") {
+              return (
+                <div key={index} ref={reasoningPromptRef}>
+                  <BotMessage>{msg.content.text}</BotMessage>
                 </div>
               );
             } else if (msg.content?.type === "reasoning_options") {
