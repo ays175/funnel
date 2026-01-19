@@ -70,8 +70,8 @@ def discover(payload: DiscoverRequest) -> DiscoverResponse:
     active_domain_pack = router_engine.choose_pack(payload.raw_query, payload.domain_hint)
     pack = router_engine.load_pack(active_domain_pack)
     if settings.enable_llm_facet_proposals:
-        if not settings.groq_api_key:
-            raise HTTPException(status_code=400, detail="GROQ_API_KEY is not configured")
+        if not settings.openai_api_key:
+            raise HTTPException(status_code=400, detail="OPENAI_API_KEY is not configured")
         candidates = discovery.discover_round1_llm(
             payload.raw_query,
             pack,
@@ -127,8 +127,8 @@ def refine(payload: RefineRequest) -> RefineResponse:
     selected_ids = list(selections.keys())
 
     if settings.enable_llm_facet_proposals:
-        if not settings.groq_api_key:
-            raise HTTPException(status_code=400, detail="GROQ_API_KEY is not configured")
+        if not settings.openai_api_key:
+            raise HTTPException(status_code=400, detail="OPENAI_API_KEY is not configured")
         candidates = discovery.discover_round2_llm(
             request["raw_query"],
             pack,
@@ -183,8 +183,8 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
         {"sections": [section.__dict__ for section in prompt_sections]},
     )
 
-    if not settings.groq_api_key:
-        raise HTTPException(status_code=400, detail="GROQ_API_KEY is not configured")
+    if not settings.openai_api_key:
+        raise HTTPException(status_code=400, detail="OPENAI_API_KEY is not configured")
 
     answer_text = _get_llm_client().generate(
         [(section.title, section.content) for section in prompt_sections]
@@ -193,7 +193,7 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
     ledger.append(
         payload.request_id,
         "MODEL_RESPONSE",
-        {"model": settings.groq_model, "answer_preview": answer_text[:200]},
+        {"model": settings.openai_model, "answer_preview": answer_text[:200]},
     )
 
     trace_events = [

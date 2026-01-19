@@ -2,7 +2,7 @@ fastapi==0.115.8
 uvicorn[standard]==0.30.6
 pydantic==2.10.6
 python-dotenv==1.0.1
-groq==0.11.0
+openai==1.63.0
 orjson==3.10.15
 httpx==0.27.2
 pytest==8.3.4
