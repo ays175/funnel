@@ -849,6 +849,7 @@
         });
         const [loading, setLoading] = React.useState(false);
         const [trace, setTrace] = React.useState([]);
+        const [compiledPrompt, setCompiledPrompt] = React.useState(null);
         const messagesEndRef = React.useRef(null);
 
         const scrollToBottom = () => {
@@ -1058,10 +1059,16 @@
             const data = await res.json();
 
             setMessages(prev => prev.slice(0, -1));
+            
+            // Add explainer showing how selections shaped the answer
+            addMessage("bot", "✨ How your selections shaped this answer:");
+            addMessage("bot", { type: "selection_explainer" });
+            
             addMessage("bot", "Here's your answer:");
             addMessage("bot", { type: "answer", answer: data.answer });
             setTrace(data.trace || []);
-            addMessage("bot", "💡 Want to see how I arrived at this answer? Check the trace for full transparency!");
+            setCompiledPrompt(data.compiled_prompt || null);
+            addMessage("bot", "💡 Want to see the full reasoning? Check the prompt and trace for complete transparency!");
             addMessage("bot", { type: "post_answer_actions" });
             
             setConversationState("answer_shown");
@@ -1332,12 +1339,97 @@
                   </pre>
                 </div>
               );
+            } else if (msg.content?.type === "selection_explainer") {
+              // Explainer showing how selections shaped the answer
+              const explainers = [];
+              
+              if (baseSelections.audience) {
+                const audienceMap = {
+                  beginner: "Using simple language and explaining foundational concepts",
+                  intermediate: "Using moderate complexity, avoiding both oversimplification and jargon",
+                  expert: "Using technical terminology and assuming advanced background knowledge",
+                  executive: "Focusing on high-level insights and strategic implications"
+                };
+                explainers.push({
+                  label: "Audience",
+                  value: titleCase(baseSelections.audience),
+                  impact: audienceMap[baseSelections.audience]
+                });
+              }
+              
+              if (baseSelections.format) {
+                const formatMap = {
+                  bullets: "Organizing information in clear, scannable bullet points",
+                  steps: "Structuring content as a sequential, actionable process",
+                  table: "Presenting data in a structured, comparative table format",
+                  paragraphs: "Crafting flowing narrative with detailed explanations"
+                };
+                explainers.push({
+                  label: "Format",
+                  value: titleCase(baseSelections.format),
+                  impact: formatMap[baseSelections.format]
+                });
+              }
+              
+              if (baseSelections.length) {
+                explainers.push({
+                  label: "Length",
+                  value: titleCase(baseSelections.length),
+                  impact: `Targeting approximately ${baseSelections.length} to balance depth and conciseness`
+                });
+              }
+
+              // Add topic-specific angle impacts
+              Object.entries(selections).forEach(([facetId, values]) => {
+                if (values && values.length > 0) {
+                  const facet = facets.find(f => f.id === facetId);
+                  const facetTitle = facet ? facet.title : titleCase(facetId);
+                  const valueStr = values.map(v => titleCase(v)).join(", ");
+                  explainers.push({
+                    label: facetTitle,
+                    value: valueStr,
+                    impact: `Emphasizing these aspects while filtering out less relevant information`
+                  });
+                }
+              });
+
+              return (
+                <div key={index} className="summary-card">
+                  {explainers.map((item, i) => (
+                    <div key={i} style={{marginBottom: 'var(--space-3)'}}>
+                      <div style={{fontWeight: 600, fontSize: '14px', color: 'var(--primary-500)', marginBottom: 'var(--space-1)'}}>
+                        • {item.label} ({item.value})
+                      </div>
+                      <div style={{fontSize: '14px', color: 'var(--text-muted)', paddingLeft: 'var(--space-4)'}}>
+                        {item.impact}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              );
             } else if (msg.content?.type === "post_answer_actions") {
               return (
                 <div key={index} className="selection-message">
                   <div className="selection-question">What would you like to do?</div>
                   
                   <div style={{marginBottom: 'var(--space-4)'}}>
+                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
+                      View Prompt
+                    </div>
+                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
+                      See the exact instructions sent to the AI, including how your angle selections shaped the query.
+                    </div>
+                    <div className="selection-actions">
+                      <button className="secondary" onClick={() => {
+                        addMessage("bot", "Here's the exact prompt sent to the AI:");
+                        addMessage("bot", { type: "compiled_prompt", promptData: compiledPrompt });
+                      }}>
+                        View Prompt 📝
+                      </button>
+                    </div>
+                  </div>
+
+                  <div style={{borderTop: '1px solid var(--border)', margin: 'var(--space-4) 0', paddingTop: 'var(--space-4)'}}>
                     <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
                       View Trace
                     </div>
@@ -1349,7 +1441,7 @@
                         addMessage("bot", "Here's the complete trace of how I processed your query:");
                         addMessage("bot", { type: "trace", traceData: trace });
                       }}>
-                        View Trace
+                        View Trace 🔵
                       </button>
                     </div>
                   </div>
