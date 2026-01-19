@@ -1153,103 +1153,151 @@
             } else if (msg.content?.type === "summary") {
               return <SummaryMessage key={index} selections={selections} facets={facets} baseSelections={baseSelections} />;
             } else if (msg.content?.type === "editable_summary") {
-              // Editable summary with clickable angles
-              const allSelections = [];
-              
-              if (baseSelections.audience || baseSelections.format || baseSelections.length) {
-                allSelections.push({
-                  label: "Base Preferences",
-                  items: [
-                    baseSelections.audience && { key: "audience", label: "Audience", value: baseSelections.audience },
-                    baseSelections.format && { key: "format", label: "Format", value: baseSelections.format },
-                    baseSelections.length && { key: "length", label: "Length", value: baseSelections.length }
-                  ].filter(Boolean),
-                  isBase: true
-                });
-              }
-
-              facets.forEach((facet, facetIndex) => {
-                const facetSelections = selections[facet.id];
-                if (facetSelections && facetSelections.length > 0) {
-                  allSelections.push({
-                    label: facet.title,
-                    items: [{ value: facetSelections.join(", ") }],
-                    facetIndex,
-                    isBase: false
-                  });
-                }
-              });
-
+              // Editable summary with all selections displayed as chips
               return (
                 <div key={index} className="selection-message">
-                  <div className="summary-title" style={{marginBottom: 'var(--space-4)'}}>Your Current Selections:</div>
-                  {allSelections.map((section, sIdx) => (
-                    <div key={sIdx} style={{marginBottom: 'var(--space-4)'}}>
+                  <div className="summary-title" style={{marginBottom: 'var(--space-4)', fontSize: '16px', fontWeight: 600}}>
+                    Your Current Selections - Click any to edit:
+                  </div>
+
+                  {/* Base Preferences */}
+                  {(baseSelections.audience || baseSelections.format || baseSelections.length) && (
+                    <div style={{marginBottom: 'var(--space-5)', padding: 'var(--space-4)', background: 'var(--surface-glass)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)'}}>
                       <div style={{
                         fontWeight: 600,
                         color: 'var(--primary-500)',
-                        marginBottom: 'var(--space-2)',
-                        fontSize: '14px',
+                        marginBottom: 'var(--space-3)',
+                        fontSize: '15px',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--space-2)'
+                        justifyContent: 'space-between'
                       }}>
-                        {section.label}
-                        {!section.isBase && (
+                        <span>Base Preferences</span>
+                        <button
+                          style={{
+                            padding: '4px 12px',
+                            fontSize: '12px',
+                            background: 'var(--surface-glass-hover)',
+                            border: '1px solid var(--border-strong)',
+                            borderRadius: 'var(--radius-full)',
+                            cursor: 'pointer',
+                            color: 'var(--text)',
+                            fontWeight: 600
+                          }}
+                          onClick={() => {
+                            addMessage("bot", "Let's update your base preferences:");
+                            addMessage("bot", { type: "base_selections" });
+                            setConversationState("gathering_base_selections");
+                          }}
+                        >
+                          Edit
+                        </button>
+                      </div>
+                      <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)'}}>
+                        {baseSelections.audience && (
+                          <span className="chip active">{titleCase(baseSelections.audience)}</span>
+                        )}
+                        {baseSelections.format && (
+                          <span className="chip active">{titleCase(baseSelections.format)}</span>
+                        )}
+                        {baseSelections.length && (
+                          <span className="chip active">{titleCase(baseSelections.length)}</span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Angle Selections */}
+                  {facets.map((facet, facetIndex) => {
+                    const facetSelections = selections[facet.id];
+                    if (!facetSelections || facetSelections.length === 0) return null;
+
+                    // Parse selections to show parent/child hierarchy
+                    const tree = {};
+                    facetSelections.forEach((val) => {
+                      if (val.includes(" > ")) {
+                        const [parent, child] = val.split(" > ").map((v) => v.trim());
+                        if (!tree[parent]) tree[parent] = { children: [] };
+                        if (!tree[parent].children.includes(child)) tree[parent].children.push(child);
+                      } else {
+                        if (!tree[val]) tree[val] = { children: [] };
+                      }
+                    });
+
+                    return (
+                      <div key={facet.id} style={{marginBottom: 'var(--space-5)', padding: 'var(--space-4)', background: 'var(--surface-glass)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)'}}>
+                        <div style={{
+                          fontWeight: 600,
+                          color: 'var(--primary-500)',
+                          marginBottom: 'var(--space-3)',
+                          fontSize: '15px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between'
+                        }}>
+                          <span>{facet.title}</span>
                           <button
                             style={{
                               padding: '4px 12px',
                               fontSize: '12px',
-                              background: 'var(--surface-glass)',
-                              border: '1px solid var(--border)',
+                              background: 'var(--surface-glass-hover)',
+                              border: '1px solid var(--border-strong)',
                               borderRadius: 'var(--radius-full)',
                               cursor: 'pointer',
-                              color: 'var(--text-muted)'
+                              color: 'var(--text)',
+                              fontWeight: 600
                             }}
                             onClick={() => {
-                              setCurrentAngleIndex(section.facetIndex);
-                              addMessage("bot", `Let's review ${section.label}:`);
-                              addMessage("bot", { type: "selection", facetIndex: section.facetIndex });
+                              setCurrentAngleIndex(facetIndex);
+                              addMessage("bot", `Let's review ${facet.title}:`);
+                              addMessage("bot", { type: "selection", facetIndex: facetIndex });
                               setConversationState("showing_angles");
                             }}
                           >
                             Edit
                           </button>
-                        )}
-                        {section.isBase && (
-                          <button
-                            style={{
-                              padding: '4px 12px',
-                              fontSize: '12px',
-                              background: 'var(--surface-glass)',
-                              border: '1px solid var(--border)',
-                              borderRadius: 'var(--radius-full)',
-                              cursor: 'pointer',
-                              color: 'var(--text-muted)'
-                            }}
-                            onClick={() => {
-                              addMessage("bot", "Let's update your base preferences:");
-                              addMessage("bot", { type: "base_selections" });
-                              setConversationState("gathering_base_selections");
-                            }}
-                          >
-                            Edit
-                          </button>
-                        )}
+                        </div>
+                        <div>
+                          {Object.entries(tree).map(([parent, data]) => (
+                            <div key={parent} style={{marginBottom: 'var(--space-2)'}}>
+                              <span 
+                                className="chip active" 
+                                style={{cursor: 'pointer'}}
+                                onClick={() => {
+                                  setCurrentAngleIndex(facetIndex);
+                                  addMessage("bot", `Let's review ${facet.title}:`);
+                                  addMessage("bot", { type: "selection", facetIndex: facetIndex });
+                                  setConversationState("showing_angles");
+                                }}
+                              >
+                                {titleCase(parent)}
+                              </span>
+                              {data.children.length > 0 && (
+                                <div style={{marginLeft: 'var(--space-5)', marginTop: 'var(--space-2)', display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)'}}>
+                                  {data.children.map((child) => (
+                                    <span 
+                                      className="chip active" 
+                                      key={child}
+                                      style={{cursor: 'pointer'}}
+                                      onClick={() => {
+                                        setCurrentAngleIndex(facetIndex);
+                                        addMessage("bot", `Let's review ${facet.title}:`);
+                                        addMessage("bot", { type: "selection", facetIndex: facetIndex });
+                                        setConversationState("showing_angles");
+                                      }}
+                                    >
+                                      {titleCase(child)}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <div style={{paddingLeft: 'var(--space-4)'}}>
-                        {section.items.map((item, iIdx) => (
-                          <div key={iIdx} style={{
-                            fontSize: '13px',
-                            color: 'var(--text)',
-                            marginBottom: 'var(--space-1)'
-                          }}>
-                            {item.label ? `${item.label}: ${titleCase(item.value)}` : titleCase(item.value)}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
+
                   <div className="selection-actions" style={{marginTop: 'var(--space-5)'}}>
                     <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
                       Pick More Angles
