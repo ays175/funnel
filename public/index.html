@@ -1294,6 +1294,26 @@
 
             <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
 
+            <div className="answer-actions">
+              {hasReasoning && (
+                <button className="secondary" onClick={onViewReasoning}>
+                  View Reasoning 🧠
+                </button>
+              )}
+              <button className="secondary" onClick={onViewPrompt}>
+                View Prompt 📝
+              </button>
+              <button className="secondary" onClick={onViewTrace}>
+                View Trace 🔵
+              </button>
+              <button className="orange" onClick={onRefineAngles}>
+                Refine Angles
+              </button>
+              <button className="primary" onClick={onNewQuery}>
+                New Query
+              </button>
+            </div>
+
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
               <span className="dig-deeper-icon">🔍</span>
               <span>Dig Deeper</span>
