@@ -1446,7 +1446,7 @@
           // Welcome message
           setMessages([
             { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
-            { type: "bot", content: "**Here's how it works:**\n\n• **Ask your question** – Any topic, any complexity\n• **I'll discover angles** – Multiple perspectives to explore your query\n• **You pick what matters** – Select the angles that fit your needs\n• **Get your perfect answer** – Tailored exactly to your selections\n• **Dig deeper anytime** – Use any answer to explore even further\n\nReady to get started? 🚀" },
+            { type: "bot", content: { type: "instructions" } },
             { type: "bot", content: "What would you like to know today?" }
           ]);
         }, []);
@@ -1690,7 +1690,7 @@
         const handleNewQuery = () => {
           setMessages([
             { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
-            { type: "bot", content: "**Here's how it works:**\n\n• **Ask your question** – Any topic, any complexity\n• **I'll discover angles** – Multiple perspectives to explore your query\n• **You pick what matters** – Select the angles that fit your needs\n• **Get your perfect answer** – Tailored exactly to your selections\n• **Dig deeper anytime** – Use any answer to explore even further\n\nReady to get started? 🚀" },
+            { type: "bot", content: { type: "instructions" } },
             { type: "bot", content: "What would you like to know today?" }
           ]);
           setConversationState("initial");
@@ -2267,6 +2267,54 @@
                   <pre style={{whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6}}>
                     {JSON.stringify(msg.content.traceData, null, 2)}
                   </pre>
+                </div>
+              );
+            } else if (msg.content?.type === "instructions") {
+              return (
+                <div key={index} className="selection-message" style={{background: 'var(--bot-bg)', border: '1px solid var(--border)'}}>
+                  <div style={{fontSize: '16px', fontWeight: 600, marginBottom: 'var(--space-4)', color: 'var(--primary-500)'}}>
+                    Here's how it works:
+                  </div>
+                  <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
+                      <span style={{fontSize: '20px', flexShrink: 0}}>💭</span>
+                      <div>
+                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>Ask your question</div>
+                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Any topic, any complexity</div>
+                      </div>
+                    </div>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
+                      <span style={{fontSize: '20px', flexShrink: 0}}>🎯</span>
+                      <div>
+                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>I'll discover angles</div>
+                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Multiple perspectives to explore your query</div>
+                      </div>
+                    </div>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
+                      <span style={{fontSize: '20px', flexShrink: 0}}>✨</span>
+                      <div>
+                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>You pick what matters</div>
+                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Select the angles that fit your needs</div>
+                      </div>
+                    </div>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
+                      <span style={{fontSize: '20px', flexShrink: 0}}>🎨</span>
+                      <div>
+                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>Get your perfect answer</div>
+                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Tailored exactly to your selections</div>
+                      </div>
+                    </div>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start'}}>
+                      <span style={{fontSize: '20px', flexShrink: 0}}>🔍</span>
+                      <div>
+                        <div style={{fontWeight: 600, fontSize: '15px', marginBottom: '4px'}}>Dig deeper anytime</div>
+                        <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Use any answer to explore even further</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style={{marginTop: 'var(--space-4)', fontSize: '15px', fontWeight: 600, color: 'var(--primary-500)', textAlign: 'center'}}>
+                    Ready to get started? 🚀
+                  </div>
                 </div>
               );
             } else if (msg.content?.type === "selection_explainer") {
