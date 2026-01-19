@@ -1569,8 +1569,13 @@
                     </div>
                     <div className="selection-actions">
                       <button className="secondary" onClick={() => {
-                        addMessage("bot", "Here's the exact prompt sent to the AI:");
-                        addMessage("bot", { type: "compiled_prompt", promptData: compiledPrompt });
+                        // Check if prompt is already shown
+                        const hasPrompt = messages.some(m => m.content?.type === "compiled_prompt");
+                        if (!hasPrompt) {
+                          addMessage("bot", "Here's the exact prompt sent to the AI:");
+                          addMessage("bot", { type: "compiled_prompt", promptData: compiledPrompt });
+                          setTimeout(() => scrollToBottom(), 100);
+                        }
                       }}>
                         View Prompt 📝
                       </button>
@@ -1586,8 +1591,16 @@
                     </div>
                     <div className="selection-actions">
                       <button className="secondary" onClick={() => {
-                        addMessage("bot", "Here's the complete trace of how I processed your query:");
-                        addMessage("bot", { type: "trace", traceData: trace });
+                        // Check if trace is already shown
+                        const hasTrace = messages.some(m => m.content?.type === "trace");
+                        if (!hasTrace) {
+                          addMessage("bot", "Here's the complete trace of how I processed your query:");
+                          addMessage("bot", { type: "trace", traceData: trace });
+                          setTimeout(() => scrollToBottom(), 100);
+                        } else {
+                          // If already shown, just scroll to it
+                          scrollToBottom();
+                        }
                       }}>
                         View Trace 🔵
                       </button>
