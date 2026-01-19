@@ -186,14 +186,18 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
     if not settings.openai_api_key:
         raise HTTPException(status_code=400, detail="OPENAI_API_KEY is not configured")
 
-    answer_text = _get_llm_client().generate(
+    answer_text, reasoning = _get_llm_client().generate(
         [(section.title, section.content) for section in prompt_sections]
     )
 
     ledger.append(
         payload.request_id,
         "MODEL_RESPONSE",
-        {"model": settings.openai_model, "answer_preview": answer_text[:200]},
+        {
+            "model": settings.openai_model,
+            "answer_preview": answer_text[:200],
+            "has_reasoning": reasoning is not None,
+        },
     )
 
     trace_events = [
@@ -206,4 +210,5 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
         compiled_prompt=PromptBundle(
             sections=[PromptSection(title=s.title, content=s.content) for s in prompt_sections]
         ),
+        reasoning=reasoning,
     )

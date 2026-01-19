@@ -12,7 +12,14 @@ class LLMClient:
         self.settings = settings
         self.client = OpenAI(api_key=settings.openai_api_key, timeout=settings.openai_timeout_seconds)
 
-    def generate(self, prompt_sections: list[tuple[str, str]]) -> str:
+    def generate(self, prompt_sections: list[tuple[str, str]]) -> tuple[str, str | None]:
+        """
+        Generate response from LLM.
+        
+        Returns:
+            tuple: (answer, reasoning) where reasoning is the model's internal reasoning
+                   (available for o-series models like o1, o3-mini) or None
+        """
         prompt_text = "\n\n".join(
             f"{title}\n{content}" for title, content in prompt_sections
         ).strip()
@@ -23,4 +30,11 @@ class LLMClient:
                 {"role": "user", "content": prompt_text},
             ],
         )
-        return response.choices[0].message.content or ""
+        
+        message = response.choices[0].message
+        answer = message.content or ""
+        
+        # For o-series models (o1, o3-mini, etc.), capture reasoning tokens
+        reasoning = getattr(message, "reasoning_content", None)
+        
+        return answer, reasoning
