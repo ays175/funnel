@@ -1088,7 +1088,7 @@
             setModelReasoning(data.reasoning || null);
             
             if (data.reasoning) {
-              addMessage("bot", "💡 This answer includes the model's internal reasoning! Check the prompt, reasoning, and trace for complete transparency!");
+              addMessage("bot", "💡 This answer includes the model's internal reasoning chain-of-thought! Check the prompt, reasoning, and trace for complete transparency!");
             } else {
               addMessage("bot", "💡 Want to see the full reasoning? Check the prompt and trace for complete transparency!");
             }
@@ -1440,7 +1440,7 @@
                     alignItems: 'center',
                     gap: 'var(--space-2)'
                   }}>
-                    🧠 Model's Internal Reasoning (o3-mini)
+                    🧠 Model's Internal Reasoning (o1)
                   </div>
                   <div style={{
                     fontSize: '14px',
@@ -1590,12 +1590,12 @@
                   
                   {modelReasoning && (
                     <div style={{marginBottom: 'var(--space-4)'}}>
-                      <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
-                        View Model Reasoning 🧠
-                      </div>
-                      <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
-                        See the model's internal chain-of-thought process (o3-mini's reasoning tokens).
-                      </div>
+                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', fontSize: '14px'}}>
+                      View Model Reasoning 🧠
+                    </div>
+                    <div className="selection-reason" style={{marginBottom: 'var(--space-3)'}}>
+                      See the model's internal chain-of-thought process (o1's reasoning tokens).
+                    </div>
                       <div className="selection-actions">
                         <button className="secondary" onClick={() => {
                           const hasReasoning = messages.some(m => m.content?.type === "model_reasoning");
