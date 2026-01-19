@@ -288,6 +288,86 @@
         margin-top: var(--space-2);
       }
 
+      .custom-chip {
+        position: relative;
+        padding-right: var(--space-6);
+        background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+      }
+
+      .remove-custom {
+        position: absolute;
+        right: var(--space-2);
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        font-weight: 700;
+        color: white;
+        cursor: pointer;
+        opacity: 0.8;
+        transition: opacity var(--transition-fast);
+        line-height: 1;
+        padding: 0 var(--space-1);
+      }
+
+      .remove-custom:hover {
+        opacity: 1;
+      }
+
+      .custom-input-wrapper {
+        display: flex;
+        gap: var(--space-2);
+        margin: var(--space-4) 0;
+        align-items: center;
+      }
+
+      .custom-choice-input {
+        flex: 1;
+        padding: var(--space-3) var(--space-4);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        background: var(--surface-glass);
+        backdrop-filter: blur(8px);
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 500;
+        transition: all var(--transition-fast);
+      }
+
+      .custom-choice-input:focus {
+        outline: none;
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+      }
+
+      .custom-choice-input::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
+      }
+
+      .add-custom-btn {
+        padding: var(--space-3) var(--space-5);
+        border: none;
+        border-radius: var(--radius-md);
+        background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all var(--transition-fast);
+        white-space: nowrap;
+      }
+
+      .add-custom-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-purple);
+        filter: brightness(1.1);
+      }
+
+      .add-custom-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
       /* Action buttons in selection */
       .selection-actions {
         display: flex;
@@ -754,9 +834,28 @@
 
       function SelectionMessage({ facet, index, total, selections, onSelect, onNext, onSkip, onPickMore, onGetAnswer, isLastAngle, hasSelections }) {
         const [localSelections, setLocalSelections] = React.useState(new Set());
+        const [customInput, setCustomInput] = React.useState("");
+        const [customChoices, setCustomChoices] = React.useState(new Set());
 
         React.useEffect(() => {
-          setLocalSelections(new Set(selections[facet.id] || []));
+          const currentSelections = selections[facet.id] || [];
+          setLocalSelections(new Set(currentSelections));
+          
+          // Identify custom choices (not in predefined choices)
+          const choices = Array.isArray(facet.choices) ? facet.choices : 
+            (facet.suggested_values || []).map((v) => ({ value: v, subchoices: [] }));
+          const predefinedValues = new Set();
+          choices.forEach(choice => {
+            predefinedValues.add(choice.value);
+            if (choice.subchoices) {
+              choice.subchoices.forEach(sub => {
+                predefinedValues.add(`${choice.value} > ${sub}`);
+              });
+            }
+          });
+          
+          const customs = new Set(currentSelections.filter(sel => !predefinedValues.has(sel)));
+          setCustomChoices(customs);
         }, [facet.id, selections]);
 
         const toggleSelection = (value) => {
@@ -774,6 +873,42 @@
           }
           setLocalSelections(newSet);
           onSelect(facet.id, Array.from(newSet));
+        };
+
+        const removeCustomChoice = (value) => {
+          const newSet = new Set(localSelections);
+          newSet.delete(value);
+          setLocalSelections(newSet);
+          
+          const newCustoms = new Set(customChoices);
+          newCustoms.delete(value);
+          setCustomChoices(newCustoms);
+          
+          onSelect(facet.id, Array.from(newSet));
+        };
+
+        const addCustomChoice = () => {
+          const trimmed = customInput.trim();
+          if (!trimmed) return;
+          
+          const newSet = new Set(localSelections);
+          newSet.delete("all options");
+          newSet.add(trimmed);
+          setLocalSelections(newSet);
+          
+          const newCustoms = new Set(customChoices);
+          newCustoms.add(trimmed);
+          setCustomChoices(newCustoms);
+          
+          onSelect(facet.id, Array.from(newSet));
+          setCustomInput("");
+        };
+
+        const handleKeyPress = (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            addCustomChoice();
+          }
         };
 
         const choices = Array.isArray(facet.choices) ? facet.choices : 
@@ -817,6 +952,31 @@
                   </div>
                 );
               })}
+              
+              {Array.from(customChoices).map((custom) => (
+                <span key={custom} className="chip active custom-chip">
+                  {titleCase(custom)}
+                  <span className="remove-custom" onClick={() => removeCustomChoice(custom)}>×</span>
+                </span>
+              ))}
+            </div>
+
+            <div className="custom-input-wrapper">
+              <input
+                type="text"
+                className="custom-choice-input"
+                placeholder="Type your own choice..."
+                value={customInput}
+                onChange={(e) => setCustomInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+              />
+              <button 
+                className="add-custom-btn" 
+                onClick={addCustomChoice}
+                disabled={!customInput.trim()}
+              >
+                Add
+              </button>
             </div>
 
             <div className="selection-actions">
