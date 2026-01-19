@@ -1639,29 +1639,28 @@
 
             <div className="input-bar">
               {conversationState === "initial" || conversationState === "answer_shown" ? (
-                <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
-                  <div className="input-wrapper">
-                    <textarea
-                      value={query}
-                      onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Ask anything..."
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
-                          e.preventDefault();
-                          handleQuerySubmit();
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className="input-wrapper">
+                <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: '100%'}}>
+                  <textarea
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Ask anything..."
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        handleQuerySubmit();
+                      }
+                    }}
+                    style={{width: '100%', minHeight: '100px'}}
+                  />
+                  <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center', flexWrap: 'wrap'}}>
                     <input
                       type="text"
                       value={domainHint}
                       onChange={(e) => setDomainHint(e.target.value)}
-                      placeholder="Domain hint (optional): e.g., finance, legal..."
-                      style={{flex: 1}}
+                      placeholder="Domain (optional): finance, legal, etc."
+                      style={{flex: '1 1 250px', minWidth: '200px'}}
                     />
-                    <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()}>
+                    <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()} style={{flex: '0 0 auto', minWidth: '120px'}}>
                       Send
                     </button>
                   </div>
