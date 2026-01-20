@@ -1,0 +1,58 @@
+{
+  "domain": "travel",
+  "keywords": [
+    "voyage", "vacances", "trip", "destination", "itinéraire", 
+    "budget", "logistique", "transport", "quand", "dates", "durée", "saison"
+  ],
+  "facets": [
+    {
+      "id": "travel_timing",
+      "title": "Période et Durée",
+      "question": "Quand souhaitez-vous partir et pour combien de temps ?",
+      "keywords": ["quand", "dates", "durée", "jours", "mois", "saison", "été", "hiver"],
+      "choices": [
+        { "value": "Dates Précises", "subchoices": ["Mois prochain", "Saison spécifique"] },
+        { "value": "Flexible (Saisonnier)", "subchoices": ["Printemps", "Été", "Automne", "Hiver"] },
+        { "value": "Court Séjour", "subchoices": ["Week-end prolongé", "Moins de 5 jours"] },
+        { "value": "Long Séjour", "subchoices": ["1 à 2 semaines", "Plus d'un mois"] }
+      ],
+      "default_value": "Flexible (Saisonnier)"
+    },
+    {
+      "id": "traveler_ethos",
+      "title": "Philosophie de Voyage",
+      "question": "Quel état d'esprit définit ce voyage ?",
+      "choices": [
+        { "value": "Immersion Locale", "subchoices": ["Chez l'habitant", "Marchés"] },
+        { "value": "Confort et Sérénité", "subchoices": ["Resorts", "Tout inclus"] },
+        { "value": "Aventure", "subchoices": ["Off-road", "Randonnée"] }
+      ],
+      "default_value": "all options"
+    },
+    {
+      "id": "budget_tier",
+      "title": "Enveloppe Budgétaire",
+      "question": "Quel est le niveau d'investissement pour ce séjour ?",
+      "keywords": ["prix", "argent", "coût", "cher", "économique"],
+      "choices": [
+        { "value": "Budget (Économe)", "subchoices": ["Auberges", "Street food", "Transports locaux"] },
+        { "value": "Mid-range (Équilibré)", "subchoices": ["Hôtels 3-4*", "Restaurants variés"] },
+        { "value": "Luxe (Exclusif)", "subchoices": ["5* Palace", "Vols business", "Conciergerie"] }
+      ],
+      "default_value": "Mid-range (Équilibré)"
+    },
+    {
+      "id": "logistics_preference",
+      "title": "Préférences Logistiques",
+      "question": "Comment envisagez-vous vos déplacements ?",
+      "keywords": ["transport", "voiture", "train", "rythme", "vol"],
+      "choices": [
+        { "value": "Liberté Totale", "subchoices": ["Location de voiture", "Road trip"] },
+        { "value": "Transports Facilités", "subchoices": ["Train / Rail", "Transferts privés"] },
+        { "value": "Sédentaire", "subchoices": ["Un seul point d'attache", "Pas de trajets longs"] }
+      ],
+      "default_value": "all options"
+    }
+  ],
+  "refinements": {}
+}

@@ -34,8 +34,8 @@ You ask your AI a question and get a wall of text that somehow misses *exactly* 
 - **Clickable Selections**: Click any selection chip to jump back to that angle for refinement
 
 ### 🎛️ Output Control
-- **Audience**: Beginner, Intermediate, Expert, Executive
-- **Format**: Bullets, Steps, Table, Paragraphs
+- **Depth**: Beginner, Intermediate, Expert, Executive
+- **Format**: Bullets, Paragraphs
 - **Length**: 300, 600, 900, or 1200 words
 - **Domain Hints**: Optional context (finance, legal, medical, etc.)
 
@@ -172,7 +172,7 @@ Initial facet discovery based on raw query.
     }
   ],
   "proceed_defaults": {
-    "audience": "intermediate",
+    "depth": "intermediate",
     "format": "paragraphs",
     "length": "600 words"
   }
@@ -218,7 +218,7 @@ Generate final answer with full trace.
 {
   "request_id": "uuid-...",
   "facet_selections": [
-    {"id": "audience", "value": "expert"},
+    {"id": "depth", "value": "expert"},
     {"id": "format", "value": "bullets"},
     {"id": "length", "value": "600 words"},
     {"id": "historical_period", "value": "Safavid Dynasty"}
@@ -268,7 +268,7 @@ Generate final answer with full trace.
   - Facet title
   - Question and reasoning
   - Interactive chips for choices and subchoices
-- **Output Settings Card** (Audience/Format/Length)
+- **Output Settings Card** (Depth/Format/Length)
 - **Selections Summary** (clickable chips to navigate back)
 - **Sticky Navigation Bar**: Previous, Pick More Angles, Proceed, Next
 
@@ -334,8 +334,8 @@ Create custom domain packs in `app/packs/`:
 - **Medical Queries**: Filter by patient population, treatment approach, evidence level
 
 ### Content Creation
-- **Technical Writing**: Adjust depth, format (bullets/steps), and length
-- **Documentation**: Audience-specific content (beginner vs. expert)
+- **Technical Writing**: Adjust depth, format (bullets/paragraphs), and length
+- **Documentation**: Depth-specific content (beginner vs. expert)
 - **Marketing Copy**: Tone, length, and style tailoring
 
 ---
