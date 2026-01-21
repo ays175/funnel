@@ -2082,13 +2082,27 @@
             };
 
             const sectorId = sectorMap[sector] || sector?.toLowerCase().replace(/[^a-z]/g, '_');
-            const department = extractDept(location);
-            const region = extractRegion(location);
+            
+            // Handle custom location (city/area input) or region selection
+            const customLocation = selections.custom_location;
+            let department = null;
+            let region = null;
+            let citySearch = null;
+            
+            if (customLocation && customLocation.trim()) {
+              // User typed a custom location - pass it to backend for lookup
+              citySearch = customLocation.trim();
+            } else if (location) {
+              // User selected a region from chips
+              department = extractDept(location);
+              region = extractRegion(location);
+            }
 
             // Build query params
             const params = new URLSearchParams();
             if (sectorId) params.append("sector", sectorId);
-            if (department) params.append("department", department);
+            if (citySearch) params.append("city", citySearch);
+            else if (department) params.append("department", department);
             else if (region) params.append("region", region);
             params.append("max_results", "10");
 
@@ -2842,17 +2856,45 @@
                   
                   {locationFacet && (
                     <div style={{marginBottom: 'var(--space-5)'}}>
-                      <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--text)'}}>Localisation</div>
+                      <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--text)'}}>Localisation (région)</div>
                       <div className="choice-chips">
                         {(locationFacet.choices || []).map((choice) => (
                           <span
                             key={choice.value}
                             className={`chip ${(selections.location || []).includes(choice.value) ? "active" : ""}`}
-                            onClick={() => handleSelection("location", [choice.value])}
+                            onClick={() => {
+                              handleSelection("location", [choice.value]);
+                              handleSelection("custom_location", null); // Clear custom location when selecting region
+                            }}
                           >
                             {choice.value}
                           </span>
                         ))}
+                      </div>
+                      <div style={{marginTop: 'var(--space-3)'}}>
+                        <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--text)', fontSize: '13px'}}>
+                          Ou précisez votre ville / département :
+                        </div>
+                        <input
+                          type="text"
+                          placeholder="Ex: Marseille, Nice, 13, Bouches-du-Rhône..."
+                          value={selections.custom_location || ""}
+                          onChange={(e) => {
+                            handleSelection("custom_location", e.target.value);
+                            if (e.target.value) {
+                              handleSelection("location", null); // Clear region selection when typing
+                            }
+                          }}
+                          style={{
+                            width: '100%',
+                            padding: 'var(--space-3)',
+                            borderRadius: 'var(--radius-2)',
+                            border: '1px solid var(--border)',
+                            background: 'var(--surface-glass)',
+                            color: 'var(--text)',
+                            fontSize: '14px'
+                          }}
+                        />
                       </div>
                     </div>
                   )}

@@ -238,6 +238,7 @@ def search_members(
     sector: str | None = None,
     department: str | None = None,
     region: str | None = None,
+    city: str | None = None,
     max_results: int = 10,
 ):
     """
@@ -247,6 +248,7 @@ def search_members(
         sector: Sector ID (e.g., "accounting", "digital", "auto_repair")
         department: Department code (e.g., "93", "75")
         region: Region name (e.g., "Île-de-France")
+        city: City/area name to look up (e.g., "Marseille", "Nice", "Bouches-du-Rhône")
         max_results: Maximum results to return (default 10)
     """
     member_search = _get_member_search()
@@ -257,6 +259,7 @@ def search_members(
         sector=sector,
         department=department,
         region=region,
+        city=city,
         max_results=min(max_results, 20),  # Cap at 20
     )
     

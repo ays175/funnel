@@ -43,11 +43,67 @@ class MemberSearch:
             data = json.load(f)
         return data.get(key, [])
 
+    def lookup_location(self, query: str) -> dict | None:
+        """
+        Look up a city, department name, or department code and return location info.
+        
+        Args:
+            query: City name, department name, or department code (e.g., "Marseille", "Bouches-du-Rhône", "13")
+            
+        Returns:
+            Dict with department code, department name, and region, or None if not found
+        """
+        query_lower = query.lower().strip()
+        
+        # Try matching department code first (e.g., "13", "93")
+        for dept in self.departments:
+            if dept["code"].lower() == query_lower:
+                return {
+                    "department": dept["code"],
+                    "department_name": dept["name"],
+                    "region": dept["region"],
+                    "match_type": "department_code"
+                }
+        
+        # Try matching department name (e.g., "Bouches-du-Rhône", "Seine-Saint-Denis")
+        for dept in self.departments:
+            if query_lower in dept["name"].lower() or dept["name"].lower() in query_lower:
+                return {
+                    "department": dept["code"],
+                    "department_name": dept["name"],
+                    "region": dept["region"],
+                    "match_type": "department_name"
+                }
+        
+        # Try matching city name
+        for dept in self.departments:
+            cities = dept.get("cities", [])
+            for city in cities:
+                if query_lower in city.lower() or city.lower() in query_lower:
+                    return {
+                        "department": dept["code"],
+                        "department_name": dept["name"],
+                        "region": dept["region"],
+                        "city": city,
+                        "match_type": "city"
+                    }
+        
+        # Try matching region name (fallback)
+        for dept in self.departments:
+            if query_lower in dept["region"].lower():
+                return {
+                    "region": dept["region"],
+                    "match_type": "region"
+                }
+        
+        return None
+
     def search_members(
         self,
         sector: str | None = None,
         department: str | None = None,
         region: str | None = None,
+        city: str | None = None,
         keywords: list[str] | None = None,
         min_rating: float | None = None,
         max_results: int = 10,
@@ -59,6 +115,7 @@ class MemberSearch:
             sector: Sector ID to filter by (e.g., "digital", "accounting")
             department: Department code to filter by (e.g., "93", "75")
             region: Region name to filter by (e.g., "Île-de-France")
+            city: City/area name to look up (e.g., "Marseille", "Nice")
             keywords: Keywords to search in name, description, services
             min_rating: Minimum rating filter
             max_results: Maximum number of results to return
@@ -66,6 +123,15 @@ class MemberSearch:
         Returns:
             List of matching members, sorted by relevance score
         """
+        # If city is provided, look it up to get department/region
+        if city and not department and not region:
+            location_info = self.lookup_location(city)
+            if location_info:
+                if location_info.get("department"):
+                    department = location_info["department"]
+                elif location_info.get("region"):
+                    region = location_info["region"]
+        
         scored_members = []
         
         for member in self.members:
