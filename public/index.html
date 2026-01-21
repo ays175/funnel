@@ -2425,31 +2425,117 @@
                 </div>
               );
             } else if (msg.content?.type === "instructions") {
+              // Static QDA facets for quick action buttons
+              const QDA_FACETS = [
+                {
+                  id: "service_sector",
+                  choices: [
+                    { value: "Comptabilité & Conseil fiscal" },
+                    { value: "Informatique & Services numériques" },
+                    { value: "Marketing & Communication" },
+                    { value: "Juridique & Conseil" },
+                    { value: "RH & Recrutement" },
+                    { value: "Construction & Rénovation" },
+                    { value: "Transport & Logistique" },
+                    { value: "Formation professionnelle" },
+                    { value: "Nettoyage & Maintenance" },
+                    { value: "Restauration & Traiteur" },
+                    { value: "Télécommunications" },
+                    { value: "Garage & Réparation auto" }
+                  ]
+                },
+                {
+                  id: "business_stage",
+                  choices: [
+                    { value: "Idée / Projet" },
+                    { value: "Jeune entreprise (< 2 ans)" },
+                    { value: "Entreprise établie (2-5 ans)" },
+                    { value: "Entreprise mature (> 5 ans)" }
+                  ]
+                },
+                {
+                  id: "revenue_range",
+                  choices: [
+                    { value: "Pas encore de CA" },
+                    { value: "Moins de 50 000€" },
+                    { value: "50 000€ - 100 000€" },
+                    { value: "100 000€ - 500 000€" },
+                    { value: "Plus de 500 000€" }
+                  ]
+                },
+                {
+                  id: "employees",
+                  choices: [
+                    { value: "Solo (juste moi)" },
+                    { value: "1 à 5 salariés" },
+                    { value: "6 à 20 salariés" },
+                    { value: "Plus de 20 salariés" }
+                  ]
+                },
+                {
+                  id: "main_need",
+                  choices: [
+                    { value: "Financement" },
+                    { value: "Formation" },
+                    { value: "Accompagnement" },
+                    { value: "Recrutement" },
+                    { value: "Administratif" }
+                  ]
+                },
+                {
+                  id: "profile",
+                  choices: [
+                    { value: "Femme entrepreneure" },
+                    { value: "Jeune entrepreneur (< 26 ans)" },
+                    { value: "Senior (> 50 ans)" },
+                    { value: "Personne en situation de handicap" },
+                    { value: "Demandeur d'emploi" },
+                    { value: "Bénéficiaire RSA" },
+                    { value: "Aucun / Ne souhaite pas préciser" }
+                  ]
+                },
+                {
+                  id: "location",
+                  choices: [
+                    { value: "Île-de-France - Paris (75)" },
+                    { value: "Île-de-France - Seine-Saint-Denis (93)" },
+                    { value: "Île-de-France - Val-d'Oise (95)" },
+                    { value: "Île-de-France - Hauts-de-Seine (92)" },
+                    { value: "Auvergne-Rhône-Alpes" },
+                    { value: "PACA" },
+                    { value: "Hauts-de-France" },
+                    { value: "Occitanie" },
+                    { value: "Grand Est" },
+                    { value: "Nouvelle-Aquitaine" },
+                    { value: "Autre région" }
+                  ]
+                }
+              ];
+              
               const handleQuickAction = (actionType) => {
                 // Remove the instructions message
                 setMessages(prev => prev.slice(0, -1));
                 
-                if (actionType === "funding") {
-                  addMessage("user", "Je cherche un financement ou une aide");
+                // Set static QDA facets
+                setFacets(QDA_FACETS);
+                setActiveDomainPack("qda_griffons");
+                
+                if (actionType === "funding" || actionType === "programs") {
+                  addMessage("user", actionType === "funding" 
+                    ? "Je cherche un financement ou une aide" 
+                    : "Je cherche un programme d'accompagnement QDA");
                   handleSelection("search_type", ["Programs & Funding"]);
-                  addMessage("bot", "💰 Parfait ! Répondez à quelques questions pour trouver les financements adaptés.");
+                  addMessage("bot", actionType === "funding"
+                    ? "💰 Parfait ! Répondez à quelques questions pour trouver les financements adaptés."
+                    : "🎓 Parfait ! Trouvons le programme adapté à votre situation.");
                   addMessage("bot", { type: "qda_program_facets" });
                   setConversationState("qda_program_selection");
-                  setActiveDomainPack("qda_griffons");
-                } else if (actionType === "programs") {
-                  addMessage("user", "Je cherche un programme d'accompagnement QDA");
-                  handleSelection("search_type", ["Programs & Funding"]);
-                  addMessage("bot", "🎓 Parfait ! Trouvons le programme adapté à votre situation.");
-                  addMessage("bot", { type: "qda_program_facets" });
-                  setConversationState("qda_program_selection");
-                  setActiveDomainPack("qda_griffons");
                 } else if (actionType === "members") {
                   addMessage("user", "Je cherche un prestataire membre QDA");
                   handleSelection("search_type", ["Service Provider (QDA Member)"]);
                   addMessage("bot", "🤝 Parfait ! Trouvons le prestataire idéal dans notre réseau.");
                   addMessage("bot", { type: "qda_member_search_facets" });
                   setConversationState("qda_member_search");
-                  setActiveDomainPack("qda_griffons");
                 }
               };
               
@@ -2622,6 +2708,20 @@
                 );
               };
               
+              // Check if we have facets loaded
+              const hasFacets = stageFacet || revenueFacet || employeesFacet || needFacet;
+              
+              if (!hasFacets) {
+                return (
+                  <div key={index} className="selection-message">
+                    <div style={{textAlign: 'center', padding: 'var(--space-4)'}}>
+                      <div style={{fontSize: '24px', marginBottom: 'var(--space-2)'}}>⏳</div>
+                      <div>Chargement des critères...</div>
+                    </div>
+                  </div>
+                );
+              }
+              
               return (
                 <div key={index} className="selection-message">
                   <div style={{fontWeight: 700, fontSize: '16px', color: 'var(--primary-50)', marginBottom: 'var(--space-4)'}}>
@@ -2635,13 +2735,14 @@
                   {renderFacetSection(profileFacet, "profile", "Votre profil (optionnel)")}
                   {renderFacetSection(locationFacet, "location", "Localisation")}
                   
-                  <div className="selection-actions" style={{marginTop: 'var(--space-4)'}}>
+                  <div style={{marginTop: 'var(--space-4)', display: 'flex', justifyContent: 'center'}}>
                     <button 
                       className="primary" 
                       onClick={handleQDAProgramSearch}
                       disabled={loading}
+                      style={{width: '100%', maxWidth: '300px'}}
                     >
-                      🔍 Trouver mes aides et programmes
+                      🔍 Rechercher
                     </button>
                   </div>
                 </div>
@@ -2650,6 +2751,18 @@
               // Find sector and location facets
               const sectorFacet = facets.find(f => f.id === "service_sector");
               const locationFacet = facets.find(f => f.id === "location");
+              
+              // Check if we have facets
+              if (!sectorFacet && !locationFacet) {
+                return (
+                  <div key={index} className="selection-message">
+                    <div style={{textAlign: 'center', padding: 'var(--space-4)'}}>
+                      <div style={{fontSize: '24px', marginBottom: 'var(--space-2)'}}>⏳</div>
+                      <div>Chargement des critères...</div>
+                    </div>
+                  </div>
+                );
+              }
               
               return (
                 <div key={index} className="selection-message">
@@ -2691,13 +2804,14 @@
                     </div>
                   )}
                   
-                  <div className="selection-actions">
+                  <div style={{marginTop: 'var(--space-4)', display: 'flex', justifyContent: 'center'}}>
                     <button 
                       className="primary" 
                       onClick={handleQDAMemberSearch}
                       disabled={loading || !(selections.service_sector?.length)}
+                      style={{width: '100%', maxWidth: '300px'}}
                     >
-                      🔍 Rechercher des prestataires
+                      🔍 Rechercher
                     </button>
                   </div>
                 </div>
