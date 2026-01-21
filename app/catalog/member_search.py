@@ -119,7 +119,7 @@ class MemberSearch:
         else:
             score += 0.1  # Base score if no sector filter
         
-        # Department match (strong preference)
+        # Department match (required if specified)
         if department:
             dept_lower = department.lower().strip()
             member_dept = member["location"]["department"].lower()
@@ -127,16 +127,21 @@ class MemberSearch:
             if member_dept == dept_lower:
                 score += 0.5
             else:
-                # Check if region matches (secondary)
-                if region and member["location"]["region"].lower() == region.lower():
-                    score += 0.2
-                else:
-                    score += 0.05  # Small penalty for different location
+                return 0.0  # Department mismatch = disqualified
         
-        # Region match (if no department specified)
+        # Region match (required if specified, when no department)
         elif region:
-            if member["location"]["region"].lower() == region.lower():
+            member_region = member["location"]["region"].lower()
+            region_lower = region.lower()
+            
+            # Handle PACA alias
+            if region_lower == "paca":
+                region_lower = "provence-alpes-côte d'azur"
+            
+            if member_region == region_lower or region_lower in member_region or member_region in region_lower:
                 score += 0.3
+            else:
+                return 0.0  # Region mismatch = disqualified
         
         # Keyword matching
         if keywords:
