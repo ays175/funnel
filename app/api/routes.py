@@ -174,6 +174,7 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
         selections=selections,
         user_overrides=payload.user_overrides or {},
         proceed_defaults=defaults,
+        domain_pack=request["domain_pack"],
     )
 
     ledger.append(payload.request_id, "USER_SELECT", {"selections": selections})

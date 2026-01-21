@@ -1,0 +1,96 @@
+{
+  "domain": "qda_griffons",
+  "keywords": [
+    "griffon", "qpv", "quartiers", "entrepreneur", "financement", "formation", 
+    "accompagnement", "aide", "subvention", "prêt", "création", "entreprise",
+    "développement", "croissance", "quartiers prioritaires"
+  ],
+  "facets": [
+    {
+      "id": "business_stage",
+      "title": "Stade de votre entreprise",
+      "question": "Où en êtes-vous dans votre parcours entrepreneurial ?",
+      "keywords": ["création", "développement", "croissance", "démarrage", "idée"],
+      "choices": [
+        { "value": "Idée / Projet", "subchoices": ["Pas encore immatriculé", "En cours de création"] },
+        { "value": "Jeune entreprise (< 2 ans)", "subchoices": ["Moins de 1 an", "1-2 ans"] },
+        { "value": "Entreprise établie (2-5 ans)", "subchoices": ["Structuration", "Croissance"] },
+        { "value": "Entreprise mature (> 5 ans)", "subchoices": ["Expansion", "Diversification"] }
+      ],
+      "default_value": "all options"
+    },
+    {
+      "id": "revenue_range",
+      "title": "Chiffre d'affaires annuel",
+      "question": "Quel est votre CA approximatif ?",
+      "keywords": ["chiffre", "affaires", "revenus", "ca", "ventes"],
+      "choices": [
+        { "value": "Pas encore de CA", "subchoices": [] },
+        { "value": "Moins de 50 000€", "subchoices": [] },
+        { "value": "50 000€ - 100 000€", "subchoices": [] },
+        { "value": "100 000€ - 500 000€", "subchoices": [] },
+        { "value": "Plus de 500 000€", "subchoices": [] }
+      ],
+      "default_value": "all options"
+    },
+    {
+      "id": "employees",
+      "title": "Effectif de l'entreprise",
+      "question": "Combien de personnes travaillent dans votre entreprise ?",
+      "keywords": ["salariés", "équipe", "effectif", "employés", "collaborateurs"],
+      "choices": [
+        { "value": "Solo (moi seul)", "subchoices": [] },
+        { "value": "1 à 5 salariés", "subchoices": [] },
+        { "value": "6 à 20 salariés", "subchoices": [] },
+        { "value": "Plus de 20 salariés", "subchoices": [] }
+      ],
+      "default_value": "all options"
+    },
+    {
+      "id": "main_need",
+      "title": "Votre besoin principal",
+      "question": "Qu'est-ce qui vous aiderait le plus aujourd'hui ?",
+      "keywords": ["besoin", "aide", "recherche", "financement", "formation"],
+      "choices": [
+        { "value": "Financement", "subchoices": ["Prêt", "Subvention", "Investisseur", "Garantie bancaire"] },
+        { "value": "Formation", "subchoices": ["Gestion", "Digital", "Commercial", "Export"] },
+        { "value": "Accompagnement", "subchoices": ["Mentorat", "Coaching", "Réseau", "Conseil stratégique"] },
+        { "value": "Recrutement", "subchoices": ["Alternance", "Stage", "CDI", "Formation équipe"] },
+        { "value": "Formalités", "subchoices": ["Création", "Modification", "Certifications"] }
+      ],
+      "default_value": "all options"
+    },
+    {
+      "id": "profile",
+      "title": "Votre situation",
+      "question": "Êtes-vous concerné par un de ces critères ? (permet d'accéder à des aides spécifiques)",
+      "keywords": ["femme", "jeune", "senior", "handicap", "chômage", "rsa"],
+      "choices": [
+        { "value": "Femme dirigeante", "subchoices": [] },
+        { "value": "Jeune entrepreneur (< 26 ans)", "subchoices": [] },
+        { "value": "Senior (> 50 ans)", "subchoices": [] },
+        { "value": "Situation de handicap (RQTH)", "subchoices": [] },
+        { "value": "Demandeur d'emploi", "subchoices": [] },
+        { "value": "Bénéficiaire RSA", "subchoices": [] },
+        { "value": "Aucun / Ne souhaite pas préciser", "subchoices": [] }
+      ],
+      "default_value": "Aucun / Ne souhaite pas préciser"
+    },
+    {
+      "id": "location",
+      "title": "Localisation",
+      "question": "Où est située votre entreprise ?",
+      "keywords": ["région", "département", "ville", "quartier", "zfu"],
+      "choices": [
+        { "value": "Île-de-France", "subchoices": ["Paris", "Seine-Saint-Denis (93)", "Val-d'Oise (95)", "Hauts-de-Seine (92)", "Autres départements IDF"] },
+        { "value": "Auvergne-Rhône-Alpes", "subchoices": ["Lyon", "Grenoble", "Saint-Étienne", "Autres"] },
+        { "value": "PACA", "subchoices": ["Marseille", "Nice", "Toulon", "Autres"] },
+        { "value": "Hauts-de-France", "subchoices": ["Lille", "Amiens", "Roubaix", "Autres"] },
+        { "value": "Occitanie", "subchoices": ["Toulouse", "Montpellier", "Nîmes", "Autres"] },
+        { "value": "Autre région", "subchoices": [] }
+      ],
+      "default_value": "all options"
+    }
+  ],
+  "refinements": {}
+}

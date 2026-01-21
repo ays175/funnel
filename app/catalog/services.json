@@ -1,0 +1,700 @@
+{
+  "services": [
+    {
+      "id": "qda-grandir",
+      "name": "Programme GRANDIR",
+      "provider": "Quartiers d'Affaires",
+      "description": "Programme d'accompagnement de 12 mois pour structurer et accélérer la croissance de votre entreprise. Inclut 10 masterclasses, 6 workshops, 12 webinaires et un accès au réseau QDA.",
+      "category": "accompagnement",
+      "subcategory": "programme",
+      "eligibility": {
+        "min_years": 2,
+        "min_revenue": 50000,
+        "min_employees": 1,
+        "location": "qpv"
+      },
+      "price": 9700,
+      "duration": "12 mois",
+      "tags": ["formation", "croissance", "réseau", "masterclass"],
+      "url": "https://quartiersdaffaires.com/project/grandir/",
+      "highlights": ["Co-financement OPCO possible", "Accès aux événements live", "Mentorat personnalisé"]
+    },
+    {
+      "id": "qda-accelerer",
+      "name": "Programme ACCÉLÉRER",
+      "provider": "Quartiers d'Affaires",
+      "description": "Programme premium pour entreprises matures. Préparation à la levée de fonds, structuration avancée, et accès à un réseau d'investisseurs et de grands groupes.",
+      "category": "accompagnement",
+      "subcategory": "programme",
+      "eligibility": {
+        "min_years": 3,
+        "min_revenue": 100000,
+        "min_employees": 1,
+        "location": "qpv"
+      },
+      "price": 12500,
+      "duration": "12 mois",
+      "tags": ["levée de fonds", "scale-up", "investisseurs", "premium"],
+      "url": "https://quartiersdaffaires.com/programme-accelere/",
+      "highlights": ["Accès investisseurs", "Pitch training", "Networking grands groupes"]
+    },
+    {
+      "id": "qda-decoller",
+      "name": "Programme DÉCOLLER",
+      "provider": "Quartiers d'Affaires",
+      "description": "Programme court et intensif de 3 mois pour les entreprises en phase de démarrage ou de transition rapide. Idéal pour poser les bases solides de votre développement.",
+      "category": "accompagnement",
+      "subcategory": "programme",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "qpv"
+      },
+      "price": 3500,
+      "duration": "3 mois",
+      "tags": ["démarrage", "création", "intensif", "bases"],
+      "url": "https://quartiersdaffaires.com/programmes/",
+      "highlights": ["Format court", "Coaching intensif", "Premiers pas structurés"]
+    },
+    {
+      "id": "qda-transmettre",
+      "name": "Programme TRANSMETTRE",
+      "provider": "Quartiers d'Affaires",
+      "description": "Facilitez le recrutement d'alternants, stagiaires et salariés issus des QPV. Accompagnement RH et mise en relation avec les talents locaux pendant 12 mois.",
+      "category": "recrutement",
+      "subcategory": "alternance",
+      "eligibility": {
+        "min_years": 1,
+        "min_revenue": 0,
+        "min_employees": 1,
+        "location": "qpv"
+      },
+      "price": 0,
+      "duration": "12 mois",
+      "tags": ["recrutement", "alternance", "stage", "emploi local"],
+      "url": "https://quartiersdaffaires.com/programmes/",
+      "highlights": ["Gratuit", "Vivier de talents QPV", "Accompagnement RH inclus"]
+    },
+    {
+      "id": "qda-inspirer",
+      "name": "Programme INSPIRER",
+      "provider": "Quartiers d'Affaires",
+      "description": "Intervenez dans les établissements scolaires des QPV pour partager votre parcours et inspirer la nouvelle génération d'entrepreneurs.",
+      "category": "impact",
+      "subcategory": "mentorat",
+      "eligibility": {
+        "min_years": 2,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "qpv"
+      },
+      "price": 0,
+      "duration": "ponctuel",
+      "tags": ["éducation", "jeunesse", "témoignage", "impact social"],
+      "url": "https://quartiersdaffaires.com/programmes/",
+      "highlights": ["Gratuit", "Impact social fort", "Visibilité locale"]
+    },
+    {
+      "id": "qda-club",
+      "name": "QA Club - Adhésion",
+      "provider": "Quartiers d'Affaires",
+      "description": "Rejoignez le club des Griffons ! Accès aux événements mensuels, networking entre entrepreneurs QPV, formations en ligne et lives avec Aziz Senni.",
+      "category": "réseau",
+      "subcategory": "adhésion",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "qpv"
+      },
+      "price": 500,
+      "duration": "annuel",
+      "tags": ["réseau", "networking", "événements", "communauté"],
+      "url": "https://quartiersdaffaires.com/nos-clubs/",
+      "highlights": ["Tarif adapté à la taille", "Lives exclusifs", "Réseau national"]
+    },
+    {
+      "id": "bpi-pret-honneur",
+      "name": "Prêt d'Honneur Quartiers",
+      "provider": "BPI France",
+      "description": "Prêt personnel à taux zéro pour renforcer vos fonds propres et faciliter l'accès au crédit bancaire. Sans garantie ni caution personnelle.",
+      "category": "financement",
+      "subcategory": "prêt",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 3,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "qpv",
+        "stage": ["création", "reprise"]
+      },
+      "price": 0,
+      "amount_range": "1000-50000",
+      "duration": "5 ans",
+      "tags": ["prêt", "taux zéro", "fonds propres", "création"],
+      "url": "https://bpifrance.fr",
+      "highlights": ["Taux 0%", "Sans garantie", "Effet levier bancaire"]
+    },
+    {
+      "id": "bpi-flash",
+      "name": "Prêt Bonifié Flash",
+      "provider": "BPI France",
+      "description": "Prêt 100% digital pour TPE de plus de 3 ans. Réponse en 48h, déblocage rapide. Idéal pour un besoin de trésorerie ou un investissement ponctuel.",
+      "category": "financement",
+      "subcategory": "prêt",
+      "eligibility": {
+        "min_years": 3,
+        "min_revenue": 50000,
+        "min_employees": 0,
+        "location": "qpv"
+      },
+      "price": 0,
+      "amount_range": "10000-50000",
+      "duration": "2-5 ans",
+      "tags": ["prêt", "digital", "rapide", "trésorerie"],
+      "url": "https://bpifrance.fr",
+      "highlights": ["100% en ligne", "Réponse 48h", "Taux bonifié QPV"]
+    },
+    {
+      "id": "bpi-eq30",
+      "name": "Fonds EQ30 - Entrepreneuriat Quartiers",
+      "provider": "BPI France",
+      "description": "Fonds d'investissement dédié aux entreprises à impact social des QPV. Capital ou dette privée pour accélérer votre croissance.",
+      "category": "financement",
+      "subcategory": "investissement",
+      "eligibility": {
+        "min_years": 3,
+        "min_revenue": 200000,
+        "min_employees": 5,
+        "location": "qpv",
+        "impact_social": true
+      },
+      "price": 0,
+      "amount_range": "100000-500000",
+      "duration": "variable",
+      "tags": ["equity", "investissement", "capital", "impact"],
+      "url": "https://www.bpifrance.fr/nos-appels-a-projets-concours/fonds-de-fonds-entrepreneuriat-quartiers-2030-eq30",
+      "highlights": ["Capital patient", "Accompagnement board", "Réseau BPI"]
+    },
+    {
+      "id": "ft-tremplin",
+      "name": "French Tech Tremplin",
+      "provider": "French Tech / BPI France",
+      "description": "Programme d'accompagnement et bourse pour entrepreneurs tech issus de milieux sous-représentés. Formation, mentorat et financement.",
+      "category": "financement",
+      "subcategory": "bourse",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 2,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "qpv",
+        "sector": ["tech", "innovation"]
+      },
+      "price": 0,
+      "amount_range": "20000-45000",
+      "duration": "12 mois",
+      "tags": ["startup", "tech", "innovation", "bourse"],
+      "url": "https://lafrenchtech.com/fr/la-france-aide-les-startups/french-tech-tremplin/",
+      "highlights": ["Bourse jusqu'à 45K€", "Incubation incluse", "Réseau French Tech"]
+    },
+    {
+      "id": "adie-microcredit",
+      "name": "Microcrédit Professionnel",
+      "provider": "ADIE",
+      "description": "Prêt pour créateurs et entrepreneurs exclus du système bancaire classique. Accompagnement personnalisé inclus.",
+      "category": "financement",
+      "subcategory": "microcrédit",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "banking_excluded": true
+      },
+      "price": 0,
+      "amount_range": "500-12000",
+      "duration": "1-4 ans",
+      "tags": ["microcrédit", "création", "exclusion bancaire", "accompagnement"],
+      "url": "https://www.adie.org",
+      "highlights": ["Accessible aux exclus bancaires", "Accompagnement gratuit", "Décision rapide"]
+    },
+    {
+      "id": "initiative-pret",
+      "name": "Prêt d'Honneur Initiative France",
+      "provider": "Initiative France",
+      "description": "Prêt à taux zéro pour créateurs et repreneurs. Accompagnement par un parrain chef d'entreprise pendant 3 ans.",
+      "category": "financement",
+      "subcategory": "prêt",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 3,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "stage": ["création", "reprise"]
+      },
+      "price": 0,
+      "amount_range": "2000-50000",
+      "duration": "5 ans",
+      "tags": ["prêt honneur", "taux zéro", "parrainage", "création"],
+      "url": "https://www.initiative-france.fr",
+      "highlights": ["Taux 0%", "Parrain entrepreneur", "Réseau national"]
+    },
+    {
+      "id": "bge-creation",
+      "name": "Accompagnement Création BGE",
+      "provider": "BGE",
+      "description": "Accompagnement complet pour créateurs : de l'idée au business plan, jusqu'à l'immatriculation. Formation et suivi personnalisé.",
+      "category": "accompagnement",
+      "subcategory": "création",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "stage": ["idée", "création"]
+      },
+      "price": 0,
+      "duration": "3-6 mois",
+      "tags": ["création", "business plan", "formation", "accompagnement"],
+      "url": "https://www.bge.asso.fr",
+      "highlights": ["Gratuit", "Business plan accompagné", "Formation incluse"]
+    },
+    {
+      "id": "bge-couveuse",
+      "name": "Couveuse d'Entreprises BGE",
+      "provider": "BGE",
+      "description": "Testez votre activité en conditions réelles avant de créer officiellement. Facturation possible via la couveuse, accompagnement et formation.",
+      "category": "accompagnement",
+      "subcategory": "test",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "stage": ["test", "idée"]
+      },
+      "price": 0,
+      "duration": "jusqu'à 12 mois",
+      "tags": ["test", "couveuse", "facturation", "sécurité"],
+      "url": "https://www.bge.asso.fr",
+      "highlights": ["Testez sans créer", "Facturez légalement", "Formation continue"]
+    },
+    {
+      "id": "formation-num-google",
+      "name": "Ateliers Numériques Google",
+      "provider": "Google / Partenaires",
+      "description": "Formations gratuites au numérique : créer un site, utiliser les réseaux sociaux, comprendre le référencement, analyser ses données.",
+      "category": "formation",
+      "subcategory": "digital",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all"
+      },
+      "price": 0,
+      "duration": "variable",
+      "tags": ["digital", "marketing", "gratuit", "en ligne"],
+      "url": "https://learndigital.withgoogle.com/ateliersnumeriques",
+      "highlights": ["100% gratuit", "En ligne", "Certification Google"]
+    },
+    {
+      "id": "formation-export-bpi",
+      "name": "Accélérateur Export BPI",
+      "provider": "BPI France",
+      "description": "Programme intensif pour développer votre activité à l'international. Formation, diagnostic export, et mise en relation avec des partenaires étrangers.",
+      "category": "formation",
+      "subcategory": "export",
+      "eligibility": {
+        "min_years": 2,
+        "min_revenue": 100000,
+        "min_employees": 1,
+        "location": "all"
+      },
+      "price": 5000,
+      "duration": "6 mois",
+      "tags": ["export", "international", "développement", "accélérateur"],
+      "url": "https://bpifrance.fr",
+      "highlights": ["Diagnostic export", "Réseau international", "Accompagnement terrain"]
+    },
+    {
+      "id": "aide-femme-garantie",
+      "name": "Garantie ÉGALITÉ Femmes",
+      "provider": "France Active",
+      "description": "Garantie bancaire spécifique pour faciliter l'accès au crédit des femmes créatrices ou repreneuses d'entreprise. Couvre jusqu'à 80% du prêt.",
+      "category": "financement",
+      "subcategory": "garantie",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 5,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "profile": ["femme"],
+        "stage": ["création", "reprise", "développement"]
+      },
+      "price": 200,
+      "amount_range": "garantie jusqu'à 50000",
+      "duration": "7 ans max",
+      "tags": ["femme", "garantie", "crédit", "égalité"],
+      "url": "https://www.franceactive.org/garantie-egalite-femmes/",
+      "highlights": ["Garantie 80%", "Spécial femmes", "Accès facilité au crédit"]
+    },
+    {
+      "id": "aide-femme-willa",
+      "name": "Programme WILLA",
+      "provider": "WILLA",
+      "description": "Accélérateur et programmes dédiés aux femmes entrepreneures dans la tech. Mentorat, financement, et communauté.",
+      "category": "accompagnement",
+      "subcategory": "accélérateur",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "profile": ["femme"],
+        "sector": ["tech"]
+      },
+      "price": 0,
+      "duration": "6 mois",
+      "tags": ["femme", "tech", "accélérateur", "mentorat"],
+      "url": "https://hellowilla.co",
+      "highlights": ["Gratuit", "Réseau femmes tech", "Accès investisseurs"]
+    },
+    {
+      "id": "aide-jeune-cape",
+      "name": "CAPE - Contrat d'Appui au Projet d'Entreprise",
+      "provider": "État",
+      "description": "Contrat permettant de préparer votre création d'entreprise tout en conservant vos allocations (chômage, RSA). Accompagnement par une structure agréée.",
+      "category": "accompagnement",
+      "subcategory": "contrat",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "profile": ["demandeur_emploi", "rsa"]
+      },
+      "price": 0,
+      "duration": "12 mois renouvelable",
+      "tags": ["création", "allocations", "sécurité", "accompagnement"],
+      "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F11299",
+      "highlights": ["Gardez vos allocations", "Accompagnement inclus", "Testez votre projet"]
+    },
+    {
+      "id": "aide-jeune-arce",
+      "name": "ARCE - Aide à la Reprise ou Création d'Entreprise",
+      "provider": "Pôle Emploi",
+      "description": "Recevez 60% de vos droits chômage restants en capital pour financer votre création d'entreprise. Versé en 2 fois.",
+      "category": "financement",
+      "subcategory": "aide",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 1,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "profile": ["demandeur_emploi"]
+      },
+      "price": 0,
+      "amount_range": "variable selon droits",
+      "duration": "ponctuel",
+      "tags": ["création", "chômage", "capital", "pôle emploi"],
+      "url": "https://www.pole-emploi.fr/candidat/mes-droits-aux-aides-et-allegemen/allocations-et-டைaides/laide-a-la-reprise-ou-a-la-creat.html",
+      "highlights": ["60% de vos droits", "Capital immédiat", "Cumulable ACRE"]
+    },
+    {
+      "id": "aide-acre",
+      "name": "ACRE - Aide aux Créateurs et Repreneurs d'Entreprise",
+      "provider": "URSSAF",
+      "description": "Exonération partielle de charges sociales pendant la première année d'activité. Automatique pour certains profils, sur demande pour d'autres.",
+      "category": "financement",
+      "subcategory": "exonération",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 1,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "stage": ["création", "reprise"]
+      },
+      "price": 0,
+      "duration": "12 mois",
+      "tags": ["charges", "exonération", "création", "urssaf"],
+      "url": "https://www.urssaf.fr/portail/home/independant/je-beneficie-dexonerations/accre.html",
+      "highlights": ["Exonération 50%", "Automatique si éligible", "Première année"]
+    },
+    {
+      "id": "zfu-exoneration",
+      "name": "Exonérations Zone Franche Urbaine (ZFU-TE)",
+      "provider": "État",
+      "description": "Exonérations fiscales et sociales pour les entreprises implantées en Zone Franche Urbaine - Territoire Entrepreneur. Impôts, charges, taxe foncière.",
+      "category": "financement",
+      "subcategory": "exonération",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "max_revenue": 400000,
+        "min_employees": 0,
+        "max_employees": 50,
+        "location": "zfu"
+      },
+      "price": 0,
+      "duration": "5-14 ans",
+      "tags": ["zfu", "exonération", "impôts", "charges"],
+      "url": "https://www.service-public.fr/professionnels-entreprises/vosdroits/F31149",
+      "highlights": ["Exo impôts 5 ans", "Exo charges 5 ans", "Clause d'embauche locale"]
+    },
+    {
+      "id": "nacre",
+      "name": "NACRE - Nouvel Accompagnement Création/Reprise",
+      "provider": "Région",
+      "description": "Accompagnement renforcé en 3 phases : montage du projet, structuration financière, démarrage de l'activité. Prêt à taux zéro possible.",
+      "category": "accompagnement",
+      "subcategory": "programme",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 3,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "profile": ["demandeur_emploi", "rsa", "jeune", "senior"]
+      },
+      "price": 0,
+      "amount_range": "prêt 1000-10000",
+      "duration": "3 ans",
+      "tags": ["accompagnement", "création", "prêt", "région"],
+      "url": "https://www.service-public.fr/particuliers/vosdroits/F20016",
+      "highlights": ["Accompagnement 3 ans", "Prêt taux 0 possible", "Gratuit"]
+    },
+    {
+      "id": "cci-formalites",
+      "name": "Guichet Unique Formalités",
+      "provider": "CCI / Guichet Unique",
+      "description": "Aide aux formalités de création, modification ou cessation d'entreprise. Conseils gratuits et accompagnement administratif.",
+      "category": "accompagnement",
+      "subcategory": "formalités",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all"
+      },
+      "price": 0,
+      "duration": "ponctuel",
+      "tags": ["formalités", "création", "administratif", "gratuit"],
+      "url": "https://formalites.entreprises.gouv.fr",
+      "highlights": ["Gratuit", "En ligne", "Conseils CCI"]
+    },
+    {
+      "id": "cci-diagnostic",
+      "name": "Diagnostic Entreprise CCI",
+      "provider": "CCI",
+      "description": "Diagnostic complet de votre entreprise : stratégie, finance, RH, digital, commercial. Recommandations personnalisées par un conseiller.",
+      "category": "accompagnement",
+      "subcategory": "diagnostic",
+      "eligibility": {
+        "min_years": 1,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all"
+      },
+      "price": 0,
+      "duration": "ponctuel",
+      "tags": ["diagnostic", "stratégie", "conseil", "cci"],
+      "url": "https://www.cci.fr",
+      "highlights": ["Gratuit", "Personnalisé", "Plan d'action"]
+    },
+    {
+      "id": "opco-formation",
+      "name": "Financement Formation OPCO",
+      "provider": "OPCO",
+      "description": "Prise en charge totale ou partielle de vos formations professionnelles par votre OPCO. Dirigeants et salariés éligibles.",
+      "category": "formation",
+      "subcategory": "financement",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all"
+      },
+      "price": 0,
+      "duration": "variable",
+      "tags": ["formation", "financement", "opco", "compétences"],
+      "url": "https://travail-emploi.gouv.fr/ministere/acteurs/partenaires/opco",
+      "highlights": ["Prise en charge 100% possible", "Dirigeants inclus", "Large catalogue"]
+    },
+    {
+      "id": "cpf-formation",
+      "name": "Compte Personnel de Formation (CPF)",
+      "provider": "État",
+      "description": "Utilisez votre CPF pour financer des formations certifiantes. Dirigeants non-salariés éligibles avec leur propre compte.",
+      "category": "formation",
+      "subcategory": "financement",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all"
+      },
+      "price": 0,
+      "duration": "variable",
+      "tags": ["cpf", "formation", "certifiante", "personnel"],
+      "url": "https://www.moncompteformation.gouv.fr",
+      "highlights": ["Crédit annuel", "Formations certifiantes", "Choix libre"]
+    },
+    {
+      "id": "mentorat-reseau-entreprendre",
+      "name": "Mentorat Réseau Entreprendre",
+      "provider": "Réseau Entreprendre",
+      "description": "Accompagnement par un chef d'entreprise bénévole pendant 2-3 ans. Prêt d'honneur possible selon le projet.",
+      "category": "accompagnement",
+      "subcategory": "mentorat",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 3,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "job_creation_potential": true
+      },
+      "price": 0,
+      "amount_range": "prêt 15000-90000",
+      "duration": "2-3 ans",
+      "tags": ["mentorat", "prêt honneur", "réseau", "dirigeant"],
+      "url": "https://www.reseau-entreprendre.org",
+      "highlights": ["Mentor entrepreneur", "Prêt possible", "Réseau national"]
+    },
+    {
+      "id": "agefiph-aide",
+      "name": "Aide à la Création AGEFIPH",
+      "provider": "AGEFIPH",
+      "description": "Subvention et accompagnement pour créateurs d'entreprise en situation de handicap. Jusqu'à 6000€ d'aide directe.",
+      "category": "financement",
+      "subcategory": "subvention",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 1,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "profile": ["handicap"]
+      },
+      "price": 0,
+      "amount_range": "jusqu'à 6000",
+      "duration": "ponctuel",
+      "tags": ["handicap", "subvention", "création", "agefiph"],
+      "url": "https://www.agefiph.fr",
+      "highlights": ["Subvention directe", "Accompagnement spécialisé", "Cumul possible"]
+    },
+    {
+      "id": "france-active-garantie",
+      "name": "Garantie France Active",
+      "provider": "France Active",
+      "description": "Garantie bancaire pour faciliter l'accès au crédit des entrepreneurs fragiles ou des projets ESS. Couvre 50-80% du prêt.",
+      "category": "financement",
+      "subcategory": "garantie",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "profile": ["demandeur_emploi", "rsa", "femme", "jeune", "senior", "handicap"]
+      },
+      "price": 200,
+      "amount_range": "garantie jusqu'à 65% du prêt",
+      "duration": "7 ans max",
+      "tags": ["garantie", "crédit", "banque", "france active"],
+      "url": "https://www.franceactive.org",
+      "highlights": ["Garantie 50-80%", "Profils fragiles", "Facilite le crédit"]
+    },
+    {
+      "id": "cma-artisan",
+      "name": "Accompagnement CMA Artisans",
+      "provider": "Chambre des Métiers",
+      "description": "Accompagnement dédié aux artisans : création, gestion, transmission, digital. Formations et conseils personnalisés.",
+      "category": "accompagnement",
+      "subcategory": "artisanat",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "sector": ["artisanat"]
+      },
+      "price": 0,
+      "duration": "variable",
+      "tags": ["artisan", "cma", "métiers", "formation"],
+      "url": "https://www.cma-france.fr",
+      "highlights": ["Gratuit", "Réseau artisans", "Formations métiers"]
+    },
+    {
+      "id": "subvention-region-idf",
+      "name": "PM'up Île-de-France",
+      "provider": "Région Île-de-France",
+      "description": "Subvention pour projets de croissance des PME franciliennes : investissement, innovation, recrutement, export.",
+      "category": "financement",
+      "subcategory": "subvention",
+      "eligibility": {
+        "min_years": 2,
+        "min_revenue": 100000,
+        "min_employees": 3,
+        "location": "ile-de-france"
+      },
+      "price": 0,
+      "amount_range": "10000-250000",
+      "duration": "ponctuel",
+      "tags": ["subvention", "croissance", "île-de-france", "pme"],
+      "url": "https://www.iledefrance.fr/pmup",
+      "highlights": ["Subvention directe", "Projets ambitieux", "Jusqu'à 250K€"]
+    },
+    {
+      "id": "bpi-garantie-creation",
+      "name": "Garantie Création BPI",
+      "provider": "BPI France",
+      "description": "Garantie bancaire BPI pour les créations d'entreprise. Facilite l'obtention d'un prêt bancaire en couvrant une partie du risque.",
+      "category": "financement",
+      "subcategory": "garantie",
+      "eligibility": {
+        "min_years": 0,
+        "max_years": 3,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "stage": ["création", "reprise"]
+      },
+      "price": 0,
+      "amount_range": "garantie 50-70%",
+      "duration": "variable",
+      "tags": ["garantie", "création", "banque", "bpi"],
+      "url": "https://bpifrance.fr",
+      "highlights": ["Via votre banque", "Automatique", "Facilite le crédit"]
+    },
+    {
+      "id": "pepite-etudiant",
+      "name": "Statut National Étudiant-Entrepreneur",
+      "provider": "PEPITE",
+      "description": "Statut et accompagnement pour étudiants et jeunes diplômés créateurs d'entreprise. Accès aux espaces de coworking et au D2E.",
+      "category": "accompagnement",
+      "subcategory": "étudiant",
+      "eligibility": {
+        "min_years": 0,
+        "min_revenue": 0,
+        "min_employees": 0,
+        "location": "all",
+        "profile": ["étudiant", "jeune_diplômé"]
+      },
+      "price": 0,
+      "duration": "1 an renouvelable",
+      "tags": ["étudiant", "jeune", "diplôme", "création"],
+      "url": "https://www.pepite-france.fr",
+      "highlights": ["Aménagement études", "Coworking gratuit", "Réseau PEPITE"]
+    }
+  ]
+}
