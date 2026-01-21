@@ -34,7 +34,8 @@
         { "value": "Professional Training", "subchoices": [] },
         { "value": "Cleaning & Maintenance", "subchoices": [] },
         { "value": "Catering & Food Services", "subchoices": [] },
-        { "value": "Telecommunications", "subchoices": [] }
+        { "value": "Telecommunications", "subchoices": [] },
+        { "value": "Auto Repair & Garage", "subchoices": [] }
       ],
       "default_value": "all options",
       "conditional": {

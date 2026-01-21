@@ -30,6 +30,19 @@ from app.storage.trace_store import TraceStore
 
 router = APIRouter()
 
+# Lazy load member search
+_member_search = None
+
+def _get_member_search():
+    global _member_search
+    if _member_search is None:
+        try:
+            from app.catalog.member_search import MemberSearch
+            _member_search = MemberSearch()
+        except ImportError:
+            pass
+    return _member_search
+
 settings = load_settings()
 store = TraceStore(settings.trace_db_url)
 ledger = TraceLedger(store)
@@ -218,3 +231,78 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
         ),
         reasoning=reasoning,
     )
+
+
+@router.get("/members/search")
+def search_members(
+    sector: str | None = None,
+    department: str | None = None,
+    region: str | None = None,
+    max_results: int = 10,
+):
+    """
+    Search for QDA member businesses.
+    
+    Args:
+        sector: Sector ID (e.g., "accounting", "digital", "auto_repair")
+        department: Department code (e.g., "93", "75")
+        region: Region name (e.g., "Île-de-France")
+        max_results: Maximum results to return (default 10)
+    """
+    member_search = _get_member_search()
+    if not member_search:
+        raise HTTPException(status_code=501, detail="Member search not available")
+    
+    members = member_search.search_members(
+        sector=sector,
+        department=department,
+        region=region,
+        max_results=min(max_results, 20),  # Cap at 20
+    )
+    
+    # Clean up internal fields
+    for member in members:
+        member.pop("_score", None)
+    
+    return {
+        "count": len(members),
+        "members": members,
+    }
+
+
+@router.get("/members/{member_id}")
+def get_member(member_id: str):
+    """Get a specific member by ID."""
+    member_search = _get_member_search()
+    if not member_search:
+        raise HTTPException(status_code=501, detail="Member search not available")
+    
+    member = member_search.get_member_by_id(member_id)
+    if not member:
+        raise HTTPException(status_code=404, detail="Member not found")
+    
+    return member
+
+
+@router.get("/members/{member_id}/contact")
+def get_member_contact(member_id: str):
+    """Get contact details for a specific member."""
+    member_search = _get_member_search()
+    if not member_search:
+        raise HTTPException(status_code=501, detail="Member search not available")
+    
+    contact = member_search.get_member_contact(member_id)
+    if not contact:
+        raise HTTPException(status_code=404, detail="Member not found")
+    
+    return contact
+
+
+@router.get("/sectors")
+def list_sectors():
+    """List all available business sectors."""
+    member_search = _get_member_search()
+    if not member_search:
+        raise HTTPException(status_code=501, detail="Member search not available")
+    
+    return {"sectors": member_search.get_sectors_list()}

@@ -48310,6 +48310,4509 @@
         "rating": 4.1,
         "reviews_count": 41
       }
+    },
+    {
+      "id": "mbr-01-auto_repair-001",
+      "company_name": "Garage du Commerce",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Ain. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "MOT preparation",
+        "Tire service",
+        "Engine repair",
+        "Electrical repairs",
+        "Clutch replacement"
+      ],
+      "founder": {
+        "name": "Youssef David",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "01",
+        "department_name": "Ain",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Bourg-en-Bresse",
+        "postal_code": "01000"
+      },
+      "contact": {
+        "phone": "04 23 14 58 78",
+        "mobile": "06 81 52 53 16",
+        "email": "contact@garageducommerc.fr",
+        "website": "https://www.garageducommerc.fr",
+        "contact_person": "Youssef David",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2000,
+        "employees": 2,
+        "rating": 4.0,
+        "reviews_count": 60
+      }
+    },
+    {
+      "id": "mbr-02-auto_repair-001",
+      "company_name": "Auto Soissons",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Aisne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Engine repair",
+        "Air conditioning",
+        "Battery service",
+        "General repairs",
+        "MOT preparation",
+        "Tire service",
+        "Windshield replacement"
+      ],
+      "founder": {
+        "name": "Mohamed Vincent",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "02",
+        "department_name": "Aisne",
+        "region": "Hauts-de-France",
+        "city": "Soissons",
+        "postal_code": "02000"
+      },
+      "contact": {
+        "phone": "03 15 21 95 28",
+        "mobile": "06 26 12 47 65",
+        "email": "contact@autosoissons.fr",
+        "website": "https://www.autosoissons.fr",
+        "contact_person": "Mohamed Vincent",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2015,
+        "employees": 3,
+        "rating": 4.8,
+        "reviews_count": 72
+      }
+    },
+    {
+      "id": "mbr-03-auto_repair-001",
+      "company_name": "Ndiaye & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Allier. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Brake service",
+        "Electrical repairs",
+        "Air conditioning",
+        "Exhaust systems",
+        "MOT preparation"
+      ],
+      "founder": {
+        "name": "Pierre Ndiaye",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "03",
+        "department_name": "Allier",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Moulins",
+        "postal_code": "03000"
+      },
+      "contact": {
+        "phone": "04 72 76 95 63",
+        "mobile": "06 57 75 14 92",
+        "email": "contact@ndiayeetfilsaut.fr",
+        "website": "https://www.ndiayeetfilsaut.fr",
+        "contact_person": "Pierre Ndiaye",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1995,
+        "employees": 4,
+        "rating": 4.3,
+        "reviews_count": 55
+      }
+    },
+    {
+      "id": "mbr-04-auto_repair-001",
+      "company_name": "Fournier & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Alpes-de-Haute-Provence. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Suspension",
+        "Air conditioning",
+        "Timing belt",
+        "Exhaust systems"
+      ],
+      "founder": {
+        "name": "Bruno Fournier",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "04",
+        "department_name": "Alpes-de-Haute-Provence",
+        "region": "PACA",
+        "city": "Manosque",
+        "postal_code": "04000"
+      },
+      "contact": {
+        "phone": "04 21 90 56 11",
+        "mobile": "06 55 39 61 78",
+        "email": "contact@fournieretfilsa.fr",
+        "website": "https://www.fournieretfilsa.fr",
+        "contact_person": "Bruno Fournier",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1999,
+        "employees": 6,
+        "rating": 4.5,
+        "reviews_count": 27
+      }
+    },
+    {
+      "id": "mbr-05-auto_repair-001",
+      "company_name": "Garage des Halles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Hautes-Alpes. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "General repairs",
+        "Oil change",
+        "Suspension",
+        "Electrical repairs",
+        "Engine repair",
+        "Tire service",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Kevin Traoré",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "05",
+        "department_name": "Hautes-Alpes",
+        "region": "PACA",
+        "city": "Gap",
+        "postal_code": "05000"
+      },
+      "contact": {
+        "phone": "04 34 12 42 55",
+        "mobile": "06 97 44 65 91",
+        "email": "contact@garagedeshalles.fr",
+        "website": "https://www.garagedeshalles.fr",
+        "contact_person": "Kevin Traoré",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1990,
+        "employees": 4,
+        "rating": 4.9,
+        "reviews_count": 73
+      }
+    },
+    {
+      "id": "mbr-06-auto_repair-001",
+      "company_name": "Grasse Mécanique",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Alpes-Maritimes. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "MOT preparation",
+        "Tire service",
+        "Exhaust systems",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Patrick Garcia",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "06",
+        "department_name": "Alpes-Maritimes",
+        "region": "PACA",
+        "city": "Grasse",
+        "postal_code": "06000"
+      },
+      "contact": {
+        "phone": "04 52 63 54 13",
+        "mobile": "06 91 91 30 63",
+        "email": "contact@grassemecanique.fr",
+        "website": "https://www.grassemecanique.fr",
+        "contact_person": "Patrick Garcia",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1990,
+        "employees": 1,
+        "rating": 4.8,
+        "reviews_count": 54
+      }
+    },
+    {
+      "id": "mbr-07-auto_repair-001",
+      "company_name": "Privas Mécanique",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Ardèche. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "General repairs",
+        "Tire service",
+        "Air conditioning",
+        "Clutch replacement",
+        "Timing belt",
+        "Exhaust systems",
+        "Battery service"
+      ],
+      "founder": {
+        "name": "David Petit",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "07",
+        "department_name": "Ardèche",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Privas",
+        "postal_code": "07000"
+      },
+      "contact": {
+        "phone": "04 25 90 31 85",
+        "mobile": "06 59 65 17 27",
+        "email": "contact@privasmecanique.fr",
+        "website": "https://www.privasmecanique.fr",
+        "contact_person": "David Petit",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2004,
+        "employees": 4,
+        "rating": 4.8,
+        "reviews_count": 8
+      }
+    },
+    {
+      "id": "mbr-08-auto_repair-001",
+      "company_name": "Charleville-Mézières Mécanique",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Ardennes. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Bodywork",
+        "Electrical repairs",
+        "Tire service",
+        "MOT preparation",
+        "Windshield replacement"
+      ],
+      "founder": {
+        "name": "Pierre Hamidi",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "08",
+        "department_name": "Ardennes",
+        "region": "Grand Est",
+        "city": "Charleville-Mézières",
+        "postal_code": "08000"
+      },
+      "contact": {
+        "phone": "03 23 79 57 38",
+        "mobile": "06 82 53 21 44",
+        "email": "contact@charleville-mez.fr",
+        "website": "https://www.charleville-mez.fr",
+        "contact_person": "Pierre Hamidi",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1987,
+        "employees": 6,
+        "rating": 4.1,
+        "reviews_count": 30
+      }
+    },
+    {
+      "id": "mbr-09-auto_repair-001",
+      "company_name": "Lefebvre Auto Service",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Ariège. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Timing belt",
+        "Windshield replacement",
+        "General repairs",
+        "MOT preparation",
+        "Clutch replacement",
+        "Suspension",
+        "Air conditioning"
+      ],
+      "founder": {
+        "name": "Bruno Lefebvre",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "09",
+        "department_name": "Ariège",
+        "region": "Occitanie",
+        "city": "Pamiers",
+        "postal_code": "09000"
+      },
+      "contact": {
+        "phone": "04 20 53 80 78",
+        "mobile": "06 27 78 27 71",
+        "email": "contact@lefebvreautoser.fr",
+        "website": "https://www.lefebvreautoser.fr",
+        "contact_person": "Bruno Lefebvre",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2006,
+        "employees": 4,
+        "rating": 4.9,
+        "reviews_count": 69
+      }
+    },
+    {
+      "id": "mbr-10-auto_repair-001",
+      "company_name": "Kane & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Aube. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Clutch replacement",
+        "Diagnostics",
+        "Timing belt",
+        "Air conditioning",
+        "Tire service",
+        "Electrical repairs"
+      ],
+      "founder": {
+        "name": "Didier Kane",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "10",
+        "department_name": "Aube",
+        "region": "Grand Est",
+        "city": "Romilly-sur-Seine",
+        "postal_code": "10000"
+      },
+      "contact": {
+        "phone": "03 25 98 16 56",
+        "mobile": "06 68 56 95 63",
+        "email": "contact@kaneetfilsauto.fr",
+        "website": "https://www.kaneetfilsauto.fr",
+        "contact_person": "Didier Kane",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1996,
+        "employees": 4,
+        "rating": 5.0,
+        "reviews_count": 12
+      }
+    },
+    {
+      "id": "mbr-11-auto_repair-001",
+      "company_name": "Garage du Quartier",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Aude. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Suspension",
+        "Oil change",
+        "Air conditioning",
+        "Windshield replacement",
+        "Clutch replacement",
+        "Tire service",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Éric Diop",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "11",
+        "department_name": "Aude",
+        "region": "Occitanie",
+        "city": "Carcassonne",
+        "postal_code": "11000"
+      },
+      "contact": {
+        "phone": "04 25 43 74 87",
+        "mobile": "06 51 17 58 16",
+        "email": "contact@garageduquartie.fr",
+        "website": "https://www.garageduquartie.fr",
+        "contact_person": "Éric Diop",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2013,
+        "employees": 3,
+        "rating": 4.8,
+        "reviews_count": 77
+      }
+    },
+    {
+      "id": "mbr-12-auto_repair-001",
+      "company_name": "David Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Aveyron. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "Engine repair",
+        "Brake service",
+        "Tire service"
+      ],
+      "founder": {
+        "name": "Bruno David",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "12",
+        "department_name": "Aveyron",
+        "region": "Occitanie",
+        "city": "Millau",
+        "postal_code": "12000"
+      },
+      "contact": {
+        "phone": "04 25 12 64 94",
+        "mobile": "06 73 26 71 78",
+        "email": "contact@davidautomobile.fr",
+        "website": "https://www.davidautomobile.fr",
+        "contact_person": "Bruno David",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2008,
+        "employees": 3,
+        "rating": 4.6,
+        "reviews_count": 9
+      }
+    },
+    {
+      "id": "mbr-13-auto_repair-001",
+      "company_name": "Auto Réparations Arles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Bouches-du-Rhône. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Oil change",
+        "Suspension",
+        "General repairs",
+        "Air conditioning",
+        "Exhaust systems",
+        "Brake service",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Thierry Benali",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "13",
+        "department_name": "Bouches-du-Rhône",
+        "region": "PACA",
+        "city": "Arles",
+        "postal_code": "13000"
+      },
+      "contact": {
+        "phone": "04 39 98 18 42",
+        "mobile": "06 46 31 63 55",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Thierry Benali",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1987,
+        "employees": 3,
+        "rating": 4.5,
+        "reviews_count": 72
+      }
+    },
+    {
+      "id": "mbr-14-auto_repair-001",
+      "company_name": "Garage des Quartier",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Calvados. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Battery service",
+        "Timing belt",
+        "Electrical repairs",
+        "Air conditioning",
+        "Oil change",
+        "General repairs",
+        "Suspension"
+      ],
+      "founder": {
+        "name": "Driss Bertrand",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "14",
+        "department_name": "Calvados",
+        "region": "Normandie",
+        "city": "Caen",
+        "postal_code": "14000"
+      },
+      "contact": {
+        "phone": "02 88 79 81 45",
+        "mobile": "06 34 76 18 91",
+        "email": "contact@garagedesquarti.fr",
+        "website": "https://www.garagedesquarti.fr",
+        "contact_person": "Driss Bertrand",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2012,
+        "employees": 4,
+        "rating": 4.5,
+        "reviews_count": 24
+      }
+    },
+    {
+      "id": "mbr-15-auto_repair-001",
+      "company_name": "Auto Aurillac",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Cantal. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Air conditioning",
+        "Clutch replacement",
+        "Battery service",
+        "Bodywork"
+      ],
+      "founder": {
+        "name": "Bakary Traoré",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "15",
+        "department_name": "Cantal",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Aurillac",
+        "postal_code": "15000"
+      },
+      "contact": {
+        "phone": "04 61 13 11 62",
+        "mobile": "06 93 51 80 13",
+        "email": "contact@autoaurillac.fr",
+        "website": "https://www.autoaurillac.fr",
+        "contact_person": "Bakary Traoré",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2003,
+        "employees": 2,
+        "rating": 4.3,
+        "reviews_count": 41
+      }
+    },
+    {
+      "id": "mbr-16-auto_repair-001",
+      "company_name": "Auto Réparations Cognac",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Charente. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "Battery service",
+        "General repairs",
+        "MOT preparation"
+      ],
+      "founder": {
+        "name": "David Durand",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "16",
+        "department_name": "Charente",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Cognac",
+        "postal_code": "16000"
+      },
+      "contact": {
+        "phone": "05 38 75 94 65",
+        "mobile": "06 60 81 34 59",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "David Durand",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1993,
+        "employees": 5,
+        "rating": 4.7,
+        "reviews_count": 18
+      }
+    },
+    {
+      "id": "mbr-17-auto_repair-001",
+      "company_name": "La Rochelle Mécanique",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Charente-Maritime. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Clutch replacement",
+        "Oil change",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Éric Slimani",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "17",
+        "department_name": "Charente-Maritime",
+        "region": "Nouvelle-Aquitaine",
+        "city": "La Rochelle",
+        "postal_code": "17000"
+      },
+      "contact": {
+        "phone": "05 55 46 56 37",
+        "mobile": "06 59 16 23 75",
+        "email": "contact@larochellemecan.fr",
+        "website": "https://www.larochellemecan.fr",
+        "contact_person": "Éric Slimani",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1998,
+        "employees": 4,
+        "rating": 4.2,
+        "reviews_count": 21
+      }
+    },
+    {
+      "id": "mbr-18-auto_repair-001",
+      "company_name": "Fournier Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Cher. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Diagnostics",
+        "Air conditioning",
+        "Clutch replacement",
+        "Oil change",
+        "Brake service"
+      ],
+      "founder": {
+        "name": "Omar Fournier",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "18",
+        "department_name": "Cher",
+        "region": "Centre-Val de Loire",
+        "city": "Bourges",
+        "postal_code": "18000"
+      },
+      "contact": {
+        "phone": "02 38 68 65 35",
+        "mobile": "06 94 61 17 17",
+        "email": "contact@fournierautomob.fr",
+        "website": "https://www.fournierautomob.fr",
+        "contact_person": "Omar Fournier",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1987,
+        "employees": 4,
+        "rating": 4.4,
+        "reviews_count": 31
+      }
+    },
+    {
+      "id": "mbr-19-auto_repair-001",
+      "company_name": "Garage du Centre",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Corrèze. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Diagnostics",
+        "Electrical repairs",
+        "Windshield replacement",
+        "MOT preparation"
+      ],
+      "founder": {
+        "name": "Abdel Bernard",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "19",
+        "department_name": "Corrèze",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Ussel",
+        "postal_code": "19000"
+      },
+      "contact": {
+        "phone": "05 51 95 61 54",
+        "mobile": "06 39 17 17 80",
+        "email": "contact@garageducentre.fr",
+        "website": "https://www.garageducentre.fr",
+        "contact_person": "Abdel Bernard",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2000,
+        "employees": 2,
+        "rating": 4.6,
+        "reviews_count": 5
+      }
+    },
+    {
+      "id": "mbr-2A-auto_repair-001",
+      "company_name": "Garage du Stade",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Corse-du-Sud. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Brake service",
+        "Bodywork",
+        "Clutch replacement",
+        "Windshield replacement",
+        "Suspension",
+        "Tire service"
+      ],
+      "founder": {
+        "name": "Mamadou Sy",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "2A",
+        "department_name": "Corse-du-Sud",
+        "region": "Corse",
+        "city": "Ajaccio",
+        "postal_code": "2A000"
+      },
+      "contact": {
+        "phone": "04 54 50 98 10",
+        "mobile": "06 54 74 10 92",
+        "email": "contact@garagedustade.fr",
+        "website": "https://www.garagedustade.fr",
+        "contact_person": "Mamadou Sy",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2013,
+        "employees": 2,
+        "rating": 4.7,
+        "reviews_count": 73
+      }
+    },
+    {
+      "id": "mbr-2B-auto_repair-001",
+      "company_name": "Garage du Port",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Haute-Corse. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Bodywork",
+        "Tire service",
+        "Brake service",
+        "Oil change",
+        "Battery service"
+      ],
+      "founder": {
+        "name": "Souleymane Morel",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "2B",
+        "department_name": "Haute-Corse",
+        "region": "Corse",
+        "city": "Corte",
+        "postal_code": "2B000"
+      },
+      "contact": {
+        "phone": "04 93 80 79 30",
+        "mobile": "06 59 13 43 13",
+        "email": "contact@garageduport.fr",
+        "website": "https://www.garageduport.fr",
+        "contact_person": "Souleymane Morel",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1991,
+        "employees": 3,
+        "rating": 4.1,
+        "reviews_count": 14
+      }
+    },
+    {
+      "id": "mbr-21-auto_repair-001",
+      "company_name": "Garcia & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Côte-d'Or. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Suspension",
+        "Air conditioning",
+        "Diagnostics",
+        "General repairs",
+        "Oil change",
+        "Clutch replacement"
+      ],
+      "founder": {
+        "name": "Mamadou Garcia",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "21",
+        "department_name": "Côte-d'Or",
+        "region": "Bourgogne-Franche-Comté",
+        "city": "Beaune",
+        "postal_code": "21000"
+      },
+      "contact": {
+        "phone": "03 43 76 80 25",
+        "mobile": "06 95 78 25 52",
+        "email": "contact@garciaetfilsaut.fr",
+        "website": "https://www.garciaetfilsaut.fr",
+        "contact_person": "Mamadou Garcia",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1991,
+        "employees": 5,
+        "rating": 4.8,
+        "reviews_count": 50
+      }
+    },
+    {
+      "id": "mbr-22-auto_repair-001",
+      "company_name": "Auto Réparations Saint-Brieuc",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Côtes-d'Armor. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Brake service",
+        "Battery service",
+        "General repairs",
+        "Oil change",
+        "Suspension",
+        "Bodywork"
+      ],
+      "founder": {
+        "name": "Maxime Laurent",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "22",
+        "department_name": "Côtes-d'Armor",
+        "region": "Bretagne",
+        "city": "Saint-Brieuc",
+        "postal_code": "22000"
+      },
+      "contact": {
+        "phone": "02 26 20 32 78",
+        "mobile": "06 44 63 31 59",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Maxime Laurent",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2002,
+        "employees": 8,
+        "rating": 4.1,
+        "reviews_count": 74
+      }
+    },
+    {
+      "id": "mbr-23-auto_repair-001",
+      "company_name": "Fournier Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Creuse. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "MOT preparation",
+        "Brake service",
+        "Exhaust systems",
+        "General repairs"
+      ],
+      "founder": {
+        "name": "Éric Fournier",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "23",
+        "department_name": "Creuse",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Guéret",
+        "postal_code": "23000"
+      },
+      "contact": {
+        "phone": "05 49 46 35 64",
+        "mobile": "06 37 73 15 64",
+        "email": "contact@fournierautomob.fr",
+        "website": "https://www.fournierautomob.fr",
+        "contact_person": "Éric Fournier",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2020,
+        "employees": 3,
+        "rating": 4.9,
+        "reviews_count": 13
+      }
+    },
+    {
+      "id": "mbr-24-auto_repair-001",
+      "company_name": "Ndiaye Auto Service",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Dordogne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Bodywork",
+        "Exhaust systems",
+        "General repairs",
+        "Brake service"
+      ],
+      "founder": {
+        "name": "Bruno Ndiaye",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "24",
+        "department_name": "Dordogne",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Sarlat",
+        "postal_code": "24000"
+      },
+      "contact": {
+        "phone": "05 19 37 21 66",
+        "mobile": "06 15 78 49 99",
+        "email": "contact@ndiayeautoservi.fr",
+        "website": "https://www.ndiayeautoservi.fr",
+        "contact_person": "Bruno Ndiaye",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2018,
+        "employees": 2,
+        "rating": 5.0,
+        "reviews_count": 11
+      }
+    },
+    {
+      "id": "mbr-25-auto_repair-001",
+      "company_name": "Auto Réparations Pontarlier",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Doubs. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Suspension",
+        "Tire service",
+        "Engine repair",
+        "Bodywork",
+        "Clutch replacement"
+      ],
+      "founder": {
+        "name": "Nicolas Fournier",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "25",
+        "department_name": "Doubs",
+        "region": "Bourgogne-Franche-Comté",
+        "city": "Pontarlier",
+        "postal_code": "25000"
+      },
+      "contact": {
+        "phone": "03 64 94 97 23",
+        "mobile": "06 21 15 37 29",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Nicolas Fournier",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2001,
+        "employees": 3,
+        "rating": 4.4,
+        "reviews_count": 28
+      }
+    },
+    {
+      "id": "mbr-26-auto_repair-001",
+      "company_name": "Mécanique Valence",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Drôme. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Diagnostics",
+        "Brake service",
+        "General repairs",
+        "Tire service",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Didier Rahmani",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "26",
+        "department_name": "Drôme",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Valence",
+        "postal_code": "26000"
+      },
+      "contact": {
+        "phone": "04 90 80 71 13",
+        "mobile": "06 57 47 69 57",
+        "email": "contact@mecaniquevalenc.fr",
+        "website": "https://www.mecaniquevalenc.fr",
+        "contact_person": "Didier Rahmani",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2022,
+        "employees": 2,
+        "rating": 4.5,
+        "reviews_count": 52
+      }
+    },
+    {
+      "id": "mbr-27-auto_repair-001",
+      "company_name": "Auto Réparations Évreux",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Eure. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Tire service",
+        "Suspension",
+        "Windshield replacement",
+        "Bodywork",
+        "Timing belt",
+        "MOT preparation"
+      ],
+      "founder": {
+        "name": "Gilles Dupont",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "27",
+        "department_name": "Eure",
+        "region": "Normandie",
+        "city": "Évreux",
+        "postal_code": "27000"
+      },
+      "contact": {
+        "phone": "02 27 74 96 22",
+        "mobile": "06 72 77 39 90",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Gilles Dupont",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2006,
+        "employees": 5,
+        "rating": 4.2,
+        "reviews_count": 18
+      }
+    },
+    {
+      "id": "mbr-28-auto_repair-001",
+      "company_name": "Petit Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Eure-et-Loir. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "Engine repair",
+        "Exhaust systems",
+        "General repairs",
+        "Air conditioning"
+      ],
+      "founder": {
+        "name": "Amadou Petit",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "28",
+        "department_name": "Eure-et-Loir",
+        "region": "Centre-Val de Loire",
+        "city": "Chartres",
+        "postal_code": "28000"
+      },
+      "contact": {
+        "phone": "02 97 97 61 32",
+        "mobile": "06 81 41 75 93",
+        "email": "contact@petitautomobile.fr",
+        "website": "https://www.petitautomobile.fr",
+        "contact_person": "Amadou Petit",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1994,
+        "employees": 3,
+        "rating": 4.4,
+        "reviews_count": 69
+      }
+    },
+    {
+      "id": "mbr-29-auto_repair-001",
+      "company_name": "Auto Réparations Quimper",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Finistère. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Clutch replacement",
+        "Tire service",
+        "Electrical repairs",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Romain Ba",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "29",
+        "department_name": "Finistère",
+        "region": "Bretagne",
+        "city": "Quimper",
+        "postal_code": "29000"
+      },
+      "contact": {
+        "phone": "02 63 99 21 51",
+        "mobile": "06 66 69 11 24",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Romain Ba",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2000,
+        "employees": 6,
+        "rating": 4.7,
+        "reviews_count": 76
+      }
+    },
+    {
+      "id": "mbr-30-auto_repair-001",
+      "company_name": "Garage des Halles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Gard. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Engine repair",
+        "Electrical repairs",
+        "Tire service",
+        "Windshield replacement",
+        "MOT preparation"
+      ],
+      "founder": {
+        "name": "Driss Traoré",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "30",
+        "department_name": "Gard",
+        "region": "Occitanie",
+        "city": "Nîmes",
+        "postal_code": "30000"
+      },
+      "contact": {
+        "phone": "04 35 96 70 64",
+        "mobile": "06 91 11 54 93",
+        "email": "contact@garagedeshalles.fr",
+        "website": "https://www.garagedeshalles.fr",
+        "contact_person": "Driss Traoré",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1989,
+        "employees": 4,
+        "rating": 4.2,
+        "reviews_count": 11
+      }
+    },
+    {
+      "id": "mbr-31-auto_repair-001",
+      "company_name": "Auto Réparations Muret",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Haute-Garonne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "Oil change",
+        "Bodywork",
+        "Electrical repairs",
+        "Tire service",
+        "Engine repair",
+        "Battery service"
+      ],
+      "founder": {
+        "name": "Mohamed Rahmani",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "31",
+        "department_name": "Haute-Garonne",
+        "region": "Occitanie",
+        "city": "Muret",
+        "postal_code": "31000"
+      },
+      "contact": {
+        "phone": "04 61 73 18 34",
+        "mobile": "06 33 54 39 52",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Mohamed Rahmani",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1991,
+        "employees": 3,
+        "rating": 4.3,
+        "reviews_count": 20
+      }
+    },
+    {
+      "id": "mbr-32-auto_repair-001",
+      "company_name": "Garage des Lycée",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Gers. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Timing belt",
+        "Battery service",
+        "Electrical repairs",
+        "Clutch replacement",
+        "Tire service",
+        "Windshield replacement",
+        "Exhaust systems"
+      ],
+      "founder": {
+        "name": "Ibrahim Ndiaye",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "32",
+        "department_name": "Gers",
+        "region": "Occitanie",
+        "city": "Fleurance",
+        "postal_code": "32000"
+      },
+      "contact": {
+        "phone": "04 65 67 15 63",
+        "mobile": "06 16 22 48 74",
+        "email": "contact@garagedeslycee.fr",
+        "website": "https://www.garagedeslycee.fr",
+        "contact_person": "Ibrahim Ndiaye",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1989,
+        "employees": 4,
+        "rating": 4.6,
+        "reviews_count": 20
+      }
+    },
+    {
+      "id": "mbr-33-auto_repair-001",
+      "company_name": "Traoré Auto Service",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Gironde. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "Battery service",
+        "Brake service",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Patrick Traoré",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "33",
+        "department_name": "Gironde",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Mérignac",
+        "postal_code": "33000"
+      },
+      "contact": {
+        "phone": "05 99 46 29 50",
+        "mobile": "06 87 70 56 38",
+        "email": "contact@traoreautoservi.fr",
+        "website": "https://www.traoreautoservi.fr",
+        "contact_person": "Patrick Traoré",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2006,
+        "employees": 3,
+        "rating": 4.7,
+        "reviews_count": 76
+      }
+    },
+    {
+      "id": "mbr-34-auto_repair-001",
+      "company_name": "Garage des Port",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Hérault. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Bodywork",
+        "Suspension",
+        "Battery service"
+      ],
+      "founder": {
+        "name": "Kevin Gueye",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "34",
+        "department_name": "Hérault",
+        "region": "Occitanie",
+        "city": "Sète",
+        "postal_code": "34000"
+      },
+      "contact": {
+        "phone": "04 69 44 65 47",
+        "mobile": "06 20 93 60 69",
+        "email": "contact@garagedesport.fr",
+        "website": "https://www.garagedesport.fr",
+        "contact_person": "Kevin Gueye",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2018,
+        "employees": 2,
+        "rating": 4.2,
+        "reviews_count": 12
+      }
+    },
+    {
+      "id": "mbr-35-auto_repair-001",
+      "company_name": "Mécanique Saint-Malo",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Ille-et-Vilaine. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Brake service",
+        "Tire service",
+        "Air conditioning",
+        "Clutch replacement",
+        "Exhaust systems",
+        "Windshield replacement",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Thomas Slimani",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "35",
+        "department_name": "Ille-et-Vilaine",
+        "region": "Bretagne",
+        "city": "Saint-Malo",
+        "postal_code": "35000"
+      },
+      "contact": {
+        "phone": "02 47 32 76 40",
+        "mobile": "06 99 63 20 84",
+        "email": "contact@mecaniquesaint-.fr",
+        "website": "https://www.mecaniquesaint-.fr",
+        "contact_person": "Thomas Slimani",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2007,
+        "employees": 8,
+        "rating": 4.1,
+        "reviews_count": 43
+      }
+    },
+    {
+      "id": "mbr-36-auto_repair-001",
+      "company_name": "Mécanique Châteauroux",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Indre. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "General repairs",
+        "Brake service",
+        "Electrical repairs",
+        "Timing belt",
+        "Tire service",
+        "Suspension",
+        "Battery service"
+      ],
+      "founder": {
+        "name": "Philippe Slimani",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "36",
+        "department_name": "Indre",
+        "region": "Centre-Val de Loire",
+        "city": "Châteauroux",
+        "postal_code": "36000"
+      },
+      "contact": {
+        "phone": "02 47 34 85 86",
+        "mobile": "06 16 49 34 88",
+        "email": "contact@mecaniquechâtea.fr",
+        "website": "https://www.mecaniquechâtea.fr",
+        "contact_person": "Philippe Slimani",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2005,
+        "employees": 1,
+        "rating": 4.1,
+        "reviews_count": 10
+      }
+    },
+    {
+      "id": "mbr-37-auto_repair-001",
+      "company_name": "Tours Mécanique",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Indre-et-Loire. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Air conditioning",
+        "Exhaust systems",
+        "MOT preparation",
+        "Brake service",
+        "Windshield replacement"
+      ],
+      "founder": {
+        "name": "Kevin Ndiaye",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "37",
+        "department_name": "Indre-et-Loire",
+        "region": "Centre-Val de Loire",
+        "city": "Tours",
+        "postal_code": "37000"
+      },
+      "contact": {
+        "phone": "02 77 16 87 94",
+        "mobile": "06 40 93 23 63",
+        "email": "contact@toursmecanique.fr",
+        "website": "https://www.toursmecanique.fr",
+        "contact_person": "Kevin Ndiaye",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1993,
+        "employees": 8,
+        "rating": 4.4,
+        "reviews_count": 56
+      }
+    },
+    {
+      "id": "mbr-38-auto_repair-001",
+      "company_name": "Ndiaye Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Isère. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Tire service",
+        "Engine repair",
+        "Brake service",
+        "Diagnostics",
+        "Air conditioning"
+      ],
+      "founder": {
+        "name": "Alexandre Ndiaye",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "38",
+        "department_name": "Isère",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Vienne",
+        "postal_code": "38000"
+      },
+      "contact": {
+        "phone": "04 34 39 48 96",
+        "mobile": "06 66 74 28 96",
+        "email": "contact@ndiayeautomobil.fr",
+        "website": "https://www.ndiayeautomobil.fr",
+        "contact_person": "Alexandre Ndiaye",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1992,
+        "employees": 2,
+        "rating": 4.3,
+        "reviews_count": 27
+      }
+    },
+    {
+      "id": "mbr-39-auto_repair-001",
+      "company_name": "Auto Saint-Claude",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Jura. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Bodywork",
+        "General repairs",
+        "Exhaust systems",
+        "Clutch replacement",
+        "Oil change"
+      ],
+      "founder": {
+        "name": "Éric Lefebvre",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "39",
+        "department_name": "Jura",
+        "region": "Bourgogne-Franche-Comté",
+        "city": "Saint-Claude",
+        "postal_code": "39000"
+      },
+      "contact": {
+        "phone": "03 44 42 81 48",
+        "mobile": "06 44 40 29 89",
+        "email": "contact@autosaint-claud.fr",
+        "website": "https://www.autosaint-claud.fr",
+        "contact_person": "Éric Lefebvre",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2011,
+        "employees": 6,
+        "rating": 4.3,
+        "reviews_count": 67
+      }
+    },
+    {
+      "id": "mbr-40-auto_repair-001",
+      "company_name": "Garage du Parc",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Landes. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Electrical repairs",
+        "Battery service",
+        "MOT preparation",
+        "Oil change",
+        "Clutch replacement",
+        "Air conditioning",
+        "Exhaust systems"
+      ],
+      "founder": {
+        "name": "Pierre Dupont",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "40",
+        "department_name": "Landes",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Dax",
+        "postal_code": "40000"
+      },
+      "contact": {
+        "phone": "05 22 67 91 13",
+        "mobile": "06 28 43 52 26",
+        "email": "contact@garageduparc.fr",
+        "website": "https://www.garageduparc.fr",
+        "contact_person": "Pierre Dupont",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2007,
+        "employees": 4,
+        "rating": 4.9,
+        "reviews_count": 34
+      }
+    },
+    {
+      "id": "mbr-41-auto_repair-001",
+      "company_name": "Garage Bouaziz",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Loir-et-Cher. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Tire service",
+        "Exhaust systems",
+        "Electrical repairs",
+        "Windshield replacement",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Bruno Bouaziz",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "41",
+        "department_name": "Loir-et-Cher",
+        "region": "Centre-Val de Loire",
+        "city": "Blois",
+        "postal_code": "41000"
+      },
+      "contact": {
+        "phone": "02 92 54 57 67",
+        "mobile": "06 67 59 29 32",
+        "email": "contact@garagebouaziz.fr",
+        "website": "https://www.garagebouaziz.fr",
+        "contact_person": "Bruno Bouaziz",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2013,
+        "employees": 2,
+        "rating": 4.8,
+        "reviews_count": 75
+      }
+    },
+    {
+      "id": "mbr-42-auto_repair-001",
+      "company_name": "Leroy Auto Service",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Loire. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Air conditioning",
+        "Exhaust systems",
+        "Suspension",
+        "Diagnostics",
+        "Brake service",
+        "Battery service",
+        "Tire service"
+      ],
+      "founder": {
+        "name": "Nicolas Leroy",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "42",
+        "department_name": "Loire",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Roanne",
+        "postal_code": "42000"
+      },
+      "contact": {
+        "phone": "04 60 78 99 65",
+        "mobile": "06 97 93 10 39",
+        "email": "contact@leroyautoservic.fr",
+        "website": "https://www.leroyautoservic.fr",
+        "contact_person": "Nicolas Leroy",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2013,
+        "employees": 8,
+        "rating": 4.3,
+        "reviews_count": 5
+      }
+    },
+    {
+      "id": "mbr-43-auto_repair-001",
+      "company_name": "Michel Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Haute-Loire. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Tire service",
+        "Exhaust systems",
+        "MOT preparation",
+        "Timing belt",
+        "Bodywork"
+      ],
+      "founder": {
+        "name": "Youssef Michel",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "43",
+        "department_name": "Haute-Loire",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Le Puy-en-Velay",
+        "postal_code": "43000"
+      },
+      "contact": {
+        "phone": "04 44 33 72 33",
+        "mobile": "06 95 93 30 40",
+        "email": "contact@michelautomobil.fr",
+        "website": "https://www.michelautomobil.fr",
+        "contact_person": "Youssef Michel",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2020,
+        "employees": 5,
+        "rating": 4.1,
+        "reviews_count": 77
+      }
+    },
+    {
+      "id": "mbr-44-auto_repair-001",
+      "company_name": "Garage du Port",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Loire-Atlantique. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Oil change",
+        "Diagnostics",
+        "Brake service",
+        "Air conditioning"
+      ],
+      "founder": {
+        "name": "Ibrahim Lefebvre",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "44",
+        "department_name": "Loire-Atlantique",
+        "region": "Pays de la Loire",
+        "city": "Rezé",
+        "postal_code": "44000"
+      },
+      "contact": {
+        "phone": "02 21 56 31 63",
+        "mobile": "06 45 68 79 71",
+        "email": "contact@garageduport.fr",
+        "website": "https://www.garageduport.fr",
+        "contact_person": "Ibrahim Lefebvre",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2012,
+        "employees": 3,
+        "rating": 4.1,
+        "reviews_count": 68
+      }
+    },
+    {
+      "id": "mbr-45-auto_repair-001",
+      "company_name": "Auto Orléans",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Loiret. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Bodywork",
+        "Tire service",
+        "Timing belt",
+        "Windshield replacement",
+        "Exhaust systems",
+        "Clutch replacement"
+      ],
+      "founder": {
+        "name": "Ismail Lefebvre",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "45",
+        "department_name": "Loiret",
+        "region": "Centre-Val de Loire",
+        "city": "Orléans",
+        "postal_code": "45000"
+      },
+      "contact": {
+        "phone": "02 19 75 78 74",
+        "mobile": "06 71 78 90 73",
+        "email": "contact@autoorleans.fr",
+        "website": "https://www.autoorleans.fr",
+        "contact_person": "Ismail Lefebvre",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1997,
+        "employees": 6,
+        "rating": 4.6,
+        "reviews_count": 29
+      }
+    },
+    {
+      "id": "mbr-46-auto_repair-001",
+      "company_name": "David Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Lot. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Clutch replacement",
+        "Oil change",
+        "Suspension",
+        "Air conditioning",
+        "General repairs"
+      ],
+      "founder": {
+        "name": "Michel David",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "46",
+        "department_name": "Lot",
+        "region": "Occitanie",
+        "city": "Figeac",
+        "postal_code": "46000"
+      },
+      "contact": {
+        "phone": "04 78 60 51 26",
+        "mobile": "06 41 29 19 57",
+        "email": "contact@davidautomobile.fr",
+        "website": "https://www.davidautomobile.fr",
+        "contact_person": "Michel David",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1986,
+        "employees": 4,
+        "rating": 4.6,
+        "reviews_count": 77
+      }
+    },
+    {
+      "id": "mbr-47-auto_repair-001",
+      "company_name": "Mécanique Agen",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Lot-et-Garonne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "MOT preparation",
+        "Air conditioning",
+        "Suspension",
+        "Clutch replacement"
+      ],
+      "founder": {
+        "name": "Laurent Thomas",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "47",
+        "department_name": "Lot-et-Garonne",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Agen",
+        "postal_code": "47000"
+      },
+      "contact": {
+        "phone": "05 48 92 62 41",
+        "mobile": "06 66 85 90 49",
+        "email": "contact@mecaniqueagen.fr",
+        "website": "https://www.mecaniqueagen.fr",
+        "contact_person": "Laurent Thomas",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2001,
+        "employees": 5,
+        "rating": 4.4,
+        "reviews_count": 79
+      }
+    },
+    {
+      "id": "mbr-48-auto_repair-001",
+      "company_name": "Dupont Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Lozère. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Bodywork",
+        "Tire service",
+        "General repairs",
+        "Diagnostics",
+        "Exhaust systems"
+      ],
+      "founder": {
+        "name": "Christophe Dupont",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "48",
+        "department_name": "Lozère",
+        "region": "Occitanie",
+        "city": "Saint-Chély-d'Apcher",
+        "postal_code": "48000"
+      },
+      "contact": {
+        "phone": "04 91 65 16 95",
+        "mobile": "06 56 60 97 73",
+        "email": "contact@dupontautomobil.fr",
+        "website": "https://www.dupontautomobil.fr",
+        "contact_person": "Christophe Dupont",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1999,
+        "employees": 2,
+        "rating": 4.9,
+        "reviews_count": 21
+      }
+    },
+    {
+      "id": "mbr-49-auto_repair-001",
+      "company_name": "Mécanique Cholet",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Maine-et-Loire. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Oil change",
+        "Battery service",
+        "Air conditioning",
+        "Tire service",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Thierry Bensalem",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "49",
+        "department_name": "Maine-et-Loire",
+        "region": "Pays de la Loire",
+        "city": "Cholet",
+        "postal_code": "49000"
+      },
+      "contact": {
+        "phone": "02 10 18 91 85",
+        "mobile": "06 87 39 95 30",
+        "email": "contact@mecaniquecholet.fr",
+        "website": "https://www.mecaniquecholet.fr",
+        "contact_person": "Thierry Bensalem",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1998,
+        "employees": 4,
+        "rating": 4.4,
+        "reviews_count": 13
+      }
+    },
+    {
+      "id": "mbr-50-auto_repair-001",
+      "company_name": "Khelifi Auto Service",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Manche. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Timing belt",
+        "Air conditioning",
+        "Electrical repairs",
+        "Clutch replacement",
+        "Oil change",
+        "General repairs"
+      ],
+      "founder": {
+        "name": "Bilal Khelifi",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "50",
+        "department_name": "Manche",
+        "region": "Normandie",
+        "city": "Saint-Lô",
+        "postal_code": "50000"
+      },
+      "contact": {
+        "phone": "02 38 55 78 84",
+        "mobile": "06 84 97 14 33",
+        "email": "contact@khelifiautoserv.fr",
+        "website": "https://www.khelifiautoserv.fr",
+        "contact_person": "Bilal Khelifi",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2016,
+        "employees": 1,
+        "rating": 4.6,
+        "reviews_count": 12
+      }
+    },
+    {
+      "id": "mbr-51-auto_repair-001",
+      "company_name": "Mécanique Châlons-en-Champagne",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Marne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "Tire service",
+        "Engine repair",
+        "Brake service",
+        "Clutch replacement"
+      ],
+      "founder": {
+        "name": "Moussa Petit",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "51",
+        "department_name": "Marne",
+        "region": "Grand Est",
+        "city": "Châlons-en-Champagne",
+        "postal_code": "51000"
+      },
+      "contact": {
+        "phone": "03 42 40 34 41",
+        "mobile": "06 66 12 14 18",
+        "email": "contact@mecaniquechâlon.fr",
+        "website": "https://www.mecaniquechâlon.fr",
+        "contact_person": "Moussa Petit",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1995,
+        "employees": 5,
+        "rating": 4.7,
+        "reviews_count": 79
+      }
+    },
+    {
+      "id": "mbr-52-auto_repair-001",
+      "company_name": "Dupont Auto Service",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Haute-Marne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Air conditioning",
+        "Diagnostics",
+        "Electrical repairs",
+        "Brake service",
+        "Oil change"
+      ],
+      "founder": {
+        "name": "Kevin Dupont",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "52",
+        "department_name": "Haute-Marne",
+        "region": "Grand Est",
+        "city": "Langres",
+        "postal_code": "52000"
+      },
+      "contact": {
+        "phone": "03 94 19 28 67",
+        "mobile": "06 84 78 39 81",
+        "email": "contact@dupontautoservi.fr",
+        "website": "https://www.dupontautoservi.fr",
+        "contact_person": "Kevin Dupont",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2002,
+        "employees": 8,
+        "rating": 4.3,
+        "reviews_count": 35
+      }
+    },
+    {
+      "id": "mbr-53-auto_repair-001",
+      "company_name": "Garage du Parc",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Mayenne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Air conditioning",
+        "Tire service",
+        "Battery service",
+        "Electrical repairs",
+        "Windshield replacement",
+        "Suspension",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "David Robert",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "53",
+        "department_name": "Mayenne",
+        "region": "Pays de la Loire",
+        "city": "Laval",
+        "postal_code": "53000"
+      },
+      "contact": {
+        "phone": "02 11 18 99 45",
+        "mobile": "06 20 95 98 76",
+        "email": "contact@garageduparc.fr",
+        "website": "https://www.garageduparc.fr",
+        "contact_person": "David Robert",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2020,
+        "employees": 4,
+        "rating": 4.5,
+        "reviews_count": 14
+      }
+    },
+    {
+      "id": "mbr-54-auto_repair-001",
+      "company_name": "Lunéville Mécanique",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Meurthe-et-Moselle. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Suspension",
+        "Battery service",
+        "MOT preparation",
+        "Oil change",
+        "Air conditioning"
+      ],
+      "founder": {
+        "name": "Antoine Simon",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "54",
+        "department_name": "Meurthe-et-Moselle",
+        "region": "Grand Est",
+        "city": "Lunéville",
+        "postal_code": "54000"
+      },
+      "contact": {
+        "phone": "03 11 80 94 36",
+        "mobile": "06 54 29 26 99",
+        "email": "contact@lunevillemecani.fr",
+        "website": "https://www.lunevillemecani.fr",
+        "contact_person": "Antoine Simon",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1986,
+        "employees": 2,
+        "rating": 4.3,
+        "reviews_count": 69
+      }
+    },
+    {
+      "id": "mbr-55-auto_repair-001",
+      "company_name": "Garage des Halles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Meuse. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "Exhaust systems",
+        "Electrical repairs",
+        "Suspension",
+        "MOT preparation",
+        "Brake service"
+      ],
+      "founder": {
+        "name": "Kevin Fournier",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "55",
+        "department_name": "Meuse",
+        "region": "Grand Est",
+        "city": "Bar-le-Duc",
+        "postal_code": "55000"
+      },
+      "contact": {
+        "phone": "03 95 27 89 78",
+        "mobile": "06 86 88 49 78",
+        "email": "contact@garagedeshalles.fr",
+        "website": "https://www.garagedeshalles.fr",
+        "contact_person": "Kevin Fournier",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1997,
+        "employees": 3,
+        "rating": 4.8,
+        "reviews_count": 63
+      }
+    },
+    {
+      "id": "mbr-56-auto_repair-001",
+      "company_name": "Auto Réparations Vannes",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Morbihan. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Diagnostics",
+        "Air conditioning",
+        "Exhaust systems",
+        "Brake service"
+      ],
+      "founder": {
+        "name": "Bakary Fall",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "56",
+        "department_name": "Morbihan",
+        "region": "Bretagne",
+        "city": "Vannes",
+        "postal_code": "56000"
+      },
+      "contact": {
+        "phone": "02 49 51 78 78",
+        "mobile": "06 45 95 80 85",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Bakary Fall",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1993,
+        "employees": 5,
+        "rating": 4.9,
+        "reviews_count": 22
+      }
+    },
+    {
+      "id": "mbr-57-auto_repair-001",
+      "company_name": "Michel & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Moselle. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Air conditioning",
+        "Electrical repairs",
+        "Battery service",
+        "Suspension"
+      ],
+      "founder": {
+        "name": "Mamadou Michel",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "57",
+        "department_name": "Moselle",
+        "region": "Grand Est",
+        "city": "Metz",
+        "postal_code": "57000"
+      },
+      "contact": {
+        "phone": "03 84 46 53 27",
+        "mobile": "06 50 97 65 47",
+        "email": "contact@micheletfilsaut.fr",
+        "website": "https://www.micheletfilsaut.fr",
+        "contact_person": "Mamadou Michel",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1988,
+        "employees": 6,
+        "rating": 4.4,
+        "reviews_count": 59
+      }
+    },
+    {
+      "id": "mbr-58-auto_repair-001",
+      "company_name": "Auto Nevers",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Nièvre. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Tire service",
+        "MOT preparation",
+        "Oil change",
+        "Bodywork",
+        "Windshield replacement",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Kevin Cherif",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "58",
+        "department_name": "Nièvre",
+        "region": "Bourgogne-Franche-Comté",
+        "city": "Nevers",
+        "postal_code": "58000"
+      },
+      "contact": {
+        "phone": "03 36 37 96 31",
+        "mobile": "06 75 97 48 26",
+        "email": "contact@autonevers.fr",
+        "website": "https://www.autonevers.fr",
+        "contact_person": "Kevin Cherif",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2011,
+        "employees": 5,
+        "rating": 4.8,
+        "reviews_count": 5
+      }
+    },
+    {
+      "id": "mbr-59-auto_repair-001",
+      "company_name": "Garage du Halles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Nord. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Suspension",
+        "Battery service",
+        "Brake service",
+        "Bodywork",
+        "Clutch replacement",
+        "Exhaust systems"
+      ],
+      "founder": {
+        "name": "Driss Fall",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "59",
+        "department_name": "Nord",
+        "region": "Hauts-de-France",
+        "city": "Dunkerque",
+        "postal_code": "59000"
+      },
+      "contact": {
+        "phone": "03 49 48 17 40",
+        "mobile": "06 66 38 10 15",
+        "email": "contact@garageduhalles.fr",
+        "website": "https://www.garageduhalles.fr",
+        "contact_person": "Driss Fall",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2021,
+        "employees": 2,
+        "rating": 4.2,
+        "reviews_count": 63
+      }
+    },
+    {
+      "id": "mbr-60-auto_repair-001",
+      "company_name": "Auto Beauvais",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Oise. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "Oil change",
+        "General repairs",
+        "Clutch replacement",
+        "Suspension",
+        "MOT preparation",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Abdel Moreau",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "60",
+        "department_name": "Oise",
+        "region": "Hauts-de-France",
+        "city": "Beauvais",
+        "postal_code": "60000"
+      },
+      "contact": {
+        "phone": "03 41 69 71 95",
+        "mobile": "06 77 75 55 33",
+        "email": "contact@autobeauvais.fr",
+        "website": "https://www.autobeauvais.fr",
+        "contact_person": "Abdel Moreau",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2009,
+        "employees": 8,
+        "rating": 4.6,
+        "reviews_count": 69
+      }
+    },
+    {
+      "id": "mbr-61-auto_repair-001",
+      "company_name": "Garage Bertrand",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Orne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Diagnostics",
+        "Timing belt",
+        "Windshield replacement",
+        "Electrical repairs",
+        "Suspension"
+      ],
+      "founder": {
+        "name": "Ismail Bertrand",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "61",
+        "department_name": "Orne",
+        "region": "Normandie",
+        "city": "Alençon",
+        "postal_code": "61000"
+      },
+      "contact": {
+        "phone": "02 61 27 50 88",
+        "mobile": "06 73 78 68 46",
+        "email": "contact@garagebertrand.fr",
+        "website": "https://www.garagebertrand.fr",
+        "contact_person": "Ismail Bertrand",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2015,
+        "employees": 4,
+        "rating": 4.9,
+        "reviews_count": 31
+      }
+    },
+    {
+      "id": "mbr-62-auto_repair-001",
+      "company_name": "Kane & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Pas-de-Calais. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Clutch replacement",
+        "Oil change",
+        "Exhaust systems",
+        "Diagnostics",
+        "Timing belt",
+        "General repairs",
+        "Windshield replacement"
+      ],
+      "founder": {
+        "name": "Michel Kane",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "62",
+        "department_name": "Pas-de-Calais",
+        "region": "Hauts-de-France",
+        "city": "Lens",
+        "postal_code": "62000"
+      },
+      "contact": {
+        "phone": "03 71 68 38 36",
+        "mobile": "06 58 25 82 80",
+        "email": "contact@kaneetfilsauto.fr",
+        "website": "https://www.kaneetfilsauto.fr",
+        "contact_person": "Michel Kane",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2018,
+        "employees": 6,
+        "rating": 4.9,
+        "reviews_count": 30
+      }
+    },
+    {
+      "id": "mbr-63-auto_repair-001",
+      "company_name": "Garage du Centre",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Puy-de-Dôme. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Battery service",
+        "Windshield replacement",
+        "Exhaust systems",
+        "Suspension",
+        "Tire service",
+        "Timing belt",
+        "MOT preparation"
+      ],
+      "founder": {
+        "name": "Bilal Messaoudi",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "63",
+        "department_name": "Puy-de-Dôme",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Clermont-Ferrand",
+        "postal_code": "63000"
+      },
+      "contact": {
+        "phone": "04 81 43 65 95",
+        "mobile": "06 20 11 51 95",
+        "email": "contact@garageducentre.fr",
+        "website": "https://www.garageducentre.fr",
+        "contact_person": "Bilal Messaoudi",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2014,
+        "employees": 5,
+        "rating": 4.4,
+        "reviews_count": 28
+      }
+    },
+    {
+      "id": "mbr-64-auto_repair-001",
+      "company_name": "Martin Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Pyrénées-Atlantiques. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Tire service",
+        "MOT preparation",
+        "Engine repair",
+        "Brake service",
+        "Battery service",
+        "Air conditioning"
+      ],
+      "founder": {
+        "name": "Souleymane Martin",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "64",
+        "department_name": "Pyrénées-Atlantiques",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Pau",
+        "postal_code": "64000"
+      },
+      "contact": {
+        "phone": "05 87 93 22 38",
+        "mobile": "06 49 94 56 85",
+        "email": "contact@martinautomobil.fr",
+        "website": "https://www.martinautomobil.fr",
+        "contact_person": "Souleymane Martin",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2020,
+        "employees": 1,
+        "rating": 4.3,
+        "reviews_count": 41
+      }
+    },
+    {
+      "id": "mbr-65-auto_repair-001",
+      "company_name": "Garage du Quartier",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Hautes-Pyrénées. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Oil change",
+        "Brake service",
+        "MOT preparation",
+        "Battery service",
+        "Tire service",
+        "Engine repair",
+        "Bodywork"
+      ],
+      "founder": {
+        "name": "Youssef Morel",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "65",
+        "department_name": "Hautes-Pyrénées",
+        "region": "Occitanie",
+        "city": "Bagnères-de-Bigorre",
+        "postal_code": "65000"
+      },
+      "contact": {
+        "phone": "04 19 79 37 15",
+        "mobile": "06 78 75 98 88",
+        "email": "contact@garageduquartie.fr",
+        "website": "https://www.garageduquartie.fr",
+        "contact_person": "Youssef Morel",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2002,
+        "employees": 8,
+        "rating": 4.2,
+        "reviews_count": 29
+      }
+    },
+    {
+      "id": "mbr-66-auto_repair-001",
+      "company_name": "Auto Réparations Perpignan",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Pyrénées-Orientales. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "MOT preparation",
+        "Electrical repairs",
+        "Exhaust systems",
+        "Tire service",
+        "Clutch replacement",
+        "Timing belt",
+        "Battery service"
+      ],
+      "founder": {
+        "name": "Bakary Diallo",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "66",
+        "department_name": "Pyrénées-Orientales",
+        "region": "Occitanie",
+        "city": "Perpignan",
+        "postal_code": "66000"
+      },
+      "contact": {
+        "phone": "04 89 73 16 53",
+        "mobile": "06 46 76 14 35",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Bakary Diallo",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2005,
+        "employees": 6,
+        "rating": 5.0,
+        "reviews_count": 10
+      }
+    },
+    {
+      "id": "mbr-67-auto_repair-001",
+      "company_name": "Mécanique Schiltigheim",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Bas-Rhin. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Clutch replacement",
+        "Battery service",
+        "Windshield replacement",
+        "Bodywork",
+        "Electrical repairs",
+        "Tire service",
+        "Air conditioning"
+      ],
+      "founder": {
+        "name": "Jean-Pierre Simon",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "67",
+        "department_name": "Bas-Rhin",
+        "region": "Grand Est",
+        "city": "Schiltigheim",
+        "postal_code": "67000"
+      },
+      "contact": {
+        "phone": "03 70 46 79 81",
+        "mobile": "06 83 38 51 97",
+        "email": "contact@mecaniqueschilt.fr",
+        "website": "https://www.mecaniqueschilt.fr",
+        "contact_person": "Jean-Pierre Simon",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2016,
+        "employees": 1,
+        "rating": 4.6,
+        "reviews_count": 17
+      }
+    },
+    {
+      "id": "mbr-68-auto_repair-001",
+      "company_name": "Garage du Place",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Haut-Rhin. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Brake service",
+        "Exhaust systems",
+        "Timing belt",
+        "Electrical repairs",
+        "Diagnostics",
+        "Tire service"
+      ],
+      "founder": {
+        "name": "François Kane",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "68",
+        "department_name": "Haut-Rhin",
+        "region": "Grand Est",
+        "city": "Mulhouse",
+        "postal_code": "68000"
+      },
+      "contact": {
+        "phone": "03 25 25 32 73",
+        "mobile": "06 55 28 96 90",
+        "email": "contact@garageduplace.fr",
+        "website": "https://www.garageduplace.fr",
+        "contact_person": "François Kane",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1989,
+        "employees": 4,
+        "rating": 4.1,
+        "reviews_count": 60
+      }
+    },
+    {
+      "id": "mbr-69-auto_repair-001",
+      "company_name": "Mécanique Villeurbanne",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Rhône. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Diagnostics",
+        "Windshield replacement",
+        "Tire service",
+        "General repairs",
+        "Engine repair"
+      ],
+      "founder": {
+        "name": "Bilal Bensalem",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "69",
+        "department_name": "Rhône",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Villeurbanne",
+        "postal_code": "69000"
+      },
+      "contact": {
+        "phone": "04 76 30 32 15",
+        "mobile": "06 92 98 10 80",
+        "email": "contact@mecaniquevilleu.fr",
+        "website": "https://www.mecaniquevilleu.fr",
+        "contact_person": "Bilal Bensalem",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2000,
+        "employees": 5,
+        "rating": 4.8,
+        "reviews_count": 49
+      }
+    },
+    {
+      "id": "mbr-70-auto_repair-001",
+      "company_name": "Garage du Quartier",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Haute-Saône. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Clutch replacement",
+        "Brake service",
+        "Exhaust systems",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Alexandre Michel",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "70",
+        "department_name": "Haute-Saône",
+        "region": "Bourgogne-Franche-Comté",
+        "city": "Lure",
+        "postal_code": "70000"
+      },
+      "contact": {
+        "phone": "03 88 18 91 78",
+        "mobile": "06 18 12 80 88",
+        "email": "contact@garageduquartie.fr",
+        "website": "https://www.garageduquartie.fr",
+        "contact_person": "Alexandre Michel",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2013,
+        "employees": 6,
+        "rating": 4.4,
+        "reviews_count": 11
+      }
+    },
+    {
+      "id": "mbr-71-auto_repair-001",
+      "company_name": "Mécanique Mâcon",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Saône-et-Loire. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Windshield replacement",
+        "MOT preparation",
+        "Oil change",
+        "Brake service",
+        "Bodywork",
+        "Air conditioning",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Djibril Diallo",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "71",
+        "department_name": "Saône-et-Loire",
+        "region": "Bourgogne-Franche-Comté",
+        "city": "Mâcon",
+        "postal_code": "71000"
+      },
+      "contact": {
+        "phone": "03 76 20 47 86",
+        "mobile": "06 16 61 69 79",
+        "email": "contact@mecaniquemâcon.fr",
+        "website": "https://www.mecaniquemâcon.fr",
+        "contact_person": "Djibril Diallo",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1992,
+        "employees": 8,
+        "rating": 4.9,
+        "reviews_count": 49
+      }
+    },
+    {
+      "id": "mbr-72-auto_repair-001",
+      "company_name": "Garage Morel",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Sarthe. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Brake service",
+        "Engine repair",
+        "Tire service",
+        "General repairs",
+        "Windshield replacement",
+        "Bodywork",
+        "Exhaust systems"
+      ],
+      "founder": {
+        "name": "Mamadou Morel",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "72",
+        "department_name": "Sarthe",
+        "region": "Pays de la Loire",
+        "city": "Le Mans",
+        "postal_code": "72000"
+      },
+      "contact": {
+        "phone": "02 58 20 69 76",
+        "mobile": "06 44 78 57 50",
+        "email": "contact@garagemorel.fr",
+        "website": "https://www.garagemorel.fr",
+        "contact_person": "Mamadou Morel",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2009,
+        "employees": 5,
+        "rating": 4.5,
+        "reviews_count": 44
+      }
+    },
+    {
+      "id": "mbr-73-auto_repair-001",
+      "company_name": "Auto Réparations Aix-les-Bains",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Savoie. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Battery service",
+        "Clutch replacement",
+        "General repairs",
+        "Air conditioning",
+        "Brake service",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Bruno Gueye",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "73",
+        "department_name": "Savoie",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Aix-les-Bains",
+        "postal_code": "73000"
+      },
+      "contact": {
+        "phone": "04 20 45 50 40",
+        "mobile": "06 35 19 37 80",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Bruno Gueye",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2006,
+        "employees": 1,
+        "rating": 4.0,
+        "reviews_count": 10
+      }
+    },
+    {
+      "id": "mbr-74-auto_repair-001",
+      "company_name": "Vincent Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Haute-Savoie. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Timing belt",
+        "Battery service",
+        "Air conditioning",
+        "MOT preparation",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Mamadou Vincent",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "74",
+        "department_name": "Haute-Savoie",
+        "region": "Auvergne-Rhône-Alpes",
+        "city": "Annecy",
+        "postal_code": "74000"
+      },
+      "contact": {
+        "phone": "04 94 23 29 82",
+        "mobile": "06 19 56 52 76",
+        "email": "contact@vincentautomobi.fr",
+        "website": "https://www.vincentautomobi.fr",
+        "contact_person": "Mamadou Vincent",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2019,
+        "employees": 2,
+        "rating": 4.3,
+        "reviews_count": 38
+      }
+    },
+    {
+      "id": "mbr-75-auto_repair-001",
+      "company_name": "Thomas & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Paris. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Bodywork",
+        "Oil change",
+        "MOT preparation"
+      ],
+      "founder": {
+        "name": "Youssef Thomas",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "75",
+        "department_name": "Paris",
+        "region": "Île-de-France",
+        "city": "Paris",
+        "postal_code": "75000"
+      },
+      "contact": {
+        "phone": "01 69 16 39 26",
+        "mobile": "06 58 93 93 89",
+        "email": "contact@thomasetfilsaut.fr",
+        "website": "https://www.thomasetfilsaut.fr",
+        "contact_person": "Youssef Thomas",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1988,
+        "employees": 1,
+        "rating": 4.9,
+        "reviews_count": 75
+      }
+    },
+    {
+      "id": "mbr-76-auto_repair-001",
+      "company_name": "David & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Seine-Maritime. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Suspension",
+        "General repairs",
+        "Diagnostics",
+        "Exhaust systems",
+        "MOT preparation",
+        "Bodywork",
+        "Brake service"
+      ],
+      "founder": {
+        "name": "Éric David",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "76",
+        "department_name": "Seine-Maritime",
+        "region": "Normandie",
+        "city": "Dieppe",
+        "postal_code": "76000"
+      },
+      "contact": {
+        "phone": "02 53 63 89 69",
+        "mobile": "06 44 76 18 12",
+        "email": "contact@davidetfilsauto.fr",
+        "website": "https://www.davidetfilsauto.fr",
+        "contact_person": "Éric David",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2006,
+        "employees": 4,
+        "rating": 4.4,
+        "reviews_count": 22
+      }
+    },
+    {
+      "id": "mbr-77-auto_repair-001",
+      "company_name": "Garage du Parc",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Seine-et-Marne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Oil change",
+        "Clutch replacement",
+        "Timing belt",
+        "Tire service",
+        "Exhaust systems"
+      ],
+      "founder": {
+        "name": "Ismail Sy",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "77",
+        "department_name": "Seine-et-Marne",
+        "region": "Île-de-France",
+        "city": "Pontault-Combault",
+        "postal_code": "77000"
+      },
+      "contact": {
+        "phone": "01 81 79 90 76",
+        "mobile": "06 55 42 56 77",
+        "email": "contact@garageduparc.fr",
+        "website": "https://www.garageduparc.fr",
+        "contact_person": "Ismail Sy",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1986,
+        "employees": 2,
+        "rating": 4.8,
+        "reviews_count": 63
+      }
+    },
+    {
+      "id": "mbr-78-auto_repair-001",
+      "company_name": "Garage des Mairie",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Yvelines. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Tire service",
+        "Exhaust systems",
+        "Oil change",
+        "Bodywork",
+        "Electrical repairs"
+      ],
+      "founder": {
+        "name": "Mamadou Laurent",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "78",
+        "department_name": "Yvelines",
+        "region": "Île-de-France",
+        "city": "Sartrouville",
+        "postal_code": "78000"
+      },
+      "contact": {
+        "phone": "01 30 22 39 78",
+        "mobile": "06 74 15 11 87",
+        "email": "contact@garagedesmairie.fr",
+        "website": "https://www.garagedesmairie.fr",
+        "contact_person": "Mamadou Laurent",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2023,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2022,
+        "employees": 3,
+        "rating": 4.6,
+        "reviews_count": 68
+      }
+    },
+    {
+      "id": "mbr-79-auto_repair-001",
+      "company_name": "Auto Thouars",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Deux-Sèvres. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "General repairs",
+        "Exhaust systems",
+        "Engine repair",
+        "MOT preparation"
+      ],
+      "founder": {
+        "name": "David Michel",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "79",
+        "department_name": "Deux-Sèvres",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Thouars",
+        "postal_code": "79000"
+      },
+      "contact": {
+        "phone": "05 94 82 58 63",
+        "mobile": "06 56 53 88 14",
+        "email": "contact@autothouars.fr",
+        "website": "https://www.autothouars.fr",
+        "contact_person": "David Michel",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2021,
+        "employees": 6,
+        "rating": 4.9,
+        "reviews_count": 66
+      }
+    },
+    {
+      "id": "mbr-80-auto_repair-001",
+      "company_name": "Auto Réparations Abbeville",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Somme. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "General repairs",
+        "Bodywork",
+        "Clutch replacement",
+        "Windshield replacement",
+        "Brake service"
+      ],
+      "founder": {
+        "name": "Didier Cherif",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "80",
+        "department_name": "Somme",
+        "region": "Hauts-de-France",
+        "city": "Abbeville",
+        "postal_code": "80000"
+      },
+      "contact": {
+        "phone": "03 12 50 56 40",
+        "mobile": "06 67 43 80 57",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Didier Cherif",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2013,
+        "employees": 1,
+        "rating": 4.5,
+        "reviews_count": 63
+      }
+    },
+    {
+      "id": "mbr-81-auto_repair-001",
+      "company_name": "Slimani Auto Service",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Tarn. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Timing belt",
+        "Windshield replacement",
+        "Diagnostics",
+        "Electrical repairs",
+        "Suspension",
+        "Brake service"
+      ],
+      "founder": {
+        "name": "David Slimani",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "81",
+        "department_name": "Tarn",
+        "region": "Occitanie",
+        "city": "Castres",
+        "postal_code": "81000"
+      },
+      "contact": {
+        "phone": "04 52 57 88 47",
+        "mobile": "06 77 51 79 50",
+        "email": "contact@slimaniautoserv.fr",
+        "website": "https://www.slimaniautoserv.fr",
+        "contact_person": "David Slimani",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1986,
+        "employees": 2,
+        "rating": 4.9,
+        "reviews_count": 45
+      }
+    },
+    {
+      "id": "mbr-82-auto_repair-001",
+      "company_name": "Bernard & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Tarn-et-Garonne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Engine repair",
+        "Oil change",
+        "Windshield replacement",
+        "Timing belt",
+        "Tire service",
+        "Brake service",
+        "Bodywork"
+      ],
+      "founder": {
+        "name": "Philippe Bernard",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "82",
+        "department_name": "Tarn-et-Garonne",
+        "region": "Occitanie",
+        "city": "Castelsarrasin",
+        "postal_code": "82000"
+      },
+      "contact": {
+        "phone": "04 23 43 88 30",
+        "mobile": "06 78 45 55 10",
+        "email": "contact@bernardetfilsau.fr",
+        "website": "https://www.bernardetfilsau.fr",
+        "contact_person": "Philippe Bernard",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1988,
+        "employees": 1,
+        "rating": 4.7,
+        "reviews_count": 58
+      }
+    },
+    {
+      "id": "mbr-83-auto_repair-001",
+      "company_name": "Garage des Place",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Var. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Diagnostics",
+        "Suspension",
+        "Air conditioning",
+        "Electrical repairs",
+        "Windshield replacement",
+        "Exhaust systems",
+        "Tire service"
+      ],
+      "founder": {
+        "name": "Mamadou Khelifi",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "83",
+        "department_name": "Var",
+        "region": "PACA",
+        "city": "Fréjus",
+        "postal_code": "83000"
+      },
+      "contact": {
+        "phone": "04 20 98 55 12",
+        "mobile": "06 10 70 89 51",
+        "email": "contact@garagedesplace.fr",
+        "website": "https://www.garagedesplace.fr",
+        "contact_person": "Mamadou Khelifi",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2000,
+        "employees": 4,
+        "rating": 4.1,
+        "reviews_count": 42
+      }
+    },
+    {
+      "id": "mbr-84-auto_repair-001",
+      "company_name": "Garage du Parc",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Vaucluse. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Diagnostics",
+        "MOT preparation",
+        "Brake service",
+        "General repairs",
+        "Suspension",
+        "Bodywork",
+        "Oil change"
+      ],
+      "founder": {
+        "name": "Bilal Thomas",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "84",
+        "department_name": "Vaucluse",
+        "region": "PACA",
+        "city": "Carpentras",
+        "postal_code": "84000"
+      },
+      "contact": {
+        "phone": "04 45 86 99 46",
+        "mobile": "06 38 50 20 27",
+        "email": "contact@garageduparc.fr",
+        "website": "https://www.garageduparc.fr",
+        "contact_person": "Bilal Thomas",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2016,
+        "employees": 2,
+        "rating": 4.6,
+        "reviews_count": 36
+      }
+    },
+    {
+      "id": "mbr-85-auto_repair-001",
+      "company_name": "Auto Réparations Les Sables-d'Olonne",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Vendée. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Battery service",
+        "Windshield replacement",
+        "Timing belt",
+        "Electrical repairs",
+        "Clutch replacement"
+      ],
+      "founder": {
+        "name": "Ismail Khelifi",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "85",
+        "department_name": "Vendée",
+        "region": "Pays de la Loire",
+        "city": "Les Sables-d'Olonne",
+        "postal_code": "85000"
+      },
+      "contact": {
+        "phone": "02 19 80 35 58",
+        "mobile": "06 68 72 84 73",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "Ismail Khelifi",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2008,
+        "employees": 4,
+        "rating": 4.5,
+        "reviews_count": 55
+      }
+    },
+    {
+      "id": "mbr-86-auto_repair-001",
+      "company_name": "Garage des Parc",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Vienne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Bodywork",
+        "Oil change",
+        "Suspension"
+      ],
+      "founder": {
+        "name": "Thomas Bensalem",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "86",
+        "department_name": "Vienne",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Châtellerault",
+        "postal_code": "86000"
+      },
+      "contact": {
+        "phone": "05 48 10 68 77",
+        "mobile": "06 87 75 46 72",
+        "email": "contact@garagedesparc.fr",
+        "website": "https://www.garagedesparc.fr",
+        "contact_person": "Thomas Bensalem",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2001,
+        "employees": 1,
+        "rating": 4.1,
+        "reviews_count": 19
+      }
+    },
+    {
+      "id": "mbr-87-auto_repair-001",
+      "company_name": "Garage Durand",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Haute-Vienne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Electrical repairs",
+        "Windshield replacement",
+        "Brake service",
+        "Oil change",
+        "Timing belt",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Moussa Durand",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "87",
+        "department_name": "Haute-Vienne",
+        "region": "Nouvelle-Aquitaine",
+        "city": "Panazol",
+        "postal_code": "87000"
+      },
+      "contact": {
+        "phone": "05 36 69 90 21",
+        "mobile": "06 68 51 24 25",
+        "email": "contact@garagedurand.fr",
+        "website": "https://www.garagedurand.fr",
+        "contact_person": "Moussa Durand",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1987,
+        "employees": 4,
+        "rating": 4.7,
+        "reviews_count": 5
+      }
+    },
+    {
+      "id": "mbr-88-auto_repair-001",
+      "company_name": "Auto Saint-Dié-des-Vosges",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Vosges. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Brake service",
+        "MOT preparation",
+        "Oil change",
+        "Diagnostics",
+        "Suspension"
+      ],
+      "founder": {
+        "name": "Ibrahim Bertrand",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "88",
+        "department_name": "Vosges",
+        "region": "Grand Est",
+        "city": "Saint-Dié-des-Vosges",
+        "postal_code": "88000"
+      },
+      "contact": {
+        "phone": "03 37 95 87 52",
+        "mobile": "06 60 69 88 65",
+        "email": "contact@autosaint-die-d.fr",
+        "website": "https://www.autosaint-die-d.fr",
+        "contact_person": "Ibrahim Bertrand",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1999,
+        "employees": 3,
+        "rating": 4.1,
+        "reviews_count": 10
+      }
+    },
+    {
+      "id": "mbr-89-auto_repair-001",
+      "company_name": "Bertrand & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Yonne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "General repairs",
+        "Bodywork",
+        "Tire service",
+        "Windshield replacement",
+        "Suspension"
+      ],
+      "founder": {
+        "name": "Alexandre Bertrand",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "89",
+        "department_name": "Yonne",
+        "region": "Bourgogne-Franche-Comté",
+        "city": "Sens",
+        "postal_code": "89000"
+      },
+      "contact": {
+        "phone": "03 53 84 36 73",
+        "mobile": "06 33 68 43 59",
+        "email": "contact@bertrandetfilsa.fr",
+        "website": "https://www.bertrandetfilsa.fr",
+        "contact_person": "Alexandre Bertrand",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2002,
+        "employees": 3,
+        "rating": 4.4,
+        "reviews_count": 70
+      }
+    },
+    {
+      "id": "mbr-90-auto_repair-001",
+      "company_name": "Petit Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Territoire de Belfort. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Air conditioning",
+        "Electrical repairs",
+        "Timing belt",
+        "Windshield replacement",
+        "Tire service",
+        "Battery service"
+      ],
+      "founder": {
+        "name": "Amadou Petit",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "90",
+        "department_name": "Territoire de Belfort",
+        "region": "Bourgogne-Franche-Comté",
+        "city": "Valdoie",
+        "postal_code": "90000"
+      },
+      "contact": {
+        "phone": "03 71 53 85 39",
+        "mobile": "06 71 53 43 73",
+        "email": "contact@petitautomobile.fr",
+        "website": "https://www.petitautomobile.fr",
+        "contact_person": "Amadou Petit",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2022,
+        "employees": 2,
+        "rating": 4.3,
+        "reviews_count": 20
+      }
+    },
+    {
+      "id": "mbr-91-auto_repair-001",
+      "company_name": "Michel Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Essonne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Electrical repairs",
+        "Brake service",
+        "Windshield replacement",
+        "Clutch replacement",
+        "MOT preparation",
+        "Engine repair"
+      ],
+      "founder": {
+        "name": "Didier Michel",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "91",
+        "department_name": "Essonne",
+        "region": "Île-de-France",
+        "city": "Évry-Courcouronnes",
+        "postal_code": "91000"
+      },
+      "contact": {
+        "phone": "01 39 39 63 19",
+        "mobile": "06 99 71 11 82",
+        "email": "contact@michelautomobil.fr",
+        "website": "https://www.michelautomobil.fr",
+        "contact_person": "Didier Michel",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": "Club QA",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1988,
+        "employees": 4,
+        "rating": 4.4,
+        "reviews_count": 46
+      }
+    },
+    {
+      "id": "mbr-92-auto_repair-001",
+      "company_name": "Garage Girard",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Hauts-de-Seine. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Battery service",
+        "Air conditioning",
+        "Clutch replacement",
+        "Engine repair"
+      ],
+      "founder": {
+        "name": "Philippe Girard",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "92",
+        "department_name": "Hauts-de-Seine",
+        "region": "Île-de-France",
+        "city": "Nanterre",
+        "postal_code": "92000"
+      },
+      "contact": {
+        "phone": "01 83 45 88 98",
+        "mobile": "06 28 28 42 25",
+        "email": "contact@garagegirard.fr",
+        "website": "https://www.garagegirard.fr",
+        "contact_person": "Philippe Girard",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2025,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2020,
+        "employees": 4,
+        "rating": 4.2,
+        "reviews_count": 36
+      }
+    },
+    {
+      "id": "mbr-93-auto_repair-001",
+      "company_name": "Mécanique Saint-Denis",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Seine-Saint-Denis. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "MOT preparation",
+        "Engine repair",
+        "Clutch replacement",
+        "Exhaust systems",
+        "Electrical repairs",
+        "Tire service"
+      ],
+      "founder": {
+        "name": "Mohamed Messaoudi",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "93",
+        "department_name": "Seine-Saint-Denis",
+        "region": "Île-de-France",
+        "city": "Saint-Denis",
+        "postal_code": "93000"
+      },
+      "contact": {
+        "phone": "01 84 64 68 54",
+        "mobile": "06 13 29 66 19",
+        "email": "contact@mecaniquesaint-.fr",
+        "website": "https://www.mecaniquesaint-.fr",
+        "contact_person": "Mohamed Messaoudi",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2021,
+        "program": "DÉCOLLER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2011,
+        "employees": 3,
+        "rating": 4.4,
+        "reviews_count": 23
+      }
+    },
+    {
+      "id": "mbr-94-auto_repair-001",
+      "company_name": "Garage des Centre",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Val-de-Marne. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Tire service",
+        "Battery service",
+        "Bodywork",
+        "MOT preparation",
+        "Suspension",
+        "Brake service",
+        "Engine repair"
+      ],
+      "founder": {
+        "name": "Patrick Bouaziz",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "94",
+        "department_name": "Val-de-Marne",
+        "region": "Île-de-France",
+        "city": "Créteil",
+        "postal_code": "94000"
+      },
+      "contact": {
+        "phone": "01 42 87 11 18",
+        "mobile": "06 89 21 92 32",
+        "email": "contact@garagedescentre.fr",
+        "website": "https://www.garagedescentre.fr",
+        "contact_person": "Patrick Bouaziz",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": "GRANDIR",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2008,
+        "employees": 1,
+        "rating": 4.3,
+        "reviews_count": 73
+      }
+    },
+    {
+      "id": "mbr-95-auto_repair-001",
+      "company_name": "Ndiaye Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Val-d'Oise. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Oil change",
+        "Clutch replacement",
+        "Suspension",
+        "Timing belt",
+        "Tire service",
+        "General repairs",
+        "Bodywork"
+      ],
+      "founder": {
+        "name": "Mohamed Ndiaye",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "95",
+        "department_name": "Val-d'Oise",
+        "region": "Île-de-France",
+        "city": "Sarcelles",
+        "postal_code": "95000"
+      },
+      "contact": {
+        "phone": "01 18 59 55 37",
+        "mobile": "06 85 27 36 86",
+        "email": "contact@ndiayeautomobil.fr",
+        "website": "https://www.ndiayeautomobil.fr",
+        "contact_person": "Mohamed Ndiaye",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1992,
+        "employees": 5,
+        "rating": 4.8,
+        "reviews_count": 33
+      }
+    },
+    {
+      "id": "mbr-971-auto_repair-001",
+      "company_name": "Fall & Fils Auto",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Guadeloupe. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "General repairs",
+        "Battery service",
+        "Clutch replacement",
+        "Air conditioning",
+        "Oil change"
+      ],
+      "founder": {
+        "name": "Philippe Fall",
+        "title": "Owner"
+      },
+      "location": {
+        "department": "971",
+        "department_name": "Guadeloupe",
+        "region": "DOM",
+        "city": "Les Abymes",
+        "postal_code": "97100"
+      },
+      "contact": {
+        "phone": "05 42 51 91 45",
+        "mobile": "06 94 30 87 43",
+        "email": "contact@falletfilsauto.fr",
+        "website": "https://www.falletfilsauto.fr",
+        "contact_person": "Philippe Fall",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2022,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 1998,
+        "employees": 5,
+        "rating": 4.9,
+        "reviews_count": 8
+      }
+    },
+    {
+      "id": "mbr-972-auto_repair-001",
+      "company_name": "Moreau Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Martinique. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "MOT preparation",
+        "Suspension",
+        "Tire service",
+        "Diagnostics",
+        "Timing belt"
+      ],
+      "founder": {
+        "name": "Ismail Moreau",
+        "title": "Master Mechanic"
+      },
+      "location": {
+        "department": "972",
+        "department_name": "Martinique",
+        "region": "DOM",
+        "city": "Le Robert",
+        "postal_code": "97200"
+      },
+      "contact": {
+        "phone": "05 38 72 30 12",
+        "mobile": "06 75 93 26 36",
+        "email": "contact@moreauautomobil.fr",
+        "website": "https://www.moreauautomobil.fr",
+        "contact_person": "Ismail Moreau",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2018,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 1989,
+        "employees": 6,
+        "rating": 4.6,
+        "reviews_count": 11
+      }
+    },
+    {
+      "id": "mbr-973-auto_repair-001",
+      "company_name": "Rahmani Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Guyane. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "General repairs",
+        "Air conditioning",
+        "Clutch replacement",
+        "Tire service"
+      ],
+      "founder": {
+        "name": "Hassan Rahmani",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "973",
+        "department_name": "Guyane",
+        "region": "DOM",
+        "city": "Saint-Laurent-du-Maroni",
+        "postal_code": "97300"
+      },
+      "contact": {
+        "phone": "05 43 31 38 67",
+        "mobile": "06 63 71 37 79",
+        "email": "contact@rahmaniautomobi.fr",
+        "website": "https://www.rahmaniautomobi.fr",
+        "contact_person": "Hassan Rahmani",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2024,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2022,
+        "employees": 4,
+        "rating": 4.1,
+        "reviews_count": 10
+      }
+    },
+    {
+      "id": "mbr-974-auto_repair-001",
+      "company_name": "Lefebvre Automobiles",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in La Réunion. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Exhaust systems",
+        "Air conditioning",
+        "Oil change",
+        "Diagnostics"
+      ],
+      "founder": {
+        "name": "Bilal Lefebvre",
+        "title": "Owner & Master Mechanic"
+      },
+      "location": {
+        "department": "974",
+        "department_name": "La Réunion",
+        "region": "DOM",
+        "city": "Saint-Paul",
+        "postal_code": "97400"
+      },
+      "contact": {
+        "phone": "05 25 74 29 62",
+        "mobile": "06 85 47 54 19",
+        "email": "contact@lefebvreautomob.fr",
+        "website": "https://www.lefebvreautomob.fr",
+        "contact_person": "Bilal Lefebvre",
+        "preferred_contact": "email"
+      },
+      "qda_member": {
+        "since": 2020,
+        "program": null,
+        "verified": true
+      },
+      "stats": {
+        "founded": 2003,
+        "employees": 4,
+        "rating": 4.8,
+        "reviews_count": 26
+      }
+    },
+    {
+      "id": "mbr-976-auto_repair-001",
+      "company_name": "Auto Réparations Dzaoudzi",
+      "sector": "auto_repair",
+      "sector_label": "Auto Repair & Garage",
+      "description": "Professional auto repair and maintenance services in Mayotte. Specializing in all makes and models, diagnostics and quality repairs.",
+      "services": [
+        "Brake service",
+        "Air conditioning",
+        "General repairs",
+        "Electrical repairs",
+        "Battery service",
+        "Diagnostics",
+        "Oil change"
+      ],
+      "founder": {
+        "name": "François Fall",
+        "title": "Founder & Manager"
+      },
+      "location": {
+        "department": "976",
+        "department_name": "Mayotte",
+        "region": "DOM",
+        "city": "Dzaoudzi",
+        "postal_code": "97600"
+      },
+      "contact": {
+        "phone": "05 77 12 21 66",
+        "mobile": "06 26 28 79 60",
+        "email": "contact@autoreparations.fr",
+        "website": "https://www.autoreparations.fr",
+        "contact_person": "François Fall",
+        "preferred_contact": "phone"
+      },
+      "qda_member": {
+        "since": 2019,
+        "program": "ACCÉLÉRER",
+        "verified": true
+      },
+      "stats": {
+        "founded": 2010,
+        "employees": 1,
+        "rating": 4.6,
+        "reviews_count": 38
+      }
     }
   ]
 }

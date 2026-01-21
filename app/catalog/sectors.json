@@ -87,6 +87,14 @@
       "description": "Business phone systems, internet, VoIP, networking",
       "keywords": ["telecom", "phone", "internet", "fiber", "VoIP", "network", "mobile", "communication"],
       "typical_services": ["Business phone lines", "Fiber internet", "VoIP systems", "Video conferencing", "Network installation"]
+    },
+    {
+      "id": "auto_repair",
+      "name": "Auto Repair & Garage",
+      "name_fr": "Garage & Réparation automobile",
+      "description": "Vehicle maintenance, repairs, diagnostics, MOT, bodywork",
+      "keywords": ["garage", "auto", "car", "repair", "mechanic", "vehicle", "voiture", "réparation", "entretien", "vidange", "freins"],
+      "typical_services": ["General repairs", "Oil change", "Brake service", "Diagnostics", "MOT preparation", "Tire service", "Bodywork", "Air conditioning"]
     }
   ]
 }

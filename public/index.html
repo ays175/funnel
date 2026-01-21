@@ -1406,12 +1406,171 @@
         );
       }
 
+      // Member Card Component for QDA
+      function MemberCard({ member, onContact }) {
+        const [showContact, setShowContact] = React.useState(false);
+        const rating = member.stats?.rating || 4.5;
+        const stars = "★".repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? "½" : "") + "☆".repeat(5 - Math.ceil(rating));
+        
+        return (
+          <div style={{
+            background: 'var(--surface-glass)',
+            border: '1px solid var(--border-strong)',
+            borderRadius: 'var(--radius-lg)',
+            padding: 'var(--space-4)',
+            marginBottom: 'var(--space-3)',
+            transition: 'all var(--transition-fast)'
+          }}>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 'var(--space-3)'}}>
+              <div>
+                <div style={{fontWeight: 700, fontSize: '16px', color: 'var(--primary-50)', marginBottom: 'var(--space-1)'}}>
+                  {member.company_name}
+                </div>
+                <div style={{fontSize: '13px', color: 'var(--text-muted)'}}>
+                  {member.sector_label}
+                </div>
+              </div>
+              <div style={{textAlign: 'right'}}>
+                <div style={{color: '#fbbf24', fontSize: '14px'}}>{stars}</div>
+                <div style={{fontSize: '12px', color: 'var(--text-muted)'}}>{rating}/5 ({member.stats?.reviews_count || 0} avis)</div>
+              </div>
+            </div>
+            
+            <div style={{fontSize: '14px', color: 'var(--text)', marginBottom: 'var(--space-3)', lineHeight: 1.5}}>
+              📍 {member.location?.city} ({member.location?.department}) - {member.location?.region}
+            </div>
+            
+            <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--space-1)', marginBottom: 'var(--space-3)'}}>
+              {(member.services || []).slice(0, 4).map((service, i) => (
+                <span key={i} style={{
+                  fontSize: '12px',
+                  padding: '2px 8px',
+                  background: 'var(--surface-glass-hover)',
+                  borderRadius: 'var(--radius-full)',
+                  color: 'var(--text-muted)'
+                }}>{service}</span>
+              ))}
+            </div>
+            
+            {member.qda_member?.program && (
+              <div style={{
+                display: 'inline-block',
+                fontSize: '12px',
+                padding: '4px 10px',
+                background: 'linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%)',
+                borderRadius: 'var(--radius-full)',
+                color: 'white',
+                fontWeight: 600,
+                marginBottom: 'var(--space-3)'
+              }}>
+                🏆 QDA {member.qda_member.program}
+              </div>
+            )}
+            
+            {!showContact ? (
+              <button 
+                onClick={() => setShowContact(true)}
+                style={{
+                  width: '100%',
+                  padding: 'var(--space-3)',
+                  background: 'linear-gradient(135deg, hsl(145, 70%, 45%) 0%, hsl(160, 75%, 40%) 100%)',
+                  border: 'none',
+                  borderRadius: 'var(--radius-md)',
+                  color: 'white',
+                  fontWeight: 700,
+                  fontSize: '15px',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 'var(--space-2)',
+                  boxShadow: '0 4px 12px hsla(150, 70%, 40%, 0.3)'
+                }}
+              >
+                📞 Afficher les coordonnées
+              </button>
+            ) : (
+              <div style={{
+                background: 'hsla(150, 50%, 95%, 0.1)',
+                border: '2px solid hsl(150, 60%, 45%)',
+                borderRadius: 'var(--radius-md)',
+                padding: 'var(--space-4)',
+                marginTop: 'var(--space-2)'
+              }}>
+                <div style={{fontWeight: 700, color: 'hsl(150, 60%, 50%)', marginBottom: 'var(--space-3)', fontSize: '14px'}}>
+                  📞 Coordonnées
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-2)'}}>
+                  <a href={`tel:${member.contact?.phone?.replace(/\s/g, '')}`} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--space-2)',
+                    color: 'var(--text)',
+                    textDecoration: 'none',
+                    fontSize: '15px',
+                    fontWeight: 600
+                  }}>
+                    ☎️ {member.contact?.phone}
+                  </a>
+                  {member.contact?.mobile && (
+                    <a href={`tel:${member.contact?.mobile?.replace(/\s/g, '')}`} style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 'var(--space-2)',
+                      color: 'var(--text)',
+                      textDecoration: 'none',
+                      fontSize: '14px'
+                    }}>
+                      📱 {member.contact?.mobile}
+                    </a>
+                  )}
+                  <a href={`mailto:${member.contact?.email}`} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--space-2)',
+                    color: 'var(--accent-cyan)',
+                    textDecoration: 'none',
+                    fontSize: '14px'
+                  }}>
+                    📧 {member.contact?.email}
+                  </a>
+                  {member.contact?.website && (
+                    <a href={member.contact?.website} target="_blank" rel="noopener" style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 'var(--space-2)',
+                      color: 'var(--primary-500)',
+                      textDecoration: 'none',
+                      fontSize: '14px'
+                    }}>
+                      🌐 {member.contact?.website}
+                    </a>
+                  )}
+                </div>
+                <div style={{
+                  marginTop: 'var(--space-3)',
+                  padding: 'var(--space-3)',
+                  background: 'var(--surface-glass)',
+                  borderRadius: 'var(--radius-sm)',
+                  fontSize: '13px',
+                  color: 'var(--accent-cyan)',
+                  fontStyle: 'italic'
+                }}>
+                  💡 Mentionnez "Quartiers d'Affaires" pour bénéficier d'un tarif préférentiel
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      }
+
       function App() {
         const [messages, setMessages] = React.useState([]);
         const [conversationState, setConversationState] = React.useState("initial");
         const [query, setQuery] = React.useState("");
         const [domainHint, setDomainHint] = React.useState("");
         const [requestId, setRequestId] = React.useState(null);
+        const [activeDomainPack, setActiveDomainPack] = React.useState(null);
         const [facets, setFacets] = React.useState([]);
         const [currentAngleIndex, setCurrentAngleIndex] = React.useState(0);
         const [selections, setSelections] = React.useState({});
@@ -1424,9 +1583,14 @@
         const [trace, setTrace] = React.useState([]);
         const [compiledPrompt, setCompiledPrompt] = React.useState(null);
         const [modelReasoning, setModelReasoning] = React.useState(null);
+        const [memberResults, setMemberResults] = React.useState([]);
         const messagesEndRef = React.useRef(null);
         const answerRef = React.useRef(null);
         const lastAddedMessageRef = React.useRef(null);
+        
+        // Check if in QDA mode
+        const isQDAMode = activeDomainPack === "qda_griffons";
+        const isMemberSearchMode = isQDAMode && selections.search_type?.includes("Service Provider");
 
         const scrollToBottom = () => {
           messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -1454,12 +1618,21 @@
         }, [messages.length]); // Only trigger on message count change, not content change
 
         React.useEffect(() => {
-          // Welcome message
+          // Welcome message - will be customized when domain is detected
           setMessages([
             { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
             { type: "bot", content: { type: "instructions" } }
           ]);
         }, []);
+
+        // QDA-specific welcome message
+        const getQDAWelcome = () => {
+          return [
+            { type: "bot", content: "Bienvenue sur la plateforme Quartiers d'Affaires ! 🏢" },
+            { type: "bot", content: "Je suis votre assistant pour trouver les aides, financements et prestataires adaptés à votre entreprise." },
+            { type: "bot", content: { type: "qda_instructions" } }
+          ];
+        };
 
         const addMessage = (type, content) => {
           setMessages(prev => [...prev, { type, content }]);
@@ -1491,19 +1664,27 @@
 
             const data = await res.json();
             setRequestId(data.request_id);
+            setActiveDomainPack(data.active_domain_pack);
             setFacets(data.facet_candidates || []);
             setCurrentAngleIndex(0);
 
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            addMessage("bot", `Great question! I found ${data.facet_candidates.length} angles to explore. Let's go through them! 🎯`);
-            
-            // Add base selections message
-            addMessage("bot", "First, let me know your preferences:");
-            addMessage("bot", { type: "base_selections" });
-
-            setConversationState("gathering_base_selections");
+            // Check if QDA domain
+            if (data.active_domain_pack === "qda_griffons") {
+              addMessage("bot", "🏢 Quartiers d'Affaires - Je vais vous aider à trouver les ressources adaptées à votre situation.");
+              addMessage("bot", `J'ai identifié ${data.facet_candidates.length} critères pour affiner votre recherche.`);
+              addMessage("bot", { type: "qda_search_type" });
+              setConversationState("qda_search_type_selection");
+            } else {
+              addMessage("bot", `Great question! I found ${data.facet_candidates.length} angles to explore. Let's go through them! 🎯`);
+              
+              // Add base selections message
+              addMessage("bot", "First, let me know your preferences:");
+              addMessage("bot", { type: "base_selections" });
+              setConversationState("gathering_base_selections");
+            }
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
             addMessage("bot", "Sorry, I encountered an error. Please try again.");
@@ -1685,10 +1866,12 @@
           setQuery("");
           setDomainHint("");
           setRequestId(null);
+          setActiveDomainPack(null);
           setFacets([]);
           setCurrentAngleIndex(0);
           setSelections({});
           setBaseSelections({ depth: "", format: "", length: "" });
+          setMemberResults([]);
         };
 
         const handlePrintAnswer = (answerText, queryText, selectionsData, baseSelectionsData) => {
@@ -1830,6 +2013,104 @@
         };
 
         const [lastQuery, setLastQuery] = React.useState("");
+
+        // QDA Member Search Handler - uses dedicated member search API
+        const handleQDAMemberSearch = async () => {
+          const sector = selections.service_sector?.[0];
+          const location = selections.location?.[0];
+          
+          addMessage("user", `Je cherche un prestataire ${sector || ""} ${location ? `dans ${location}` : ""}`);
+          addMessage("bot", "Recherche en cours dans le réseau QDA...");
+          setLoading(true);
+          addMessage("bot", <TypingIndicator />);
+
+          try {
+            // Map sector label to sector ID
+            const sectorMap = {
+              "Accounting & Tax Advisory": "accounting",
+              "IT & Digital Services": "digital",
+              "Marketing & Communication": "marketing",
+              "Legal & Business Consulting": "legal",
+              "HR & Recruitment": "hr",
+              "Construction & Renovation": "construction",
+              "Transport & Logistics": "transport",
+              "Professional Training": "training",
+              "Cleaning & Maintenance": "cleaning",
+              "Catering & Food Services": "catering",
+              "Telecommunications": "telecom",
+              "Auto Repair & Garage": "auto_repair"
+            };
+            
+            // Extract department code from location
+            const extractDept = (loc) => {
+              if (!loc) return null;
+              const match = loc.match(/\((\d{2,3})\)/);
+              if (match) return match[1];
+              // Map region names to a representative department
+              const regionDepts = {
+                "Île-de-France": "75",
+                "Auvergne-Rhône-Alpes": "69",
+                "PACA": "13",
+                "Hauts-de-France": "59",
+                "Occitanie": "31",
+                "Grand Est": "67",
+                "Nouvelle-Aquitaine": "33"
+              };
+              for (const [region, dept] of Object.entries(regionDepts)) {
+                if (loc.includes(region)) return dept;
+              }
+              return null;
+            };
+            
+            // Extract region from location
+            const extractRegion = (loc) => {
+              if (!loc) return null;
+              const regions = ["Île-de-France", "Auvergne-Rhône-Alpes", "PACA", "Hauts-de-France", "Occitanie", "Grand Est", "Nouvelle-Aquitaine"];
+              for (const region of regions) {
+                if (loc.includes(region)) return region;
+              }
+              return null;
+            };
+
+            const sectorId = sectorMap[sector] || sector?.toLowerCase().replace(/[^a-z]/g, '_');
+            const department = extractDept(location);
+            const region = extractRegion(location);
+
+            // Build query params
+            const params = new URLSearchParams();
+            if (sectorId) params.append("sector", sectorId);
+            if (department) params.append("department", department);
+            else if (region) params.append("region", region);
+            params.append("max_results", "10");
+
+            const res = await fetch(`${API_BASE}/api/members/search?${params.toString()}`);
+
+            if (!res.ok) {
+              throw new Error("Failed to search members");
+            }
+
+            const data = await res.json();
+
+            // Remove typing indicator
+            setMessages(prev => prev.slice(0, -1));
+
+            if (data.members && data.members.length > 0) {
+              setMemberResults(data.members);
+              addMessage("bot", { type: "qda_member_results", members: data.members });
+            } else {
+              addMessage("bot", "Aucun prestataire trouvé pour ces critères. Essayez d'élargir votre recherche (autre région ou secteur).");
+              addMessage("bot", { type: "qda_member_search_facets" });
+            }
+            
+            setConversationState("qda_member_results");
+          } catch (err) {
+            console.error("Member search error:", err);
+            setMessages(prev => prev.slice(0, -1));
+            addMessage("bot", "Désolé, une erreur s'est produite. Veuillez réessayer.");
+          } finally {
+            setLoading(false);
+          }
+        };
 
         const renderMessage = (msg, index) => {
           if (msg.type === "bot") {
@@ -2069,11 +2350,13 @@
               return (
                 <div key={index} className="selection-message">
                   <div className="selection-actions">
-                    <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
-                      Pick More Angles
-                    </button>
+                    {!isQDAMode && (
+                      <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
+                        Pick More Angles
+                      </button>
+                    )}
                     <button className="primary" onClick={handleGetAnswer} disabled={loading}>
-                      Generate Answer
+                      {isQDAMode ? "Obtenir mes recommandations" : "Generate Answer"}
                     </button>
                   </div>
                 </div>
@@ -2229,6 +2512,180 @@
                   </div>
                   <div style={{marginTop: 'var(--space-4)', fontSize: '16px', fontWeight: 600, color: 'var(--text)', textAlign: 'center'}}>
                     Exactly What You Want to Know!
+                  </div>
+                </div>
+              );
+            } else if (msg.content?.type === "qda_instructions") {
+              return (
+                <div key={index} className="selection-message" style={{background: 'linear-gradient(135deg, hsla(270, 50%, 20%, 0.3) 0%, hsla(200, 50%, 20%, 0.3) 100%)', border: '2px solid var(--primary-500)'}}>
+                  <div style={{textAlign: 'center', marginBottom: 'var(--space-4)'}}>
+                    <div style={{fontSize: '24px', marginBottom: 'var(--space-2)'}}>🏢</div>
+                    <div style={{fontWeight: 700, fontSize: '18px', color: 'var(--primary-50)'}}>Quartiers d'Affaires</div>
+                    <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Plateforme d'accompagnement des entrepreneurs QPV</div>
+                  </div>
+                  <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>💰</span>
+                      <div style={{fontWeight: 600, fontSize: '14px'}}>Financements & Aides</div>
+                    </div>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>🎓</span>
+                      <div style={{fontWeight: 600, fontSize: '14px'}}>Programmes d'accompagnement</div>
+                    </div>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>🤝</span>
+                      <div style={{fontWeight: 600, fontSize: '14px'}}>Réseau de prestataires membres</div>
+                    </div>
+                  </div>
+                  <div style={{marginTop: 'var(--space-4)', fontSize: '14px', color: 'var(--accent-cyan)', textAlign: 'center', fontWeight: 600}}>
+                    Décrivez votre besoin pour commencer →
+                  </div>
+                </div>
+              );
+            } else if (msg.content?.type === "qda_search_type") {
+              return (
+                <div key={index} className="selection-message">
+                  <div style={{fontWeight: 700, fontSize: '16px', color: 'var(--primary-50)', marginBottom: 'var(--space-4)'}}>
+                    Que recherchez-vous ?
+                  </div>
+                  <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
+                    <button
+                      className={selections.search_type === "Programs & Funding" ? "primary" : ""}
+                      onClick={() => {
+                        handleSelection("search_type", ["Programs & Funding"]);
+                        setMessages(prev => prev.slice(0, -1));
+                        addMessage("user", "Je cherche des aides et financements");
+                        addMessage("bot", "Parfait ! Répondez à quelques questions pour trouver les programmes adaptés à votre profil.");
+                        addMessage("bot", "D'abord, vos préférences de réponse :");
+                        addMessage("bot", { type: "base_selections" });
+                        setConversationState("gathering_base_selections");
+                      }}
+                      style={{
+                        padding: 'var(--space-4)',
+                        textAlign: 'left',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--space-3)'
+                      }}
+                    >
+                      <span style={{fontSize: '24px'}}>💰</span>
+                      <div>
+                        <div style={{fontWeight: 700}}>Aides & Financements</div>
+                        <div style={{fontSize: '13px', opacity: 0.8}}>Programmes QDA, BPI, subventions, prêts...</div>
+                      </div>
+                    </button>
+                    <button
+                      className={selections.search_type === "Service Provider (QDA Member)" ? "primary" : ""}
+                      onClick={() => {
+                        handleSelection("search_type", ["Service Provider (QDA Member)"]);
+                        setMessages(prev => prev.slice(0, -1));
+                        addMessage("user", "Je cherche un prestataire membre QDA");
+                        addMessage("bot", "Excellent ! Je vais vous aider à trouver un prestataire de confiance dans notre réseau.");
+                        addMessage("bot", { type: "qda_member_search_facets" });
+                        setConversationState("qda_member_search");
+                      }}
+                      style={{
+                        padding: 'var(--space-4)',
+                        textAlign: 'left',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--space-3)'
+                      }}
+                    >
+                      <span style={{fontSize: '24px'}}>🤝</span>
+                      <div>
+                        <div style={{fontWeight: 700}}>Prestataire Membre QDA</div>
+                        <div style={{fontSize: '13px', opacity: 0.8}}>Comptable, informaticien, avocat, garage...</div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              );
+            } else if (msg.content?.type === "qda_member_search_facets") {
+              // Find sector and location facets
+              const sectorFacet = facets.find(f => f.id === "service_sector");
+              const locationFacet = facets.find(f => f.id === "location");
+              
+              return (
+                <div key={index} className="selection-message">
+                  <div style={{fontWeight: 700, fontSize: '16px', color: 'var(--primary-50)', marginBottom: 'var(--space-4)'}}>
+                    Quel type de prestataire recherchez-vous ?
+                  </div>
+                  
+                  {sectorFacet && (
+                    <div style={{marginBottom: 'var(--space-5)'}}>
+                      <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--text)'}}>Secteur d'activité</div>
+                      <div className="choice-chips">
+                        {(sectorFacet.choices || []).map((choice) => (
+                          <span
+                            key={choice.value}
+                            className={`chip ${(selections.service_sector || []).includes(choice.value) ? "active" : ""}`}
+                            onClick={() => handleSelection("service_sector", [choice.value])}
+                          >
+                            {choice.value}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {locationFacet && (
+                    <div style={{marginBottom: 'var(--space-5)'}}>
+                      <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--text)'}}>Localisation</div>
+                      <div className="choice-chips">
+                        {(locationFacet.choices || []).map((choice) => (
+                          <span
+                            key={choice.value}
+                            className={`chip ${(selections.location || []).includes(choice.value) ? "active" : ""}`}
+                            onClick={() => handleSelection("location", [choice.value])}
+                          >
+                            {choice.value}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="selection-actions">
+                    <button 
+                      className="primary" 
+                      onClick={handleQDAMemberSearch}
+                      disabled={loading || !(selections.service_sector?.length)}
+                    >
+                      🔍 Rechercher des prestataires
+                    </button>
+                  </div>
+                </div>
+              );
+            } else if (msg.content?.type === "qda_member_results") {
+              const members = msg.content.members || [];
+              return (
+                <div key={index}>
+                  <div style={{marginBottom: 'var(--space-4)', color: 'var(--text-muted)', fontSize: '14px'}}>
+                    {members.length} prestataire(s) trouvé(s) dans le réseau Quartiers d'Affaires :
+                  </div>
+                  {members.map((member, i) => (
+                    <MemberCard key={member.id || i} member={member} />
+                  ))}
+                  {members.length === 0 && (
+                    <div style={{
+                      textAlign: 'center',
+                      padding: 'var(--space-6)',
+                      color: 'var(--text-muted)'
+                    }}>
+                      Aucun prestataire trouvé pour ces critères. Essayez d'élargir votre recherche.
+                    </div>
+                  )}
+                  <div className="selection-actions" style={{marginTop: 'var(--space-4)'}}>
+                    <button onClick={() => {
+                      addMessage("bot", { type: "qda_member_search_facets" });
+                      setConversationState("qda_member_search");
+                    }}>
+                      ← Modifier la recherche
+                    </button>
+                    <button className="primary" onClick={handleNewQuery}>
+                      Nouvelle recherche
+                    </button>
                   </div>
                 </div>
               );
