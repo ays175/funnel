@@ -1468,6 +1468,95 @@
         const [loading, setLoading] = React.useState(false);
         const [trace, setTrace] = React.useState([]);
         const [compiledPrompt, setCompiledPrompt] = React.useState(null);
+        
+        // Static QDA facets - used when quick action buttons are clicked
+        const QDA_FACETS = [
+          {
+            id: "service_sector",
+            choices: [
+              { value: "Comptabilité & Conseil fiscal" },
+              { value: "Informatique & Services numériques" },
+              { value: "Marketing & Communication" },
+              { value: "Juridique & Conseil" },
+              { value: "RH & Recrutement" },
+              { value: "Construction & Rénovation" },
+              { value: "Transport & Logistique" },
+              { value: "Formation professionnelle" },
+              { value: "Nettoyage & Maintenance" },
+              { value: "Restauration & Traiteur" },
+              { value: "Télécommunications" },
+              { value: "Garage & Réparation auto" }
+            ]
+          },
+          {
+            id: "business_stage",
+            choices: [
+              { value: "Idée / Projet" },
+              { value: "Jeune entreprise (< 2 ans)" },
+              { value: "Entreprise établie (2-5 ans)" },
+              { value: "Entreprise mature (> 5 ans)" }
+            ]
+          },
+          {
+            id: "revenue_range",
+            choices: [
+              { value: "Pas encore de CA" },
+              { value: "Moins de 50 000€" },
+              { value: "50 000€ - 100 000€" },
+              { value: "100 000€ - 500 000€" },
+              { value: "Plus de 500 000€" }
+            ]
+          },
+          {
+            id: "employees",
+            choices: [
+              { value: "Solo (juste moi)" },
+              { value: "1 à 5 salariés" },
+              { value: "6 à 20 salariés" },
+              { value: "Plus de 20 salariés" }
+            ]
+          },
+          {
+            id: "main_need",
+            choices: [
+              { value: "Financement" },
+              { value: "Formation" },
+              { value: "Accompagnement" },
+              { value: "Recrutement" },
+              { value: "Administratif" }
+            ]
+          },
+          {
+            id: "profile",
+            choices: [
+              { value: "Femme entrepreneure" },
+              { value: "Jeune entrepreneur (< 26 ans)" },
+              { value: "Senior (> 50 ans)" },
+              { value: "Personne en situation de handicap" },
+              { value: "Demandeur d'emploi" },
+              { value: "Bénéficiaire RSA" },
+              { value: "Aucun / Ne souhaite pas préciser" }
+            ]
+          },
+          {
+            id: "location",
+            choices: [
+              { value: "Île-de-France" },
+              { value: "Auvergne-Rhône-Alpes" },
+              { value: "Bourgogne-Franche-Comté" },
+              { value: "Bretagne" },
+              { value: "Centre-Val de Loire" },
+              { value: "Corse" },
+              { value: "Grand Est" },
+              { value: "Hauts-de-France" },
+              { value: "Normandie" },
+              { value: "Nouvelle-Aquitaine" },
+              { value: "Occitanie" },
+              { value: "PACA" },
+              { value: "Pays de la Loire" }
+            ]
+          }
+        ];
         const [modelReasoning, setModelReasoning] = React.useState(null);
         const [memberResults, setMemberResults] = React.useState([]);
         const messagesEndRef = React.useRef(null);
@@ -2490,95 +2579,6 @@
                 </div>
               );
             } else if (msg.content?.type === "instructions") {
-              // Static QDA facets for quick action buttons
-              const QDA_FACETS = [
-                {
-                  id: "service_sector",
-                  choices: [
-                    { value: "Comptabilité & Conseil fiscal" },
-                    { value: "Informatique & Services numériques" },
-                    { value: "Marketing & Communication" },
-                    { value: "Juridique & Conseil" },
-                    { value: "RH & Recrutement" },
-                    { value: "Construction & Rénovation" },
-                    { value: "Transport & Logistique" },
-                    { value: "Formation professionnelle" },
-                    { value: "Nettoyage & Maintenance" },
-                    { value: "Restauration & Traiteur" },
-                    { value: "Télécommunications" },
-                    { value: "Garage & Réparation auto" }
-                  ]
-                },
-                {
-                  id: "business_stage",
-                  choices: [
-                    { value: "Idée / Projet" },
-                    { value: "Jeune entreprise (< 2 ans)" },
-                    { value: "Entreprise établie (2-5 ans)" },
-                    { value: "Entreprise mature (> 5 ans)" }
-                  ]
-                },
-                {
-                  id: "revenue_range",
-                  choices: [
-                    { value: "Pas encore de CA" },
-                    { value: "Moins de 50 000€" },
-                    { value: "50 000€ - 100 000€" },
-                    { value: "100 000€ - 500 000€" },
-                    { value: "Plus de 500 000€" }
-                  ]
-                },
-                {
-                  id: "employees",
-                  choices: [
-                    { value: "Solo (juste moi)" },
-                    { value: "1 à 5 salariés" },
-                    { value: "6 à 20 salariés" },
-                    { value: "Plus de 20 salariés" }
-                  ]
-                },
-                {
-                  id: "main_need",
-                  choices: [
-                    { value: "Financement" },
-                    { value: "Formation" },
-                    { value: "Accompagnement" },
-                    { value: "Recrutement" },
-                    { value: "Administratif" }
-                  ]
-                },
-                {
-                  id: "profile",
-                  choices: [
-                    { value: "Femme entrepreneure" },
-                    { value: "Jeune entrepreneur (< 26 ans)" },
-                    { value: "Senior (> 50 ans)" },
-                    { value: "Personne en situation de handicap" },
-                    { value: "Demandeur d'emploi" },
-                    { value: "Bénéficiaire RSA" },
-                    { value: "Aucun / Ne souhaite pas préciser" }
-                  ]
-                },
-                {
-                  id: "location",
-                  choices: [
-                    { value: "Île-de-France" },
-                    { value: "Auvergne-Rhône-Alpes" },
-                    { value: "Bourgogne-Franche-Comté" },
-                    { value: "Bretagne" },
-                    { value: "Centre-Val de Loire" },
-                    { value: "Corse" },
-                    { value: "Grand Est" },
-                    { value: "Hauts-de-France" },
-                    { value: "Normandie" },
-                    { value: "Nouvelle-Aquitaine" },
-                    { value: "Occitanie" },
-                    { value: "PACA" },
-                    { value: "Pays de la Loire" }
-                  ]
-                }
-              ];
-              
               const handleQuickAction = (actionType) => {
                 // Remove the instructions message
                 setMessages(prev => prev.slice(0, -1));
@@ -2748,12 +2748,14 @@
               );
             } else if (msg.content?.type === "qda_program_facets") {
               // QDA Program/Funding search - show relevant facets
-              const stageFacet = facets.find(f => f.id === "business_stage");
-              const revenueFacet = facets.find(f => f.id === "revenue_range");
-              const employeesFacet = facets.find(f => f.id === "employees");
-              const needFacet = facets.find(f => f.id === "main_need");
-              const profileFacet = facets.find(f => f.id === "profile");
-              const locationFacet = facets.find(f => f.id === "location");
+              // Use QDA_FACETS if facets state is empty
+              const facetsToUse = facets.length > 0 ? facets : QDA_FACETS;
+              const stageFacet = facetsToUse.find(f => f.id === "business_stage");
+              const revenueFacet = facetsToUse.find(f => f.id === "revenue_range");
+              const employeesFacet = facetsToUse.find(f => f.id === "employees");
+              const needFacet = facetsToUse.find(f => f.id === "main_need");
+              const profileFacet = facetsToUse.find(f => f.id === "profile");
+              const locationFacet = facetsToUse.find(f => f.id === "location");
               
               const renderFacetSection = (facet, selectionKey, title) => {
                 if (!facet) return null;
@@ -2815,9 +2817,10 @@
                 </div>
               );
             } else if (msg.content?.type === "qda_member_search_facets") {
-              // Find sector and location facets
-              const sectorFacet = facets.find(f => f.id === "service_sector");
-              const locationFacet = facets.find(f => f.id === "location");
+              // Find sector and location facets - use QDA_FACETS if facets state is empty
+              const facetsToUse = facets.length > 0 ? facets : QDA_FACETS;
+              const sectorFacet = facetsToUse.find(f => f.id === "service_sector");
+              const locationFacet = facetsToUse.find(f => f.id === "location");
               
               // Check if we have facets
               if (!sectorFacet && !locationFacet) {
