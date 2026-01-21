@@ -1557,10 +1557,35 @@
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            // QDA-specific flow - no depth/format/length, direct to search type
-            addMessage("bot", "🏢 Parfait ! Je vais vous aider à trouver les ressources adaptées à votre situation.");
-            addMessage("bot", { type: "qda_search_type" });
-            setConversationState("qda_search_type_selection");
+            // QDA-specific flow - auto-detect search type from query
+            const queryLower = query.toLowerCase();
+            
+            // Keywords that indicate member/provider search
+            const memberKeywords = ["comptable", "avocat", "garage", "prestataire", "informaticien", "développeur", "web", "marketing", "traiteur", "nettoyage", "transport", "formation", "télécom", "réparation"];
+            const isMemberSearch = memberKeywords.some(kw => queryLower.includes(kw));
+            
+            // Keywords that indicate funding/program search
+            const fundingKeywords = ["financement", "aide", "subvention", "prêt", "bpi", "grandir", "accélérer", "programme", "argent", "capital", "fonds"];
+            const isFundingSearch = fundingKeywords.some(kw => queryLower.includes(kw));
+            
+            if (isMemberSearch && !isFundingSearch) {
+              // Auto-select member search
+              addMessage("bot", "🤝 Je vais vous aider à trouver un prestataire de confiance dans notre réseau.");
+              handleSelection("search_type", ["Service Provider (QDA Member)"]);
+              addMessage("bot", { type: "qda_member_search_facets" });
+              setConversationState("qda_member_search");
+            } else if (isFundingSearch && !isMemberSearch) {
+              // Auto-select funding search
+              addMessage("bot", "💰 Je vais vous aider à trouver les financements et aides adaptés à votre profil.");
+              handleSelection("search_type", ["Programs & Funding"]);
+              addMessage("bot", { type: "qda_program_facets" });
+              setConversationState("qda_program_selection");
+            } else {
+              // Ambiguous or general - show selection
+              addMessage("bot", "🏢 Parfait ! Je vais vous aider à trouver les ressources adaptées à votre situation.");
+              addMessage("bot", { type: "qda_search_type" });
+              setConversationState("qda_search_type_selection");
+            }
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
             addMessage("bot", "Sorry, I encountered an error. Please try again.");
