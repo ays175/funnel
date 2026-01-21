@@ -2425,6 +2425,34 @@
                 </div>
               );
             } else if (msg.content?.type === "instructions") {
+              const handleQuickAction = (actionType) => {
+                // Remove the instructions message
+                setMessages(prev => prev.slice(0, -1));
+                
+                if (actionType === "funding") {
+                  addMessage("user", "Je cherche un financement ou une aide");
+                  handleSelection("search_type", ["Programs & Funding"]);
+                  addMessage("bot", "💰 Parfait ! Répondez à quelques questions pour trouver les financements adaptés.");
+                  addMessage("bot", { type: "qda_program_facets" });
+                  setConversationState("qda_program_selection");
+                  setActiveDomainPack("qda_griffons");
+                } else if (actionType === "programs") {
+                  addMessage("user", "Je cherche un programme d'accompagnement QDA");
+                  handleSelection("search_type", ["Programs & Funding"]);
+                  addMessage("bot", "🎓 Parfait ! Trouvons le programme adapté à votre situation.");
+                  addMessage("bot", { type: "qda_program_facets" });
+                  setConversationState("qda_program_selection");
+                  setActiveDomainPack("qda_griffons");
+                } else if (actionType === "members") {
+                  addMessage("user", "Je cherche un prestataire membre QDA");
+                  handleSelection("search_type", ["Service Provider (QDA Member)"]);
+                  addMessage("bot", "🤝 Parfait ! Trouvons le prestataire idéal dans notre réseau.");
+                  addMessage("bot", { type: "qda_member_search_facets" });
+                  setConversationState("qda_member_search");
+                  setActiveDomainPack("qda_griffons");
+                }
+              };
+              
               return (
                 <div key={index} className="selection-message" style={{background: 'linear-gradient(135deg, hsla(270, 50%, 20%, 0.3) 0%, hsla(200, 50%, 20%, 0.3) 100%)', border: '2px solid var(--primary-500)'}}>
                   <div style={{textAlign: 'center', marginBottom: 'var(--space-4)'}}>
@@ -2432,48 +2460,78 @@
                     <div style={{fontWeight: 700, fontSize: '18px', color: 'var(--primary-50)'}}>Comment puis-je vous aider ?</div>
                   </div>
                   <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>💰</span>
-                      <div style={{fontWeight: 600, fontSize: '14px'}}>Financements & Aides (BPI, subventions, prêts...)</div>
-                    </div>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>🎓</span>
-                      <div style={{fontWeight: 600, fontSize: '14px'}}>Programmes QDA (GRANDIR, ACCÉLÉRER, DÉCOLLER...)</div>
-                    </div>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>🤝</span>
-                      <div style={{fontWeight: 600, fontSize: '14px'}}>Prestataires membres (comptable, garage, avocat...)</div>
-                    </div>
+                    <button
+                      onClick={() => handleQuickAction("funding")}
+                      style={{
+                        padding: 'var(--space-3) var(--space-4)',
+                        textAlign: 'left',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--space-3)',
+                        background: 'hsla(270, 50%, 30%, 0.3)',
+                        border: '1px solid var(--primary-500)',
+                        borderRadius: 'var(--radius-2)',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseOver={(e) => e.currentTarget.style.background = 'hsla(270, 50%, 40%, 0.4)'}
+                      onMouseOut={(e) => e.currentTarget.style.background = 'hsla(270, 50%, 30%, 0.3)'}
+                    >
+                      <span style={{fontSize: '24px'}}>💰</span>
+                      <div>
+                        <div style={{fontWeight: 600, fontSize: '14px', color: 'var(--primary-50)'}}>Financements & Aides</div>
+                        <div style={{fontSize: '12px', color: 'var(--text-muted)'}}>BPI, subventions, prêts d'honneur...</div>
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => handleQuickAction("programs")}
+                      style={{
+                        padding: 'var(--space-3) var(--space-4)',
+                        textAlign: 'left',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--space-3)',
+                        background: 'hsla(200, 50%, 30%, 0.3)',
+                        border: '1px solid var(--accent-cyan)',
+                        borderRadius: 'var(--radius-2)',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseOver={(e) => e.currentTarget.style.background = 'hsla(200, 50%, 40%, 0.4)'}
+                      onMouseOut={(e) => e.currentTarget.style.background = 'hsla(200, 50%, 30%, 0.3)'}
+                    >
+                      <span style={{fontSize: '24px'}}>🎓</span>
+                      <div>
+                        <div style={{fontWeight: 600, fontSize: '14px', color: 'var(--primary-50)'}}>Programmes QDA</div>
+                        <div style={{fontSize: '12px', color: 'var(--text-muted)'}}>GRANDIR, ACCÉLÉRER, DÉCOLLER...</div>
+                      </div>
+                    </button>
+                    <button
+                      onClick={() => handleQuickAction("members")}
+                      style={{
+                        padding: 'var(--space-3) var(--space-4)',
+                        textAlign: 'left',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 'var(--space-3)',
+                        background: 'hsla(150, 50%, 25%, 0.3)',
+                        border: '1px solid var(--accent-green)',
+                        borderRadius: 'var(--radius-2)',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseOver={(e) => e.currentTarget.style.background = 'hsla(150, 50%, 35%, 0.4)'}
+                      onMouseOut={(e) => e.currentTarget.style.background = 'hsla(150, 50%, 25%, 0.3)'}
+                    >
+                      <span style={{fontSize: '24px'}}>🤝</span>
+                      <div>
+                        <div style={{fontWeight: 600, fontSize: '14px', color: 'var(--primary-50)'}}>Prestataires Membres</div>
+                        <div style={{fontSize: '12px', color: 'var(--text-muted)'}}>Comptable, garage, avocat, informaticien...</div>
+                      </div>
+                    </button>
                   </div>
-                  <div style={{marginTop: 'var(--space-4)', fontSize: '14px', color: 'var(--accent-cyan)', textAlign: 'center', fontWeight: 600}}>
-                    Décrivez votre besoin ci-dessous →
-                  </div>
-                </div>
-              );
-            } else if (msg.content?.type === "qda_instructions") {
-              return (
-                <div key={index} className="selection-message" style={{background: 'linear-gradient(135deg, hsla(270, 50%, 20%, 0.3) 0%, hsla(200, 50%, 20%, 0.3) 100%)', border: '2px solid var(--primary-500)'}}>
-                  <div style={{textAlign: 'center', marginBottom: 'var(--space-4)'}}>
-                    <div style={{fontSize: '24px', marginBottom: 'var(--space-2)'}}>🏢</div>
-                    <div style={{fontWeight: 700, fontSize: '18px', color: 'var(--primary-50)'}}>Quartiers d'Affaires</div>
-                    <div style={{fontSize: '14px', color: 'var(--text-muted)'}}>Plateforme d'accompagnement des entrepreneurs QPV</div>
-                  </div>
-                  <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>💰</span>
-                      <div style={{fontWeight: 600, fontSize: '14px'}}>Financements & Aides</div>
-                    </div>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>🎓</span>
-                      <div style={{fontWeight: 600, fontSize: '14px'}}>Programmes d'accompagnement</div>
-                    </div>
-                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>🤝</span>
-                      <div style={{fontWeight: 600, fontSize: '14px'}}>Réseau de prestataires membres</div>
-                    </div>
-                  </div>
-                  <div style={{marginTop: 'var(--space-4)', fontSize: '14px', color: 'var(--accent-cyan)', textAlign: 'center', fontWeight: 600}}>
-                    Décrivez votre besoin pour commencer →
+                  <div style={{marginTop: 'var(--space-4)', fontSize: '13px', color: 'var(--text-muted)', textAlign: 'center'}}>
+                    Ou décrivez votre besoin dans le champ ci-dessous
                   </div>
                 </div>
               );
