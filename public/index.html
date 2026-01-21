@@ -1557,34 +1557,39 @@
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            // QDA-specific flow - auto-detect search type from query
-            const queryLower = query.toLowerCase();
-            
-            // Keywords that indicate member/provider search
-            const memberKeywords = ["comptable", "avocat", "garage", "prestataire", "informaticien", "développeur", "web", "marketing", "traiteur", "nettoyage", "transport", "formation", "télécom", "réparation"];
-            const isMemberSearch = memberKeywords.some(kw => queryLower.includes(kw));
-            
-            // Keywords that indicate funding/program search
-            const fundingKeywords = ["financement", "aide", "subvention", "prêt", "bpi", "grandir", "accélérer", "programme", "argent", "capital", "fonds"];
-            const isFundingSearch = fundingKeywords.some(kw => queryLower.includes(kw));
-            
-            if (isMemberSearch && !isFundingSearch) {
-              // Auto-select member search
-              addMessage("bot", "🤝 Je vais vous aider à trouver un prestataire de confiance dans notre réseau.");
-              handleSelection("search_type", ["Service Provider (QDA Member)"]);
-              addMessage("bot", { type: "qda_member_search_facets" });
-              setConversationState("qda_member_search");
-            } else if (isFundingSearch && !isMemberSearch) {
-              // Auto-select funding search
-              addMessage("bot", "💰 Je vais vous aider à trouver les financements et aides adaptés à votre profil.");
-              handleSelection("search_type", ["Programs & Funding"]);
-              addMessage("bot", { type: "qda_program_facets" });
-              setConversationState("qda_program_selection");
-            } else {
-              // Ambiguous or general - show selection
+            // Check domain pack from LLM detection
+            if (data.active_domain_pack === "qda_griffons") {
+              // QDA domain detected - show search type selection
               addMessage("bot", "🏢 Parfait ! Je vais vous aider à trouver les ressources adaptées à votre situation.");
               addMessage("bot", { type: "qda_search_type" });
               setConversationState("qda_search_type_selection");
+            } else {
+              // General/universal question - answer directly
+              addMessage("bot", "Je recherche une réponse à votre question...");
+              addMessage("bot", <TypingIndicator />);
+              
+              // Call answer API directly with minimal selections
+              const answerRes = await fetch(`${API_BASE}/api/answer`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  request_id: data.request_id,
+                  facet_selections: [],
+                  user_overrides: null,
+                }),
+              });
+              
+              if (answerRes.ok) {
+                const answerData = await answerRes.json();
+                setMessages(prev => prev.slice(0, -1)); // Remove typing
+                addMessage("bot", { type: "answer", answer: answerData.answer });
+                setTrace(answerData.trace || []);
+                setCompiledPrompt(answerData.compiled_prompt || null);
+                setConversationState("answer_shown");
+              } else {
+                setMessages(prev => prev.slice(0, -1));
+                addMessage("bot", "Désolé, je n'ai pas pu trouver de réponse. Veuillez reformuler votre question.");
+              }
             }
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
