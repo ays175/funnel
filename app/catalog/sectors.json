@@ -1,0 +1,92 @@
+{
+  "sectors": [
+    {
+      "id": "accounting",
+      "name": "Accounting & Tax Advisory",
+      "name_fr": "Comptabilité & Expertise comptable",
+      "description": "Financial statements, tax declarations, payroll, business consulting",
+      "keywords": ["accountant", "tax", "bookkeeping", "payroll", "financial", "audit", "balance sheet"],
+      "typical_services": ["Annual accounts", "Tax returns", "Payroll management", "Business creation support", "Financial consulting"]
+    },
+    {
+      "id": "digital",
+      "name": "IT & Digital Services",
+      "name_fr": "Informatique & Digital",
+      "description": "Web development, apps, IT support, cloud solutions, cybersecurity",
+      "keywords": ["website", "app", "software", "IT", "computer", "digital", "tech", "web", "developer"],
+      "typical_services": ["Website creation", "Mobile apps", "IT maintenance", "Cloud migration", "Cybersecurity"]
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing & Communication",
+      "name_fr": "Marketing & Communication",
+      "description": "Branding, social media, advertising, content creation, PR",
+      "keywords": ["marketing", "advertising", "social media", "brand", "communication", "PR", "content"],
+      "typical_services": ["Social media management", "Brand identity", "Advertising campaigns", "Content creation", "SEO/SEA"]
+    },
+    {
+      "id": "legal",
+      "name": "Legal & Business Consulting",
+      "name_fr": "Conseil juridique",
+      "description": "Contracts, litigation, intellectual property, business law",
+      "keywords": ["lawyer", "legal", "contract", "litigation", "law", "attorney", "intellectual property"],
+      "typical_services": ["Contract drafting", "Business litigation", "IP protection", "Legal compliance", "Dispute resolution"]
+    },
+    {
+      "id": "hr",
+      "name": "HR & Recruitment",
+      "name_fr": "RH & Recrutement",
+      "description": "Recruitment, HR outsourcing, training, team development",
+      "keywords": ["HR", "recruitment", "hiring", "training", "human resources", "staffing", "talent"],
+      "typical_services": ["Recruitment", "HR outsourcing", "Training programs", "Performance management", "Employer branding"]
+    },
+    {
+      "id": "construction",
+      "name": "Construction & Renovation",
+      "name_fr": "BTP & Travaux",
+      "description": "Building, renovation, electrical work, plumbing, interior design",
+      "keywords": ["construction", "renovation", "building", "electrical", "plumbing", "contractor", "works"],
+      "typical_services": ["Office renovation", "Electrical installation", "Plumbing", "Interior design", "General contracting"]
+    },
+    {
+      "id": "transport",
+      "name": "Transport & Logistics",
+      "name_fr": "Transport & Logistique",
+      "description": "Delivery, moving, storage, freight, last-mile logistics",
+      "keywords": ["transport", "delivery", "logistics", "moving", "freight", "shipping", "storage"],
+      "typical_services": ["Local delivery", "Moving services", "Warehousing", "Freight transport", "Last-mile delivery"]
+    },
+    {
+      "id": "training",
+      "name": "Professional Training",
+      "name_fr": "Formation professionnelle",
+      "description": "Skills development, certifications, coaching, workshops",
+      "keywords": ["training", "course", "certification", "learning", "workshop", "coaching", "education"],
+      "typical_services": ["Management training", "Digital skills", "Safety certifications", "Language courses", "Leadership coaching"]
+    },
+    {
+      "id": "cleaning",
+      "name": "Cleaning & Maintenance",
+      "name_fr": "Nettoyage & Entretien",
+      "description": "Office cleaning, facility maintenance, landscaping",
+      "keywords": ["cleaning", "maintenance", "janitorial", "facility", "landscaping", "hygiene"],
+      "typical_services": ["Office cleaning", "Window cleaning", "Facility maintenance", "Landscaping", "Deep cleaning"]
+    },
+    {
+      "id": "catering",
+      "name": "Catering & Food Services",
+      "name_fr": "Restauration & Traiteur",
+      "description": "Corporate catering, events, meal delivery, canteen management",
+      "keywords": ["catering", "food", "restaurant", "events", "meals", "chef", "lunch"],
+      "typical_services": ["Corporate events", "Daily meal delivery", "Cocktail parties", "Canteen management", "Food trucks"]
+    },
+    {
+      "id": "telecom",
+      "name": "Telecommunications",
+      "name_fr": "Télécommunications",
+      "description": "Business phone systems, internet, VoIP, networking",
+      "keywords": ["telecom", "phone", "internet", "fiber", "VoIP", "network", "mobile", "communication"],
+      "typical_services": ["Business phone lines", "Fiber internet", "VoIP systems", "Video conferencing", "Network installation"]
+    }
+  ]
+}

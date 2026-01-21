@@ -3,91 +3,131 @@
   "keywords": [
     "griffon", "qpv", "quartiers", "entrepreneur", "financement", "formation", 
     "accompagnement", "aide", "subvention", "prêt", "création", "entreprise",
-    "développement", "croissance", "quartiers prioritaires"
+    "développement", "croissance", "quartiers prioritaires", "prestataire",
+    "fournisseur", "service", "comptable", "informatique", "marketing"
   ],
   "facets": [
     {
-      "id": "business_stage",
-      "title": "Stade de votre entreprise",
-      "question": "Où en êtes-vous dans votre parcours entrepreneurial ?",
-      "keywords": ["création", "développement", "croissance", "démarrage", "idée"],
+      "id": "search_type",
+      "title": "What are you looking for?",
+      "question": "What type of help do you need?",
+      "keywords": ["search", "find", "looking", "need", "want"],
       "choices": [
-        { "value": "Idée / Projet", "subchoices": ["Pas encore immatriculé", "En cours de création"] },
-        { "value": "Jeune entreprise (< 2 ans)", "subchoices": ["Moins de 1 an", "1-2 ans"] },
-        { "value": "Entreprise établie (2-5 ans)", "subchoices": ["Structuration", "Croissance"] },
-        { "value": "Entreprise mature (> 5 ans)", "subchoices": ["Expansion", "Diversification"] }
+        { "value": "Programs & Funding", "subchoices": ["Grants", "Loans", "Training", "Support programs"] },
+        { "value": "Service Provider (QDA Member)", "subchoices": ["Find a provider", "Get quotes", "Recommendations"] }
+      ],
+      "default_value": "Programs & Funding"
+    },
+    {
+      "id": "service_sector",
+      "title": "Service sector needed",
+      "question": "What type of service provider are you looking for?",
+      "keywords": ["accountant", "IT", "marketing", "legal", "HR", "construction", "transport", "training", "cleaning", "catering", "telecom"],
+      "choices": [
+        { "value": "Accounting & Tax Advisory", "subchoices": [] },
+        { "value": "IT & Digital Services", "subchoices": [] },
+        { "value": "Marketing & Communication", "subchoices": [] },
+        { "value": "Legal & Business Consulting", "subchoices": [] },
+        { "value": "HR & Recruitment", "subchoices": [] },
+        { "value": "Construction & Renovation", "subchoices": [] },
+        { "value": "Transport & Logistics", "subchoices": [] },
+        { "value": "Professional Training", "subchoices": [] },
+        { "value": "Cleaning & Maintenance", "subchoices": [] },
+        { "value": "Catering & Food Services", "subchoices": [] },
+        { "value": "Telecommunications", "subchoices": [] }
+      ],
+      "default_value": "all options",
+      "conditional": {
+        "show_when": {
+          "facet": "search_type",
+          "value": "Service Provider (QDA Member)"
+        }
+      }
+    },
+    {
+      "id": "business_stage",
+      "title": "Your business stage",
+      "question": "Where are you in your entrepreneurial journey?",
+      "keywords": ["creation", "development", "growth", "startup", "idea"],
+      "choices": [
+        { "value": "Idea / Project", "subchoices": ["Not yet registered", "In process of creation"] },
+        { "value": "Young business (< 2 years)", "subchoices": ["Less than 1 year", "1-2 years"] },
+        { "value": "Established business (2-5 years)", "subchoices": ["Structuring", "Growing"] },
+        { "value": "Mature business (> 5 years)", "subchoices": ["Expansion", "Diversification"] }
       ],
       "default_value": "all options"
     },
     {
       "id": "revenue_range",
-      "title": "Chiffre d'affaires annuel",
-      "question": "Quel est votre CA approximatif ?",
-      "keywords": ["chiffre", "affaires", "revenus", "ca", "ventes"],
+      "title": "Annual revenue",
+      "question": "What is your approximate annual revenue?",
+      "keywords": ["revenue", "sales", "turnover", "income"],
       "choices": [
-        { "value": "Pas encore de CA", "subchoices": [] },
-        { "value": "Moins de 50 000€", "subchoices": [] },
-        { "value": "50 000€ - 100 000€", "subchoices": [] },
-        { "value": "100 000€ - 500 000€", "subchoices": [] },
-        { "value": "Plus de 500 000€", "subchoices": [] }
+        { "value": "No revenue yet", "subchoices": [] },
+        { "value": "Under €50,000", "subchoices": [] },
+        { "value": "€50,000 - €100,000", "subchoices": [] },
+        { "value": "€100,000 - €500,000", "subchoices": [] },
+        { "value": "Over €500,000", "subchoices": [] }
       ],
       "default_value": "all options"
     },
     {
       "id": "employees",
-      "title": "Effectif de l'entreprise",
-      "question": "Combien de personnes travaillent dans votre entreprise ?",
-      "keywords": ["salariés", "équipe", "effectif", "employés", "collaborateurs"],
+      "title": "Number of employees",
+      "question": "How many people work in your business?",
+      "keywords": ["employees", "team", "staff", "workers", "headcount"],
       "choices": [
-        { "value": "Solo (moi seul)", "subchoices": [] },
-        { "value": "1 à 5 salariés", "subchoices": [] },
-        { "value": "6 à 20 salariés", "subchoices": [] },
-        { "value": "Plus de 20 salariés", "subchoices": [] }
+        { "value": "Solo (just me)", "subchoices": [] },
+        { "value": "1 to 5 employees", "subchoices": [] },
+        { "value": "6 to 20 employees", "subchoices": [] },
+        { "value": "More than 20 employees", "subchoices": [] }
       ],
       "default_value": "all options"
     },
     {
       "id": "main_need",
-      "title": "Votre besoin principal",
-      "question": "Qu'est-ce qui vous aiderait le plus aujourd'hui ?",
-      "keywords": ["besoin", "aide", "recherche", "financement", "formation"],
+      "title": "Your main need",
+      "question": "What would help you most right now?",
+      "keywords": ["need", "help", "looking for", "funding", "training"],
       "choices": [
-        { "value": "Financement", "subchoices": ["Prêt", "Subvention", "Investisseur", "Garantie bancaire"] },
-        { "value": "Formation", "subchoices": ["Gestion", "Digital", "Commercial", "Export"] },
-        { "value": "Accompagnement", "subchoices": ["Mentorat", "Coaching", "Réseau", "Conseil stratégique"] },
-        { "value": "Recrutement", "subchoices": ["Alternance", "Stage", "CDI", "Formation équipe"] },
-        { "value": "Formalités", "subchoices": ["Création", "Modification", "Certifications"] }
+        { "value": "Funding", "subchoices": ["Loan", "Grant", "Investor", "Bank guarantee"] },
+        { "value": "Training", "subchoices": ["Management", "Digital", "Sales", "Export"] },
+        { "value": "Support", "subchoices": ["Mentoring", "Coaching", "Network", "Strategic advice"] },
+        { "value": "Recruitment", "subchoices": ["Apprenticeship", "Internship", "Permanent hire", "Team training"] },
+        { "value": "Administrative", "subchoices": ["Company creation", "Modifications", "Certifications"] }
       ],
       "default_value": "all options"
     },
     {
       "id": "profile",
-      "title": "Votre situation",
-      "question": "Êtes-vous concerné par un de ces critères ? (permet d'accéder à des aides spécifiques)",
-      "keywords": ["femme", "jeune", "senior", "handicap", "chômage", "rsa"],
+      "title": "Your profile",
+      "question": "Do any of these apply to you? (unlocks specific aid programs)",
+      "keywords": ["woman", "young", "senior", "disability", "unemployed"],
       "choices": [
-        { "value": "Femme dirigeante", "subchoices": [] },
-        { "value": "Jeune entrepreneur (< 26 ans)", "subchoices": [] },
-        { "value": "Senior (> 50 ans)", "subchoices": [] },
-        { "value": "Situation de handicap (RQTH)", "subchoices": [] },
-        { "value": "Demandeur d'emploi", "subchoices": [] },
-        { "value": "Bénéficiaire RSA", "subchoices": [] },
-        { "value": "Aucun / Ne souhaite pas préciser", "subchoices": [] }
+        { "value": "Woman entrepreneur", "subchoices": [] },
+        { "value": "Young entrepreneur (< 26)", "subchoices": [] },
+        { "value": "Senior (> 50)", "subchoices": [] },
+        { "value": "Person with disability", "subchoices": [] },
+        { "value": "Job seeker", "subchoices": [] },
+        { "value": "Welfare recipient", "subchoices": [] },
+        { "value": "None / Prefer not to say", "subchoices": [] }
       ],
-      "default_value": "Aucun / Ne souhaite pas préciser"
+      "default_value": "None / Prefer not to say"
     },
     {
       "id": "location",
-      "title": "Localisation",
-      "question": "Où est située votre entreprise ?",
-      "keywords": ["région", "département", "ville", "quartier", "zfu"],
+      "title": "Location",
+      "question": "Where is your business located?",
+      "keywords": ["region", "department", "city", "area"],
       "choices": [
-        { "value": "Île-de-France", "subchoices": ["Paris", "Seine-Saint-Denis (93)", "Val-d'Oise (95)", "Hauts-de-Seine (92)", "Autres départements IDF"] },
-        { "value": "Auvergne-Rhône-Alpes", "subchoices": ["Lyon", "Grenoble", "Saint-Étienne", "Autres"] },
-        { "value": "PACA", "subchoices": ["Marseille", "Nice", "Toulon", "Autres"] },
-        { "value": "Hauts-de-France", "subchoices": ["Lille", "Amiens", "Roubaix", "Autres"] },
-        { "value": "Occitanie", "subchoices": ["Toulouse", "Montpellier", "Nîmes", "Autres"] },
-        { "value": "Autre région", "subchoices": [] }
+        { "value": "Île-de-France", "subchoices": ["Paris (75)", "Seine-Saint-Denis (93)", "Val-d'Oise (95)", "Hauts-de-Seine (92)", "Other IDF departments"] },
+        { "value": "Auvergne-Rhône-Alpes", "subchoices": ["Rhône (69)", "Isère (38)", "Loire (42)", "Other"] },
+        { "value": "PACA", "subchoices": ["Bouches-du-Rhône (13)", "Alpes-Maritimes (06)", "Var (83)", "Other"] },
+        { "value": "Hauts-de-France", "subchoices": ["Nord (59)", "Pas-de-Calais (62)", "Somme (80)", "Other"] },
+        { "value": "Occitanie", "subchoices": ["Haute-Garonne (31)", "Hérault (34)", "Gard (30)", "Other"] },
+        { "value": "Grand Est", "subchoices": ["Bas-Rhin (67)", "Moselle (57)", "Meurthe-et-Moselle (54)", "Other"] },
+        { "value": "Nouvelle-Aquitaine", "subchoices": ["Gironde (33)", "Pyrénées-Atlantiques (64)", "Haute-Vienne (87)", "Other"] },
+        { "value": "Other region", "subchoices": [] }
       ],
       "default_value": "all options"
     }
