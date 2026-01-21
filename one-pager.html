@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShmilBlick - One Pager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: hsl(260, 45%, 5%);
+      --text: hsl(240, 20%, 98%);
+      --text-muted: hsl(240, 10%, 70%);
+      --border: hsla(260, 40%, 80%, 0.15);
+      --primary-500: hsl(270, 91%, 65%);
+      --primary-600: hsl(271, 81%, 56%);
+      --accent-pink: hsl(330, 81%, 60%);
+      --accent-cyan: hsl(190, 90%, 60%);
+      --surface-glass: hsla(260, 40%, 95%, 0.04);
+      --surface-glass-hover: hsla(260, 40%, 95%, 0.08);
+      --shadow-purple: 0 8px 24px hsla(270, 91%, 50%, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", -apple-system, sans-serif;
+      background: radial-gradient(ellipse 1200px 800px at 30% 0%, hsl(270, 60%, 15%) 0%, hsl(260, 50%, 8%) 50%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--surface-glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .tagline {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 32px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-cyan);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* Two columns */
+    .two-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .three-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface-glass-hover);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Problem cards */
+    .problem-card {
+      border-left: 3px solid hsl(0, 70%, 55%);
+    }
+
+    .solution-card {
+      border-left: 3px solid var(--accent-cyan);
+    }
+
+    /* Stats */
+    .stat-box {
+      text-align: center;
+      padding: 20px;
+      background: var(--surface-glass-hover);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* How it works */
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 24px;
+      background: var(--surface-glass-hover);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .flow-step {
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+      color: white;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .flow-arrow {
+      color: var(--accent-cyan);
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    /* Pricing table */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .price-card {
+      background: var(--surface-glass-hover);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .price-card.featured {
+      border-color: var(--primary-500);
+      box-shadow: var(--shadow-purple);
+    }
+
+    .price-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .price-amount {
+      font-size: 22px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .price-period {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .price-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* Targets */
+    .targets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .target-tag {
+      background: var(--surface-glass-hover);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* Quote */
+    .quote {
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+      color: white;
+      padding: 24px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      font-style: italic;
+      line-height: 1.6;
+      box-shadow: var(--shadow-purple);
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .cta-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: var(--shadow-purple);
+      transition: all 0.2s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+
+    .contact-info {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .contact-info a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: white;
+        padding: 20px;
+      }
+      .container {
+        background: white;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+      }
+      .logo, .tagline, .section-title, .stat-number, .price-amount {
+        -webkit-text-fill-color: initial;
+        background: none;
+        color: #6b21a8;
+      }
+      .card, .stat-box, .price-card, .flow, .target-tag {
+        background: #f5f5f5;
+        border-color: #ddd;
+      }
+      .quote, .cta-btn, .flow-step {
+        background: #6b21a8;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 16px; }
+      .container { padding: 24px; }
+      .two-cols, .three-cols, .pricing-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">ShmilBlick</div>
+      <div class="tagline">The more you offer, the less they find.</div>
+      <div class="subtitle">AI-powered guided discovery for service platforms</div>
+    </div>
+
+    <!-- Problem -->
+    <div class="section">
+      <div class="section-title">The Problem</div>
+      <div class="two-cols">
+        <div class="card problem-card">
+          <div class="card-title">❌ Users Don't Know What Exists</div>
+          <div class="card-desc">They only use 20% of your services. They can't search for what they don't know about.</div>
+        </div>
+        <div class="card problem-card">
+          <div class="card-title">❌ Traditional Search Fails</div>
+          <div class="card-desc">Search bars require knowing what to ask. Chatbots give generic, disconnected answers.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="section">
+      <div class="section-title">The Hidden Cost</div>
+      <div class="three-cols">
+        <div class="stat-box">
+          <div class="stat-number">80%</div>
+          <div class="stat-label">of your value stays invisible</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">3x</div>
+          <div class="stat-label">more support tickets than needed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">60%</div>
+          <div class="stat-label">abandon before finding</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Solution -->
+    <div class="section">
+      <div class="section-title">The Solution</div>
+      <div class="two-cols">
+        <div class="card solution-card">
+          <div class="card-title">✓ AI-Powered Guided Discovery</div>
+          <div class="card-desc">Not a chatbot. A smart GPS that reveals options users would never find on their own.</div>
+        </div>
+        <div class="card solution-card">
+          <div class="card-title">✓ Dynamic Facet Generation</div>
+          <div class="card-desc">AI generates context-specific angles based on user intent, not static filters.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div class="section">
+      <div class="section-title">How It Works</div>
+      <div class="flow">
+        <div class="flow-step">Simple Question</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">AI-Generated Angles</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Guided Selection</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Exact Match</div>
+      </div>
+    </div>
+
+    <!-- Quote -->
+    <div class="section">
+      <div class="quote">
+        "Instead of asking what they're looking for,<br/>we show them what they didn't know to search for."
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="section">
+      <div class="section-title">Results</div>
+      <div class="three-cols">
+        <div class="stat-box">
+          <div class="stat-number">+3x</div>
+          <div class="stat-label">services discovered per user</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">-60%</div>
+          <div class="stat-label">support tickets</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">+45%</div>
+          <div class="stat-label">completion rate</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <div class="section">
+      <div class="section-title">Pricing</div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-name">POC</div>
+          <div class="price-amount">Free</div>
+          <div class="price-period">2 weeks</div>
+          <div class="price-desc">1 domain pack<br/>500 requests</div>
+        </div>
+        <div class="price-card">
+          <div class="price-name">Starter</div>
+          <div class="price-amount">$2,500</div>
+          <div class="price-period">/month</div>
+          <div class="price-desc">3 packs<br/>5K requests</div>
+        </div>
+        <div class="price-card featured">
+          <div class="price-name">Growth</div>
+          <div class="price-amount">$5,000</div>
+          <div class="price-period">/month</div>
+          <div class="price-desc">Unlimited packs<br/>Priority support</div>
+        </div>
+        <div class="price-card">
+          <div class="price-name">Enterprise</div>
+          <div class="price-amount">Custom</div>
+          <div class="price-period"></div>
+          <div class="price-desc">SLA, on-prem<br/>dedicated API</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ideal Customers -->
+    <div class="section">
+      <div class="section-title">Ideal Customers</div>
+      <div class="targets">
+        <span class="target-tag">B2B Marketplaces</span>
+        <span class="target-tag">HR/Benefits Platforms</span>
+        <span class="target-tag">Fintech Services</span>
+        <span class="target-tag">Government Portals</span>
+        <span class="target-tag">Enterprise Knowledge Bases</span>
+        <span class="target-tag">SaaS with Complex Features</span>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <div class="cta-title">Ready to reveal your platform's hidden value?</div>
+      <div class="cta-subtitle">15 minutes to see if ShmilBlick fits your use case.</div>
+      <a href="#" class="cta-btn">Book a Demo →</a>
+      <div class="contact-info">
+        <a href="mailto:hello@shmilblick.com">hello@shmilblick.com</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

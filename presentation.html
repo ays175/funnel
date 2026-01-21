@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShmilBlick - Présentation Client</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      /* Enhanced color palette from ShmilBlick */
+      --bg: hsl(260, 45%, 5%);
+      --bg-elevated: hsl(260, 40%, 8%);
+      --text: hsl(240, 20%, 98%);
+      --text-muted: hsl(240, 10%, 70%);
+      --text-subtle: hsl(240, 8%, 55%);
+      --border: hsla(260, 40%, 80%, 0.08);
+      --border-strong: hsla(260, 40%, 80%, 0.15);
+      
+      /* Purple gradient system */
+      --primary-50: hsl(270, 100%, 98%);
+      --primary-500: hsl(270, 91%, 65%);
+      --primary-600: hsl(271, 81%, 56%);
+      --primary-700: hsl(272, 71%, 47%);
+      
+      /* Accent */
+      --accent-pink: hsl(330, 81%, 60%);
+      --accent-cyan: hsl(190, 90%, 60%);
+      --accent-orange: hsl(25, 95%, 53%);
+      
+      /* Surfaces */
+      --surface-glass: hsla(260, 40%, 95%, 0.04);
+      --surface-glass-hover: hsla(260, 40%, 95%, 0.06);
+      
+      /* Shadows */
+      --shadow-sm: 0 2px 8px hsla(260, 50%, 10%, 0.3);
+      --shadow-md: 0 4px 16px hsla(260, 50%, 10%, 0.4), 0 2px 4px hsla(260, 50%, 5%, 0.2);
+      --shadow-lg: 0 12px 32px hsla(260, 50%, 10%, 0.5), 0 4px 8px hsla(260, 50%, 5%, 0.3);
+      --shadow-purple: 0 8px 24px hsla(270, 91%, 50%, 0.35);
+      
+      /* Spacing */
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-8: 48px;
+      --space-10: 64px;
+      
+      /* Radius */
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(ellipse 1200px 800px at 30% 0%, hsl(270, 60%, 15%) 0%, hsl(260, 50%, 8%) 50%, var(--bg) 100%);
+      color: var(--text);
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .presentation-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      width: 90%;
+      max-width: 1200px;
+      height: 90%;
+      max-height: 800px;
+      padding: var(--space-10);
+      background: var(--surface-glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .slide.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-header {
+      margin-bottom: var(--space-8);
+    }
+
+    .slide-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.02em;
+    }
+
+    .slide-subtitle {
+      font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: var(--space-6);
+    }
+
+    .pain-point, .value-prop, .feature-box {
+      background: var(--surface-glass-hover);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      transition: all 0.3s ease;
+    }
+
+    .pain-point:hover, .value-prop:hover, .feature-box:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary-500);
+      box-shadow: var(--shadow-purple);
+    }
+
+    .pain-point-title, .value-title, .feature-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary-50);
+      margin-bottom: var(--space-3);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .emoji {
+      font-size: 28px;
+    }
+
+    .pain-point-desc, .value-desc, .feature-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+    }
+
+    .three-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+
+    .highlight {
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+      color: white;
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      box-shadow: var(--shadow-purple);
+    }
+
+    .cta-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: var(--space-3);
+    }
+
+    .cta-desc {
+      font-size: 20px;
+      opacity: 0.95;
+    }
+
+    .navigation {
+      position: fixed;
+      bottom: var(--space-5);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: var(--space-4);
+      align-items: center;
+    }
+
+    .nav-btn {
+      padding: var(--space-3) var(--space-5);
+      background: var(--surface-glass);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: var(--surface-glass-hover);
+      border-color: var(--primary-500);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .slide-counter {
+      padding: var(--space-3) var(--space-4);
+      background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+      color: white;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: var(--shadow-purple);
+    }
+
+    .logo-container {
+      position: fixed;
+      top: var(--space-5);
+      left: var(--space-5);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      z-index: 1000;
+    }
+
+    .logo-container:hover {
+      transform: translateY(-2px);
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-pink) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-2);
+    }
+
+    .logo-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      max-width: 220px;
+      line-height: 1.4;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+    }
+
+    .stat-box {
+      text-align: center;
+      padding: var(--space-5);
+      background: var(--surface-glass-hover);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: var(--space-2);
+    }
+
+    .stat-label {
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+
+    li {
+      font-size: 20px;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    li::before {
+      content: "✓";
+      color: var(--accent-cyan);
+      font-weight: 700;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-6);
+    }
+
+    .before, .after {
+      padding: var(--space-5);
+      border-radius: var(--radius-lg);
+      border: 2px solid;
+    }
+
+    .before {
+      border-color: hsl(0, 70%, 50%);
+      background: hsla(0, 70%, 50%, 0.05);
+    }
+
+    .after {
+      border-color: var(--accent-cyan);
+      background: hsla(190, 90%, 60%, 0.05);
+    }
+
+    .comparison-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: var(--space-4);
+    }
+
+    @media (max-width: 768px) {
+      .two-columns, .three-columns, .comparison {
+        grid-template-columns: 1fr;
+      }
+      
+      .slide {
+        width: 95%;
+        height: 95%;
+        padding: var(--space-5);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-container" onclick="resetPresentation()">
+    <div class="logo">ShmilBlick</div>
+    <div class="logo-tagline">Ask once, get exactly what you need. AI with a laser focus.</div>
+  </div>
+
+  <div class="presentation-container">
+    <!-- Slide 1: Titre -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-content" style="justify-content: center; text-align: center;">
+        <div class="slide-title" style="font-size: 72px; margin-bottom: var(--space-5);">ShmilBlick</div>
+        <div class="slide-subtitle" style="font-size: 32px; margin-bottom: var(--space-8);">
+          L'IA qui sait exactement ce que vous cherchez
+        </div>
+        <div style="font-size: 24px; color: var(--text-muted); max-width: 800px; margin: 0 auto;">
+          Une révolution dans la recherche et la découverte guidée pour les plateformes de services
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Le Problème -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="slide-title">Plus vous offrez, moins ils trouvent</div>
+        <div class="slide-subtitle">Le paradoxe des plateformes riches : 80% de valeur invisible</div>
+      </div>
+      <div class="slide-content" style="gap: var(--space-4);">
+        <div class="pain-point">
+          <div class="pain-point-title"><span class="emoji">😕</span> Ils ne savent pas ce qui existe</div>
+          <div class="pain-point-desc">
+            Votre plateforme regorge de services, ressources et outils précieux. Mais vos utilisateurs ne connaissent que 20% de ce qui est disponible.
+          </div>
+        </div>
+        <div class="pain-point">
+          <div class="pain-point-title"><span class="emoji">❓</span> Ils ne savent pas quoi demander</div>
+          <div class="pain-point-desc">
+            Sans connaître l'inventaire complet, impossible de poser les bonnes questions. Ils passent à côté d'opportunités qui transformeraient leur activité.
+          </div>
+        </div>
+        <div class="pain-point">
+          <div class="pain-point-title"><span class="emoji">🔍</span> La recherche traditionnelle échoue</div>
+          <div class="pain-point-desc">
+            Les barres de recherche classiques exigent de savoir quoi chercher. Les chatbots génériques donnent des réponses vagues et déconnectées de votre catalogue réel.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Impact Chiffré -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="slide-title">L'Impact sur Votre Business</div>
+        <div class="slide-subtitle">Le coût caché de la non-découverte</div>
+      </div>
+      <div class="slide-content">
+        <div class="stat-grid">
+          <div class="stat-box">
+            <div class="stat-number">80%</div>
+            <div class="stat-label">De vos services restent invisibles</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">3x</div>
+            <div class="stat-label">Temps perdu en support client</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-number">60%</div>
+            <div class="stat-label">Abandonnent avant de trouver</div>
+          </div>
+        </div>
+        <div class="cta-box" style="margin-top: var(--space-6);">
+          <div class="cta-desc" style="font-size: 24px;">
+            Chaque utilisateur qui ne trouve pas ce qu'il cherche est une opportunité perdue — pour lui et pour vous.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: La Solution ShmilBlick -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="slide-title">La Solution ShmilBlick</div>
+        <div class="slide-subtitle">Découverte guidée par IA spécialisée</div>
+      </div>
+      <div class="slide-content">
+        <div class="comparison">
+          <div class="before">
+            <div class="comparison-title" style="color: hsl(0, 70%, 60%);">❌ Avant</div>
+            <ul style="gap: var(--space-3);">
+              <li style="font-size: 16px;">L'utilisateur cherche dans le vide</li>
+              <li style="font-size: 16px;">Réponses génériques déconnectées</li>
+              <li style="font-size: 16px;">Frustration et abandon</li>
+              <li style="font-size: 16px;">80% de votre valeur invisible</li>
+            </ul>
+          </div>
+          <div class="after">
+            <div class="comparison-title" style="color: var(--accent-cyan);">✓ Avec ShmilBlick</div>
+            <ul style="gap: var(--space-3);">
+              <li style="font-size: 16px;">Le système propose des angles ciblés</li>
+              <li style="font-size: 16px;">Navigation progressive et intelligente</li>
+              <li style="font-size: 16px;">Découverte de services inconnus</li>
+              <li style="font-size: 16px;">Connexion précise aux solutions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Comment Ça Marche -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="slide-title">Comment Ça Marche</div>
+        <div class="slide-subtitle">3 étapes pour révéler ce que l'utilisateur ne sait pas chercher</div>
+      </div>
+      <div class="slide-content">
+        <div class="three-columns">
+          <div class="feature-box">
+            <div class="feature-title"><span class="emoji">💭</span> 1. Question Simple</div>
+            <div class="feature-desc">
+              L'utilisateur décrit sa situation en quelques mots. Pas besoin de connaître votre vocabulaire.
+            </div>
+          </div>
+          <div class="feature-box">
+            <div class="feature-title"><span class="emoji">🎯</span> 2. Angles Proposés</div>
+            <div class="feature-desc">
+              L'IA génère des facettes spécifiques à votre domaine : secteur, taille, objectifs, contraintes...
+            </div>
+          </div>
+          <div class="feature-box">
+            <div class="feature-title"><span class="emoji">✨</span> 3. Guidage Précis</div>
+            <div class="feature-desc">
+              Connexion directe aux services pertinents qu'ils n'auraient jamais découverts seuls.
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: var(--space-6); padding: var(--space-5); background: var(--surface-glass-hover); border-radius: var(--radius-lg); border: 1px solid var(--border);">
+          <div style="font-size: 20px; color: var(--text); text-align: center; line-height: 1.8;">
+            <span class="gradient-text" style="font-weight: 700; font-size: 24px;">RAG spécialisé</span> sur votre catalogue + 
+            <span class="gradient-text" style="font-weight: 700; font-size: 24px;">Découverte par facettes</span> = 
+            Navigation sans expertise préalable
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Bénéfices Mesurables -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="slide-title">Bénéfices Mesurables</div>
+        <div class="slide-subtitle">Impact immédiat sur vos KPIs</div>
+      </div>
+      <div class="slide-content">
+        <div class="two-columns">
+          <div class="value-prop">
+            <div class="value-title"><span class="emoji">📈</span> Adoption des Services</div>
+            <div class="value-desc">
+              Vos utilisateurs découvrent et utilisent <span class="highlight">3x plus de services</span> qu'avec une recherche classique.
+            </div>
+          </div>
+          <div class="value-prop">
+            <div class="value-title"><span class="emoji">⚡</span> Réduction du Support</div>
+            <div class="value-desc">
+              <span class="highlight">-60% de tickets</span> "Où puis-je trouver..." grâce à la guidance automatisée.
+            </div>
+          </div>
+          <div class="value-prop">
+            <div class="value-title"><span class="emoji">🎯</span> Satisfaction Client</div>
+            <div class="value-desc">
+              Les utilisateurs trouvent ce dont ils ont besoin <span class="highlight">sans frustration</span>. NPS en hausse.
+            </div>
+          </div>
+          <div class="value-prop">
+            <div class="value-title"><span class="emoji">💎</span> Valeur Perçue</div>
+            <div class="value-desc">
+              Votre plateforme devient <span class="highlight">indispensable</span> : elle révèle ce qui était caché.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Différenciation -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="slide-title">Pourquoi ShmilBlick Est Unique</div>
+        <div class="slide-subtitle">Ce que les autres ne font pas</div>
+      </div>
+      <div class="slide-content">
+        <ul>
+          <li>
+            <strong>Facettes dynamiques générées par LLM</strong> — Pas de filtres statiques, adaptation contextuelle à chaque requête
+          </li>
+          <li>
+            <strong>Découverte progressive en plusieurs rounds</strong> — Navigation intelligente qui affine au fur et à mesure
+          </li>
+          <li>
+            <strong>Spécialisation par domaine (packs)</strong> — Votre vocabulaire métier, vos services, votre logique
+          </li>
+          <li>
+            <strong>Traçabilité complète</strong> — Chaque recommandation est explicable et auditée
+          </li>
+          <li>
+            <strong>Résolution du "cold start problem"</strong> — L'utilisateur n'a pas besoin de savoir pour commencer
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Slide 8: Call to Action -->
+    <div class="slide" id="slide-8">
+      <div class="slide-content" style="justify-content: center;">
+        <div class="cta-box" style="padding: var(--space-10);">
+          <div class="cta-title" style="font-size: 48px; margin-bottom: var(--space-5);">
+            Transformez Votre Plateforme
+          </div>
+          <div class="cta-desc" style="font-size: 24px; margin-bottom: var(--space-6); line-height: 1.8;">
+            Ne laissez plus vos utilisateurs chercher dans le noir.<br/>
+            Guidez-les vers exactement ce dont ils ont besoin.
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: var(--space-8);">
+          <div style="font-size: 32px; font-weight: 700; background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-pink) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            ShmilBlick
+          </div>
+          <div style="font-size: 20px; color: var(--text-muted); margin-top: var(--space-2);">
+            L'IA qui sait exactement ce que vous cherchez
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="navigation">
+    <button class="nav-btn" onclick="previousSlide()">← Précédent</button>
+    <div class="slide-counter">
+      <span id="current-slide">1</span> / <span id="total-slides">8</span>
+    </div>
+    <button class="nav-btn" onclick="nextSlide()">Suivant →</button>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      if (n > totalSlides) currentSlide = totalSlides;
+      if (n < 1) currentSlide = 1;
+      
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[currentSlide - 1].classList.add('active');
+      
+      document.getElementById('current-slide').textContent = currentSlide;
+    }
+
+    function nextSlide() {
+      currentSlide++;
+      if (currentSlide > totalSlides) currentSlide = totalSlides;
+      showSlide(currentSlide);
+    }
+
+    function previousSlide() {
+      currentSlide--;
+      if (currentSlide < 1) currentSlide = 1;
+      showSlide(currentSlide);
+    }
+
+    function resetPresentation() {
+      currentSlide = 1;
+      showSlide(currentSlide);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        previousSlide();
+      }
+    });
+
+    // Initialize
+    document.getElementById('total-slides').textContent = totalSlides;
+  </script>
+</body>
+</html>

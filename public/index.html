@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet"/>
-    <title>ShmilBlick</title>
+    <title>Quartiers d'Affaires - Trouvez vos aides et prestataires</title>
     <style>
       :root {
         /* Enhanced color palette */
@@ -1214,194 +1214,80 @@
         );
       }
 
-      function AnswerMessage({ answer, onDigDeeper, onViewPrompt, onViewTrace, onRefineAngles, onNewQuery, hasReasoning, onViewReasoning, onPrint }) {
-        function escapeHtml(value) {
-          return String(value)
+      // Simple markdown renderer
+      function renderMarkdown(value) {
+        function escapeHtml(text) {
+          return String(text)
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;");
         }
+        
+        const rawLines = String(value || "").split(/\n/);
+        const htmlLines = [];
+        let inList = false;
+        let listType = "ul";
 
-        function renderMarkdown(value) {
-          const rawLines = String(value || "").split(/\n/);
-          const htmlLines = [];
-          let inList = false;
-          let listType = "ul";
-          let inCodeBlock = false;
-          let codeBlockLines = [];
+        const flushList = () => {
+          if (inList) {
+            htmlLines.push(listType === "ol" ? "</ol>" : "</ul>");
+            inList = false;
+          }
+        };
 
-          const flushList = () => {
-            if (inList) {
-              htmlLines.push(listType === "ol" ? "</ol>" : "</ul>");
-              inList = false;
-            }
-          };
+        const processInlineMarkdown = (text) => {
+          let result = escapeHtml(text);
+          result = result.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+          result = result.replace(/\*(.+?)\*/g, "<em>$1</em>");
+          result = result.replace(/`([^`]+)`/g, "<code>$1</code>");
+          result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+          return result;
+        };
 
-          const flushCodeBlock = () => {
-            if (inCodeBlock && codeBlockLines.length > 0) {
-              htmlLines.push(`<pre><code>${escapeHtml(codeBlockLines.join('\n'))}</code></pre>`);
-              codeBlockLines = [];
-              inCodeBlock = false;
-            }
-          };
-
-          const processInlineMarkdown = (text) => {
-            let result = escapeHtml(text);
-            // Bold
-            result = result.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
-            // Italic
-            result = result.replace(/\*(.+?)\*/g, "<em>$1</em>");
-            // Inline code
-            result = result.replace(/`([^`]+)`/g, "<code>$1</code>");
-            // Links [text](url)
-            result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-            return result;
-          };
-
-          rawLines.forEach((raw) => {
-            const line = raw.trim();
-            
-            // Code blocks
-            if (line.startsWith('```')) {
-              if (inCodeBlock) {
-                flushCodeBlock();
-              } else {
-                flushList();
-                inCodeBlock = true;
-              }
-              return;
-            }
-
-            if (inCodeBlock) {
-              codeBlockLines.push(raw);
-              return;
-            }
-
-            if (!line) {
-              flushList();
-              return;
-            }
-
-            // Horizontal rule
-            if (/^[-*_]{3,}$/.test(line)) {
-              flushList();
-              htmlLines.push('<hr>');
-              return;
-            }
-
-            // Headings
-            if (/^###\s+/.test(line)) {
-              flushList();
-              htmlLines.push(`<h3>${processInlineMarkdown(line.replace(/^###\s+/, ""))}</h3>`);
-              return;
-            }
-            if (/^##\s+/.test(line)) {
-              flushList();
-              htmlLines.push(`<h2>${processInlineMarkdown(line.replace(/^##\s+/, ""))}</h2>`);
-              return;
-            }
-            if (/^#\s+/.test(line)) {
-              flushList();
-              htmlLines.push(`<h1>${processInlineMarkdown(line.replace(/^#\s+/, ""))}</h1>`);
-              return;
-            }
-
-            // Blockquotes
-            if (/^>\s+/.test(line)) {
-              flushList();
-              htmlLines.push(`<blockquote>${processInlineMarkdown(line.replace(/^>\s+/, ""))}</blockquote>`);
-              return;
-            }
-
-            // Ordered lists
-            if (/^\d+\.\s+/.test(line)) {
-              if (!inList || listType !== "ol") {
-                flushList();
-                inList = true;
-                listType = "ol";
-                htmlLines.push("<ol>");
-              }
-              htmlLines.push(`<li>${processInlineMarkdown(line.replace(/^\d+\.\s+/, ""))}</li>`);
-              return;
-            }
-
-            // Unordered lists
-            if (/^[-*•]\s+/.test(line)) {
-              if (!inList || listType !== "ul") {
-                flushList();
-                inList = true;
-                listType = "ul";
-                htmlLines.push("<ul>");
-              }
-              htmlLines.push(`<li>${processInlineMarkdown(line.replace(/^[-*•]\s+/, ""))}</li>`);
-              return;
-            }
-
-            // Paragraphs
-            flushList();
-            htmlLines.push(`<p>${processInlineMarkdown(line)}</p>`);
-          });
-
+        rawLines.forEach((raw) => {
+          const line = raw.trim();
+          
+          if (!line) { flushList(); return; }
+          if (/^[-*_]{3,}$/.test(line)) { flushList(); htmlLines.push('<hr>'); return; }
+          if (/^###\s+/.test(line)) { flushList(); htmlLines.push(`<h3>${processInlineMarkdown(line.replace(/^###\s+/, ""))}</h3>`); return; }
+          if (/^##\s+/.test(line)) { flushList(); htmlLines.push(`<h2>${processInlineMarkdown(line.replace(/^##\s+/, ""))}</h2>`); return; }
+          if (/^#\s+/.test(line)) { flushList(); htmlLines.push(`<h1>${processInlineMarkdown(line.replace(/^#\s+/, ""))}</h1>`); return; }
+          if (/^>\s+/.test(line)) { flushList(); htmlLines.push(`<blockquote>${processInlineMarkdown(line.replace(/^>\s+/, ""))}</blockquote>`); return; }
+          
+          if (/^\d+\.\s+/.test(line)) {
+            if (!inList || listType !== "ol") { flushList(); inList = true; listType = "ol"; htmlLines.push("<ol>"); }
+            htmlLines.push(`<li>${processInlineMarkdown(line.replace(/^\d+\.\s+/, ""))}</li>`);
+            return;
+          }
+          
+          if (/^[-*•]\s+/.test(line)) {
+            if (!inList || listType !== "ul") { flushList(); inList = true; listType = "ul"; htmlLines.push("<ul>"); }
+            htmlLines.push(`<li>${processInlineMarkdown(line.replace(/^[-*•]\s+/, ""))}</li>`);
+            return;
+          }
+          
           flushList();
-          flushCodeBlock();
-          return htmlLines.join("");
-        }
+          htmlLines.push(`<p>${processInlineMarkdown(line)}</p>`);
+        });
 
+        flushList();
+        return htmlLines.join("");
+      }
+
+      // QDA-specific Answer Display (simplified, no dig deeper/angles)
+      function QDAAnswerMessage({ answer, onNewSearch, onModifySearch }) {
         return (
           <div className="answer-content">
-            <button className="dig-deeper-btn" onClick={onDigDeeper}>
-              <span className="dig-deeper-icon">🔍</span>
-              <span>Dig Deeper</span>
-              <span className="dig-deeper-subtitle">(Use answer to apply NEW relevant angles)</span>
-            </button>
-
-            <div className="answer-actions">
-              {hasReasoning && (
-                <button className="secondary" onClick={onViewReasoning}>
-                  View Reasoning 🧠
-                </button>
-              )}
-              <button className="secondary" onClick={onViewPrompt}>
-                View Prompt 📝
-              </button>
-              <button className="secondary" onClick={onViewTrace}>
-                View Trace 🔵
-              </button>
-              <button className="orange" onClick={onRefineAngles}>
-                Refine Angles
-              </button>
-              <button className="primary" onClick={onPrint}>
-                Print 🖨️
-              </button>
-            </div>
-
             <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
-
-            <div className="answer-actions">
-              {hasReasoning && (
-                <button className="secondary" onClick={onViewReasoning}>
-                  View Reasoning 🧠
-                </button>
-              )}
-              <button className="secondary" onClick={onViewPrompt}>
-                View Prompt 📝
+            
+            <div className="answer-actions" style={{marginTop: 'var(--space-5)'}}>
+              <button className="secondary" onClick={onModifySearch}>
+                ← Modifier ma recherche
               </button>
-              <button className="secondary" onClick={onViewTrace}>
-                View Trace 🔵
-              </button>
-              <button className="orange" onClick={onRefineAngles}>
-                Refine Angles
-              </button>
-              <button className="primary" onClick={onPrint}>
-                Print 🖨️
+              <button className="primary" onClick={onNewSearch}>
+                + Nouvelle recherche
               </button>
             </div>
-
-            <button className="dig-deeper-btn" onClick={onDigDeeper}>
-              <span className="dig-deeper-icon">🔍</span>
-              <span>Dig Deeper</span>
-              <span className="dig-deeper-subtitle">(Use answer to apply NEW relevant angles)</span>
-            </button>
           </div>
         );
       }
@@ -1620,7 +1506,7 @@
         React.useEffect(() => {
           // Welcome message - will be customized when domain is detected
           setMessages([
-            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
+            { type: "bot", content: "Bienvenue sur Quartiers d'Affaires ! 🏢 Je vous aide à trouver les aides, financements et prestataires adaptés à votre entreprise." },
             { type: "bot", content: { type: "instructions" } }
           ]);
         }, []);
@@ -1671,20 +1557,10 @@
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            // Check if QDA domain
-            if (data.active_domain_pack === "qda_griffons") {
-              addMessage("bot", "🏢 Quartiers d'Affaires - Je vais vous aider à trouver les ressources adaptées à votre situation.");
-              addMessage("bot", `J'ai identifié ${data.facet_candidates.length} critères pour affiner votre recherche.`);
-              addMessage("bot", { type: "qda_search_type" });
-              setConversationState("qda_search_type_selection");
-            } else {
-              addMessage("bot", `Great question! I found ${data.facet_candidates.length} angles to explore. Let's go through them! 🎯`);
-              
-              // Add base selections message
-              addMessage("bot", "First, let me know your preferences:");
-              addMessage("bot", { type: "base_selections" });
-              setConversationState("gathering_base_selections");
-            }
+            // QDA-specific flow - no depth/format/length, direct to search type
+            addMessage("bot", "🏢 Parfait ! Je vais vous aider à trouver les ressources adaptées à votre situation.");
+            addMessage("bot", { type: "qda_search_type" });
+            setConversationState("qda_search_type_selection");
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
             addMessage("bot", "Sorry, I encountered an error. Please try again.");
@@ -1859,7 +1735,7 @@
 
         const handleNewQuery = () => {
           setMessages([
-            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
+            { type: "bot", content: "Bienvenue sur Quartiers d'Affaires ! 🏢 Je vous aide à trouver les aides, financements et prestataires adaptés à votre entreprise." },
             { type: "bot", content: { type: "instructions" } }
           ]);
           setConversationState("initial");
@@ -2013,6 +1889,63 @@
         };
 
         const [lastQuery, setLastQuery] = React.useState("");
+
+        // QDA Program/Funding Search Handler - uses answer API
+        const handleQDAProgramSearch = async () => {
+          if (!requestId) return;
+          
+          addMessage("user", "Recherche de programmes et aides...");
+          addMessage("bot", "Analyse de votre profil en cours...");
+          setLoading(true);
+          addMessage("bot", <TypingIndicator />);
+
+          try {
+            // Build selections for API
+            const apiSelections = [
+              { id: "search_type", value: "Programs & Funding" }
+            ];
+            
+            // Add all QDA facet selections
+            const facetKeys = ["business_stage", "revenue_range", "employees", "main_need", "profile", "location"];
+            facetKeys.forEach(key => {
+              if (selections[key]?.length) {
+                apiSelections.push({ id: key, value: selections[key].join(", ") });
+              }
+            });
+
+            const res = await fetch(`${API_BASE}/api/answer`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                request_id: requestId,
+                facet_selections: apiSelections,
+                user_overrides: null,
+              }),
+            });
+
+            if (!res.ok) {
+              throw new Error("Failed to get recommendations");
+            }
+
+            const data = await res.json();
+
+            // Remove typing indicator
+            setMessages(prev => prev.slice(0, -1));
+
+            addMessage("bot", "Voici les programmes et aides qui correspondent à votre profil :");
+            addMessage("bot", { type: "answer", answer: data.answer });
+            setTrace(data.trace || []);
+            setCompiledPrompt(data.compiled_prompt || null);
+            
+            setConversationState("qda_results_shown");
+          } catch (err) {
+            console.error("Program search error:", err);
+            setMessages(prev => prev.slice(0, -1));
+            addMessage("bot", "Désolé, une erreur s'est produite. Veuillez réessayer.");
+          } finally {
+            setLoading(false);
+          }
+        };
 
         // QDA Member Search Handler - uses dedicated member search API
         const handleQDAMemberSearch = async () => {
@@ -2364,41 +2297,14 @@
             } else if (msg.content?.type === "answer") {
               return (
                 <div key={index} ref={answerRef}>
-                  <AnswerMessage 
-                    answer={msg.content.answer} 
-                    onDigDeeper={() => handleDigDeeper(msg.content.answer)}
-                    hasReasoning={modelReasoning !== null}
-                    onViewReasoning={() => {
-                      const hasReasoningMsg = messages.some(m => m.content?.type === "model_reasoning");
-                      if (!hasReasoningMsg && modelReasoning) {
-                        addMessage("bot", "Here's the model's internal reasoning process:");
-                        addMessage("bot", { type: "model_reasoning", reasoningData: modelReasoning });
-                        setTimeout(() => scrollToLastMessage(), 200);
-                      }
+                  <QDAAnswerMessage 
+                    answer={msg.content.answer}
+                    onNewSearch={handleNewQuery}
+                    onModifySearch={() => {
+                      // Go back to search type selection
+                      addMessage("bot", { type: "qda_search_type" });
+                      setConversationState("qda_search_type_selection");
                     }}
-                    onViewPrompt={() => {
-                      const hasPrompt = messages.some(m => m.content?.type === "compiled_prompt");
-                      if (!hasPrompt && compiledPrompt) {
-                        addMessage("bot", "Here's the exact prompt sent to the AI:");
-                        addMessage("bot", { type: "compiled_prompt", promptData: compiledPrompt });
-                        setTimeout(() => scrollToLastMessage(), 200);
-                      }
-                    }}
-                    onViewTrace={() => {
-                      const hasTrace = messages.some(m => m.content?.type === "trace");
-                      if (!hasTrace && trace) {
-                        addMessage("bot", "Here's the complete trace of how I processed your query:");
-                        addMessage("bot", { type: "trace", traceData: trace });
-                        setTimeout(() => scrollToLastMessage(), 200);
-                      }
-                    }}
-                    onRefineAngles={() => {
-                      addMessage("bot", "Here are your current selections. Click any angle to modify it:");
-                      addMessage("bot", { type: "editable_summary" });
-                      setConversationState("editing_angles");
-                    }}
-                    onNewQuery={handleNewQuery}
-                    onPrint={() => handlePrintAnswer(msg.content.answer, lastQuery, selections, baseSelections)}
                   />
                 </div>
               );
@@ -2495,23 +2401,27 @@
               );
             } else if (msg.content?.type === "instructions") {
               return (
-                <div key={index} className="selection-message" style={{background: 'var(--bot-bg)', border: '1px solid var(--border)'}}>
-                  <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'center'}}>
-                    <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>💭</span>
-                      <div style={{fontWeight: 600, fontSize: '15px'}}>Ask anything</div>
+                <div key={index} className="selection-message" style={{background: 'linear-gradient(135deg, hsla(270, 50%, 20%, 0.3) 0%, hsla(200, 50%, 20%, 0.3) 100%)', border: '2px solid var(--primary-500)'}}>
+                  <div style={{textAlign: 'center', marginBottom: 'var(--space-4)'}}>
+                    <div style={{fontSize: '28px', marginBottom: 'var(--space-2)'}}>🏢</div>
+                    <div style={{fontWeight: 700, fontSize: '18px', color: 'var(--primary-50)'}}>Comment puis-je vous aider ?</div>
+                  </div>
+                  <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)'}}>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>💰</span>
+                      <div style={{fontWeight: 600, fontSize: '14px'}}>Financements & Aides (BPI, subventions, prêts...)</div>
                     </div>
-                    <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>✨</span>
-                      <div style={{fontWeight: 600, fontSize: '15px'}}>Pick what matters</div>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>🎓</span>
+                      <div style={{fontWeight: 600, fontSize: '14px'}}>Programmes QDA (GRANDIR, ACCÉLÉRER, DÉCOLLER...)</div>
                     </div>
-                    <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>🎨</span>
-                      <div style={{fontWeight: 600, fontSize: '15px'}}>Get your perfect answer</div>
+                    <div style={{display: 'flex', gap: 'var(--space-3)', alignItems: 'center'}}>
+                      <span style={{fontSize: '20px'}}>🤝</span>
+                      <div style={{fontWeight: 600, fontSize: '14px'}}>Prestataires membres (comptable, garage, avocat...)</div>
                     </div>
                   </div>
-                  <div style={{marginTop: 'var(--space-4)', fontSize: '16px', fontWeight: 600, color: 'var(--text)', textAlign: 'center'}}>
-                    Exactly What You Want to Know!
+                  <div style={{marginTop: 'var(--space-4)', fontSize: '14px', color: 'var(--accent-cyan)', textAlign: 'center', fontWeight: 600}}>
+                    Décrivez votre besoin ci-dessous →
                   </div>
                 </div>
               );
@@ -2556,9 +2466,8 @@
                         setMessages(prev => prev.slice(0, -1));
                         addMessage("user", "Je cherche des aides et financements");
                         addMessage("bot", "Parfait ! Répondez à quelques questions pour trouver les programmes adaptés à votre profil.");
-                        addMessage("bot", "D'abord, vos préférences de réponse :");
-                        addMessage("bot", { type: "base_selections" });
-                        setConversationState("gathering_base_selections");
+                        addMessage("bot", { type: "qda_program_facets" });
+                        setConversationState("qda_program_selection");
                       }}
                       style={{
                         padding: 'var(--space-4)',
@@ -2601,6 +2510,59 @@
                   </div>
                 </div>
               );
+            } else if (msg.content?.type === "qda_program_facets") {
+              // QDA Program/Funding search - show relevant facets
+              const stageFacet = facets.find(f => f.id === "business_stage");
+              const revenueFacet = facets.find(f => f.id === "revenue_range");
+              const employeesFacet = facets.find(f => f.id === "employees");
+              const needFacet = facets.find(f => f.id === "main_need");
+              const profileFacet = facets.find(f => f.id === "profile");
+              const locationFacet = facets.find(f => f.id === "location");
+              
+              const renderFacetSection = (facet, selectionKey, title) => {
+                if (!facet) return null;
+                return (
+                  <div style={{marginBottom: 'var(--space-4)'}}>
+                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)', color: 'var(--text)', fontSize: '14px'}}>{title}</div>
+                    <div className="choice-chips">
+                      {(facet.choices || []).map((choice) => (
+                        <span
+                          key={choice.value}
+                          className={`chip ${(selections[selectionKey] || []).includes(choice.value) ? "active" : ""}`}
+                          onClick={() => handleSelection(selectionKey, [choice.value])}
+                        >
+                          {choice.value}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                );
+              };
+              
+              return (
+                <div key={index} className="selection-message">
+                  <div style={{fontWeight: 700, fontSize: '16px', color: 'var(--primary-50)', marginBottom: 'var(--space-4)'}}>
+                    📋 Parlez-nous de votre entreprise
+                  </div>
+                  
+                  {renderFacetSection(stageFacet, "business_stage", "Stade de votre entreprise")}
+                  {renderFacetSection(revenueFacet, "revenue_range", "Chiffre d'affaires annuel")}
+                  {renderFacetSection(employeesFacet, "employees", "Nombre de salariés")}
+                  {renderFacetSection(needFacet, "main_need", "Votre besoin principal")}
+                  {renderFacetSection(profileFacet, "profile", "Votre profil (optionnel)")}
+                  {renderFacetSection(locationFacet, "location", "Localisation")}
+                  
+                  <div className="selection-actions" style={{marginTop: 'var(--space-4)'}}>
+                    <button 
+                      className="primary" 
+                      onClick={handleQDAProgramSearch}
+                      disabled={loading}
+                    >
+                      🔍 Trouver mes aides et programmes
+                    </button>
+                  </div>
+                </div>
+              );
             } else if (msg.content?.type === "qda_member_search_facets") {
               // Find sector and location facets
               const sectorFacet = facets.find(f => f.id === "service_sector");
@@ -2609,7 +2571,7 @@
               return (
                 <div key={index} className="selection-message">
                   <div style={{fontWeight: 700, fontSize: '16px', color: 'var(--primary-50)', marginBottom: 'var(--space-4)'}}>
-                    Quel type de prestataire recherchez-vous ?
+                    🤝 Quel type de prestataire recherchez-vous ?
                   </div>
                   
                   {sectorFacet && (
@@ -2768,11 +2730,11 @@
           <div className="chat-container">
             <div className="chat-header">
               <div className="header-content">
-                <h1 onClick={handleNewQuery} title="Go to landing page">ShmilBlick</h1>
-                <div className="tagline">Ask once, get exactly what you need. AI with a laser focus.</div>
+                <h1 onClick={handleNewQuery} title="Accueil">Quartiers d'Affaires</h1>
+                <div className="tagline">Trouvez les aides, financements et prestataires pour votre entreprise</div>
               </div>
               <button className="header-new-query-btn" onClick={handleNewQuery}>
-                + New Query
+                + Nouvelle recherche
               </button>
             </div>
 
@@ -2787,7 +2749,7 @@
                   <textarea
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Ask anything..."
+                    placeholder="Ex: Je cherche un financement pour mon entreprise de 2 ans..."
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
@@ -2797,7 +2759,7 @@
                     style={{flex: 1, minHeight: '72px', maxHeight: '120px'}}
                   />
                   <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()} style={{padding: 'var(--space-4) var(--space-6)', alignSelf: 'stretch', minHeight: '72px'}}>
-                    ASK
+                    RECHERCHER
                   </button>
                 </div>
               </div>
