@@ -134,10 +134,7 @@ class MemberSearch:
             member_region = member["location"]["region"].lower()
             region_lower = region.lower()
             
-            # Handle PACA alias
-            if region_lower == "paca":
-                region_lower = "provence-alpes-côte d'azur"
-            
+            # Direct match or partial match (e.g., "Île-de-France" in "Île-de-France - Paris")
             if member_region == region_lower or region_lower in member_region or member_region in region_lower:
                 score += 0.3
             else:

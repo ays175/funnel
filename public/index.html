@@ -2069,7 +2069,12 @@
             // Extract region from location
             const extractRegion = (loc) => {
               if (!loc) return null;
-              const regions = ["Île-de-France", "Auvergne-Rhône-Alpes", "PACA", "Hauts-de-France", "Occitanie", "Grand Est", "Nouvelle-Aquitaine"];
+              const regions = [
+                "Île-de-France", "Auvergne-Rhône-Alpes", "Bourgogne-Franche-Comté",
+                "Bretagne", "Centre-Val de Loire", "Corse", "Grand Est",
+                "Hauts-de-France", "Normandie", "Nouvelle-Aquitaine",
+                "Occitanie", "PACA", "Pays de la Loire"
+              ];
               for (const region of regions) {
                 if (loc.includes(region)) return region;
               }
@@ -2543,17 +2548,19 @@
                 {
                   id: "location",
                   choices: [
-                    { value: "Île-de-France - Paris (75)" },
-                    { value: "Île-de-France - Seine-Saint-Denis (93)" },
-                    { value: "Île-de-France - Val-d'Oise (95)" },
-                    { value: "Île-de-France - Hauts-de-Seine (92)" },
+                    { value: "Île-de-France" },
                     { value: "Auvergne-Rhône-Alpes" },
-                    { value: "PACA" },
-                    { value: "Hauts-de-France" },
-                    { value: "Occitanie" },
+                    { value: "Bourgogne-Franche-Comté" },
+                    { value: "Bretagne" },
+                    { value: "Centre-Val de Loire" },
+                    { value: "Corse" },
                     { value: "Grand Est" },
+                    { value: "Hauts-de-France" },
+                    { value: "Normandie" },
                     { value: "Nouvelle-Aquitaine" },
-                    { value: "Autre région" }
+                    { value: "Occitanie" },
+                    { value: "PACA" },
+                    { value: "Pays de la Loire" }
                   ]
                 }
               ];
