@@ -1917,14 +1917,44 @@
 
         // QDA Program/Funding Search Handler - uses answer API
         const handleQDAProgramSearch = async () => {
-          if (!requestId) return;
-          
           addMessage("user", "Recherche de programmes et aides...");
           addMessage("bot", "Analyse de votre profil en cours...");
           setLoading(true);
           addMessage("bot", <TypingIndicator />);
 
           try {
+            // If no requestId, first call discover to get one
+            let currentRequestId = requestId;
+            
+            if (!currentRequestId) {
+              // Build a query from selections
+              const queryParts = [];
+              if (selections.main_need?.length) queryParts.push(selections.main_need[0]);
+              if (selections.business_stage?.length) queryParts.push(selections.business_stage[0]);
+              if (selections.location?.length) queryParts.push(selections.location[0]);
+              
+              const queryText = queryParts.length > 0 
+                ? `Je cherche ${queryParts.join(", ")}` 
+                : "Je cherche des aides et financements pour mon entreprise";
+              
+              const discoverRes = await fetch(`${API_BASE}/api/discover`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  raw_query: queryText,
+                  domain_hint: "qda_griffons",
+                }),
+              });
+              
+              if (!discoverRes.ok) {
+                throw new Error("Failed to initialize search");
+              }
+              
+              const discoverData = await discoverRes.json();
+              currentRequestId = discoverData.request_id;
+              setRequestId(currentRequestId);
+            }
+            
             // Build selections for API
             const apiSelections = [
               { id: "search_type", value: "Programs & Funding" }
@@ -1942,7 +1972,7 @@
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
-                request_id: requestId,
+                request_id: currentRequestId,
                 facet_selections: apiSelections,
                 user_overrides: null,
               }),
