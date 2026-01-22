@@ -12,7 +12,15 @@
     "licence", "license", "cession", "assignment", "transfert",
     "surveillance", "watching", "veille", "coexistence",
     "notoriété", "well-known mark", "marque notoire",
-    "usage sérieux", "genuine use", "preuve d'usage"
+    "usage sérieux", "genuine use", "preuve d'usage",
+    "déposé", "déposer", "enregistrer", "protéger", "protection",
+    "logiciel", "software", "application", "app", "SaaS",
+    "brevet", "patent", "breveter", "invention",
+    "droit d'auteur", "copyright", "droits d'auteur",
+    "dessins et modèles", "design", "modèle déposé",
+    "copier", "copié", "imiter", "imité", "plagiat",
+    "vendre", "commercialiser", "lancer", "exploitation",
+    "États-Unis", "US", "USA", "international", "étranger", "export"
   ],
   "facets": [
     {
