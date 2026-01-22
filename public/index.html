@@ -1590,6 +1590,7 @@
                 request_id: requestId,
                 facet_selections: apiSelections,
                 refine_round: 2,
+                exclude_facet_ids: facets.map(f => f.id),  // Don't suggest already-shown facets
               }),
             });
 

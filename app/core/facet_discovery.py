@@ -139,6 +139,7 @@ class FacetDiscoveryEngine:
         selections: dict[str, str | None],
         max_facets: int,
         llm_client: "LLMClient",
+        exclude_ids: set[str] | None = None,
     ) -> list[FacetCandidate]:
         domain_name = pack.get("domain", "universal")
         domain_instruction = ""
@@ -146,6 +147,13 @@ class FacetDiscoveryEngine:
             domain_instruction = (
                 f"You are a {domain_name} domain expert. "
                 "ALL follow-up facets MUST be strictly relevant to this domain. "
+            )
+        
+        exclude_instruction = ""
+        if exclude_ids:
+            exclude_instruction = (
+                f"- IMPORTANT: Do NOT suggest facets with these IDs (already shown): {', '.join(exclude_ids)}\n"
+                "- Create NEW, DIFFERENT facets that explore other angles.\n"
             )
         
         prompt_sections = [
@@ -191,6 +199,7 @@ class FacetDiscoveryEngine:
                     "- Must reflect the user's selections.\n"
                     "- Choices must be concrete and can include subchoices (up to 10).\n"
                     "- Keep ids short and snake_case.\n"
+                    + exclude_instruction
                     + (
                         f"- CRITICAL: Stay within the '{domain_name}' domain. No general business or marketing facets.\n"
                         if domain_name != "universal"
