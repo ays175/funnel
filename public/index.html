@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ec4899;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grad)' rx='15'/%3E%3Ctext x='50' y='72' font-family='Arial,sans-serif' font-size='60' font-weight='700' fill='white' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" type="image/svg+xml"/>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238b5cf6;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ec4899;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' fill='url(%23grad)' rx='15'/%3E%3Ctext x='50' y='72' font-family='Arial,sans-serif' font-size='60' font-weight='700' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E" type="image/svg+xml"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet"/>
-    <title>ShmilBlick</title>
+    <title>Alex</title>
     <style>
       :root {
         /* Enhanced color palette */
@@ -1154,7 +1154,7 @@
               <input
                 type="text"
                 className="custom-choice-input"
-                placeholder="Type your own choice..."
+                placeholder="Saisissez votre propre choix..."
                 value={customInput}
                 onChange={(e) => setCustomInput(e.target.value)}
                 onKeyPress={handleKeyPress}
@@ -1164,14 +1164,14 @@
                 onClick={addCustomChoice}
                 disabled={!customInput.trim()}
               >
-                Add
+                Ajouter
               </button>
             </div>
 
             <div className="selection-actions">
-              <button onClick={onSkip}>Skip</button>
+              <button onClick={onSkip}>Passer</button>
               <button className="primary" onClick={onNext}>
-                {isLastAngle ? "Continue →" : "Next →"}
+                {isLastAngle ? "Continuer →" : "Suivant →"}
               </button>
             </div>
           </div>
@@ -1182,13 +1182,13 @@
         const allSelections = [];
         
         if (baseSelections.depth) {
-          allSelections.push({ label: "Depth", value: baseSelections.depth });
+          allSelections.push({ label: "Niveau", value: baseSelections.depth });
         }
         if (baseSelections.format) {
           allSelections.push({ label: "Format", value: baseSelections.format });
         }
         if (baseSelections.length) {
-          allSelections.push({ label: "Length", value: baseSelections.length });
+          allSelections.push({ label: "Longueur", value: baseSelections.length });
         }
 
         Object.entries(selections).forEach(([id, values]) => {
@@ -1203,7 +1203,7 @@
 
         return (
           <div className="summary-card">
-            <div className="summary-title">Your Selections:</div>
+            <div className="summary-title">Vos sélections :</div>
             {allSelections.map((item, i) => (
               <div key={i} className="summary-item">
                 <div className="summary-label">{item.label}:</div>
@@ -1351,27 +1351,27 @@
           <div className="answer-content">
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
               <span className="dig-deeper-icon">🔍</span>
-              <span>Dig Deeper</span>
-              <span className="dig-deeper-subtitle">(Use answer to apply NEW relevant angles)</span>
+              <span>Approfondir</span>
+              <span className="dig-deeper-subtitle">(Utiliser la réponse pour explorer de nouveaux angles)</span>
             </button>
 
             <div className="answer-actions">
               {hasReasoning && (
                 <button className="secondary" onClick={onViewReasoning}>
-                  View Reasoning 🧠
+                  Voir le raisonnement 🧠
                 </button>
               )}
               <button className="secondary" onClick={onViewPrompt}>
-                View Prompt 📝
+                Voir le prompt 📝
               </button>
               <button className="secondary" onClick={onViewTrace}>
-                View Trace 🔵
+                Voir la trace 🔵
               </button>
               <button className="orange" onClick={onRefineAngles}>
-                Refine Angles
+                Modifier les angles
               </button>
               <button className="primary" onClick={onPrint}>
-                Print 🖨️
+                Imprimer 🖨️
               </button>
             </div>
 
@@ -1380,27 +1380,27 @@
             <div className="answer-actions">
               {hasReasoning && (
                 <button className="secondary" onClick={onViewReasoning}>
-                  View Reasoning 🧠
+                  Voir le raisonnement 🧠
                 </button>
               )}
               <button className="secondary" onClick={onViewPrompt}>
-                View Prompt 📝
+                Voir le prompt 📝
               </button>
               <button className="secondary" onClick={onViewTrace}>
-                View Trace 🔵
+                Voir la trace 🔵
               </button>
               <button className="orange" onClick={onRefineAngles}>
-                Refine Angles
+                Modifier les angles
               </button>
               <button className="primary" onClick={onPrint}>
-                Print 🖨️
+                Imprimer 🖨️
               </button>
             </div>
 
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
               <span className="dig-deeper-icon">🔍</span>
-              <span>Dig Deeper</span>
-              <span className="dig-deeper-subtitle">(Use answer to apply NEW relevant angles)</span>
+              <span>Approfondir</span>
+              <span className="dig-deeper-subtitle">(Utiliser la réponse pour explorer de nouveaux angles)</span>
             </button>
           </div>
         );
@@ -1456,7 +1456,7 @@
         React.useEffect(() => {
           // Welcome message
           setMessages([
-            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
+            { type: "bot", content: "Bonjour ! Je suis Alex, votre assistant IA. 🎯" },
             { type: "bot", content: { type: "instructions" } }
           ]);
         }, []);
@@ -1497,16 +1497,16 @@
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            addMessage("bot", `Great question! I found ${data.facet_candidates.length} angles to explore. Let's go through them! 🎯`);
+            addMessage("bot", `Bonne question ! J'ai trouvé ${data.facet_candidates.length} angles à explorer. Allons-y ! 🎯`);
             
             // Add base selections message
-            addMessage("bot", "First, let me know your preferences:");
+            addMessage("bot", "D'abord, indiquez-moi vos préférences :");
             addMessage("bot", { type: "base_selections" });
 
             setConversationState("gathering_base_selections");
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
-            addMessage("bot", "Sorry, I encountered an error. Please try again.");
+            addMessage("bot", "Désolé, une erreur s'est produite. Veuillez réessayer.");
           } finally {
             setLoading(false);
             setQuery("");
@@ -1516,11 +1516,11 @@
 
         const handleBaseSelectionsConfirm = () => {
           if (!baseSelections.depth || !baseSelections.format || !baseSelections.length) {
-            addMessage("bot", "Please select Depth, Format, and Length before continuing.");
+            addMessage("bot", "Veuillez sélectionner le Niveau, le Format et la Longueur avant de continuer.");
             return;
           }
 
-          addMessage("bot", "Perfect! Now let's explore the angles:");
+          addMessage("bot", "Parfait ! Explorons maintenant les angles :");
           setConversationState("showing_angles");
           setCurrentAngleIndex(0);
 
@@ -1535,7 +1535,7 @@
         };
 
         const handleNextAngle = () => {
-          addMessage("bot", "Got it! ✓");
+          addMessage("bot", "Compris ! ✓");
           
           if (currentAngleIndex < facets.length - 1) {
             const nextIndex = currentAngleIndex + 1;
@@ -1547,7 +1547,7 @@
         };
 
         const handleSkipAngle = () => {
-          addMessage("bot", "Skipped. Moving on...");
+          addMessage("bot", "Passé. Continuons...");
           
           if (currentAngleIndex < facets.length - 1) {
             const nextIndex = currentAngleIndex + 1;
@@ -1560,7 +1560,7 @@
 
         const handleAllAnglesCompleted = () => {
           addMessage("bot", { type: "summary" });
-          addMessage("bot", "All angles covered! Ready to get your answer! 🎯");
+          addMessage("bot", "Tous les angles couverts ! Prêt à générer votre réponse ! 🎯");
           addMessage("bot", { type: "ready_to_answer_actions" });
           setConversationState("ready_to_answer");
         };
@@ -1568,7 +1568,7 @@
         const handlePickMoreAngles = async () => {
           if (!requestId) return;
 
-          addMessage("bot", "Looking for more angles...");
+          addMessage("bot", "Recherche d'angles supplémentaires...");
           setLoading(true);
           addMessage("bot", <TypingIndicator />);
 
@@ -1603,18 +1603,18 @@
             if (newFacets.length > 0) {
               const oldLength = facets.length;
               setFacets(prev => [...prev, ...newFacets]);
-              addMessage("bot", `Found ${newFacets.length} more angles! Let's explore them:`);
+              addMessage("bot", `${newFacets.length} angles supplémentaires trouvés ! Explorons-les :`);
               
               const nextIndex = oldLength;
               setCurrentAngleIndex(nextIndex);
               addMessage("bot", { type: "selection", facetIndex: nextIndex });
               setConversationState("showing_angles");
             } else {
-              addMessage("bot", "No additional angles found. Ready to get your answer!");
+              addMessage("bot", "Aucun angle supplémentaire trouvé. Prêt à générer votre réponse !");
             }
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
-            addMessage("bot", "Sorry, I couldn't find more angles. Please try again.");
+            addMessage("bot", "Désolé, je n'ai pas trouvé d'angles supplémentaires. Veuillez réessayer.");
           } finally {
             setLoading(false);
           }
@@ -1623,7 +1623,7 @@
         const handleGetAnswer = async () => {
           if (!requestId) return;
 
-          addMessage("bot", "Generating your answer...");
+          addMessage("bot", "Génération de votre réponse...");
           setLoading(true);
           addMessage("bot", <TypingIndicator />);
 
@@ -1655,10 +1655,10 @@
             setMessages(prev => prev.slice(0, -1));
             
             // Add explainer showing how selections shaped the answer
-            addMessage("bot", "✨ How your selections shaped this answer:");
+            addMessage("bot", "✨ Comment vos sélections ont façonné cette réponse :");
             addMessage("bot", { type: "selection_explainer" });
             
-            addMessage("bot", "Here's your answer:");
+            addMessage("bot", "Voici votre réponse :");
             addMessage("bot", { type: "answer", answer: data.answer });
             setTrace(data.trace || []);
             setCompiledPrompt(data.compiled_prompt || null);
@@ -1670,7 +1670,7 @@
             setTimeout(() => scrollToAnswer(), 200);
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
-            addMessage("bot", "Sorry, I couldn't generate an answer. Please try again.");
+            addMessage("bot", "Désolé, je n'ai pas pu générer de réponse. Veuillez réessayer.");
           } finally {
             setLoading(false);
           }
@@ -1678,7 +1678,7 @@
 
         const handleNewQuery = () => {
           setMessages([
-            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
+            { type: "bot", content: "Bonjour ! Je suis Alex, votre assistant IA. 🎯" },
             { type: "bot", content: { type: "instructions" } }
           ]);
           setConversationState("initial");
@@ -1696,10 +1696,10 @@
           let selectionsHtml = '';
           if (baseSelectionsData.depth || baseSelectionsData.format || baseSelectionsData.length) {
             selectionsHtml += '<div style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-left: 4px solid #8b5cf6;">';
-            selectionsHtml += '<h3 style="margin: 0 0 10px 0; color: #8b5cf6;">Your Preferences</h3>';
-            if (baseSelectionsData.depth) selectionsHtml += `<p style="margin: 5px 0;"><strong>Depth:</strong> ${baseSelectionsData.depth}</p>`;
-            if (baseSelectionsData.format) selectionsHtml += `<p style="margin: 5px 0;"><strong>Format:</strong> ${baseSelectionsData.format}</p>`;
-            if (baseSelectionsData.length) selectionsHtml += `<p style="margin: 5px 0;"><strong>Length:</strong> ${baseSelectionsData.length}</p>`;
+            selectionsHtml += '<h3 style="margin: 0 0 10px 0; color: #8b5cf6;">Vos préférences</h3>';
+            if (baseSelectionsData.depth) selectionsHtml += `<p style="margin: 5px 0;"><strong>Niveau :</strong> ${baseSelectionsData.depth}</p>`;
+            if (baseSelectionsData.format) selectionsHtml += `<p style="margin: 5px 0;"><strong>Format :</strong> ${baseSelectionsData.format}</p>`;
+            if (baseSelectionsData.length) selectionsHtml += `<p style="margin: 5px 0;"><strong>Longueur :</strong> ${baseSelectionsData.length}</p>`;
             selectionsHtml += '</div>';
           }
 
@@ -1708,7 +1708,7 @@
             <!DOCTYPE html>
             <html>
               <head>
-                <title>ShmilBlick Answer</title>
+                <title>Réponse Alex</title>
                 <style>
                   body { 
                     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -1749,7 +1749,7 @@
                 </style>
               </head>
               <body>
-                <h1>ShmilBlick</h1>
+                <h1>Alex</h1>
                 <p style="color: #666; font-style: italic;">AI with a laser focus</p>
                 <div class="query">
                   <strong>Query:</strong> ${queryText || 'N/A'}
@@ -1787,7 +1787,7 @@
 
         const handleDigDeeper = async (answerText) => {
           addMessage("user", "🔍 Dig deeper into this answer");
-          addMessage("bot", "Great! Let's explore this answer from different angles...");
+          addMessage("bot", "Parfait ! Explorons cette réponse sous différents angles...");
           setLoading(true);
           addMessage("bot", <TypingIndicator />);
 
@@ -1814,16 +1814,16 @@
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            addMessage("bot", `I found ${data.facet_candidates.length} angles to dig deeper! Let's explore them! 🎯`);
+            addMessage("bot", `J'ai trouvé ${data.facet_candidates.length} angles pour approfondir ! Explorons-les ! 🎯`);
             
             // Add base selections message
-            addMessage("bot", "First, let me know your preferences:");
+            addMessage("bot", "D'abord, indiquez-moi vos préférences :");
             addMessage("bot", { type: "base_selections" });
 
             setConversationState("gathering_base_selections");
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
-            addMessage("bot", "Sorry, I encountered an error. Please try again.");
+            addMessage("bot", "Désolé, une erreur s'est produite. Veuillez réessayer.");
           } finally {
             setLoading(false);
           }
@@ -1838,11 +1838,11 @@
             } else if (msg.content?.type === "base_selections") {
               return (
                 <div key={index} className="selection-message">
-                  <div className="selection-question">Select your preferences:</div>
+                  <div className="selection-question">Sélectionnez vos préférences :</div>
                   <div>
-                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', marginTop: 'var(--space-3)'}}>Depth</strong>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', marginTop: 'var(--space-3)'}}>Niveau</strong>
                     <div className="choice-chips">
-                      {["beginner", "intermediate", "expert", "executive"].map((v) => (
+                      {["débutant", "intermédiaire", "expert", "exécutif"].map((v) => (
                         <span
                           className={`chip ${baseSelections.depth === v ? "active" : ""}`}
                           key={v}
@@ -1856,7 +1856,7 @@
                   <div>
                     <strong style={{display: 'block', marginBottom: 'var(--space-2)', marginTop: 'var(--space-3)'}}>Format</strong>
                     <div className="choice-chips">
-                      {["bullets", "paragraphs"].map((v) => (
+                      {["puces", "paragraphes"].map((v) => (
                         <span
                           className={`chip ${baseSelections.format === v ? "active" : ""}`}
                           key={v}
@@ -1868,9 +1868,9 @@
                     </div>
                   </div>
                   <div>
-                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', marginTop: 'var(--space-3)'}}>Length</strong>
+                    <strong style={{display: 'block', marginBottom: 'var(--space-2)', marginTop: 'var(--space-3)'}}>Longueur</strong>
                     <div className="choice-chips">
-                      {["300 words", "600 words", "900 words", "1200 words"].map((v) => (
+                      {["300 mots", "600 mots", "900 mots", "1200 mots"].map((v) => (
                         <span
                           className={`chip ${baseSelections.length === v ? "active" : ""}`}
                           key={v}
@@ -1883,7 +1883,7 @@
                   </div>
                   <div className="selection-actions">
                     <button className="primary" onClick={handleBaseSelectionsConfirm}>
-                      Continue
+                      Continuer
                     </button>
                   </div>
                 </div>
@@ -1942,7 +1942,7 @@
                             fontWeight: 600
                           }}
                           onClick={() => {
-                            addMessage("bot", "Let's update your base preferences:");
+                            addMessage("bot", "Mettons à jour vos préférences de base :");
                             addMessage("bot", { type: "base_selections" });
                             setConversationState("gathering_base_selections");
                           }}
@@ -2006,7 +2006,7 @@
                             }}
                             onClick={() => {
                               setCurrentAngleIndex(facetIndex);
-                              addMessage("bot", `Let's review ${facet.title}:`);
+                              addMessage("bot", `Révisons ${facet.title} :`);
                               addMessage("bot", { type: "selection", facetIndex: facetIndex });
                               setConversationState("showing_angles");
                             }}
@@ -2022,7 +2022,7 @@
                                 style={{cursor: 'pointer'}}
                                 onClick={() => {
                                   setCurrentAngleIndex(facetIndex);
-                                  addMessage("bot", `Let's review ${facet.title}:`);
+                                  addMessage("bot", `Révisons ${facet.title} :`);
                                   addMessage("bot", { type: "selection", facetIndex: facetIndex });
                                   setConversationState("showing_angles");
                                 }}
@@ -2038,7 +2038,7 @@
                                       style={{cursor: 'pointer'}}
                                       onClick={() => {
                                         setCurrentAngleIndex(facetIndex);
-                                        addMessage("bot", `Let's review ${facet.title}:`);
+                                        addMessage("bot", `Révisons ${facet.title} :`);
                                         addMessage("bot", { type: "selection", facetIndex: facetIndex });
                                         setConversationState("showing_angles");
                                       }}
@@ -2057,10 +2057,10 @@
 
                   <div className="selection-actions" style={{marginTop: 'var(--space-5)'}}>
                     <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
-                      Pick More Angles
+                      Plus d'angles
                     </button>
                     <button className="primary" onClick={handleGetAnswer} disabled={loading}>
-                      Regenerate Answer
+                      Régénérer la réponse
                     </button>
                   </div>
                 </div>
@@ -2070,10 +2070,10 @@
                 <div key={index} className="selection-message">
                   <div className="selection-actions">
                     <button className="orange" onClick={handlePickMoreAngles} disabled={loading}>
-                      Pick More Angles
+                      Plus d'angles
                     </button>
                     <button className="primary" onClick={handleGetAnswer} disabled={loading}>
-                      Generate Answer
+                      Générer la réponse
                     </button>
                   </div>
                 </div>
@@ -2088,7 +2088,7 @@
                     onViewReasoning={() => {
                       const hasReasoningMsg = messages.some(m => m.content?.type === "model_reasoning");
                       if (!hasReasoningMsg && modelReasoning) {
-                        addMessage("bot", "Here's the model's internal reasoning process:");
+                        addMessage("bot", "Voici le processus de raisonnement interne du modèle :");
                         addMessage("bot", { type: "model_reasoning", reasoningData: modelReasoning });
                         setTimeout(() => scrollToLastMessage(), 200);
                       }
@@ -2096,7 +2096,7 @@
                     onViewPrompt={() => {
                       const hasPrompt = messages.some(m => m.content?.type === "compiled_prompt");
                       if (!hasPrompt && compiledPrompt) {
-                        addMessage("bot", "Here's the exact prompt sent to the AI:");
+                        addMessage("bot", "Voici le prompt exact envoyé à l'IA :");
                         addMessage("bot", { type: "compiled_prompt", promptData: compiledPrompt });
                         setTimeout(() => scrollToLastMessage(), 200);
                       }
@@ -2104,13 +2104,13 @@
                     onViewTrace={() => {
                       const hasTrace = messages.some(m => m.content?.type === "trace");
                       if (!hasTrace && trace) {
-                        addMessage("bot", "Here's the complete trace of how I processed your query:");
+                        addMessage("bot", "Voici la trace complète du traitement de votre question :");
                         addMessage("bot", { type: "trace", traceData: trace });
                         setTimeout(() => scrollToLastMessage(), 200);
                       }
                     }}
                     onRefineAngles={() => {
-                      addMessage("bot", "Here are your current selections. Click any angle to modify it:");
+                      addMessage("bot", "Voici vos sélections actuelles. Cliquez sur un angle pour le modifier :");
                       addMessage("bot", { type: "editable_summary" });
                       setConversationState("editing_angles");
                     }}
@@ -2133,7 +2133,7 @@
                     alignItems: 'center',
                     gap: 'var(--space-2)'
                   }}>
-                    🧠 Model's Internal Reasoning (o1)
+                    🧠 Raisonnement interne du modèle (o1)
                   </div>
                   <div style={{
                     fontSize: '14px',
@@ -2153,7 +2153,7 @@
                     color: 'var(--text-muted)',
                     fontStyle: 'italic'
                   }}>
-                    This is the model's chain-of-thought process before generating the final answer.
+                    Ceci est le processus de réflexion du modèle avant de générer la réponse finale.
                   </div>
                 </div>
               );
@@ -2163,7 +2163,7 @@
               if (!prompt || !prompt.sections) {
                 return (
                   <div key={index} ref={isLastMessage ? lastAddedMessageRef : null} className="answer-content">
-                    <p>Prompt data not available.</p>
+                    <p>Données du prompt non disponibles.</p>
                   </div>
                 );
               }
@@ -2216,19 +2216,19 @@
                   <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'center'}}>
                     <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
                       <span style={{fontSize: '20px'}}>💭</span>
-                      <div style={{fontWeight: 600, fontSize: '15px'}}>Ask anything</div>
+                      <div style={{fontWeight: 600, fontSize: '15px'}}>Posez votre question</div>
                     </div>
                     <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
                       <span style={{fontSize: '20px'}}>✨</span>
-                      <div style={{fontWeight: 600, fontSize: '15px'}}>Pick what matters</div>
+                      <div style={{fontWeight: 600, fontSize: '15px'}}>Choisissez ce qui compte</div>
                     </div>
                     <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
                       <span style={{fontSize: '20px'}}>🎨</span>
-                      <div style={{fontWeight: 600, fontSize: '15px'}}>Get your perfect answer</div>
+                      <div style={{fontWeight: 600, fontSize: '15px'}}>Obtenez votre réponse parfaite</div>
                     </div>
                   </div>
                   <div style={{marginTop: 'var(--space-4)', fontSize: '16px', fontWeight: 600, color: 'var(--text)', textAlign: 'center'}}>
-                    Exactly What You Want to Know!
+                    Exactement ce que vous voulez savoir !
                   </div>
                 </div>
               );
@@ -2238,13 +2238,13 @@
               
               if (baseSelections.depth) {
                 const depthMap = {
-                  beginner: "Using simple language and explaining foundational concepts",
-                  intermediate: "Using moderate complexity, avoiding both oversimplification and jargon",
-                  expert: "Using technical terminology and assuming advanced background knowledge",
-                  executive: "Focusing on high-level insights and strategic implications"
+                  "débutant": "Utilisation d'un langage simple et explication des concepts fondamentaux",
+                  "intermédiaire": "Utilisation d'une complexité modérée, évitant la sur-simplification et le jargon",
+                  "expert": "Utilisation de terminologie technique et présupposition de connaissances avancées",
+                  "exécutif": "Focus sur les insights de haut niveau et les implications stratégiques"
                 };
                 explainers.push({
-                  label: "Depth",
+                  label: "Niveau",
                   value: titleCase(baseSelections.depth),
                   impact: depthMap[baseSelections.depth]
                 });
@@ -2252,8 +2252,8 @@
               
               if (baseSelections.format) {
                 const formatMap = {
-                  bullets: "Organizing information in clear, scannable bullet points",
-                  paragraphs: "Crafting flowing narrative with detailed explanations"
+                  "puces": "Organisation de l'information en puces claires et faciles à parcourir",
+                  "paragraphes": "Rédaction d'un récit fluide avec des explications détaillées"
                 };
                 explainers.push({
                   label: "Format",
@@ -2264,9 +2264,9 @@
               
               if (baseSelections.length) {
                 explainers.push({
-                  label: "Length",
+                  label: "Longueur",
                   value: titleCase(baseSelections.length),
-                  impact: `Targeting approximately ${baseSelections.length} to balance depth and conciseness`
+                  impact: `Ciblant environ ${baseSelections.length} pour équilibrer profondeur et concision`
                 });
               }
 
@@ -2279,7 +2279,7 @@
                   explainers.push({
                     label: facetTitle,
                     value: valueStr,
-                    impact: `Emphasizing these aspects while filtering out less relevant information`
+                    impact: `Mise en avant de ces aspects tout en filtrant les informations moins pertinentes`
                   });
                 }
               });
@@ -2311,11 +2311,11 @@
           <div className="chat-container">
             <div className="chat-header">
               <div className="header-content">
-                <h1 onClick={handleNewQuery} title="Go to landing page">ShmilBlick</h1>
-                <div className="tagline">Ask once, get exactly what you need. AI with a laser focus.</div>
+                <h1 onClick={handleNewQuery} title="Nouvelle question">Alex</h1>
+                <div className="tagline">Posez votre question, obtenez exactement ce dont vous avez besoin.</div>
               </div>
               <button className="header-new-query-btn" onClick={handleNewQuery}>
-                + New Query
+                + Nouvelle question
               </button>
             </div>
 
@@ -2330,7 +2330,7 @@
                   <textarea
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Ask anything..."
+                    placeholder="Posez votre question..."
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {
                         e.preventDefault();
@@ -2340,7 +2340,7 @@
                     style={{flex: 1, minHeight: '72px', maxHeight: '120px'}}
                   />
                   <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()} style={{padding: 'var(--space-4) var(--space-6)', alignSelf: 'stretch', minHeight: '72px'}}>
-                    ASK
+                    ENVOYER
                   </button>
                 </div>
               </div>
