@@ -1,0 +1,146 @@
+{
+  "domain": "fr_ip_trademark",
+  "keywords": [
+    "marque", "trademark", "INPI", "EUIPO", "OMPI", "opposition",
+    "contrefaçon", "infringement", "nullité", "déchéance", "distinctivité",
+    "classes de Nice", "Nice classification", "dépôt", "enregistrement",
+    "mise en demeure", "cease and desist", "risque de confusion",
+    "likelihood of confusion", "signes similaires", "nom de domaine",
+    "propriété intellectuelle", "IP", "intellectual property"
+  ],
+  "facets": [
+    {
+      "id": "right_scope",
+      "title": "Périmètre territorial",
+      "question": "Quel périmètre territorial concerne votre question ?",
+      "keywords": ["INPI", "France", "française", "EUIPO", "UE", "européenne", "OMPI", "Madrid", "internationale", "territoire"],
+      "choices": [
+        { "value": "Marque française (INPI)", "subchoices": ["Dépôt national", "Renouvellement", "Opposition INPI"] },
+        { "value": "Marque de l'Union européenne (EUIPO)", "subchoices": ["Dépôt UE", "Opposition EUIPO", "Annulation"] },
+        { "value": "Marque internationale (OMPI / Madrid)", "subchoices": ["Système de Madrid", "Désignations", "Extension"] },
+        { "value": "Je ne sais pas", "subchoices": [] }
+      ],
+      "default_value": "Je ne sais pas"
+    },
+    {
+      "id": "procedure_stage",
+      "title": "Stade de la procédure",
+      "question": "À quel stade êtes-vous dans votre démarche ?",
+      "keywords": ["dépôt", "déposée", "demande", "enregistrée", "opposition", "mise en demeure", "contrefaçon", "nullité", "déchéance", "litige"],
+      "choices": [
+        { "value": "Avant dépôt (stratégie / choix du signe)", "subchoices": ["Recherche d'antériorité", "Choix des classes", "Vérification disponibilité"] },
+        { "value": "Demande en cours (dépôt récent)", "subchoices": ["En attente publication", "Délai d'opposition en cours"] },
+        { "value": "Marque enregistrée", "subchoices": ["Usage normal", "Renouvellement à prévoir", "Surveillance"] },
+        { "value": "Opposition (reçue ou à former)", "subchoices": ["Opposition reçue", "Former une opposition", "Réponse à opposition"] },
+        { "value": "Contrefaçon / mise en demeure / litige", "subchoices": ["Mise en demeure reçue", "Action à engager", "Procédure en cours"] },
+        { "value": "Nullité / déchéance", "subchoices": ["Demande de nullité", "Action en déchéance", "Défense"] },
+        { "value": "Je ne sais pas", "subchoices": [] }
+      ],
+      "default_value": "Je ne sais pas"
+    },
+    {
+      "id": "objective",
+      "title": "Objectif principal",
+      "question": "Quel est votre objectif principal ?",
+      "keywords": ["risque", "lancer", "déposer", "protéger", "opposition", "défendre", "mise en demeure", "attaquer", "contrefaçon", "comprendre"],
+      "choices": [
+        { "value": "Évaluer un risque (avant lancement)", "subchoices": ["Risque de confusion", "Antériorités", "Liberté d'exploitation"] },
+        { "value": "Protéger / déposer une marque", "subchoices": ["Nouvelle marque", "Extension territoriale", "Extension de classes"] },
+        { "value": "S'opposer à un dépôt tiers", "subchoices": ["Opposition INPI", "Opposition EUIPO", "Délais et stratégie"] },
+        { "value": "Se défendre (accusation reçue)", "subchoices": ["Répondre à mise en demeure", "Contestation", "Négociation"] },
+        { "value": "Agir contre un tiers (contrefaçon)", "subchoices": ["Mise en demeure", "Saisie-contrefaçon", "Action judiciaire"] },
+        { "value": "Comprendre mes droits", "subchoices": [] }
+      ],
+      "default_value": "Comprendre mes droits"
+    },
+    {
+      "id": "role",
+      "title": "Votre position",
+      "question": "Quelle est votre position dans cette situation ?",
+      "keywords": ["ma marque", "notre marque", "titulaire", "client", "concurrent", "tiers", "accusé", "avocat", "juriste", "conseil"],
+      "choices": [
+        { "value": "Titulaire / futur titulaire de la marque", "subchoices": [] },
+        { "value": "Tiers / concurrent", "subchoices": [] },
+        { "value": "Conseil (avocat / juriste / CPI)", "subchoices": [] },
+        { "value": "Je ne sais pas / autre", "subchoices": [] }
+      ],
+      "default_value": "Je ne sais pas / autre"
+    },
+    {
+      "id": "urgency",
+      "title": "Temporalité / urgence",
+      "question": "Y a-t-il une contrainte de temps ou un délai ?",
+      "keywords": ["délai", "date", "urgent", "depuis", "récemment", "priorité", "renouvellement", "5 ans", "expiration"],
+      "choices": [
+        { "value": "Délai imminent (< 1 mois)", "subchoices": ["Opposition à former", "Délai de réponse", "Renouvellement"] },
+        { "value": "Court terme (1-3 mois)", "subchoices": [] },
+        { "value": "Moyen terme (3-12 mois)", "subchoices": [] },
+        { "value": "Pas d'urgence / anticipation", "subchoices": [] },
+        { "value": "Je ne sais pas", "subchoices": [] }
+      ],
+      "default_value": "Je ne sais pas"
+    }
+  ],
+  "refinements": {
+    "procedure_stage": [
+      {
+        "id": "sign_type",
+        "title": "Type de signe",
+        "question": "De quel type de signe s'agit-il ?",
+        "keywords": ["verbale", "figurative", "logo", "mot", "nom", "semi-figurative", "3D", "sonore"],
+        "choices": [
+          { "value": "Marque verbale (mot / nom)", "subchoices": [] },
+          { "value": "Marque figurative (logo seul)", "subchoices": [] },
+          { "value": "Marque semi-figurative (mot + logo)", "subchoices": [] },
+          { "value": "Autre (3D, sonore, couleur, etc.)", "subchoices": [] },
+          { "value": "Je ne sais pas", "subchoices": [] }
+        ],
+        "default_value": "Je ne sais pas"
+      },
+      {
+        "id": "nice_classes",
+        "title": "Classes de Nice",
+        "question": "Connaissez-vous les classes de produits/services concernées ?",
+        "keywords": ["classe", "Nice", "produits", "services", "catégorie"],
+        "choices": [
+          { "value": "Oui, classes identifiées", "subchoices": [] },
+          { "value": "Partiellement (secteur connu, classes à vérifier)", "subchoices": [] },
+          { "value": "Non, à déterminer", "subchoices": [] }
+        ],
+        "default_value": "Non, à déterminer"
+      }
+    ],
+    "objective": [
+      {
+        "id": "conflict_type",
+        "title": "Nature du conflit",
+        "question": "Quel est le fondement du conflit ou du risque ?",
+        "keywords": ["antérieure", "nom commercial", "enseigne", "domaine", "droit d'auteur", "concurrence déloyale", "parasitisme"],
+        "choices": [
+          { "value": "Conflit avec une marque antérieure", "subchoices": [] },
+          { "value": "Nom commercial / enseigne", "subchoices": [] },
+          { "value": "Nom de domaine", "subchoices": [] },
+          { "value": "Droit d'auteur / dessins & modèles (connexe)", "subchoices": [] },
+          { "value": "Concurrence déloyale / parasitisme", "subchoices": [] },
+          { "value": "Pas de conflit identifié", "subchoices": [] },
+          { "value": "Je ne sais pas", "subchoices": [] }
+        ],
+        "default_value": "Je ne sais pas"
+      },
+      {
+        "id": "evidence_status",
+        "title": "Éléments disponibles",
+        "question": "De quels éléments disposez-vous ?",
+        "keywords": ["mise en demeure", "courrier", "preuves", "factures", "contrats", "procédure"],
+        "choices": [
+          { "value": "Mise en demeure / courrier reçu", "subchoices": [] },
+          { "value": "Preuves en ligne (site, réseaux, annonces)", "subchoices": [] },
+          { "value": "Contrats / factures / preuves d'usage", "subchoices": [] },
+          { "value": "Procédure en cours (INPI/EUIPO/tribunal)", "subchoices": [] },
+          { "value": "Peu d'éléments, hypothèse", "subchoices": [] }
+        ],
+        "default_value": "Peu d'éléments, hypothèse"
+      }
+    ]
+  }
+}
