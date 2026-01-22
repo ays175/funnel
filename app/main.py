@@ -14,14 +14,17 @@ def create_app() -> FastAPI:
     settings = load_settings()
     app = FastAPI(title="Funnel API", version="0.1.0")
 
-    if settings.cors_origins:
-        app.add_middleware(
-            CORSMiddleware,
-            allow_origins=settings.cors_origins,
-            allow_credentials=True,
-            allow_methods=["*"],
-            allow_headers=["*"],
-        )
+    # Always add CORS middleware - default to allow all origins if not configured
+    origins = settings.cors_origins if settings.cors_origins else ["*"]
+    # Note: credentials not allowed with wildcard origins per CORS spec
+    allow_creds = origins != ["*"]
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=origins,
+        allow_credentials=allow_creds,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     app.include_router(api_router, prefix="/api")
 
