@@ -6,7 +6,13 @@
     "classes de Nice", "Nice classification", "dépôt", "enregistrement",
     "mise en demeure", "cease and desist", "risque de confusion",
     "likelihood of confusion", "signes similaires", "nom de domaine",
-    "propriété intellectuelle", "IP", "intellectual property"
+    "propriété intellectuelle", "IP", "intellectual property",
+    "renouvellement", "renewal", "abandon", "priorité", "priority",
+    "antériorité", "prior right", "similarité", "similarity",
+    "licence", "license", "cession", "assignment", "transfert",
+    "surveillance", "watching", "veille", "coexistence",
+    "notoriété", "well-known mark", "marque notoire",
+    "usage sérieux", "genuine use", "preuve d'usage"
   ],
   "facets": [
     {
@@ -59,9 +65,9 @@
       "question": "Quelle est votre position dans cette situation ?",
       "keywords": ["ma marque", "notre marque", "titulaire", "client", "concurrent", "tiers", "accusé", "avocat", "juriste", "conseil"],
       "choices": [
-        { "value": "Titulaire / futur titulaire de la marque", "subchoices": [] },
-        { "value": "Tiers / concurrent", "subchoices": [] },
-        { "value": "Conseil (avocat / juriste / CPI)", "subchoices": [] },
+        { "value": "Titulaire / futur titulaire de la marque", "subchoices": ["Personne physique", "Société", "Association"] },
+        { "value": "Tiers / concurrent", "subchoices": ["Entreprise existante", "Projet de lancement"] },
+        { "value": "Conseil (avocat / juriste / CPI)", "subchoices": ["Pour un titulaire", "Pour un tiers"] },
         { "value": "Je ne sais pas / autre", "subchoices": [] }
       ],
       "default_value": "Je ne sais pas / autre"
@@ -82,6 +88,21 @@
     }
   ],
   "refinements": {
+    "right_scope": [
+      {
+        "id": "designated_countries",
+        "title": "Pays ou zones concernés",
+        "question": "Quels pays ou zones sont concernés ?",
+        "keywords": ["pays", "désignation", "territoire", "extension", "Allemagne", "Italie", "Espagne"],
+        "choices": [
+          { "value": "France uniquement", "subchoices": [] },
+          { "value": "UE (tous les États membres)", "subchoices": [] },
+          { "value": "Pays UE spécifiques", "subchoices": ["Allemagne", "Italie", "Espagne", "Benelux", "Autres"] },
+          { "value": "Hors UE", "subchoices": ["Royaume-Uni", "Suisse", "USA", "Chine", "Autres"] }
+        ],
+        "default_value": "France uniquement"
+      }
+    ],
     "procedure_stage": [
       {
         "id": "sign_type",
@@ -103,8 +124,8 @@
         "question": "Connaissez-vous les classes de produits/services concernées ?",
         "keywords": ["classe", "Nice", "produits", "services", "catégorie"],
         "choices": [
-          { "value": "Oui, classes identifiées", "subchoices": [] },
-          { "value": "Partiellement (secteur connu, classes à vérifier)", "subchoices": [] },
+          { "value": "Oui, classes identifiées", "subchoices": ["Classes 1-10 (produits)", "Classes 11-34 (produits)", "Classes 35-45 (services)"] },
+          { "value": "Partiellement (secteur connu)", "subchoices": ["Tech / IT", "Mode / Luxe", "Alimentaire", "Services B2B"] },
           { "value": "Non, à déterminer", "subchoices": [] }
         ],
         "default_value": "Non, à déterminer"
@@ -140,6 +161,22 @@
           { "value": "Peu d'éléments, hypothèse", "subchoices": [] }
         ],
         "default_value": "Peu d'éléments, hypothèse"
+      }
+    ],
+    "urgency": [
+      {
+        "id": "deadline_type",
+        "title": "Type de délai",
+        "question": "Quel type de délai vous concerne ?",
+        "keywords": ["opposition", "réponse", "renouvellement", "priorité", "mois"],
+        "choices": [
+          { "value": "Délai d'opposition (2 mois INPI / 3 mois EUIPO)", "subchoices": [] },
+          { "value": "Réponse à opposition / notification", "subchoices": [] },
+          { "value": "Renouvellement (échéance 10 ans)", "subchoices": [] },
+          { "value": "Priorité unioniste (6 mois)", "subchoices": [] },
+          { "value": "Autre délai légal", "subchoices": [] }
+        ],
+        "default_value": "Autre délai légal"
       }
     ]
   }
