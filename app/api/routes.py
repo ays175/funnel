@@ -126,6 +126,8 @@ def refine(payload: RefineRequest) -> RefineResponse:
     selections = {selection.id: selection.value for selection in payload.facet_selections}
     selected_ids = list(selections.keys())
 
+    exclude_ids = set(payload.exclude_facet_ids)
+    
     if settings.enable_llm_facet_proposals:
         if not settings.groq_api_key:
             raise HTTPException(status_code=400, detail="GROQ_API_KEY is not configured")
@@ -135,12 +137,17 @@ def refine(payload: RefineRequest) -> RefineResponse:
             selections,
             settings.max_facet_questions,
             _get_llm_client(),
+            exclude_ids=exclude_ids,
         )
     else:
         if not selected_ids:
             refinement_ids = list(pack.get("refinements", {}).keys())
             selected_ids = refinement_ids[: settings.max_facet_questions]
         candidates = discovery.discover_round2(request["raw_query"], pack, selected_ids)
+    
+    # Filter out already-shown facets
+    candidates = [c for c in candidates if c.facet.id not in exclude_ids]
+    
     ranked = ranker.rank(request["raw_query"], candidates)
     limited = ranked[: settings.max_facet_questions]
 

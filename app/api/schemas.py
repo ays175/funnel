@@ -46,6 +46,7 @@ class RefineRequest(BaseModel):
     request_id: str
     facet_selections: list[FacetSelection]
     refine_round: int = 2
+    exclude_facet_ids: list[str] = Field(default_factory=list)  # Already shown facets to exclude
 
 
 class RefineResponse(BaseModel):
