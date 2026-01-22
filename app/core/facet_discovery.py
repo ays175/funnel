@@ -47,10 +47,20 @@ class FacetDiscoveryEngine:
         max_facets: int,
         llm_client: LLMClient,
     ) -> list[FacetCandidate]:
+        domain_name = pack.get("domain", "universal")
+        domain_instruction = ""
+        if domain_name != "universal":
+            domain_instruction = (
+                f"You are a {domain_name} domain expert. "
+                "ALL facets you generate MUST be strictly relevant to this domain. "
+                "DO NOT suggest facets about general business, marketing, sales regions, "
+                "or any topic outside the specialized domain.\n\n"
+            )
+        
         prompt_sections = [
             (
                 "Task",
-                "Generate facet options for a prompt builder. Focus on the topic itself.",
+                domain_instruction + "Generate facet options for a prompt builder. Focus on the topic itself.",
             ),
             ("User Query", raw_query.strip()),
             (
@@ -87,8 +97,14 @@ class FacetDiscoveryEngine:
                     "- At least 3 facets must be topic-specific (not depth/format/scope).\n"
                     "- Choices must be concrete and can include subchoices (up to 10).\n"
                     "- Keep ids short and snake_case.\n"
-                    "- If the query mentions regions, locations, geographies, or areas, include a facet named \"Geographical Focus\" with options like \"National (All)\" and specific regions.\n"
-                    "- Whenever you use the word \"specific\" in any facet title, question, or choice value, add a follow-up facet that lets the user choose the specific items or areas as multiple options (with up to 10 concrete choices).\n"
+                    + (
+                        f"- CRITICAL: You are in the '{domain_name}' domain. ALL facets MUST relate to {domain_name}.\n"
+                        "- DO NOT suggest facets about business development, sales territories, marketing strategy, or regional markets.\n"
+                        "- Focus on legal, procedural, and technical aspects of the domain.\n"
+                        if domain_name != "universal"
+                        else "- If the query mentions regions, locations, geographies, or areas, include a facet named \"Geographical Focus\" with options like \"National (All)\" and specific regions.\n"
+                    )
+                    + "- Whenever you use the word \"specific\" in any facet title, question, or choice value, add a follow-up facet that lets the user choose the specific items or areas as multiple options (with up to 10 concrete choices).\n"
                 ),
             ),
         ]
@@ -123,11 +139,27 @@ class FacetDiscoveryEngine:
         selections: dict[str, str | None],
         max_facets: int,
         llm_client: "LLMClient",
+        exclude_ids: set[str] | None = None,
     ) -> list[FacetCandidate]:
+        domain_name = pack.get("domain", "universal")
+        domain_instruction = ""
+        if domain_name != "universal":
+            domain_instruction = (
+                f"You are a {domain_name} domain expert. "
+                "ALL follow-up facets MUST be strictly relevant to this domain. "
+            )
+        
+        exclude_instruction = ""
+        if exclude_ids:
+            exclude_instruction = (
+                f"- IMPORTANT: Do NOT suggest facets with these IDs (already shown): {', '.join(exclude_ids)}\n"
+                "- Create NEW, DIFFERENT facets that explore other angles.\n"
+            )
+        
         prompt_sections = [
             (
                 "Task",
-                "Propose follow-up facets based on the user's selected facets and values.",
+                domain_instruction + "Propose follow-up facets based on the user's selected facets and values.",
             ),
             ("User Query", raw_query.strip()),
             (
@@ -167,6 +199,12 @@ class FacetDiscoveryEngine:
                     "- Must reflect the user's selections.\n"
                     "- Choices must be concrete and can include subchoices (up to 10).\n"
                     "- Keep ids short and snake_case.\n"
+                    + exclude_instruction
+                    + (
+                        f"- CRITICAL: Stay within the '{domain_name}' domain. No general business or marketing facets.\n"
+                        if domain_name != "universal"
+                        else ""
+                    )
                 ),
             ),
         ]
