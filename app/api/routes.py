@@ -67,7 +67,8 @@ def _serialize_candidates(candidates: list[CoreFacetCandidate]) -> list[FacetCan
 @router.post("/discover", response_model=DiscoverResponse)
 def discover(payload: DiscoverRequest) -> DiscoverResponse:
     request_id = str(uuid4())
-    active_domain_pack = router_engine.choose_pack(payload.raw_query, payload.domain_hint)
+    # conversational-ui: always use universal pack (ignore domain_hint + keyword routing)
+    active_domain_pack = "universal"
     pack = router_engine.load_pack(active_domain_pack)
     if settings.enable_llm_facet_proposals:
         if not settings.openai_api_key:
