@@ -32,9 +32,21 @@ class PromptCompiler:
                 f"- {facet_id}: {value} (default)" for facet_id, value in applied_defaults.items()
             )
 
-        instructions = "Answer clearly and concisely."
+        base_instructions = "Answer clearly and concisely."
         if user_overrides and user_overrides.get("instructions"):
-            instructions = str(user_overrides["instructions"]).strip()
+            base_instructions = str(user_overrides["instructions"]).strip()
+
+        extra_instructions: list[str] = []
+        deliverable = str(selections.get("deliverable", "") or "")
+        if "memo" in deliverable.lower():
+            extra_instructions.append(
+                "Use a legal memo format with clear headings: Issue, Background/Assumptions, "
+                "Applicable Law, Analysis, Risks, and Recommended Next Steps."
+            )
+
+        instructions = "\n".join(
+            line for line in [base_instructions, *extra_instructions] if line
+        )
 
         return [
             PromptSection(title="User Query", content=raw_query.strip()),

@@ -440,6 +440,27 @@
         color: hsl(260, 45%, 10%);
       }
 
+      .domain-hint-input {
+        width: 100%;
+        padding: var(--space-2) var(--space-3);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        font-size: 13px;
+        font-family: inherit;
+        background: white;
+        color: hsl(260, 45%, 10%);
+      }
+
+      .domain-hint-input::placeholder {
+        color: hsl(260, 10%, 50%);
+      }
+
+      .domain-hint-input:focus {
+        outline: none;
+        border-color: var(--primary-500);
+        box-shadow: 0 0 0 3px hsla(270, 91%, 65%, 0.15);
+      }
+
       textarea::placeholder {
         color: hsl(260, 10%, 50%);
       }
@@ -961,7 +982,7 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
-      const API_BASE = "https://funnel-production-61fd.up.railway.app";
+      const API_BASE = "";
 
       function titleCase(value) {
         return String(value)
@@ -2307,18 +2328,27 @@
             {(conversationState === "initial" || conversationState === "answer_shown") && (
               <div className="input-bar">
                 <div style={{display: 'flex', gap: 'var(--space-4)', alignItems: 'center'}}>
-                  <textarea
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Ask anything..."
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        handleQuerySubmit();
-                      }
-                    }}
-                    style={{flex: 1, minHeight: '72px', maxHeight: '120px'}}
-                  />
+                  <div style={{flex: 1, display: 'flex', flexDirection: 'column', gap: 'var(--space-2)'}}>
+                    <textarea
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Ask anything..."
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          handleQuerySubmit();
+                        }
+                      }}
+                      style={{flex: 1, minHeight: '72px', maxHeight: '120px'}}
+                    />
+                    <input
+                      className="domain-hint-input"
+                      type="text"
+                      value={domainHint}
+                      onChange={(e) => setDomainHint(e.target.value)}
+                      placeholder="Domain hint (optional): employment_us, employment law"
+                    />
+                  </div>
                   <button className="primary" onClick={handleQuerySubmit} disabled={loading || !query.trim()} style={{padding: 'var(--space-4) var(--space-6)', alignSelf: 'stretch', minHeight: '72px'}}>
                     ASK
                   </button>
