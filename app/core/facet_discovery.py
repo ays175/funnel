@@ -145,6 +145,9 @@ class FacetDiscoveryEngine:
                     "Rules:\n"
                     f"- Provide 3 to {max_facets} facets.\n"
                     "- At least 3 facets must be topic-specific (not depth/format/scope).\n"
+                    "- Do NOT ask for case facts. Facets must be framing dimensions only\n"
+                    "  (e.g., jurisdiction, posture/issue type, process stage, risk appetite,\n"
+                    "  deliverable type, authority level, output constraints).\n"
                     "- Choices must be concrete and can include subchoices (up to 10).\n"
                     "- Keep ids short and snake_case.\n"
                     + (
@@ -247,6 +250,9 @@ class FacetDiscoveryEngine:
                     "Rules:\n"
                     f"- Provide 1 to {max_facets} facets.\n"
                     "- Must reflect the user's selections.\n"
+                    "- Do NOT ask for case facts. Facets must be framing dimensions only\n"
+                    "  (e.g., jurisdiction, posture/issue type, process stage, risk appetite,\n"
+                    "  deliverable type, authority level, output constraints).\n"
                     "- Choices must be concrete and can include subchoices (up to 10).\n"
                     "- Keep ids short and snake_case.\n"
                     + exclude_instruction
