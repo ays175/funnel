@@ -40,7 +40,8 @@ class PromptCompiler:
             "Tone: neutral, predictive, risk-aware. Use headings: Question Presented, Brief Answer, "
             "Facts, Assumptions & Unknowns, Applicable Law, Analysis (with counterarguments), Risks, "
             "and Next Steps. Use fact answers as Facts. Missing information must appear in "
-            "Assumptions & Unknowns and be reflected in Next Steps."
+            "Assumptions & Unknowns and be reflected in Next Steps. Use a bulleted list under "
+            "Assumptions & Unknowns."
         )
         base_instructions = memo_instructions
         if user_overrides and user_overrides.get("instructions"):

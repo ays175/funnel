@@ -1633,7 +1633,7 @@
 
             <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(memoSplit.before) }} />
 
-            {memoSplit.unknowns.length > 0 && (
+            {(memoSplit.unknowns.length > 0 || unknowns.length > 0) && (
               <div className="markdown" style={{marginTop: 'var(--space-4)'}}>
                 <h2>Assumptions &amp; Unknowns</h2>
                 <p>
@@ -1641,7 +1641,7 @@
                   <strong> Process Answers</strong>.
                 </p>
                 <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-4)'}}>
-                  {memoSplit.unknowns.map((unknown) => {
+                  {[...new Set([...(memoSplit.unknowns || []), ...(unknowns || [])])].map((unknown) => {
                     const answers = unknownAnswers[unknown] || [];
                     const inputValue = unknownAnswerInputs[unknown] || "";
                     return (
@@ -1682,6 +1682,28 @@
                       </div>
                     );
                   })}
+                </div>
+                <div className="custom-input-wrapper" style={{marginTop: 'var(--space-3)'}}>
+                  <input
+                    type="text"
+                    className="custom-choice-input"
+                    placeholder="Add an assumption or unknown..."
+                    value={unknownCustomInput}
+                    onChange={(e) => setUnknownCustomInput(e.target.value)}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addUnknownItem();
+                      }
+                    }}
+                  />
+                  <button
+                    className="add-custom-btn"
+                    onClick={addUnknownItem}
+                    disabled={!unknownCustomInput.trim()}
+                  >
+                    Add
+                  </button>
                 </div>
               </div>
             )}
@@ -1735,6 +1757,7 @@
         const [unknowns, setUnknowns] = React.useState([]);
         const [unknownAnswers, setUnknownAnswers] = React.useState({});
         const [unknownAnswerInputs, setUnknownAnswerInputs] = React.useState({});
+        const [unknownCustomInput, setUnknownCustomInput] = React.useState("");
         const [loading, setLoading] = React.useState(false);
         const [trace, setTrace] = React.useState([]);
         const [compiledPrompt, setCompiledPrompt] = React.useState(null);
@@ -1903,6 +1926,10 @@
             const orderedMatch = line.match(/^\d+\.\s+(.+)/);
             if (orderedMatch) {
               items.push(orderedMatch[1].trim());
+              continue;
+            }
+            if (line) {
+              items.push(line);
             }
           }
           return Array.from(new Set(items)).filter(Boolean);
@@ -1939,6 +1966,19 @@
             });
           });
           return result;
+        };
+
+        const addUnknownItem = () => {
+          const trimmed = unknownCustomInput.trim();
+          if (!trimmed) return;
+          if (unknowns.includes(trimmed)) {
+            setUnknownCustomInput("");
+            return;
+          }
+          setUnknowns(prev => [...prev, trimmed]);
+          setUnknownAnswers(prev => ({ ...prev, [trimmed]: [] }));
+          setUnknownAnswerInputs(prev => ({ ...prev, [trimmed]: "" }));
+          setUnknownCustomInput("");
         };
 
         const handleFactCasesContinue = () => {
@@ -2191,6 +2231,7 @@
           setUnknowns([]);
           setUnknownAnswers({});
           setUnknownAnswerInputs({});
+          setUnknownCustomInput("");
         };
 
         const handlePrintAnswer = (answerText, queryText, selectionsData) => {
@@ -2313,6 +2354,7 @@
             setUnknowns([]);
             setUnknownAnswers({});
             setUnknownAnswerInputs({});
+            setUnknownCustomInput("");
 
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
