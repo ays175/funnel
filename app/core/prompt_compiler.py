@@ -48,8 +48,16 @@ class PromptCompiler:
             line for line in [base_instructions, *extra_instructions] if line
         )
 
-        return [
+        sections = [
             PromptSection(title="User Query", content=raw_query.strip()),
             PromptSection(title="Selected Facets", content="\n".join(selection_lines) or "None"),
-            PromptSection(title="Instructions", content=instructions),
         ]
+
+        client_answers = selections.get("client_answers")
+        if client_answers:
+            sections.append(
+                PromptSection(title="Client Answers", content=str(client_answers).strip())
+            )
+
+        sections.append(PromptSection(title="Instructions", content=instructions))
+        return sections
