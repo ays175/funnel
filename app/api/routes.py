@@ -104,12 +104,15 @@ def discover(payload: DiscoverRequest) -> DiscoverResponse:
             _get_llm_client(),
             max_questions=8,
         )
-        candidates = discovery.discover_round1_llm(
-            payload.raw_query,
-            pack,
-            settings.max_facet_questions,
-            _get_llm_client(),
-        )
+        if pack.get("domain") == "employment_us":
+            candidates = discovery.discover_round1(payload.raw_query, pack)
+        else:
+            candidates = discovery.discover_round1_llm(
+                payload.raw_query,
+                pack,
+                settings.max_facet_questions,
+                _get_llm_client(),
+            )
     else:
         candidates = discovery.discover_round1(payload.raw_query, pack)
 

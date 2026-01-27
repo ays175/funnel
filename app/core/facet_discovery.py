@@ -88,7 +88,8 @@ class FacetDiscoveryEngine:
         fact_questions = payload.get("fact_questions", [])
         if not isinstance(fact_questions, list):
             return []
-        return [str(item).strip() for item in fact_questions if str(item).strip()]
+        cleaned = [str(item).strip() for item in fact_questions if str(item).strip()]
+        return self._filter_fact_questions(cleaned, framing_titles)
 
     def discover_round1(self, raw_query: str, pack: dict) -> list[FacetCandidate]:
         query = raw_query.lower()
@@ -98,6 +99,30 @@ class FacetDiscoveryEngine:
             reason = self._reason_from_keywords(query, facet)
             candidates.append(FacetCandidate(facet=facet, reason=reason))
         return candidates
+
+    def _filter_fact_questions(self, questions: list[str], framing_titles: list[str]) -> list[str]:
+        if not questions or not framing_titles:
+            return questions
+        normalized_titles = [self._normalize_text(item) for item in framing_titles if item]
+        filtered: list[str] = []
+        for question in questions:
+            normalized = self._normalize_text(question)
+            if not normalized:
+                continue
+            if any(title and (title in normalized or normalized in title) for title in normalized_titles):
+                continue
+            tokens = set(normalized.split())
+            if not tokens:
+                continue
+            overlaps = []
+            for title in normalized_titles:
+                title_tokens = set(title.split())
+                if title_tokens and len(tokens & title_tokens) / len(tokens) >= 0.6:
+                    overlaps.append(title)
+            if overlaps:
+                continue
+            filtered.append(question)
+        return filtered or questions
 
     def discover_round1_llm(
         self,
@@ -344,6 +369,9 @@ class FacetDiscoveryEngine:
         if not isinstance(data, dict):
             return {}
         return data
+
+    def _normalize_text(self, text: str) -> str:
+        return " ".join(str(text).lower().split())
 
     def _slugify(self, text: str) -> str:
         text = text.lower()
