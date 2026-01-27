@@ -1673,7 +1673,6 @@
         const [domainHint, setDomainHint] = React.useState("");
         const [requestId, setRequestId] = React.useState(null);
         const [facets, setFacets] = React.useState([]);
-        const [rawFacets, setRawFacets] = React.useState([]);
         const [factQuestions, setFactQuestions] = React.useState([]);
         const [factAnswers, setFactAnswers] = React.useState({});
         const [factAnswerInputs, setFactAnswerInputs] = React.useState({});
@@ -1757,7 +1756,6 @@
 
             const data = await res.json();
             setRequestId(data.request_id);
-            setRawFacets(data.facet_candidates || []);
             setFacets([]);
             setFactQuestions(data.fact_questions || []);
             setFactAnswers({});
@@ -1893,43 +1891,60 @@
           return result;
         };
 
-        const filterFacetsAgainstFacts = (items, questions) => {
-          if (!items || items.length === 0) return [];
-          if (!questions || questions.length === 0) return items;
-          const normalize = (value) => String(value || "").toLowerCase().replace(/\s+/g, " ").trim();
-          return items.filter((facet) => {
-            const title = normalize(facet.title);
-            const question = normalize(facet.question);
-            return !questions.some((fact) => {
-              const factNorm = normalize(fact);
-              if (!factNorm) return false;
-              if (question.includes(factNorm) || title.includes(factNorm)) return true;
-              const factTokens = new Set(factNorm.split(" "));
-              const questionTokens = new Set(question.split(" "));
-              if (factTokens.size && questionTokens.size) {
-                const overlap = [...factTokens].filter((token) => questionTokens.has(token));
-                if (overlap.length / factTokens.size >= 0.6) return true;
-              }
-              return false;
-            });
-          });
-        };
-
         const handleFactCasesContinue = () => {
-          const filtered = filterFacetsAgainstFacts(rawFacets, factQuestions);
-          setFacets(filtered);
-          addMessage("bot", "Thanks. Let's move to the memo angles:");
-          setConversationState("showing_angles");
-          setCurrentAngleIndex(0);
-          if (filtered.length > 0) {
-            addMessage("bot", { type: "selection", facetIndex: 0 });
-          } else {
-            addMessage("bot", "No relevant angles found. You can proceed to generate the memo.");
-            addMessage("bot", { type: "summary" });
-            addMessage("bot", { type: "client_answers" });
-            addMessage("bot", { type: "ready_to_answer_actions" });
-            setConversationState("ready_to_answer");
+          addMessage("bot", "Generating memo angles based on the case facts...");
+          setLoading(true);
+          addMessage("bot", <TypingIndicator />);
+
+          const factAnswerList = flattenFactAnswers();
+          const factSelections = [];
+          if (factQuestions.length > 0) {
+            factSelections.push({ id: "fact_questions", value: factQuestions.join("; ") });
           }
+          if (factAnswerList.length > 0) {
+            factSelections.push({ id: "fact_answers", value: factAnswerList.join("; ") });
+          }
+
+          fetch(`${API_BASE}/api/refine`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              request_id: requestId,
+              facet_selections: factSelections,
+              refine_round: 2,
+              exclude_facet_ids: [],
+            }),
+          })
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error("Failed to generate facets");
+              }
+              return res.json();
+            })
+            .then((data) => {
+              const nextFacets = data.facet_candidates || [];
+              setMessages(prev => prev.slice(0, -1));
+              setFacets(nextFacets);
+              addMessage("bot", "Thanks. Let's move to the memo angles:");
+              setConversationState("showing_angles");
+              setCurrentAngleIndex(0);
+              if (nextFacets.length > 0) {
+                addMessage("bot", { type: "selection", facetIndex: 0 });
+              } else {
+                addMessage("bot", "No relevant angles found. You can proceed to generate the memo.");
+                addMessage("bot", { type: "summary" });
+                addMessage("bot", { type: "client_answers" });
+                addMessage("bot", { type: "ready_to_answer_actions" });
+                setConversationState("ready_to_answer");
+              }
+            })
+            .catch(() => {
+              setMessages(prev => prev.slice(0, -1));
+              addMessage("bot", "Sorry, I couldn't generate memo angles. Please try again.");
+            })
+            .finally(() => {
+              setLoading(false);
+            });
         };
 
         const addClientAnswer = () => {
@@ -2114,7 +2129,6 @@
           setDomainHint("");
           setRequestId(null);
           setFacets([]);
-          setRawFacets([]);
           setFactQuestions([]);
           setFactAnswers({});
           setFactAnswerInputs({});
@@ -2236,7 +2250,6 @@
 
             const data = await res.json();
             setRequestId(data.request_id);
-            setRawFacets(data.facet_candidates || []);
             setFacets([]);
             setFactQuestions(data.fact_questions || []);
             setFactAnswers({});
