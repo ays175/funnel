@@ -1410,7 +1410,23 @@
         );
       }
 
-      function AnswerMessage({ answer, onDigDeeper, onViewPrompt, onViewTrace, onProcessAnswers, onNewQuery, hasReasoning, onViewReasoning, onPrint }) {
+      function AnswerMessage({
+        answer,
+        onDigDeeper,
+        onViewPrompt,
+        onViewTrace,
+        onProcessAnswers,
+        onNewQuery,
+        hasReasoning,
+        onViewReasoning,
+        onPrint,
+        unknowns,
+        unknownAnswers,
+        unknownAnswerInputs,
+        onUnknownInputChange,
+        onAddUnknownAnswer,
+        onRemoveUnknownAnswer,
+      }) {
         function escapeHtml(value) {
           return String(value)
             .replace(/&/g, "&amp;")
@@ -1572,6 +1588,56 @@
 
             <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
 
+            {unknowns && unknowns.length > 0 && (
+              <div className="selection-message" style={{marginTop: 'var(--space-4)'}}>
+                <div className="selection-question">Answer unknowns (optional)</div>
+                <div className="selection-reason">
+                  Provide answers to the memo's unknowns to update facts and next steps.
+                </div>
+                <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-4)'}}>
+                  {unknowns.map((unknown) => {
+                    const answers = unknownAnswers[unknown] || [];
+                    const inputValue = unknownAnswerInputs[unknown] || "";
+                    return (
+                      <div key={unknown} style={{padding: 'var(--space-3)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)'}}>
+                        <div style={{fontWeight: 600, marginBottom: 'var(--space-2)'}}>{unknown}</div>
+                        <div className="choice-chips" style={{marginTop: 0}}>
+                          {answers.map((answerItem, index) => (
+                            <span key={`${unknown}-${index}`} className="chip active custom-chip">
+                              {answerItem}
+                              <span className="remove-custom" onClick={() => onRemoveUnknownAnswer(unknown, index)}>×</span>
+                            </span>
+                          ))}
+                        </div>
+                        <div className="custom-input-wrapper" style={{marginTop: 'var(--space-2)'}}>
+                          <input
+                            type="text"
+                            className="custom-choice-input"
+                            placeholder="Add an answer..."
+                            value={inputValue}
+                            onChange={(e) => onUnknownInputChange(unknown, e.target.value)}
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                onAddUnknownAnswer(unknown);
+                              }
+                            }}
+                          />
+                          <button
+                            className="add-custom-btn"
+                            onClick={() => onAddUnknownAnswer(unknown)}
+                            disabled={!inputValue.trim()}
+                          >
+                            Answer
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             <div className="answer-actions">
               {hasReasoning && (
                 <button className="secondary" onClick={onViewReasoning}>
@@ -1617,6 +1683,9 @@
         const [selections, setSelections] = React.useState({});
         const [clientAnswers, setClientAnswers] = React.useState([]);
         const [clientAnswerInput, setClientAnswerInput] = React.useState("");
+        const [unknowns, setUnknowns] = React.useState([]);
+        const [unknownAnswers, setUnknownAnswers] = React.useState({});
+        const [unknownAnswerInputs, setUnknownAnswerInputs] = React.useState({});
         const [loading, setLoading] = React.useState(false);
         const [trace, setTrace] = React.useState([]);
         const [compiledPrompt, setCompiledPrompt] = React.useState(null);
@@ -1754,6 +1823,70 @@
             answers.forEach((answer) => {
               if (String(answer).trim()) {
                 result.push(`${question}: ${answer}`);
+              }
+            });
+          });
+          return result;
+        };
+
+        const extractUnknowns = (answerText) => {
+          const lines = String(answerText || "").split(/\n/);
+          const normalized = (value) => String(value || "").trim();
+          const items = [];
+          let inUnknowns = false;
+          for (const rawLine of lines) {
+            const line = normalized(rawLine);
+            if (/^#+\s*/.test(line)) {
+              const heading = line.replace(/^#+\s*/, "").toLowerCase();
+              if (heading.includes("assumptions") || heading.includes("unknown")) {
+                inUnknowns = true;
+                continue;
+              }
+              if (inUnknowns) {
+                break;
+              }
+            }
+            if (!inUnknowns) continue;
+            const bulletMatch = line.match(/^[-*•]\s+(.+)/);
+            if (bulletMatch) {
+              items.push(bulletMatch[1].trim());
+              continue;
+            }
+            const orderedMatch = line.match(/^\d+\.\s+(.+)/);
+            if (orderedMatch) {
+              items.push(orderedMatch[1].trim());
+            }
+          }
+          return Array.from(new Set(items)).filter(Boolean);
+        };
+
+        const updateUnknownInput = (question, value) => {
+          setUnknownAnswerInputs(prev => ({ ...prev, [question]: value }));
+        };
+
+        const addUnknownAnswer = (question) => {
+          const inputValue = (unknownAnswerInputs[question] || "").trim();
+          if (!inputValue) return;
+          setUnknownAnswers(prev => {
+            const existing = prev[question] || [];
+            return { ...prev, [question]: [...existing, inputValue] };
+          });
+          setUnknownAnswerInputs(prev => ({ ...prev, [question]: "" }));
+        };
+
+        const removeUnknownAnswer = (question, index) => {
+          setUnknownAnswers(prev => {
+            const existing = prev[question] || [];
+            return { ...prev, [question]: existing.filter((_, i) => i !== index) };
+          });
+        };
+
+        const flattenUnknownAnswers = () => {
+          const result = [];
+          Object.entries(unknownAnswers).forEach(([question, answers]) => {
+            answers.forEach((answer) => {
+              if (String(answer).trim()) {
+                result.push(`Unknown: ${question}: ${answer}`);
               }
             });
           });
@@ -1919,7 +2052,7 @@
                 facet_selections: apiSelections,
                 fact_questions: factQuestions,
                 fact_answers: flattenFactAnswers(),
-                client_answers: clientAnswers,
+                client_answers: [...clientAnswers, ...flattenUnknownAnswers()],
                 user_overrides: null,
               }),
             });
@@ -1941,6 +2074,23 @@
             setTrace(data.trace || []);
             setCompiledPrompt(data.compiled_prompt || null);
             setModelReasoning(data.reasoning || null);
+
+            const nextUnknowns = extractUnknowns(data.answer);
+            setUnknowns(nextUnknowns);
+            setUnknownAnswers(prev => {
+              const next = {};
+              nextUnknowns.forEach((item) => {
+                next[item] = prev[item] || [];
+              });
+              return next;
+            });
+            setUnknownAnswerInputs(prev => {
+              const next = {};
+              nextUnknowns.forEach((item) => {
+                next[item] = prev[item] || "";
+              });
+              return next;
+            });
             
             setConversationState("answer_shown");
             
@@ -1974,6 +2124,9 @@
           setSelections({});
           setClientAnswers([]);
           setClientAnswerInput("");
+          setUnknowns([]);
+          setUnknownAnswers({});
+          setUnknownAnswerInputs({});
         };
 
         const handlePrintAnswer = (answerText, queryText, selectionsData) => {
@@ -2094,6 +2247,9 @@
             setSelections({});
             setClientAnswers([]);
             setClientAnswerInput("");
+            setUnknowns([]);
+            setUnknownAnswers({});
+            setUnknownAnswerInputs({});
 
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
@@ -2348,6 +2504,12 @@
                     onProcessAnswers={handleGetAnswer}
                     onNewQuery={handleNewQuery}
                     onPrint={() => handlePrintAnswer(msg.content.answer, lastQuery, selections)}
+                    unknowns={unknowns}
+                    unknownAnswers={unknownAnswers}
+                    unknownAnswerInputs={unknownAnswerInputs}
+                    onUnknownInputChange={updateUnknownInput}
+                    onAddUnknownAnswer={addUnknownAnswer}
+                    onRemoveUnknownAnswer={removeUnknownAnswer}
                   />
                 </div>
               );
