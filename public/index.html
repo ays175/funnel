@@ -1565,16 +1565,15 @@
           let endIdx = -1;
           for (let i = 0; i < lines.length; i += 1) {
             const line = lines[i].trim();
-            if (/^#+\s*/.test(line)) {
-              const heading = line.replace(/^#+\s*/, "").toLowerCase();
-              if (heading.includes("assumptions") || heading.includes("unknown")) {
-                startIdx = i;
-                continue;
-              }
-              if (startIdx !== -1) {
-                endIdx = i;
-                break;
-              }
+            const headingText = line.replace(/^#+\s*/, "").toLowerCase();
+            const isHeadingLine = /^#+\s*/.test(line) || headingText === line.toLowerCase();
+            if (isHeadingLine && (headingText.includes("assumptions") || headingText.includes("unknown"))) {
+              startIdx = i;
+              continue;
+            }
+            if (startIdx !== -1 && /^#+\s*/.test(line)) {
+              endIdx = i;
+              break;
             }
           }
           if (startIdx === -1) {
@@ -1597,6 +1596,10 @@
             const orderedMatch = line.match(/^\d+\.\s+(.+)/);
             if (orderedMatch) {
               unknownItems.push(orderedMatch[1].trim());
+              return;
+            }
+            if (line) {
+              unknownItems.push(line);
             }
           });
           return { before, unknowns: Array.from(new Set(unknownItems)), after };
@@ -1907,15 +1910,14 @@
           let inUnknowns = false;
           for (const rawLine of lines) {
             const line = normalized(rawLine);
-            if (/^#+\s*/.test(line)) {
-              const heading = line.replace(/^#+\s*/, "").toLowerCase();
-              if (heading.includes("assumptions") || heading.includes("unknown")) {
-                inUnknowns = true;
-                continue;
-              }
-              if (inUnknowns) {
-                break;
-              }
+            const headingText = line.replace(/^#+\s*/, "").toLowerCase();
+            const isHeadingLine = /^#+\s*/.test(line) || headingText === line.toLowerCase();
+            if (isHeadingLine && (headingText.includes("assumptions") || headingText.includes("unknown"))) {
+              inUnknowns = true;
+              continue;
+            }
+            if (inUnknowns && /^#+\s*/.test(line)) {
+              break;
             }
             if (!inUnknowns) continue;
             const bulletMatch = line.match(/^[-*•]\s+(.+)/);
