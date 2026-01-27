@@ -209,6 +209,20 @@ def refine(payload: RefineRequest) -> RefineResponse:
     ranked = ranker.rank(request["raw_query"], candidates)
     limited = ranked[: settings.max_facet_questions]
 
+    if not limited and settings.enable_llm_facet_proposals:
+        case_facts = selections.get("fact_answers") or selections.get("fact_questions")
+        expanded_query = request["raw_query"]
+        if case_facts:
+            expanded_query = f"{request['raw_query']}\nCase facts: {case_facts}"
+        fallback = discovery.discover_round1_llm(
+            expanded_query,
+            pack,
+            settings.max_facet_questions,
+            _get_llm_client(),
+        )
+        ranked = ranker.rank(expanded_query, fallback)
+        limited = ranked[: settings.max_facet_questions]
+
     ledger.append(
         payload.request_id,
         "SUGGEST_FACETS",

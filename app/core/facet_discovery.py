@@ -243,12 +243,22 @@ class FacetDiscoveryEngine:
                 "- Create NEW, DIFFERENT facets that explore other angles.\n"
             )
         
+        case_facts = None
+        if selections.get("fact_answers"):
+            case_facts = str(selections.get("fact_answers"))
+        elif selections.get("fact_questions"):
+            case_facts = str(selections.get("fact_questions"))
+
         prompt_sections = [
             (
                 "Task",
                 domain_instruction + "Propose follow-up facets based on the user's selected facets and values.",
             ),
             ("User Query", raw_query.strip()),
+            (
+                "Case Facts",
+                case_facts or "None provided",
+            ),
             (
                 "Selected Facets",
                 json.dumps(selections, ensure_ascii=False),
