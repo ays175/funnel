@@ -38,6 +38,11 @@ class FacetDiscoveryEngine:
         llm_client: LLMClient,
         max_questions: int = 8,
     ) -> list[str]:
+        framing_titles = [
+            str(facet.get("title", "")).strip()
+            for facet in pack.get("facets", [])
+            if facet.get("title")
+        ]
         prompt_sections = [
             (
                 "Task",
@@ -46,6 +51,10 @@ class FacetDiscoveryEngine:
                 "Do not provide legal analysis or recommendations.",
             ),
             ("User Query", raw_query.strip()),
+            (
+                "Framing Facets (DO NOT ASK ABOUT THESE)",
+                json.dumps(framing_titles),
+            ),
             (
                 "Domain Context",
                 json.dumps(

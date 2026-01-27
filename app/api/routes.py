@@ -113,6 +113,22 @@ def discover(payload: DiscoverRequest) -> DiscoverResponse:
     else:
         candidates = discovery.discover_round1(payload.raw_query, pack)
 
+    allowed_ids = {item.get("id") for item in pack.get("facets", []) if item.get("id")}
+    allowed_titles = {str(item.get("title", "")).strip().lower() for item in pack.get("facets", [])}
+    if allowed_ids or allowed_titles:
+        filtered = []
+        for candidate in candidates:
+            facet = candidate.facet
+            if facet.id in allowed_ids:
+                filtered.append(candidate)
+                continue
+            if facet.title and facet.title.strip().lower() in allowed_titles:
+                filtered.append(candidate)
+        if filtered:
+            candidates = filtered
+        else:
+            candidates = discovery.discover_round1(payload.raw_query, pack)
+
     candidates = [candidate for candidate in candidates if not _overlaps_fact_questions(candidate, fact_questions)]
 
     if settings.enable_llm_facet_proposals and settings.openai_api_key:
