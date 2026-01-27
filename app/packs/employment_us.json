@@ -1,0 +1,328 @@
+{
+  "domain": "employment_us",
+  "keywords": [
+    "employment",
+    "employee",
+    "employer",
+    "termination",
+    "firing",
+    "discipline",
+    "layoff",
+    "reduction in force",
+    "severance",
+    "discrimination",
+    "harassment",
+    "retaliation",
+    "whistleblower",
+    "wage",
+    "overtime",
+    "minimum wage",
+    "FLSA",
+    "FMLA",
+    "ADA",
+    "EEOC",
+    "Title VII",
+    "NLRA",
+    "NLRB",
+    "union",
+    "collective bargaining",
+    "non-compete",
+    "non-solicit",
+    "background check",
+    "drug testing",
+    "I-9",
+    "OSHA",
+    "employment law",
+    "PIP",
+    "RIF"
+  ],
+  "facets": [
+    {
+      "id": "jurisdiction_us",
+      "title": "Governing jurisdiction",
+      "question": "Which law primarily applies?",
+      "keywords": ["jurisdiction", "state", "federal", "california", "new york", "texas"],
+      "suggested_values": [
+        "Federal (United States)",
+        "California",
+        "New York",
+        "Texas",
+        "Florida",
+        "Illinois",
+        "Massachusetts",
+        "Washington",
+        "Colorado",
+        "Other state (specify)",
+        "Multi-state"
+      ],
+      "choices": [
+        { "value": "Federal (United States)", "subchoices": [] },
+        { "value": "California", "subchoices": [] },
+        { "value": "New York", "subchoices": [] },
+        { "value": "Texas", "subchoices": [] },
+        { "value": "Florida", "subchoices": [] },
+        { "value": "Illinois", "subchoices": [] },
+        { "value": "Massachusetts", "subchoices": [] },
+        { "value": "Washington", "subchoices": [] },
+        { "value": "Colorado", "subchoices": [] },
+        { "value": "Other state (specify)", "subchoices": [] },
+        { "value": "Multi-state", "subchoices": [] }
+      ],
+      "default_value": "Federal (United States)"
+    },
+    {
+      "id": "worker_type",
+      "title": "Worker classification",
+      "question": "What is the primary worker status?",
+      "keywords": ["employee", "contractor", "classification", "exempt", "non-exempt"],
+      "suggested_values": [
+        "Employee",
+        "Executive/officer",
+        "Non-exempt (hourly)",
+        "Exempt (salaried)",
+        "Independent contractor (1099)",
+        "Temporary/agency",
+        "Intern"
+      ],
+      "choices": [
+        { "value": "Employee", "subchoices": [] },
+        { "value": "Executive/officer", "subchoices": [] },
+        { "value": "Non-exempt (hourly)", "subchoices": [] },
+        { "value": "Exempt (salaried)", "subchoices": [] },
+        { "value": "Independent contractor (1099)", "subchoices": [] },
+        { "value": "Temporary/agency", "subchoices": [] },
+        { "value": "Intern", "subchoices": [] }
+      ],
+      "default_value": "Employee"
+    },
+    {
+      "id": "matter_type",
+      "title": "Matter type",
+      "question": "What is the primary issue?",
+      "keywords": ["termination", "discipline", "discrimination", "harassment", "wage", "leave"],
+      "choices": [
+        {
+          "value": "Termination",
+          "subchoices": [
+            "Performance",
+            "Misconduct",
+            "Reduction in force (RIF)",
+            "At-will without cause",
+            "End of probation"
+          ]
+        },
+        {
+          "value": "Discipline",
+          "subchoices": [
+            "Warning",
+            "Suspension",
+            "Performance improvement plan (PIP)"
+          ]
+        },
+        {
+          "value": "Harassment / discrimination",
+          "subchoices": [
+            "Sex / gender",
+            "Race / ethnicity",
+            "Age (40+)",
+            "Religion",
+            "Disability",
+            "Sexual orientation"
+          ]
+        },
+        {
+          "value": "Retaliation / whistleblowing",
+          "subchoices": [
+            "Internal complaint",
+            "Regulatory report",
+            "Safety / OSHA"
+          ]
+        },
+        {
+          "value": "Wage and hour",
+          "subchoices": [
+            "Overtime",
+            "Exempt / non-exempt classification",
+            "Meal / rest breaks",
+            "Minimum wage",
+            "Bonus / commissions"
+          ]
+        },
+        {
+          "value": "Leave and absences",
+          "subchoices": [
+            "FMLA",
+            "Sick leave",
+            "Parental leave",
+            "Military leave",
+            "Jury duty"
+          ]
+        },
+        {
+          "value": "Accommodations / ADA",
+          "subchoices": [
+            "Accommodation request",
+            "Interactive process",
+            "Essential functions"
+          ]
+        },
+        {
+          "value": "Hiring / background checks",
+          "subchoices": [
+            "FCRA",
+            "Ban-the-box",
+            "Immigration / I-9",
+            "Drug testing"
+          ]
+        },
+        {
+          "value": "Restrictive covenants",
+          "subchoices": [
+            "Non-compete",
+            "Non-solicit",
+            "Confidentiality"
+          ]
+        },
+        {
+          "value": "Labor relations / union",
+          "subchoices": [
+            "NLRB",
+            "Collective bargaining agreement",
+            "Organizing campaign"
+          ]
+        }
+      ],
+      "default_value": "Termination"
+    },
+    {
+      "id": "matter_stage",
+      "title": "Matter stage",
+      "question": "Where are you in the process?",
+      "keywords": ["preventive", "investigation", "pre-termination", "litigation"],
+      "choices": [
+        { "value": "Preventive advice", "subchoices": [] },
+        { "value": "Internal investigation ongoing", "subchoices": [] },
+        { "value": "Pre-termination planning", "subchoices": [] },
+        { "value": "Decision already made", "subchoices": [] },
+        { "value": "Post-termination", "subchoices": [] },
+        { "value": "Litigation underway", "subchoices": [] }
+      ],
+      "default_value": "Preventive advice"
+    },
+    {
+      "id": "tenure",
+      "title": "Tenure",
+      "question": "Approximate tenure?",
+      "keywords": ["tenure", "years", "months"],
+      "choices": [
+        { "value": "< 1 year", "subchoices": [] },
+        { "value": "1-3 years", "subchoices": [] },
+        { "value": "3-5 years", "subchoices": [] },
+        { "value": "5-10 years", "subchoices": [] },
+        { "value": "10+ years", "subchoices": [] },
+        { "value": "Unknown", "subchoices": [] }
+      ],
+      "default_value": "Unknown"
+    },
+    {
+      "id": "protected_status",
+      "title": "Protected status flags",
+      "question": "Any protected status or sensitivity?",
+      "keywords": ["protected", "pregnant", "disability", "union", "whistleblower"],
+      "choices": [
+        { "value": "Unknown (verify)", "subchoices": [] },
+        { "value": "None known", "subchoices": [] },
+        { "value": "Pregnancy / parental", "subchoices": [] },
+        { "value": "Disability / ADA", "subchoices": [] },
+        { "value": "Age (40+)", "subchoices": [] },
+        { "value": "Religion", "subchoices": [] },
+        { "value": "Race / ethnicity", "subchoices": [] },
+        { "value": "Union activity", "subchoices": [] },
+        { "value": "Medical leave ongoing", "subchoices": [] }
+      ],
+      "default_value": "Unknown (verify)"
+    },
+    {
+      "id": "evidence_level",
+      "title": "Evidence level",
+      "question": "What documentation exists?",
+      "keywords": ["evidence", "documentation", "proof"],
+      "choices": [
+        { "value": "Complete documentation", "subchoices": [] },
+        { "value": "Partial documentation", "subchoices": [] },
+        { "value": "Unverified allegations", "subchoices": [] },
+        { "value": "Investigation ongoing", "subchoices": [] },
+        { "value": "Unknown", "subchoices": [] }
+      ],
+      "default_value": "Partial documentation"
+    },
+    {
+      "id": "collective_bargaining",
+      "title": "Collective bargaining / union",
+      "question": "Any union or CBA in place?",
+      "keywords": ["union", "collective bargaining", "cba", "nlrb"],
+      "choices": [
+        { "value": "Yes, CBA in place", "subchoices": [] },
+        { "value": "Organizing campaign underway", "subchoices": [] },
+        { "value": "No", "subchoices": [] },
+        { "value": "Unknown", "subchoices": [] }
+      ],
+      "default_value": "Unknown"
+    },
+    {
+      "id": "internal_policies",
+      "title": "Internal policies",
+      "question": "Which internal HR policies apply?",
+      "keywords": ["handbook", "policy", "code of conduct"],
+      "choices": [
+        { "value": "Handbook / policies available", "subchoices": [] },
+        { "value": "Policies being updated", "subchoices": [] },
+        { "value": "No formal policies", "subchoices": [] },
+        { "value": "Unknown", "subchoices": [] }
+      ],
+      "default_value": "Handbook / policies available"
+    },
+    {
+      "id": "risk_level",
+      "title": "Risk level",
+      "question": "Desired caution level?",
+      "keywords": ["risk", "litigation", "caution"],
+      "choices": [
+        { "value": "Low", "subchoices": [] },
+        { "value": "Moderate", "subchoices": [] },
+        { "value": "High", "subchoices": [] },
+        { "value": "Critical", "subchoices": [] }
+      ],
+      "default_value": "Moderate"
+    },
+    {
+      "id": "deliverable",
+      "title": "Deliverable",
+      "question": "Which output is most useful?",
+      "keywords": ["memo", "email", "checklist", "risk", "matrix"],
+      "choices": [
+        { "value": "Internal memo (partner review)", "subchoices": [] },
+        { "value": "Client note", "subchoices": [] },
+        { "value": "HR checklist", "subchoices": [] },
+        { "value": "Talking points", "subchoices": [] },
+        { "value": "Short email summary", "subchoices": [] },
+        { "value": "Risk matrix", "subchoices": [] }
+      ],
+      "default_value": "Internal memo (partner review)"
+    },
+    {
+      "id": "source_level",
+      "title": "Source level",
+      "question": "What level of references do you want?",
+      "keywords": ["sources", "citations", "statutes", "case law"],
+      "choices": [
+        { "value": "Overview (no citations)", "subchoices": [] },
+        { "value": "With references to verify", "subchoices": [] },
+        { "value": "Include key federal statutes", "subchoices": [] },
+        { "value": "Include leading case law (to validate)", "subchoices": [] }
+      ],
+      "default_value": "With references to verify"
+    }
+  ],
+  "refinements": {}
+}

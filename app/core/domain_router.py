@@ -20,8 +20,13 @@ class DomainRouter:
     def choose_pack(self, raw_query: str, domain_hint: str | None) -> str:
         if domain_hint:
             normalized = domain_hint.strip().lower()
-            if normalized in self.available_packs():
-                return normalized
+            for pack_name in self.available_packs():
+                if normalized == pack_name or normalized in pack_name or pack_name in normalized:
+                    return pack_name
+                pack = self.load_pack(pack_name)
+                keywords = pack.get("keywords", [])
+                if any(normalized in str(keyword).lower() for keyword in keywords):
+                    return pack_name
 
         query = raw_query.lower()
         for pack_name in self.available_packs():

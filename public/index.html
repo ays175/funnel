@@ -11,13 +11,13 @@
     <style>
       :root {
         /* Enhanced color palette */
-        --bg: hsl(260, 45%, 5%);
-        --bg-elevated: hsl(260, 40%, 8%);
+        --bg: hsl(260, 30%, 7%);
+        --bg-elevated: hsl(260, 28%, 10%);
         --text: hsl(240, 20%, 98%);
-        --text-muted: hsl(240, 10%, 70%);
-        --text-subtle: hsl(240, 8%, 55%);
-        --border: hsla(260, 40%, 80%, 0.08);
-        --border-strong: hsla(260, 40%, 80%, 0.15);
+        --text-muted: hsl(240, 10%, 72%);
+        --text-subtle: hsl(240, 8%, 58%);
+        --border: hsla(260, 25%, 70%, 0.15);
+        --border-strong: hsla(260, 25%, 70%, 0.25);
         
         /* Purple gradient system */
         --primary-50: hsl(270, 100%, 98%);
@@ -30,18 +30,18 @@
         --accent-cyan: hsl(190, 90%, 60%);
         
         /* Bot colors */
-        --bot-bg: hsla(260, 40%, 95%, 0.06);
-        --user-bg: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        --bot-bg: hsla(260, 30%, 16%, 0.65);
+        --user-bg: hsl(270, 70%, 50%);
         
         /* Surfaces */
-        --surface-glass: hsla(260, 40%, 95%, 0.04);
-        --surface-glass-hover: hsla(260, 40%, 95%, 0.06);
+        --surface-glass: hsla(260, 30%, 16%, 0.8);
+        --surface-glass-hover: hsla(260, 30%, 18%, 0.9);
         
         /* Shadows */
-        --shadow-sm: 0 2px 8px hsla(260, 50%, 10%, 0.3);
-        --shadow-md: 0 4px 16px hsla(260, 50%, 10%, 0.4), 0 2px 4px hsla(260, 50%, 5%, 0.2);
-        --shadow-lg: 0 12px 32px hsla(260, 50%, 10%, 0.5), 0 4px 8px hsla(260, 50%, 5%, 0.3);
-        --shadow-purple: 0 8px 24px hsla(270, 91%, 50%, 0.35);
+        --shadow-sm: 0 1px 4px hsla(260, 35%, 10%, 0.25);
+        --shadow-md: 0 4px 12px hsla(260, 35%, 10%, 0.28);
+        --shadow-lg: 0 10px 24px hsla(260, 35%, 10%, 0.32);
+        --shadow-purple: 0 6px 18px hsla(270, 60%, 40%, 0.25);
         
         /* Spacing scale */
         --space-1: 4px;
@@ -78,7 +78,7 @@
         font-size: 15px;
         line-height: 1.6;
         color: var(--text);
-        background: radial-gradient(ellipse 1200px 800px at 30% 0%, hsl(270, 60%, 15%) 0%, hsl(260, 50%, 8%) 50%, var(--bg) 100%);
+        background: linear-gradient(180deg, hsl(260, 35%, 11%) 0%, var(--bg) 100%);
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -109,26 +109,18 @@
       }
 
       .chat-header h1 {
-        font-size: clamp(26px, 4vw, 36px);
+        font-size: clamp(24px, 3.5vw, 34px);
         margin: 4px 0 0 0;
         font-weight: 700;
-        letter-spacing: -0.02em;
-        background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-pink) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        letter-spacing: -0.01em;
+        color: var(--primary-500);
         cursor: pointer;
-        transition: all var(--transition-fast);
+        transition: color var(--transition-fast);
         user-select: none;
       }
 
       .chat-header h1:hover {
-        transform: translateY(-1px);
-        filter: brightness(1.2);
-      }
-
-      .chat-header h1:active {
-        transform: translateY(0);
+        color: var(--primary-50);
       }
 
       .chat-header .tagline {
@@ -142,21 +134,20 @@
         padding: var(--space-2) var(--space-4);
         border: 1px solid var(--border-strong);
         border-radius: var(--radius-md);
-        background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        background: var(--primary-600);
         color: white;
         font-size: 13px;
         font-weight: 600;
         cursor: pointer;
         transition: all var(--transition-fast);
         white-space: nowrap;
-        box-shadow: var(--shadow-purple);
+        box-shadow: var(--shadow-sm);
         flex-shrink: 0;
       }
 
       .header-new-query-btn:hover {
-        transform: translateY(-2px);
-        filter: brightness(1.1);
-        box-shadow: 0 12px 32px hsla(270, 91%, 50%, 0.45);
+        filter: brightness(1.05);
+        box-shadow: var(--shadow-md);
       }
 
       .header-new-query-btn:active {
@@ -202,9 +193,9 @@
       }
 
       .message.bot .message-avatar {
-        background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        background: var(--primary-600);
         color: white;
-        box-shadow: var(--shadow-purple);
+        box-shadow: var(--shadow-sm);
       }
 
       .message.user .message-avatar {
@@ -230,7 +221,7 @@
       .message.user .message-bubble {
         background: var(--user-bg);
         color: white;
-        box-shadow: var(--shadow-purple);
+        box-shadow: var(--shadow-sm);
       }
 
       .message-bubble strong {
@@ -258,13 +249,13 @@
       .angle-header {
         display: inline-block;
         padding: var(--space-2) var(--space-4);
-        background: linear-gradient(135deg, hsl(200, 70%, 50%) 0%, hsl(210, 75%, 55%) 100%);
+        background: hsl(210, 70%, 45%);
         color: white;
         border-radius: var(--radius-full);
         font-size: 14px;
         font-weight: 700;
         margin-bottom: var(--space-3);
-        box-shadow: 0 4px 12px hsla(200, 70%, 50%, 0.4);
+        box-shadow: var(--shadow-sm);
       }
 
       .selection-question {
@@ -307,7 +298,6 @@
       }
 
       .chip:hover {
-        transform: translateY(-2px) scale(1.02);
         border-color: var(--border-strong);
         background: var(--surface-glass-hover);
         box-shadow: var(--shadow-sm);
@@ -318,7 +308,7 @@
       }
 
       .chip.active {
-        background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        background: var(--primary-600);
         border-color: transparent;
         color: white;
         font-weight: 600;
@@ -326,8 +316,7 @@
       }
 
       .chip.active:hover {
-        transform: translateY(-2px) scale(1.02);
-        filter: brightness(1.1);
+        filter: brightness(1.05);
       }
 
       .subchoices-wrapper {
@@ -338,7 +327,7 @@
       .custom-chip {
         position: relative;
         padding-right: var(--space-6);
-        background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+        background: hsl(210, 70%, 45%);
       }
 
       .remove-custom {
@@ -395,7 +384,7 @@
         padding: var(--space-3) var(--space-5);
         border: none;
         border-radius: var(--radius-md);
-        background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+        background: hsl(210, 70%, 45%);
         color: white;
         font-size: 14px;
         font-weight: 600;
@@ -405,9 +394,8 @@
       }
 
       .add-custom-btn:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-purple);
-        filter: brightness(1.1);
+        box-shadow: var(--shadow-md);
+        filter: brightness(1.05);
       }
 
       .add-custom-btn:disabled {
@@ -490,44 +478,41 @@
       }
 
       button.primary {
-        background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-pink) 100%);
+        background: var(--primary-600);
         color: white;
         border: none;
-        box-shadow: var(--shadow-purple);
+        box-shadow: var(--shadow-sm);
       }
 
       button.primary:hover:not(:disabled) {
-        transform: translateY(-2px);
-        filter: brightness(1.1);
-        box-shadow: 0 12px 32px hsla(270, 91%, 50%, 0.45);
+        filter: brightness(1.05);
+        box-shadow: var(--shadow-md);
       }
 
       button.orange {
-        background: linear-gradient(135deg, hsl(25, 95%, 53%) 0%, hsl(15, 100%, 55%) 100%);
+        background: hsl(25, 85%, 50%);
         color: white;
         border: none;
-        box-shadow: 0 8px 24px hsla(25, 95%, 50%, 0.5);
+        box-shadow: var(--shadow-sm);
         font-weight: 700;
       }
 
       button.orange:hover:not(:disabled) {
-        transform: translateY(-2px) scale(1.02);
-        filter: brightness(1.15);
-        box-shadow: 0 12px 32px hsla(25, 95%, 50%, 0.6);
+        filter: brightness(1.05);
+        box-shadow: var(--shadow-md);
       }
 
       button.secondary {
-        background: linear-gradient(135deg, hsl(200, 70%, 50%) 0%, hsl(210, 75%, 55%) 100%);
+        background: hsl(210, 70%, 45%);
         color: white;
         border: none;
-        box-shadow: 0 6px 18px hsla(200, 70%, 50%, 0.35);
+        box-shadow: var(--shadow-sm);
         font-weight: 600;
       }
 
       button.secondary:hover:not(:disabled) {
-        transform: translateY(-1px);
-        filter: brightness(1.1);
-        box-shadow: 0 8px 22px hsla(200, 70%, 50%, 0.45);
+        filter: brightness(1.05);
+        box-shadow: var(--shadow-md);
       }
 
       button:disabled {
@@ -616,22 +601,21 @@
         width: 100%;
         padding: var(--space-3) var(--space-5);
         margin: var(--space-4) 0;
-        border: 2px solid var(--accent-cyan);
+        border: 1px solid var(--border-strong);
         border-radius: var(--radius-md);
-        background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--primary-500) 100%);
+        background: var(--surface-glass);
         color: white;
         font-size: 15px;
         font-weight: 700;
         cursor: pointer;
         transition: all var(--transition-fast);
-        box-shadow: 0 4px 16px hsla(190, 90%, 60%, 0.3);
+        box-shadow: var(--shadow-sm);
         flex-wrap: wrap;
       }
 
       .dig-deeper-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px hsla(190, 90%, 60%, 0.5);
-        filter: brightness(1.15);
+        box-shadow: var(--shadow-md);
+        filter: brightness(1.05);
       }
 
       .dig-deeper-btn:active {
@@ -991,7 +975,7 @@
       function BotMessage({ children }) {
         return (
           <div className="message bot">
-            <div className="message-avatar">🤖</div>
+            <div className="message-avatar">AI</div>
             <div className="message-bubble">{children}</div>
           </div>
         );
@@ -1000,7 +984,7 @@
       function UserMessage({ children }) {
         return (
           <div className="message user">
-            <div className="message-avatar">👤</div>
+            <div className="message-avatar">YOU</div>
             <div className="message-bubble">{children}</div>
           </div>
         );
@@ -1009,7 +993,7 @@
       function TypingIndicator() {
         return (
           <div className="message bot">
-            <div className="message-avatar">🤖</div>
+            <div className="message-avatar">AI</div>
             <div className="message-bubble">
               <div className="typing-indicator">
                 <div className="typing-dot"></div>
@@ -1154,7 +1138,7 @@
               <input
                 type="text"
                 className="custom-choice-input"
-                placeholder="Type your own choice..."
+                placeholder="Add your own option..."
                 value={customInput}
                 onChange={(e) => setCustomInput(e.target.value)}
                 onKeyPress={handleKeyPress}
@@ -1350,7 +1334,6 @@
         return (
           <div className="answer-content">
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
-              <span className="dig-deeper-icon">🔍</span>
               <span>Dig Deeper</span>
               <span className="dig-deeper-subtitle">(Use answer to apply NEW relevant angles)</span>
             </button>
@@ -1358,20 +1341,20 @@
             <div className="answer-actions">
               {hasReasoning && (
                 <button className="secondary" onClick={onViewReasoning}>
-                  View Reasoning 🧠
+                  View Reasoning
                 </button>
               )}
               <button className="secondary" onClick={onViewPrompt}>
-                View Prompt 📝
+                View Prompt
               </button>
               <button className="secondary" onClick={onViewTrace}>
-                View Trace 🔵
+                View Trace
               </button>
               <button className="orange" onClick={onRefineAngles}>
                 Refine Angles
               </button>
               <button className="primary" onClick={onPrint}>
-                Print 🖨️
+                Print
               </button>
             </div>
 
@@ -1380,25 +1363,24 @@
             <div className="answer-actions">
               {hasReasoning && (
                 <button className="secondary" onClick={onViewReasoning}>
-                  View Reasoning 🧠
+                  View Reasoning
                 </button>
               )}
               <button className="secondary" onClick={onViewPrompt}>
-                View Prompt 📝
+                View Prompt
               </button>
               <button className="secondary" onClick={onViewTrace}>
-                View Trace 🔵
+                View Trace
               </button>
               <button className="orange" onClick={onRefineAngles}>
                 Refine Angles
               </button>
               <button className="primary" onClick={onPrint}>
-                Print 🖨️
+                Print
               </button>
             </div>
 
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
-              <span className="dig-deeper-icon">🔍</span>
               <span>Dig Deeper</span>
               <span className="dig-deeper-subtitle">(Use answer to apply NEW relevant angles)</span>
             </button>
@@ -1456,7 +1438,7 @@
         React.useEffect(() => {
           // Welcome message
           setMessages([
-            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
+            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus." },
             { type: "bot", content: { type: "instructions" } }
           ]);
         }, []);
@@ -1497,7 +1479,7 @@
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            addMessage("bot", `Great question! I found ${data.facet_candidates.length} angles to explore. Let's go through them! 🎯`);
+            addMessage("bot", `Great question! I found ${data.facet_candidates.length} angles to explore. Let's go through them.`);
             
             // Add base selections message
             addMessage("bot", "First, let me know your preferences:");
@@ -1560,7 +1542,7 @@
 
         const handleAllAnglesCompleted = () => {
           addMessage("bot", { type: "summary" });
-          addMessage("bot", "All angles covered! Ready to get your answer! 🎯");
+          addMessage("bot", "All angles covered! Ready to get your answer!");
           addMessage("bot", { type: "ready_to_answer_actions" });
           setConversationState("ready_to_answer");
         };
@@ -1656,7 +1638,7 @@
             setMessages(prev => prev.slice(0, -1));
             
             // Add explainer showing how selections shaped the answer
-            addMessage("bot", "✨ How your selections shaped this answer:");
+            addMessage("bot", "How your selections shaped this answer:");
             addMessage("bot", { type: "selection_explainer" });
             
             addMessage("bot", "Here's your answer:");
@@ -1679,7 +1661,7 @@
 
         const handleNewQuery = () => {
           setMessages([
-            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus. 🎯" },
+            { type: "bot", content: "Hi! I'm ShmilBlick, your AI assistant with a laser focus." },
             { type: "bot", content: { type: "instructions" } }
           ]);
           setConversationState("initial");
@@ -1787,7 +1769,7 @@
         };
 
         const handleDigDeeper = async (answerText) => {
-          addMessage("user", "🔍 Dig deeper into this answer");
+          addMessage("user", "Dig deeper into this answer");
           addMessage("bot", "Great! Let's explore this answer from different angles...");
           setLoading(true);
           addMessage("bot", <TypingIndicator />);
@@ -1815,7 +1797,7 @@
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            addMessage("bot", `I found ${data.facet_candidates.length} angles to dig deeper! Let's explore them! 🎯`);
+            addMessage("bot", `I found ${data.facet_candidates.length} angles to dig deeper! Let's explore them!`);
             
             // Add base selections message
             addMessage("bot", "First, let me know your preferences:");
@@ -2134,7 +2116,7 @@
                     alignItems: 'center',
                     gap: 'var(--space-2)'
                   }}>
-                    🧠 Model's Internal Reasoning (o1)
+                    Model's Internal Reasoning (o1)
                   </div>
                   <div style={{
                     fontSize: '14px',
@@ -2216,15 +2198,12 @@
                 <div key={index} className="selection-message" style={{background: 'var(--bot-bg)', border: '1px solid var(--border)'}}>
                   <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', alignItems: 'center'}}>
                     <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>💭</span>
                       <div style={{fontWeight: 600, fontSize: '15px'}}>Ask anything</div>
                     </div>
                     <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>✨</span>
                       <div style={{fontWeight: 600, fontSize: '15px'}}>Pick what matters</div>
                     </div>
                     <div style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center'}}>
-                      <span style={{fontSize: '20px'}}>🎨</span>
                       <div style={{fontWeight: 600, fontSize: '15px'}}>Get your perfect answer</div>
                     </div>
                   </div>
@@ -2280,7 +2259,7 @@
                   explainers.push({
                     label: facetTitle,
                     value: valueStr,
-                    impact: `Emphasizing these aspects while filtering out less relevant information`
+                    impact: "Emphasizing these aspects while filtering out less relevant information"
                   });
                 }
               });
