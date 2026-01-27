@@ -1559,6 +1559,51 @@
           return htmlLines.join("");
         }
 
+        function splitMemoByUnknowns(value) {
+          const lines = String(value || "").split(/\n/);
+          let startIdx = -1;
+          let endIdx = -1;
+          for (let i = 0; i < lines.length; i += 1) {
+            const line = lines[i].trim();
+            if (/^#+\s*/.test(line)) {
+              const heading = line.replace(/^#+\s*/, "").toLowerCase();
+              if (heading.includes("assumptions") || heading.includes("unknown")) {
+                startIdx = i;
+                continue;
+              }
+              if (startIdx !== -1) {
+                endIdx = i;
+                break;
+              }
+            }
+          }
+          if (startIdx === -1) {
+            return { before: value, unknowns: [], after: "" };
+          }
+          if (endIdx === -1) {
+            endIdx = lines.length;
+          }
+          const before = lines.slice(0, startIdx).join("\n");
+          const unknownBlock = lines.slice(startIdx + 1, endIdx);
+          const after = lines.slice(endIdx).join("\n");
+          const unknownItems = [];
+          unknownBlock.forEach((rawLine) => {
+            const line = rawLine.trim();
+            const bulletMatch = line.match(/^[-*•]\s+(.+)/);
+            if (bulletMatch) {
+              unknownItems.push(bulletMatch[1].trim());
+              return;
+            }
+            const orderedMatch = line.match(/^\d+\.\s+(.+)/);
+            if (orderedMatch) {
+              unknownItems.push(orderedMatch[1].trim());
+            }
+          });
+          return { before, unknowns: Array.from(new Set(unknownItems)), after };
+        }
+
+        const memoSplit = splitMemoByUnknowns(answer);
+
         return (
           <div className="answer-content">
             <button className="dig-deeper-btn" onClick={onDigDeeper}>
@@ -1586,30 +1631,22 @@
               </button>
             </div>
 
-            <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(answer) }} />
+            <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(memoSplit.before) }} />
 
-            {unknowns && unknowns.length > 0 && (
-              <div className="markdown" style={{marginTop: 'var(--space-5)'}}>
-                <h2>Assumptions &amp; Unknowns — Provide Answers</h2>
+            {memoSplit.unknowns.length > 0 && (
+              <div className="markdown" style={{marginTop: 'var(--space-4)'}}>
+                <h2>Assumptions &amp; Unknowns</h2>
                 <p>
-                  Provide answers inline. These will be used to refine the memo when you click
+                  Provide answers under each item, then click
                   <strong> Process Answers</strong>.
                 </p>
                 <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-4)'}}>
-                  {unknowns.map((unknown) => {
+                  {memoSplit.unknowns.map((unknown) => {
                     const answers = unknownAnswers[unknown] || [];
                     const inputValue = unknownAnswerInputs[unknown] || "";
                     return (
                       <div key={unknown} style={{padding: 'var(--space-3)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)'}}>
                         <div style={{fontWeight: 600, marginBottom: 'var(--space-2)'}}>{unknown}</div>
-                        <div className="choice-chips" style={{marginTop: 0}}>
-                          {answers.map((answerItem, index) => (
-                            <span key={`${unknown}-${index}`} className="chip active custom-chip">
-                              {answerItem}
-                              <span className="remove-custom" onClick={() => onRemoveUnknownAnswer(unknown, index)}>×</span>
-                            </span>
-                          ))}
-                        </div>
                         <div className="custom-input-wrapper" style={{marginTop: 'var(--space-2)'}}>
                           <input
                             type="text"
@@ -1632,12 +1669,24 @@
                             Answer
                           </button>
                         </div>
+                        {answers.length > 0 && (
+                          <div className="choice-chips" style={{marginTop: 'var(--space-2)'}}>
+                            {answers.map((answerItem, index) => (
+                              <span key={`${unknown}-${index}`} className="chip active custom-chip">
+                                {answerItem}
+                                <span className="remove-custom" onClick={() => onRemoveUnknownAnswer(unknown, index)}>×</span>
+                              </span>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     );
                   })}
                 </div>
               </div>
             )}
+
+            <div className="markdown" dangerouslySetInnerHTML={{ __html: renderMarkdown(memoSplit.after) }} />
 
             <div className="answer-actions">
               {hasReasoning && (
