@@ -69,9 +69,16 @@ def discover(payload: DiscoverRequest) -> DiscoverResponse:
     request_id = str(uuid4())
     active_domain_pack = router_engine.choose_pack(payload.raw_query, payload.domain_hint)
     pack = router_engine.load_pack(active_domain_pack)
+    fact_questions: list[str] = []
     if settings.enable_llm_facet_proposals:
         if not settings.openai_api_key:
             raise HTTPException(status_code=400, detail="OPENAI_API_KEY is not configured")
+        fact_questions = discovery.generate_fact_questions_llm(
+            payload.raw_query,
+            pack,
+            _get_llm_client(),
+            max_questions=8,
+        )
         candidates = discovery.discover_round1_llm(
             payload.raw_query,
             pack,
@@ -81,7 +88,10 @@ def discover(payload: DiscoverRequest) -> DiscoverResponse:
     else:
         candidates = discovery.discover_round1(payload.raw_query, pack)
 
-    ranked = ranker.rank(payload.raw_query, candidates)
+    if settings.enable_llm_facet_proposals and settings.openai_api_key:
+        ranked = ranker.rank_with_llm(payload.raw_query, candidates, _get_llm_client())
+    else:
+        ranked = ranker.rank(payload.raw_query, candidates)
     limited = ranked[: settings.max_facet_questions]
 
     created_at = datetime.now(timezone.utc).isoformat()
@@ -105,6 +115,7 @@ def discover(payload: DiscoverRequest) -> DiscoverResponse:
     return DiscoverResponse(
         request_id=request_id,
         active_domain_pack=active_domain_pack,
+        fact_questions=fact_questions,
         facet_candidates=_serialize_candidates(limited),
         proceed_defaults=ProceedDefaults(
             selected_facet_ids=[],
@@ -181,6 +192,9 @@ def answer(payload: AnswerRequest) -> AnswerResponse:
         selections=selections,
         user_overrides=payload.user_overrides or {},
         proceed_defaults=defaults,
+        fact_answers=payload.fact_answers,
+        client_answers=payload.client_answers,
+        fact_questions=payload.fact_questions,
     )
 
     ledger.append(payload.request_id, "USER_SELECT", {"selections": selections})

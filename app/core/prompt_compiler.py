@@ -16,6 +16,9 @@ class PromptCompiler:
         selections: dict[str, str | None],
         user_overrides: dict | None,
         proceed_defaults: dict[str, str],
+        fact_answers: list[str] | None = None,
+        client_answers: list[str] | None = None,
+        fact_questions: list[str] | None = None,
     ) -> list[PromptSection]:
         applied_defaults = {
             facet_id: value
@@ -32,31 +35,65 @@ class PromptCompiler:
                 f"- {facet_id}: {value} (default)" for facet_id, value in applied_defaults.items()
             )
 
-        base_instructions = "Answer clearly and concisely."
+        memo_instructions = (
+            "You are drafting an internal legal memo from a junior associate to a senior partner. "
+            "Tone: neutral, predictive, risk-aware. Use headings: Question Presented, Brief Answer, "
+            "Facts, Assumptions & Unknowns, Applicable Law, Analysis (with counterarguments), Risks, "
+            "and Next Steps. Use fact answers as Facts. Missing information must appear in "
+            "Assumptions & Unknowns and be reflected in Next Steps."
+        )
+        base_instructions = memo_instructions
         if user_overrides and user_overrides.get("instructions"):
-            base_instructions = str(user_overrides["instructions"]).strip()
-
-        extra_instructions: list[str] = []
-        deliverable = str(selections.get("deliverable_type", "") or "")
-        if "memo" in deliverable.lower():
-            extra_instructions.append(
-                "Use a legal memo format with clear headings: Issue, Background/Assumptions, "
-                "Applicable Law, Analysis, Risks, and Recommended Next Steps."
+            base_instructions = "\n".join(
+                [memo_instructions, str(user_overrides["instructions"]).strip()]
             )
 
-        instructions = "\n".join(
-            line for line in [base_instructions, *extra_instructions] if line
-        )
+        instructions = base_instructions
 
         sections = [
             PromptSection(title="User Query", content=raw_query.strip()),
             PromptSection(title="Selected Facets", content="\n".join(selection_lines) or "None"),
         ]
 
-        client_answers = selections.get("client_answers")
+        if fact_questions:
+            sections.append(
+                PromptSection(
+                    title="Fact Questions",
+                    content="\n".join(f"- {item}" for item in fact_questions if str(item).strip()),
+                )
+            )
+
+        if fact_answers:
+            sections.append(
+                PromptSection(
+                    title="Fact Answers",
+                    content="\n".join(f"- {item}" for item in fact_answers if str(item).strip()),
+                )
+            )
+
+        if fact_questions:
+            answered_questions = {
+                str(item).split(":", 1)[0].strip() for item in (fact_answers or []) if ":" in str(item)
+            }
+            unanswered = [
+                question for question in fact_questions if question and question not in answered_questions
+            ]
+            if unanswered:
+                sections.append(
+                    PromptSection(
+                        title="Unanswered Fact Questions",
+                        content="\n".join(f"- {item}" for item in unanswered if str(item).strip()),
+                    )
+                )
+
         if client_answers:
             sections.append(
-                PromptSection(title="Client Answers", content=str(client_answers).strip())
+                PromptSection(
+                    title="Client Answers",
+                    content="\n".join(
+                        f"- {item}" for item in client_answers if str(item).strip()
+                    ),
+                )
             )
 
         sections.append(PromptSection(title="Instructions", content=instructions))

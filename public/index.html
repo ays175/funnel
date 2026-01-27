@@ -1199,18 +1199,8 @@
         );
       }
 
-      function SummaryMessage({ selections, facets, baseSelections, clientAnswers }) {
+      function SummaryMessage({ selections, facets, clientAnswers, factAnswers }) {
         const allSelections = [];
-        
-        if (baseSelections.depth) {
-          allSelections.push({ label: "Depth", value: baseSelections.depth });
-        }
-        if (baseSelections.format) {
-          allSelections.push({ label: "Format", value: baseSelections.format });
-        }
-        if (baseSelections.length) {
-          allSelections.push({ label: "Length", value: baseSelections.length });
-        }
 
         Object.entries(selections).forEach(([id, values]) => {
           if (values.length > 0) {
@@ -1219,6 +1209,10 @@
             allSelections.push({ label, value: values.join(", ") });
           }
         });
+
+        if (factAnswers && factAnswers.length > 0) {
+          allSelections.push({ label: "Fact Answers", value: factAnswers.join("; ") });
+        }
 
         if (clientAnswers && clientAnswers.length > 0) {
           allSelections.push({ label: "Client Answers", value: clientAnswers.join("; ") });
@@ -1272,6 +1266,84 @@
                 disabled={!inputValue.trim()}
               >
                 Answer
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      function FactCasesMessage({
+        questions,
+        answersByQuestion,
+        inputsByQuestion,
+        onInputChange,
+        onAddAnswer,
+        onRemoveAnswer,
+        onContinue,
+      }) {
+        if (!questions || questions.length === 0) {
+          return (
+            <div className="selection-message">
+              <div className="selection-question">No additional fact questions found. Continue to facets.</div>
+              <div className="selection-actions">
+                <button className="primary" onClick={onContinue}>
+                  Continue to facets
+                </button>
+              </div>
+            </div>
+          );
+        }
+
+        return (
+          <div className="selection-message">
+            <div className="selection-question">Fact-case questions</div>
+            <div className="selection-reason">Answer any that are available. You can add more later.</div>
+
+            <div style={{display: 'flex', flexDirection: 'column', gap: 'var(--space-4)'}}>
+              {questions.map((question) => {
+                const answers = answersByQuestion[question] || [];
+                const inputValue = inputsByQuestion[question] || "";
+                return (
+                  <div key={question} style={{padding: 'var(--space-3)', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)'}}>
+                    <div style={{fontWeight: 600, marginBottom: 'var(--space-2)'}}>{question}</div>
+                    <div className="choice-chips" style={{marginTop: 0}}>
+                      {answers.map((answer, index) => (
+                        <span key={`${question}-${index}`} className="chip active custom-chip">
+                          {answer}
+                          <span className="remove-custom" onClick={() => onRemoveAnswer(question, index)}>×</span>
+                        </span>
+                      ))}
+                    </div>
+                    <div className="custom-input-wrapper" style={{marginTop: 'var(--space-2)'}}>
+                      <input
+                        type="text"
+                        className="custom-choice-input"
+                        placeholder="Add an answer..."
+                        value={inputValue}
+                        onChange={(e) => onInputChange(question, e.target.value)}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            onAddAnswer(question);
+                          }
+                        }}
+                      />
+                      <button
+                        className="add-custom-btn"
+                        onClick={() => onAddAnswer(question)}
+                        disabled={!inputValue.trim()}
+                      >
+                        Answer
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="selection-actions" style={{marginTop: 'var(--space-4)'}}>
+              <button className="primary" onClick={onContinue}>
+                Continue to facets
               </button>
             </div>
           </div>
@@ -1475,13 +1547,11 @@
         const [domainHint, setDomainHint] = React.useState("");
         const [requestId, setRequestId] = React.useState(null);
         const [facets, setFacets] = React.useState([]);
+        const [factQuestions, setFactQuestions] = React.useState([]);
+        const [factAnswers, setFactAnswers] = React.useState({});
+        const [factAnswerInputs, setFactAnswerInputs] = React.useState({});
         const [currentAngleIndex, setCurrentAngleIndex] = React.useState(0);
         const [selections, setSelections] = React.useState({});
-        const [baseSelections, setBaseSelections] = React.useState({
-          depth: "executive",
-          format: "memo",
-          length: ""
-        });
         const [clientAnswers, setClientAnswers] = React.useState([]);
         const [clientAnswerInput, setClientAnswerInput] = React.useState("");
         const [loading, setLoading] = React.useState(false);
@@ -1556,19 +1626,17 @@
             const data = await res.json();
             setRequestId(data.request_id);
             setFacets(data.facet_candidates || []);
+            setFactQuestions(data.fact_questions || []);
+            setFactAnswers({});
+            setFactAnswerInputs({});
             setCurrentAngleIndex(0);
 
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            addMessage("bot", `Great question! I found ${data.facet_candidates.length} angles to explore. Let's go through them.`);
-            
-            addMessage("bot", "Let's explore the angles:");
-            setConversationState("showing_angles");
-
-            if (data.facet_candidates.length > 0) {
-              addMessage("bot", { type: "selection", facetIndex: 0 });
-            }
+            addMessage("bot", "First, let's capture the key case facts:");
+            addMessage("bot", { type: "fact_cases" });
+            setConversationState("fact_cases");
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
             addMessage("bot", "Sorry, I encountered an error. Please try again.");
@@ -1591,6 +1659,48 @@
 
         const handleSelection = (facetId, values) => {
           setSelections(prev => ({ ...prev, [facetId]: values }));
+        };
+
+        const updateFactAnswerInput = (question, value) => {
+          setFactAnswerInputs(prev => ({ ...prev, [question]: value }));
+        };
+
+        const addFactAnswer = (question) => {
+          const inputValue = (factAnswerInputs[question] || "").trim();
+          if (!inputValue) return;
+          setFactAnswers(prev => {
+            const existing = prev[question] || [];
+            return { ...prev, [question]: [...existing, inputValue] };
+          });
+          setFactAnswerInputs(prev => ({ ...prev, [question]: "" }));
+        };
+
+        const removeFactAnswer = (question, index) => {
+          setFactAnswers(prev => {
+            const existing = prev[question] || [];
+            return { ...prev, [question]: existing.filter((_, i) => i !== index) };
+          });
+        };
+
+        const flattenFactAnswers = () => {
+          const result = [];
+          Object.entries(factAnswers).forEach(([question, answers]) => {
+            answers.forEach((answer) => {
+              if (String(answer).trim()) {
+                result.push(`${question}: ${answer}`);
+              }
+            });
+          });
+          return result;
+        };
+
+        const handleFactCasesContinue = () => {
+          addMessage("bot", "Thanks. Let's move to the memo angles:");
+          setConversationState("showing_angles");
+          setCurrentAngleIndex(0);
+          if (facets.length > 0) {
+            addMessage("bot", { type: "selection", facetIndex: 0 });
+          }
         };
 
         const addClientAnswer = () => {
@@ -1645,9 +1755,6 @@
 
           try {
             const apiSelections = [];
-            Object.entries(baseSelections).forEach(([id, value]) => {
-              if (value) apiSelections.push({ id, value });
-            });
             Object.entries(selections).forEach(([id, values]) => {
               if (values.length > 0) apiSelections.push({ id, value: values.join(", ") });
             });
@@ -1701,15 +1808,9 @@
 
           try {
             const apiSelections = [];
-            Object.entries(baseSelections).forEach(([id, value]) => {
-              if (value) apiSelections.push({ id, value });
-            });
             Object.entries(selections).forEach(([id, values]) => {
               if (values.length > 0) apiSelections.push({ id, value: values.join(", ") });
             });
-            if (clientAnswers.length > 0) {
-              apiSelections.push({ id: "client_answers", value: clientAnswers.join("; ") });
-            }
 
             const res = await fetch(`${API_BASE}/api/answer`, {
               method: "POST",
@@ -1717,6 +1818,9 @@
               body: JSON.stringify({
                 request_id: requestId,
                 facet_selections: apiSelections,
+                fact_questions: factQuestions,
+                fact_answers: flattenFactAnswers(),
+                client_answers: clientAnswers,
                 user_overrides: null,
               }),
             });
@@ -1761,24 +1865,17 @@
           setDomainHint("");
           setRequestId(null);
           setFacets([]);
+          setFactQuestions([]);
+          setFactAnswers({});
+          setFactAnswerInputs({});
           setCurrentAngleIndex(0);
           setSelections({});
-          setBaseSelections({ depth: "executive", format: "memo", length: "" });
           setClientAnswers([]);
           setClientAnswerInput("");
         };
 
-        const handlePrintAnswer = (answerText, queryText, selectionsData, baseSelectionsData) => {
-          // Build selections summary
+        const handlePrintAnswer = (answerText, queryText, selectionsData) => {
           let selectionsHtml = '';
-          if (baseSelectionsData.depth || baseSelectionsData.format || baseSelectionsData.length) {
-            selectionsHtml += '<div style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-left: 4px solid #8b5cf6;">';
-            selectionsHtml += '<h3 style="margin: 0 0 10px 0; color: #8b5cf6;">Your Preferences</h3>';
-            if (baseSelectionsData.depth) selectionsHtml += `<p style="margin: 5px 0;"><strong>Depth:</strong> ${baseSelectionsData.depth}</p>`;
-            if (baseSelectionsData.format) selectionsHtml += `<p style="margin: 5px 0;"><strong>Format:</strong> ${baseSelectionsData.format}</p>`;
-            if (baseSelectionsData.length) selectionsHtml += `<p style="margin: 5px 0;"><strong>Length:</strong> ${baseSelectionsData.length}</p>`;
-            selectionsHtml += '</div>';
-          }
 
           // Create print document
           const printContent = `
@@ -1885,6 +1982,9 @@
             const data = await res.json();
             setRequestId(data.request_id);
             setFacets(data.facet_candidates || []);
+            setFactQuestions(data.fact_questions || []);
+            setFactAnswers({});
+            setFactAnswerInputs({});
             setCurrentAngleIndex(0);
             setSelections({});
             setClientAnswers([]);
@@ -1893,14 +1993,9 @@
             // Remove typing indicator
             setMessages(prev => prev.slice(0, -1));
 
-            addMessage("bot", `I found ${data.facet_candidates.length} angles to dig deeper! Let's explore them!`);
-            
-            addMessage("bot", "Let's explore the angles:");
-            setConversationState("showing_angles");
-
-            if (data.facet_candidates.length > 0) {
-              addMessage("bot", { type: "selection", facetIndex: 0 });
-            }
+            addMessage("bot", "Let's capture the key facts for this follow-up:");
+            addMessage("bot", { type: "fact_cases" });
+            setConversationState("fact_cases");
           } catch (err) {
             setMessages(prev => prev.slice(0, -1));
             addMessage("bot", "Sorry, I encountered an error. Please try again.");
@@ -1958,7 +2053,28 @@
                 />
               );
             } else if (msg.content?.type === "summary") {
-              return <SummaryMessage key={index} selections={selections} facets={facets} baseSelections={baseSelections} clientAnswers={clientAnswers} />;
+              return (
+                <SummaryMessage
+                  key={index}
+                  selections={selections}
+                  facets={facets}
+                  clientAnswers={clientAnswers}
+                  factAnswers={flattenFactAnswers()}
+                />
+              );
+            } else if (msg.content?.type === "fact_cases") {
+              return (
+                <FactCasesMessage
+                  key={index}
+                  questions={factQuestions}
+                  answersByQuestion={factAnswers}
+                  inputsByQuestion={factAnswerInputs}
+                  onInputChange={updateFactAnswerInput}
+                  onAddAnswer={addFactAnswer}
+                  onRemoveAnswer={removeFactAnswer}
+                  onContinue={handleFactCasesContinue}
+                />
+              );
             } else if (msg.content?.type === "client_answers") {
               return (
                 <ClientAnswersMessage
@@ -1977,53 +2093,6 @@
                   <div className="summary-title" style={{marginBottom: 'var(--space-4)', fontSize: '16px', fontWeight: 600}}>
                     Your Current Selections - Click any to edit:
                   </div>
-
-                  {/* Base Preferences */}
-                  {(baseSelections.depth || baseSelections.format || baseSelections.length) && (
-                    <div style={{marginBottom: 'var(--space-5)', padding: 'var(--space-4)', background: 'var(--surface-glass)', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)'}}>
-                      <div style={{
-                        fontWeight: 600,
-                        color: 'var(--primary-500)',
-                        marginBottom: 'var(--space-3)',
-                        fontSize: '15px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                      }}>
-                        <span>Base Preferences</span>
-                        <button
-                          style={{
-                            padding: '4px 12px',
-                            fontSize: '12px',
-                            background: 'var(--surface-glass-hover)',
-                            border: '1px solid var(--border-strong)',
-                            borderRadius: 'var(--radius-full)',
-                            cursor: 'pointer',
-                            color: 'var(--text)',
-                            fontWeight: 600
-                          }}
-                          onClick={() => {
-                            addMessage("bot", "Let's update your base preferences:");
-                            addMessage("bot", { type: "base_selections" });
-                            setConversationState("gathering_base_selections");
-                          }}
-                        >
-                          Edit
-                        </button>
-                      </div>
-                      <div style={{display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)'}}>
-                        {baseSelections.depth && (
-                          <span className="chip active">{titleCase(baseSelections.depth)}</span>
-                        )}
-                        {baseSelections.format && (
-                          <span className="chip active">{titleCase(baseSelections.format)}</span>
-                        )}
-                        {baseSelections.length && (
-                          <span className="chip active">{titleCase(baseSelections.length)}</span>
-                        )}
-                      </div>
-                    </div>
-                  )}
 
                   {/* Angle Selections */}
                   {facets.map((facet, facetIndex) => {
@@ -2169,7 +2238,7 @@
                     }}
                     onProcessAnswers={handleGetAnswer}
                     onNewQuery={handleNewQuery}
-                    onPrint={() => handlePrintAnswer(msg.content.answer, lastQuery, selections, baseSelections)}
+                    onPrint={() => handlePrintAnswer(msg.content.answer, lastQuery, selections)}
                   />
                 </div>
               );
@@ -2287,40 +2356,6 @@
               // Explainer showing how selections shaped the answer
               const explainers = [];
               
-              if (baseSelections.depth) {
-                const depthMap = {
-                  beginner: "Using simple language and explaining foundational concepts",
-                  intermediate: "Using moderate complexity, avoiding both oversimplification and jargon",
-                  expert: "Using technical terminology and assuming advanced background knowledge",
-                  executive: "Focusing on high-level insights and strategic implications"
-                };
-                explainers.push({
-                  label: "Depth",
-                  value: titleCase(baseSelections.depth),
-                  impact: depthMap[baseSelections.depth]
-                });
-              }
-              
-              if (baseSelections.format) {
-                const formatMap = {
-                  bullets: "Organizing information in clear, scannable bullet points",
-                  paragraphs: "Crafting flowing narrative with detailed explanations"
-                };
-                explainers.push({
-                  label: "Format",
-                  value: titleCase(baseSelections.format),
-                  impact: formatMap[baseSelections.format]
-                });
-              }
-              
-              if (baseSelections.length) {
-                explainers.push({
-                  label: "Length",
-                  value: titleCase(baseSelections.length),
-                  impact: `Targeting approximately ${baseSelections.length} to balance depth and conciseness`
-                });
-              }
-
               // Add topic-specific angle impacts
               Object.entries(selections).forEach(([facetId, values]) => {
                 if (values && values.length > 0) {

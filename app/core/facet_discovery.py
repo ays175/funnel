@@ -31,6 +31,56 @@ class FacetCandidate:
 
 
 class FacetDiscoveryEngine:
+    def generate_fact_questions_llm(
+        self,
+        raw_query: str,
+        pack: dict,
+        llm_client: LLMClient,
+        max_questions: int = 8,
+    ) -> list[str]:
+        prompt_sections = [
+            (
+                "Task",
+                "Generate case-specific fact questions for a legal memo. "
+                "Ask only what is missing or unclear in the query. "
+                "Do not provide legal analysis or recommendations.",
+            ),
+            ("User Query", raw_query.strip()),
+            (
+                "Domain Context",
+                json.dumps(
+                    {
+                        "domain": pack.get("domain"),
+                        "keywords": pack.get("keywords", []),
+                        "base_facets": pack.get("facets", []),
+                    }
+                ),
+            ),
+            (
+                "Output JSON",
+                (
+                    "Return JSON only with this shape:\n"
+                    "{\n"
+                    '  "fact_questions": [\n'
+                    '    "question 1",\n'
+                    '    "question 2"\n'
+                    "  ]\n"
+                    "}\n"
+                    "Rules:\n"
+                    f"- Provide 6 to {max_questions} questions.\n"
+                    "- Ask only factual, case-specific questions.\n"
+                    "- Avoid legal conclusions or advice.\n"
+                    "- Keep each question under 18 words.\n"
+                ),
+            ),
+        ]
+        raw, _ = llm_client.generate(prompt_sections)
+        payload = self._parse_llm_payload(raw)
+        fact_questions = payload.get("fact_questions", [])
+        if not isinstance(fact_questions, list):
+            return []
+        return [str(item).strip() for item in fact_questions if str(item).strip()]
+
     def discover_round1(self, raw_query: str, pack: dict) -> list[FacetCandidate]:
         query = raw_query.lower()
         candidates: list[FacetCandidate] = []
@@ -259,20 +309,26 @@ class FacetDiscoveryEngine:
         return "Default facet for this domain"
 
     def _parse_llm_json(self, raw: str) -> list[dict]:
+        data = self._parse_llm_payload(raw)
+        facets = data.get("facets", [])
+        if not isinstance(facets, list):
+            return []
+        return [item for item in facets if isinstance(item, dict)]
+
+    def _parse_llm_payload(self, raw: str) -> dict:
         try:
             data = json.loads(raw)
         except json.JSONDecodeError:
             match = re.search(r"\{.*\}", raw, re.DOTALL)
             if not match:
-                return []
+                return {}
             try:
                 data = json.loads(match.group(0))
             except json.JSONDecodeError:
-                return []
-        facets = data.get("facets", [])
-        if not isinstance(facets, list):
-            return []
-        return [item for item in facets if isinstance(item, dict)]
+                return {}
+        if not isinstance(data, dict):
+            return {}
+        return data
 
     def _slugify(self, text: str) -> str:
         text = text.lower()

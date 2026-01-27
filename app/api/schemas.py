@@ -38,6 +38,7 @@ class DiscoverRequest(BaseModel):
 class DiscoverResponse(BaseModel):
     request_id: str
     active_domain_pack: str
+    fact_questions: list[str] = Field(default_factory=list)
     facet_candidates: list[FacetCandidate]
     proceed_defaults: ProceedDefaults
 
@@ -57,6 +58,9 @@ class RefineResponse(BaseModel):
 class AnswerRequest(BaseModel):
     request_id: str
     facet_selections: list[FacetSelection]
+    fact_questions: list[str] = Field(default_factory=list)
+    fact_answers: list[str] = Field(default_factory=list)
+    client_answers: list[str] = Field(default_factory=list)
     user_overrides: dict[str, Any] | None = None
 
 
