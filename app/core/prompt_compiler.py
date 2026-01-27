@@ -37,7 +37,7 @@ class PromptCompiler:
             base_instructions = str(user_overrides["instructions"]).strip()
 
         extra_instructions: list[str] = []
-        deliverable = str(selections.get("deliverable", "") or "")
+        deliverable = str(selections.get("deliverable_type", "") or "")
         if "memo" in deliverable.lower():
             extra_instructions.append(
                 "Use a legal memo format with clear headings: Issue, Background/Assumptions, "
