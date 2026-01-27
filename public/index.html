@@ -1279,14 +1279,46 @@
         onInputChange,
         onAddAnswer,
         onRemoveAnswer,
+        stakesLevel,
+        onStakesChange,
+        stakesConfirmed,
+        onStakesConfirmChange,
         onContinue,
       }) {
         if (!questions || questions.length === 0) {
           return (
             <div className="selection-message">
               <div className="selection-question">No additional fact questions found. Continue to facets.</div>
-              <div className="selection-actions">
-                <button className="primary" onClick={onContinue}>
+              <div className="selection-actions" style={{marginTop: 'var(--space-4)', alignItems: 'center'}}>
+                <div style={{flex: 1}}>
+                  <div style={{fontWeight: 600, marginBottom: 'var(--space-2)'}}>Stakes level</div>
+                  <div className="choice-chips">
+                    {["Low", "Medium", "High"].map((level) => (
+                      <span
+                        key={level}
+                        className={`chip ${stakesLevel === level ? "active" : ""}`}
+                        onClick={() => onStakesChange(level)}
+                      >
+                        {level}
+                      </span>
+                    ))}
+                  </div>
+                  {stakesLevel === "High" && (
+                    <label style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center', marginTop: 'var(--space-2)', fontSize: '13px', color: 'var(--text-muted)'}}>
+                      <input
+                        type="checkbox"
+                        checked={stakesConfirmed}
+                        onChange={(e) => onStakesConfirmChange(e.target.checked)}
+                      />
+                      I confirm key facts are provided or marked unknown.
+                    </label>
+                  )}
+                </div>
+                <button
+                  className="primary"
+                  onClick={onContinue}
+                  disabled={stakesLevel === "High" && !stakesConfirmed}
+                >
                   Continue to facets
                 </button>
               </div>
@@ -1341,8 +1373,36 @@
               })}
             </div>
 
-            <div className="selection-actions" style={{marginTop: 'var(--space-4)'}}>
-              <button className="primary" onClick={onContinue}>
+            <div className="selection-actions" style={{marginTop: 'var(--space-4)', alignItems: 'center'}}>
+              <div style={{flex: 1}}>
+                <div style={{fontWeight: 600, marginBottom: 'var(--space-2)'}}>Stakes level</div>
+                <div className="choice-chips">
+                  {["Low", "Medium", "High"].map((level) => (
+                    <span
+                      key={level}
+                      className={`chip ${stakesLevel === level ? "active" : ""}`}
+                      onClick={() => onStakesChange(level)}
+                    >
+                      {level}
+                    </span>
+                  ))}
+                </div>
+                {stakesLevel === "High" && (
+                  <label style={{display: 'flex', gap: 'var(--space-2)', alignItems: 'center', marginTop: 'var(--space-2)', fontSize: '13px', color: 'var(--text-muted)'}}>
+                    <input
+                      type="checkbox"
+                      checked={stakesConfirmed}
+                      onChange={(e) => onStakesConfirmChange(e.target.checked)}
+                    />
+                    I confirm key facts are provided or marked unknown.
+                  </label>
+                )}
+              </div>
+              <button
+                className="primary"
+                onClick={onContinue}
+                disabled={stakesLevel === "High" && !stakesConfirmed}
+              >
                 Continue to facets
               </button>
             </div>
@@ -1547,9 +1607,12 @@
         const [domainHint, setDomainHint] = React.useState("");
         const [requestId, setRequestId] = React.useState(null);
         const [facets, setFacets] = React.useState([]);
+        const [rawFacets, setRawFacets] = React.useState([]);
         const [factQuestions, setFactQuestions] = React.useState([]);
         const [factAnswers, setFactAnswers] = React.useState({});
         const [factAnswerInputs, setFactAnswerInputs] = React.useState({});
+        const [stakesLevel, setStakesLevel] = React.useState("Medium");
+        const [stakesConfirmed, setStakesConfirmed] = React.useState(false);
         const [currentAngleIndex, setCurrentAngleIndex] = React.useState(0);
         const [selections, setSelections] = React.useState({});
         const [clientAnswers, setClientAnswers] = React.useState([]);
@@ -1625,10 +1688,13 @@
 
             const data = await res.json();
             setRequestId(data.request_id);
-            setFacets(data.facet_candidates || []);
+            setRawFacets(data.facet_candidates || []);
+            setFacets([]);
             setFactQuestions(data.fact_questions || []);
             setFactAnswers({});
             setFactAnswerInputs({});
+            setStakesLevel("Medium");
+            setStakesConfirmed(false);
             setCurrentAngleIndex(0);
 
             // Remove typing indicator
@@ -1694,12 +1760,42 @@
           return result;
         };
 
+        const filterFacetsAgainstFacts = (items, questions) => {
+          if (!items || items.length === 0) return [];
+          if (!questions || questions.length === 0) return items;
+          const normalize = (value) => String(value || "").toLowerCase().replace(/\s+/g, " ").trim();
+          return items.filter((facet) => {
+            const title = normalize(facet.title);
+            const question = normalize(facet.question);
+            return !questions.some((fact) => {
+              const factNorm = normalize(fact);
+              if (!factNorm) return false;
+              if (question.includes(factNorm) || title.includes(factNorm)) return true;
+              const factTokens = new Set(factNorm.split(" "));
+              const questionTokens = new Set(question.split(" "));
+              if (factTokens.size && questionTokens.size) {
+                const overlap = [...factTokens].filter((token) => questionTokens.has(token));
+                if (overlap.length / factTokens.size >= 0.6) return true;
+              }
+              return false;
+            });
+          });
+        };
+
         const handleFactCasesContinue = () => {
+          const filtered = filterFacetsAgainstFacts(rawFacets, factQuestions);
+          setFacets(filtered);
           addMessage("bot", "Thanks. Let's move to the memo angles:");
           setConversationState("showing_angles");
           setCurrentAngleIndex(0);
-          if (facets.length > 0) {
+          if (filtered.length > 0) {
             addMessage("bot", { type: "selection", facetIndex: 0 });
+          } else {
+            addMessage("bot", "No relevant angles found. You can proceed to generate the memo.");
+            addMessage("bot", { type: "summary" });
+            addMessage("bot", { type: "client_answers" });
+            addMessage("bot", { type: "ready_to_answer_actions" });
+            setConversationState("ready_to_answer");
           }
         };
 
@@ -1758,6 +1854,9 @@
             Object.entries(selections).forEach(([id, values]) => {
               if (values.length > 0) apiSelections.push({ id, value: values.join(", ") });
             });
+            if (stakesLevel) {
+              apiSelections.push({ id: "stakes_level", value: stakesLevel });
+            }
 
             const res = await fetch(`${API_BASE}/api/refine`, {
               method: "POST",
@@ -1865,9 +1964,12 @@
           setDomainHint("");
           setRequestId(null);
           setFacets([]);
+          setRawFacets([]);
           setFactQuestions([]);
           setFactAnswers({});
           setFactAnswerInputs({});
+          setStakesLevel("Medium");
+          setStakesConfirmed(false);
           setCurrentAngleIndex(0);
           setSelections({});
           setClientAnswers([]);
@@ -1981,10 +2083,13 @@
 
             const data = await res.json();
             setRequestId(data.request_id);
-            setFacets(data.facet_candidates || []);
+            setRawFacets(data.facet_candidates || []);
+            setFacets([]);
             setFactQuestions(data.fact_questions || []);
             setFactAnswers({});
             setFactAnswerInputs({});
+            setStakesLevel("Medium");
+            setStakesConfirmed(false);
             setCurrentAngleIndex(0);
             setSelections({});
             setClientAnswers([]);
@@ -2072,6 +2177,10 @@
                   onInputChange={updateFactAnswerInput}
                   onAddAnswer={addFactAnswer}
                   onRemoveAnswer={removeFactAnswer}
+                  stakesLevel={stakesLevel}
+                  onStakesChange={setStakesLevel}
+                  stakesConfirmed={stakesConfirmed}
+                  onStakesConfirmChange={setStakesConfirmed}
                   onContinue={handleFactCasesContinue}
                 />
               );

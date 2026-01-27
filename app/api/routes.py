@@ -70,6 +70,31 @@ def discover(payload: DiscoverRequest) -> DiscoverResponse:
     active_domain_pack = router_engine.choose_pack(payload.raw_query, payload.domain_hint)
     pack = router_engine.load_pack(active_domain_pack)
     fact_questions: list[str] = []
+
+    def _normalize(text: str) -> str:
+        return " ".join(text.lower().split())
+
+    def _overlaps_fact_questions(candidate: CoreFacetCandidate, facts: list[str]) -> bool:
+        if not facts:
+            return False
+        question = _normalize(candidate.facet.question or "")
+        title = _normalize(candidate.facet.title or "")
+        for fact in facts:
+            fact_norm = _normalize(fact)
+            if not fact_norm:
+                continue
+            if fact_norm in question or fact_norm in title:
+                return True
+            fact_tokens = set(fact_norm.split())
+            if not fact_tokens:
+                continue
+            question_tokens = set(question.split())
+            title_tokens = set(title.split())
+            if question_tokens and len(fact_tokens & question_tokens) / len(fact_tokens) >= 0.6:
+                return True
+            if title_tokens and len(fact_tokens & title_tokens) / len(fact_tokens) >= 0.6:
+                return True
+        return False
     if settings.enable_llm_facet_proposals:
         if not settings.openai_api_key:
             raise HTTPException(status_code=400, detail="OPENAI_API_KEY is not configured")
@@ -87,6 +112,8 @@ def discover(payload: DiscoverRequest) -> DiscoverResponse:
         )
     else:
         candidates = discovery.discover_round1(payload.raw_query, pack)
+
+    candidates = [candidate for candidate in candidates if not _overlaps_fact_questions(candidate, fact_questions)]
 
     if settings.enable_llm_facet_proposals and settings.openai_api_key:
         ranked = ranker.rank_with_llm(payload.raw_query, candidates, _get_llm_client())
